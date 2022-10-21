@@ -1,0 +1,156 @@
+/*
+The MACE syntax file
+====================
+
+This file will explain all syntax used in v1.0
+
+First we will define the syntax that makes it possible to convert this file easily to an HTML page.
+No tags are used inside other tags.
+
+The shortcodes are:
+//chapter
+Your chapter here
+
+
+//title
+Your title here
+
+
+//subtitle
+Your subtitle here
+
+
+//text
+Your text here
+
+
+//code
+Your code here
+
+
+//comment
+Your comment here (this text should not be compiled to html)
+
+*/
+
+//startread
+
+//chapter
+Namespaces
+
+//title
+Creating
+
+//text
+To create a namespace write namespace, followed by the name of the namespace end an opening curly brace,
+The fields and methods outside classes are automatically static, so the static keyword is not required.
+
+//code
+namespace MyNamespace
+{
+    //your classes and static fields
+}
+
+//text
+Namespace with classes, methods and fields
+
+//code
+namespace MyNamespace
+{
+    int myField = 0;
+
+    void myMethod()
+    {
+
+    }
+
+    class MyClass
+    {
+    
+    }
+}
+
+//title
+Using
+
+//text
+To use a namespace, write using followed by the path where the namespace is located.
+All elements in the namespace can be directly accessed.
+
+//code
+using ./MyNamespace;
+myFirstDirectlyAccessedElement;
+
+//text
+If you want to use specific elements of a namespace, add your elements separated by commas.
+Next, write from, followed by the path and your namespace.
+To access an element of a namespace, use the name of the elements.
+
+//code
+using myFirstElement, mySecondElement from ./MyNamespace;
+
+myFirstElement;
+mySecondElement;
+
+//text
+If you want to name your namespace write as after your namespace.
+To access an element of a named namespace, write the given name followed by an element.
+
+//code
+using ./MyNamespace as MyNamedNamespace;
+using myFirstElement, mySecondElement from ./MySecondNamespace as MySecondNamedNamespace;
+
+MyNamedNamespace.myFirstElement;
+MySecondNamedNamespace.mySecondElement;
+
+//text
+If you want to rename your namespace elements, write as after the element followed with your new name;
+To access an element of a namespace, use the name of the elements.
+
+//code
+using myFirstElement as myFirstRenamedElement, mySecondElement as mySecondRenamedElement from ./MySecondNamespace;
+using myFirstElement as myFirstRenamedElement from ./MySecondNamespace as MySecondNamedNamespace;
+
+myFirstRenamedElement;
+mySecondRenamedElement;
+
+MySecondNamedNamespace.myFirstRenamedElement;
+
+//chapter
+Classes
+
+//title
+Creating
+
+//text
+You can only define a class in a namespace.
+Classes will automatically be private.
+
+
+//code
+namespace MyNamespace
+{
+    class MyClass
+    {
+        MyClass(){
+
+        }
+    }
+}
+
+//text
+Named constructors can be created by writing the default constructor followed by an access operator and your constructor name.
+
+//code
+class MyClass
+    {
+        MyClass.MyNamedConstructor(){
+
+        }
+    }
+
+
+//title
+Methods
+
+//text

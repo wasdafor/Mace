@@ -1,0 +1,23 @@
+string myString = "dd\nwd";
+int myInt = 40;
+
+
+bool myBoolean = true;
+bool myArray = [50,null,''];
+
+char myChar ="w" //tmngfgds()
+
+
+char myCharEscape = '\n'
+void firstBreath(){
+    puke(myString);
+}
+
+class myClass{
+    
+}
+
+enum myEmum{
+    Test,
+    Lol
+}

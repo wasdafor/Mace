@@ -1,0 +1,100 @@
+// Datatypes
+int
+float
+string
+bool
+char
+//optional
+percent
+
+//operators
+*
+-
++
+/
+^
+^.5
+!
+%
+
+//boolean operators
+==
+!=
+>
+>=
+<
+<=
+&
+
+&&
+||
+!()
+
+//With this syntax you can have multiple checks on one value
+(10 > 5 &> 6)
+('Test'.length > 5 &<= 10)
+
+//Array
+string[] myArray = [];
+
+//Last item
+myArray[-1]
+
+//If else structure
+if (){
+}
+else if (){
+}
+else{
+}
+
+switch(var)
+{
+	case 'test'{
+		break;
+	}
+	default{
+		break;
+	}
+}
+
+
+
+for(int j = 0; i<5; i++)
+
+for(int integer in intlist){
+	
+}
+
+
+//Normal function (void is no return type)
+int Calc(){
+	return 6;
+}
+
+//Flexible return type function
+<int asdf,string myString> Test<T>(string myString)
+{
+	//Edit return values using the return. notation
+	return.myString = myString;
+	return;
+}
+
+//funtion invokation of multiple return type method
+//use predefined values or define when function used
+int var1;
+<var1,string var2> = Test('dadwad');
+int result = Calc();
+
+//Build in functions
+puke();
+inhale();
+void firstBreath(){
+}
+
+//Read file
+
+//Grapics
+
+//const with if
+

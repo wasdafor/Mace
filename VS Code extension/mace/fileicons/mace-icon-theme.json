@@ -1,0 +1,10 @@
+{
+    "fileExtensions": {
+        "mace": "_mace"
+    },
+    "iconDefinitions": {
+        "_mace": {
+            "iconPath": "./icons/mace.svg"
+        }
+    }
+}
