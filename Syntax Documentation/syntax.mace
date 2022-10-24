@@ -31,12 +31,17 @@ Your code here
 //comment
 Your comment here (this text should not be compiled to html)
 
+//tablehead
+Your table titles here
+
 //table
 Your table elements here saperate collums by a comma
 
+__Your label here__
+
 */
 
-//startread
+//start
 
 //chapter
 Namespaces
@@ -231,8 +236,8 @@ When using the abstract keyword you can not use an access modifier on this field
 To implement an abstract field or method write the override keyword before the field or method.
 It is important that the field you want to implement has the same type and identifier as the one you want to override.
 If a field is an abstract field it can not have a default value.
-The same appies for methods the implemented method needs to have the same return, identifier and parameters as the method you want to override.
-When an abstract method has code this code will run before the code from the child class will be ran.
+The same applies for methods, the implemented method needs to have the same return type, identifier and parameters as the method you want to override.
+When an abstract method has code, this code will be run before the code from the child class.
 
 //code
 abstract class MyClass
@@ -257,8 +262,8 @@ class MySecondClass : MyClass
 
 //text
 When using the same identifier in the parent class and child class the child class will ovveride the parent identifier.
-Use the keyword super to only access the parent class its fields and methods.
-Use the keyword this to only access the current class its fields and methods.
+Use the keyword super to only access the fields and methods of the parent class.
+Use the keyword this to only access the fields and methods of the current class.
 
 //code
 class MyClass
@@ -291,7 +296,7 @@ Constructor
 //text
 To create a constructor write the class name followed by a function body.
 Named constructors can be created by writing the default constructor followed by an access operator and your constructor name.
-The code of a constructor will be ran when you create an instance of the class.
+The code of a constructor will be run when you create an instance of the class.
 
 //code
 class MyClass
@@ -318,7 +323,7 @@ If you want to call a named constructor use the access operator and your constru
 class MyClass
 {
     MyClass() : this.MySecondNamedConstructor(){
-        //your defualt constructor code
+        //your default constructor code
     }
 
     MyClass.MyNamedConstructor() : this()
@@ -338,12 +343,13 @@ Methods
 
 //text
 
+
 //chapter
 Variables
 
 //Text
 Mace has the following primitive data types.
-Define variables by writing the variable keyword then a unique identifier followed by the euqual sign after the euqual sign add you literal value ending the line with a semicolon.
+Define variables by writing the following structure; a variable keyword or object type, a unique identifier, an equal sign, your expression and a semicolon.
 
 //table
 string
@@ -354,29 +360,30 @@ bool
 percent
 
 //title
-Stings
+Strings
 
 //text
 A string is an object that stores an array of characters.
-You can define a string by using single or duoble quotes
+You can define a string by using single or double quotes.
 
 //code
 string myString = "Hello World!";
 myString = 'Hello World!';
 
 //text
-To concatenate to strings use the the plus operator.
+To concatenate two strings use the plus operator.
 You can concatenate literal strings and string variables.
+
 //code
 string myString = 'Hello' + "World!";
 
 string myDoubleString = myString + myString;
 
 //text
-To use string interpolation use a dollarSign
+To use string interpolation use a dollarSign.
 
 //text
-Read a chapter from a string by using square brackets.
+Read a character from a string by using square brackets.
 Indexing starts at index 0.
 
 //code
