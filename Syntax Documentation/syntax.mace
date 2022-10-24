@@ -31,6 +31,9 @@ Your code here
 //comment
 Your comment here (this text should not be compiled to html)
 
+//table
+Your table elements here saperate collums by a comma
+
 */
 
 //startread
@@ -42,8 +45,8 @@ Namespaces
 Creating
 
 //text
-To create a namespace write namespace, followed by the name of the namespace end an opening curly brace,
-The fields and methods outside classes are automatically static, so the static keyword is not required.
+To create a namespace write the namespace keyword, followed by the name of the namespace with opening and closing curly brackets,
+When defining fields, methods and classes they are automatically static, so the static keyword is not required.
 
 //code
 namespace MyNamespace
@@ -74,8 +77,8 @@ namespace MyNamespace
 Using
 
 //text
-To use a namespace, write using followed by the path where the namespace is located.
-All elements in the namespace can be directly accessed.
+To use a namespace, write the using keyword followed by the path where the namespace is located ending with a semicolon.
+All public elements in the namespace can be directly accessed.
 
 //code
 using ./MyNamespace;
@@ -83,7 +86,7 @@ myFirstDirectlyAccessedElement;
 
 //text
 If you want to use specific elements of a namespace, add your elements separated by commas.
-Next, write from, followed by the path and your namespace.
+Next, write from, followed by the path and your namespace ending with a semicolon.
 To access an element of a namespace, use the name of the elements.
 
 //code
@@ -93,7 +96,7 @@ myFirstElement;
 mySecondElement;
 
 //text
-If you want to name your namespace write as after your namespace.
+If you want to name your namespace write as after your namespace path followed by a given namespace name.
 To access an element of a named namespace, write the given name followed by an element.
 
 //code
@@ -105,16 +108,26 @@ MySecondNamedNamespace.mySecondElement;
 
 //text
 If you want to rename your namespace elements, write as after the element followed with your new name;
-To access an element of a namespace, use the name of the elements.
+To access a renamed element of a namespace, use the renamed name of the elements.
 
 //code
-using myFirstElement as myFirstRenamedElement, mySecondElement as mySecondRenamedElement from ./MySecondNamespace;
+using myFirstElement as myFirstRenamedElement, mySecondElement as mySecondRenamedElement from ./MyNamespace;
 using myFirstElement as myFirstRenamedElement from ./MySecondNamespace as MySecondNamedNamespace;
 
 myFirstRenamedElement;
 mySecondRenamedElement;
 
 MySecondNamedNamespace.myFirstRenamedElement;
+
+//title
+Using system namepaces
+
+//text
+If you want to use any namespace from the mace system namespaces write the keyword system before your using statement. 
+This wil start you namespace path in the system directory this that adding the ./ pefix in your namespace path is not required.
+
+//code
+system using Networking/RequestManger;
 
 //chapter
 Classes
@@ -123,34 +136,249 @@ Classes
 Creating
 
 //text
+To create a class write the class keyword followed by the name of the class followed by opening and closing curly brackets.
+You can define any fields or methods in a class.
+To create an instance of a class use the class name followed by opening and closing parentheses ending with a semicolon.
 You can only define a class in a namespace.
 Classes will automatically be private.
-
 
 //code
 namespace MyNamespace
 {
     class MyClass
     {
-        MyClass(){
+       
+    }
 
-        }
+    class MySecondClass
+    {
+       int myInt = 0;
+
+       void myMethod()
+       {
+
+       }
+    }
+}
+
+MyClass();
+MySecondClass();
+
+//title
+Inheritance
+
+//text
+To inherit a class from another class use the a colon after the child class its name followed the name of the class you want to inherit from.
+When a class inherits from another class you can access the parent class its fields and methods.
+
+//code
+class MyClass
+{
+    public int myInt = 0;
+
+    public void myMethod(int value)
+    {
+
+    }
+}
+
+class MySecondClass : MyClass
+{
+    MySecondClass(){
+        myMethod(myInt);
+    }
+}
+
+//title
+Abstraction
+
+//text
+Write the abstract keyword before your class, field or method to make it abstract.
+When a class, field or method is abstract it means that is it depended.
+
+//subtitle
+Classes
+
+//text 
+When a class is abstract the class can only be Inherited by another class.
+This means that you can not create an instance of an abstract class.
+
+//code
+abstract class MyClass
+{
+    public int myInt = 0;
+
+    public void myMethod(int value)
+    {
+
+    }
+}
+
+class MySecondClass : MyClass
+{
+    MySecondClass(){
+        myMethod(myInt);
+    }
+}
+
+//subtitle
+Fields and methods
+
+//text
+Only abstract classes can contain abstract fields and methods. 
+When a field or method is abstract this means that they need to be implemented in the child class.
+When using the abstract keyword you can not use an access modifier on this field or method.
+To implement an abstract field or method write the override keyword before the field or method.
+It is important that the field you want to implement has the same type and identifier as the one you want to override.
+If a field is an abstract field it can not have a default value.
+The same appies for methods the implemented method needs to have the same return, identifier and parameters as the method you want to override.
+When an abstract method has code this code will run before the code from the child class will be ran.
+
+//code
+abstract class MyClass
+{
+    abstract int myInt;
+
+    abstract void myMethod(int value)
+    {
+
+    }
+}
+
+class MySecondClass : MyClass
+{
+    override int myInt;
+    
+    override void myMethod(int value)
+    {
+
     }
 }
 
 //text
-Named constructors can be created by writing the default constructor followed by an access operator and your constructor name.
+When using the same identifier in the parent class and child class the child class will ovveride the parent identifier.
+Use the keyword super to only access the parent class its fields and methods.
+Use the keyword this to only access the current class its fields and methods.
 
 //code
 class MyClass
-    {
-        MyClass.MyNamedConstructor(){
+{
+    public int myInt = 0;
 
-        }
+    public void myMethod(int value)
+    {
+
     }
+}
+
+class MySecondClass : MyClass
+{
+    MySecondClass(){
+        myMethod();
+        super.myMethod(myInt);
+        this.myMethod(myInt);
+    }
+
+    public void myMethod(int value)
+    {
+
+    }
+}
+
+//title
+Constructor
+
+//text
+To create a constructor write the class name followed by a function body.
+Named constructors can be created by writing the default constructor followed by an access operator and your constructor name.
+The code of a constructor will be ran when you create an instance of the class.
+
+//code
+class MyClass
+{
+    MyClass()
+    {
+        //your defualt constructor code
+    }
+
+    MyClass.MyNamedConstructor()
+    {
+        //your named constructor code
+    }
+}
+
+MyClass();
+MyClass.MyNamedConstructor();
+
+//text
+A constructor can call another constructor by using a colon after the parameter body followed by the this keyword.
+If you want to call a named constructor use the access operator and your constructor name after the this keyword.
+
+//code
+class MyClass
+{
+    MyClass() : this.MySecondNamedConstructor(){
+        //your defualt constructor code
+    }
+
+    MyClass.MyNamedConstructor() : this()
+    {
+        //your named constructor code
+    }
+
+    MyClass.MySecondNamedConstructor()
+    {
+        //your named second constructor code
+    }
+}
 
 
 //title
 Methods
 
 //text
+
+//chapter
+Variables
+
+//Text
+Mace has the following primitive data types.
+Define variables by writing the variable keyword then a unique identifier followed by the euqual sign after the euqual sign add you literal value ending the line with a semicolon.
+
+//table
+string
+char
+int
+double
+bool
+percent
+
+//title
+Stings
+
+//text
+A string is an object that stores an array of characters.
+You can define a string by using single or duoble quotes
+
+//code
+string myString = "Hello World!";
+myString = 'Hello World!';
+
+//text
+To concatenate to strings use the the plus operator.
+You can concatenate literal strings and string variables.
+//code
+string myString = 'Hello' + "World!";
+
+string myDoubleString = myString + myString;
+
+//text
+To use string interpolation use a dollarSign
+
+//text
+Read a chapter from a string by using square brackets.
+Indexing starts at index 0.
+
+//code
+string myString = "Hello World!";
+myString[0];
