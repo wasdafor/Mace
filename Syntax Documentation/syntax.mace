@@ -50,8 +50,8 @@ Namespaces
 Creating
 
 //text
-To create a namespace write the namespace keyword, followed by the name of the namespace with opening and closing curly brackets,
-When defining fields, methods and classes they are automatically static, so the static keyword is not required.
+To create a namespace write the __namespace__ keyword, followed by the name of the namespace with opening and closing curly brackets,
+When defining fields, methods and classes they are automatically static, so the __static__ keyword is not required.
 
 //code
 namespace MyNamespace
@@ -82,7 +82,7 @@ namespace MyNamespace
 Using
 
 //text
-To use a namespace, write the using keyword followed by the path where the namespace is located ending with a semicolon.
+To use a namespace, write __using__ followed by the path where the namespace is located ending with a __;__.
 All public elements in the namespace can be directly accessed.
 
 //code
@@ -91,7 +91,7 @@ myFirstDirectlyAccessedElement;
 
 //text
 If you want to use specific elements of a namespace, add your elements separated by commas.
-Next, write from, followed by the path and your namespace ending with a semicolon.
+Next, write __from__, followed by the path and your namespace ending with a __;__.
 To access an element of a namespace, use the name of the elements.
 
 //code
@@ -101,7 +101,7 @@ myFirstElement;
 mySecondElement;
 
 //text
-If you want to name your namespace write as after your namespace path followed by a given namespace name.
+If you want to name your namespace write __as__ after your namespace path followed by a given namespace name.
 To access an element of a named namespace, write the given name followed by an element.
 
 //code
@@ -112,7 +112,7 @@ MyNamedNamespace.myFirstElement;
 MySecondNamedNamespace.mySecondElement;
 
 //text
-If you want to rename your namespace elements, write as after the element followed with your new name;
+If you want to rename your namespace elements, write __as__ after the element followed with your new name;
 To access a renamed element of a namespace, use the renamed name of the elements.
 
 //code
@@ -128,11 +128,11 @@ MySecondNamedNamespace.myFirstRenamedElement;
 Using system namepaces
 
 //text
-If you want to use any namespace from the mace system namespaces write the keyword system before your using statement. 
-This wil start you namespace path in the system directory this that adding the ./ pefix in your namespace path is not required.
+If you want to use any namespace from the mace system namespaces, write __system__ before your __using__ statement. 
+This wil start your namespace path in the system directory. This means that adding the ./ prefix in your namespace path is not required.
 
 //code
-system using Networking/RequestManger;
+system using Networking/RequestManager;
 
 //chapter
 Classes
@@ -141,9 +141,9 @@ Classes
 Creating
 
 //text
-To create a class write the class keyword followed by the name of the class followed by opening and closing curly brackets.
+To create a class write __class__ followed by the name of the class followed by __{}__.
 You can define any fields or methods in a class.
-To create an instance of a class use the class name followed by opening and closing parentheses ending with a semicolon.
+To create an instance of a class use the class name followed by __()__ ending with a __;__.
 You can only define a class in a namespace.
 Classes will automatically be private.
 
@@ -173,7 +173,7 @@ MySecondClass();
 Inheritance
 
 //text
-To inherit a class from another class use the a colon after the child class its name followed the name of the class you want to inherit from.
+To inherit a class from another class use the a __:__ after the child class its name followed the name of the class you want to inherit from.
 When a class inherits from another class you can access the parent class its fields and methods.
 
 //code
@@ -198,7 +198,7 @@ class MySecondClass : MyClass
 Abstraction
 
 //text
-Write the abstract keyword before your class, field or method to make it abstract.
+Write __abstract__ before your class, field or method to make it abstract.
 When a class, field or method is abstract it means that is it depended.
 
 //subtitle
@@ -233,7 +233,7 @@ Fields and methods
 Only abstract classes can contain abstract fields and methods. 
 When a field or method is abstract this means that they need to be implemented in the child class.
 When using the abstract keyword you can not use an access modifier on this field or method.
-To implement an abstract field or method write the override keyword before the field or method.
+To implement an abstract field or method write __override__ before the field or method.
 It is important that the field you want to implement has the same type and identifier as the one you want to override.
 If a field is an abstract field it can not have a default value.
 The same applies for methods, the implemented method needs to have the same return type, identifier and parameters as the method you want to override.
@@ -261,9 +261,26 @@ class MySecondClass : MyClass
 }
 
 //text
+When a class is sealed, the class cannot be used as a super class.
+The class cannot be Inherited by another class.
+A sealed class cannot contain abstract fields or methods.
+
+//code
+sealed class MyClass
+{
+    int myInt;
+
+    void myMethod(int value)
+    {
+
+    }
+}
+
+
+//text
 When using the same identifier in the parent class and child class the child class will ovveride the parent identifier.
-Use the keyword super to only access the fields and methods of the parent class.
-Use the keyword this to only access the fields and methods of the current class.
+Use __super__ to only access the fields and methods of the parent class.
+Use __this__ to only access the fields and methods of the current class.
 
 //code
 class MyClass
@@ -316,7 +333,7 @@ MyClass();
 MyClass.MyNamedConstructor();
 
 //text
-A constructor can call another constructor by using a colon after the parameter body followed by the this keyword.
+A constructor can call another constructor by using a __:__ after the parameter body followed by __this__.
 If you want to call a named constructor use the access operator and your constructor name after the this keyword.
 
 //code
@@ -364,7 +381,7 @@ Strings
 
 //text
 A string is an object that stores an array of characters.
-You can define a string by using single or double quotes.
+You can define a string by using __''__ or __""__.
 
 //code
 string myString = "Hello World!";
@@ -383,7 +400,7 @@ string myDoubleString = myString + myString;
 To use string interpolation use a dollarSign.
 
 //text
-Read a character from a string by using square brackets.
+Read a character from a string by using __[]__.
 Indexing starts at index 0.
 
 //code

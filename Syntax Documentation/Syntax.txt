@@ -30,6 +30,8 @@ percent
 ||
 !()
 
+//matrix math start with #
+
 //With this syntax you can have multiple checks on one value
 (10 > 5 &> 6)
 ('Test'.length > 5 &<= 10)

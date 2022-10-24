@@ -39,7 +39,7 @@
 				},
 				{
 					"name": "keyword",
-					"match": "\\b(string|void|int|double|class|char|bool|percent|enum|namespace|static|using|const|as|from|public|private|protected|this|super|abstract|system|override)\\b"
+					"match": "\\b(string|void|int|double|class|char|bool|percent|enum|namespace|static|using|const|as|from|public|private|protected|this|super|abstract|system|override|sealed)\\b"
 				}
 			]
 		},
@@ -137,7 +137,7 @@
 			"name": "constant.numeric.mace"
 		},
 		"variable-name": {
-			"match": "(\\b[A-Za-z][A-Za-z_0-9]*)",
+			"match": "(\\b[A-Za-z_][A-Za-z_0-9]*)",
 			"name": "variable.mace"
 		},
 		"function-name": {
