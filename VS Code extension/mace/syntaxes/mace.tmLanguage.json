@@ -39,7 +39,7 @@
 				},
 				{
 					"name": "keyword",
-					"match": "\\b(string|void|int|double|class|char|bool|percent|enum|namespace|static|using|const|as|from|public|private|protected|this|super|abstract|system|override|sealed)\\b"
+					"match": "\\b(string|void|int|double|class|char|bool|percent|enum|namespace|static|using|const|readonly|writeonly|as|from|public|private|protected|this|super|abstract|system|override|sealed|initialize|get|set)\\b"
 				}
 			]
 		},

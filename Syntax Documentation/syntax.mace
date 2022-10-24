@@ -65,7 +65,7 @@ Namespace with classes, methods and fields
 //code
 namespace MyNamespace
 {
-    int myField = 0;
+    int myInt = 0;
 
     void myMethod()
     {
@@ -312,7 +312,7 @@ Constructor
 
 //text
 To create a constructor write the class name followed by a function body.
-Named constructors can be created by writing the default constructor followed by an access operator and your constructor name.
+Named constructors can be created by writing the constructor followed by an access operator and your constructor name.
 The code of a constructor will be run when you create an instance of the class.
 
 //code
@@ -320,7 +320,7 @@ class MyClass
 {
     MyClass()
     {
-        //your defualt constructor code
+        //your constructor code
     }
 
     MyClass.MyNamedConstructor()
@@ -340,7 +340,7 @@ If you want to call a named constructor use the access operator and your constru
 class MyClass
 {
     MyClass() : this.MySecondNamedConstructor(){
-        //your default constructor code
+        //your constructor code
     }
 
     MyClass.MyNamedConstructor() : this()
@@ -354,12 +354,111 @@ class MyClass
     }
 }
 
+//title
+Destructor
+
+//text
+A destructor is optional, but if created it will be run when a instance of a object is deleted.
+No parameters can be added to the destructor parameter body.
+
+//code
+class MyClass
+{
+    ~MyClass(){
+        
+    }
+}
 
 //title
 Methods
 
 //text
+Short assignment of fields in class methods or constructors can be accomplished by using a different syntax in the parameter body.
+When using short assignment the parameters are assigned to the variables in the class automatically.
+Short assignment can also be used with the super class.
+Note that code can still be added to the body of the method as shown below and that the parameters can still be used inside the body.
 
+//code
+class MyClass
+{
+    int myInt = 0;
+    string myString = "Hello World!"
+
+    MyClass(this.myInt, this.myString)
+    {
+        //your constructor code
+    }
+
+    myMethod(this.myInt, this.myString)
+    {
+        myString += " Goodbye!"
+        //your method code
+    }
+}
+
+//code
+class MyClass
+{
+    int myInt = 0;
+}
+
+class MySecondClass : MyClass
+{
+    int mySecondInt;
+    MySecondClass(this.mySecondInt, super.myInt){
+        //your constructor code
+    }
+}
+
+//text
+To have a constant or read only variable in your class, but you want to initialize it in the constructor, use the keyword __initialize__.
+The variable can also be initialized via short assignment.
+The variable can only be overwritten in the constructor scope. 
+
+//code
+class MyClass
+{
+    initialize const int myInt;
+    initialize readonly string myString = "Hello World!";
+
+    MyClass(this.myInt, myString)
+    {
+        this.myString = myString;
+        //your constructor code
+    }
+}
+
+//title
+Getters and Setters
+
+//text
+Getters and setters are methods that will be run when the specific field is accessed.
+The keywords __public__, __private__ and __protected__ can be added to getters and setters.
+These access modifiers override the default getters and setters of the fields.
+Note that in the example the integer was initialially private, but has become public because of the getter and setter.
+
+//code
+class MyClass
+{
+    int myInt;
+
+    MyClass(this.myInt)
+    {
+        //your constructor code
+    }
+
+    public get.myInt(){
+        return myInt+1;
+    }
+
+    public set.myInt(int myInt){
+        this.myInt = myInt-1;
+    }
+}
+
+
+//title
+Lambda funtions
 
 //chapter
 Variables
