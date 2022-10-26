@@ -21,6 +21,9 @@
 			"include": "#number"
 		},
 		{
+			"include": "#using-path"
+		},
+		{
 			"include": "#class-enum-name"
 		},		
 		{
@@ -137,16 +140,20 @@
 			"name": "constant.numeric.mace"
 		},
 		"variable-name": {
-			"match": "(\\b[A-Za-z_][A-Za-z_0-9]*)",
+			"match": "(\\b[A-Za-z_]\\w*)",
 			"name": "variable.mace"
 		},
 		"function-name": {
-			"match": "(\\b[A-Za-z_][A-Za-z_0-9]*)(?=[\\s]*\\()",
+			"match": "(\\b[A-Za-z_]\\w*)(?=[\\s]*\\()",
 			"name": "entity.name.function.mace"
 		},
 		"class-enum-name":{
-			"match": "(?<=\\b(class|enum)\\s+)(\\b[a-zA-Z_][a-zA-Z_1-9]*)",
-			"name": "entity.name.class"
+			"match": "(?<=\\b(class|enum)\\s+)(\\b[a-zA-Z_]\\w*)",
+			"name": "entity.name.class.mace"
+		},
+		"using-path":{
+			"match": "((?<=\\bfrom\\s)[\\S]+)|((?<=\\busing\\s)[\\w/.:]+(?![\\w,\\s]*\\sfrom))",
+			"name": "strong"
 		}
 	},
 	"scopeName": "source.mace"
