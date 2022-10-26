@@ -47,7 +47,7 @@ __Your label here__
 Namespaces
 
 //title
-Creating
+Creating Namespaces
 
 //text
 To create a namespace write the __namespace__ keyword, followed by the name of the namespace with opening and closing curly brackets,
@@ -79,7 +79,7 @@ namespace MyNamespace
 }
 
 //title
-Using
+Using Namespaces
 
 //text
 To use a namespace, write __using__ followed by the path where the namespace is located ending with a __;__.
@@ -138,10 +138,10 @@ system using Networking/RequestManager;
 Classes
 
 //title
-Creating
+Creating Classes
 
 //text
-To create a class write __class__ followed by the name of the class followed by __{}__.
+To create a class write __class__ followed by the name of the class and __{}__.
 You can define any fields or methods in a class.
 To create an instance of a class use the class name followed by __()__ ending with a __;__.
 You can only define a class in a namespace.
@@ -173,8 +173,8 @@ MySecondClass();
 Inheritance
 
 //text
-To inherit a class from another class use the a __:__ after the child class its name followed the name of the class you want to inherit from.
-When a class inherits from another class you can access the parent class its fields and methods.
+To inherit a class from another class use the a __:__ after the name of the child class followed by the name of the class you want to inherit from.
+When a class inherits from another class you can access the fields and methods of the parent class.
 
 //code
 class MyClass
@@ -199,13 +199,13 @@ Abstraction
 
 //text
 Write __abstract__ before your class, field or method to make it abstract.
-When a class, field or method is abstract it means that is it depended.
+When a class, field or method is abstract it means that it cannot be used on its own.
 
 //subtitle
 Classes
 
 //text 
-When a class is abstract the class can only be Inherited by another class.
+When a class is abstract the class can only be inherited by another class.
 This means that you can not create an instance of an abstract class.
 
 //code
@@ -230,7 +230,7 @@ class MySecondClass : MyClass
 Fields and methods
 
 //text
-Only abstract classes can contain abstract fields and methods. 
+Only abstract classes and interfaces can contain abstract fields and methods. 
 When a field or method is abstract this means that they need to be implemented in the child class.
 When using the abstract keyword you can not use an access modifier on this field or method.
 To implement an abstract field or method write __override__ before the field or method.
@@ -278,7 +278,7 @@ sealed class MyClass
 
 
 //text
-When using the same identifier in the parent class and child class the child class will ovveride the parent identifier.
+When using the same identifier in the child class as in the parent class, the child class will override the parent identifier.
 Use __super__ to only access the fields and methods of the parent class.
 Use __this__ to only access the fields and methods of the current class.
 
@@ -302,6 +302,33 @@ class MySecondClass : MyClass
     }
 
     public void myMethod(int value)
+    {
+
+    }
+}
+
+//title
+Creating Interfaces
+
+//text
+To create an interface write __interface__ followed by the name of the interface and __{}__.
+You can define any fields or methods in a interface.
+Note that an interfaces can contain only abstract fields and methods.
+You can only define an interface in a namespace.
+
+//code
+interface MyInterface
+{
+    abstract int myInt;
+
+    abstract void myMethod();
+}
+
+class MyClass : MyInterface
+{
+    override int myInt = 0;
+
+    override void myMethod()
     {
 
     }
@@ -505,3 +532,20 @@ Indexing starts at index 0.
 //code
 string myString = "Hello World!";
 myString[0];
+
+//title
+Chars
+
+//text
+A char is a primitive that stores just one character.
+You can define a char by using __''__ or __""__.
+
+//code
+char myChar = "H";
+myChar = '!';
+
+//text
+If you want to concatenate two characters you need to store them in a string.
+
+//code
+string myTwoChars = 'H' + "!";
