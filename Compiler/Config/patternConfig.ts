@@ -1,4 +1,4 @@
-//SEE THE SYNTAX FILE FO EXPLANATION OF THE SYNTAX
+//SEE THE SYNTAX FILE FOR EXPLANATION OF THE SYNTAX
 
 //These are code elements that you can expect in code scope like namespace, class method, variable, Declaration 
 enum CodeScopePartType {
@@ -33,7 +33,7 @@ enum CodeScopePartType {
     DefaultCaseStatement
 }
 
-//These keyword indicate how a varibale can be accesed in a given scope,
+//These keywords indicate how a varibale can be accessed in a given scope,
 enum AccessModifier {
     public,
     private,
@@ -41,7 +41,7 @@ enum AccessModifier {
     static,
 }
 
-//These keyword indicate how a varibale can be written or read,
+//These keywords indicate how a variable can be written or read,
 enum TypeQualifier {
     const,
     readonly,

@@ -100,3 +100,7 @@ void firstBreath(){
 
 //const with if
 
+TODO - warning
+System.
+system math
+10e10 1_000
