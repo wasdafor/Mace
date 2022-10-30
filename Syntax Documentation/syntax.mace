@@ -47,7 +47,7 @@ __Your label here__
 Namespaces
 
 //title
-Creating Namespaces
+Creating Namespaces (namespace)
 
 //text
 To create a namespace write the __namespace__ keyword, followed by the name of the namespace with opening and closing curly brackets,
@@ -79,7 +79,7 @@ namespace MyNamespace
 }
 
 //title
-Using Namespaces
+Using Namespaces (using)
 
 //text
 To use a namespace, write __using__ followed by the path where the namespace is located ending with a __;__.
@@ -125,7 +125,7 @@ mySecondRenamedElement;
 MySecondNamedNamespace.myFirstRenamedElement;
 
 //title
-Using system namepaces
+Using system namepaces (system)
 
 //text
 If you want to use any namespace from the mace system namespaces, write __system__ before your __using__ statement. 
@@ -138,7 +138,7 @@ system using Networking/RequestManager;
 Classes
 
 //title
-Creating Classes
+Creating Classes (class)
 
 //text
 To create a class write __class__ followed by the name of the class and __{}__.
@@ -189,13 +189,14 @@ class MyClass
 
 class MySecondClass : MyClass
 {
-    MySecondClass(){
+    MySecondClass()
+    {
         myMethod(myInt);
     }
 }
 
 //title
-Abstraction
+Abstraction (abstract)
 
 //text
 Write __abstract__ before your class, field or method to make it abstract.
@@ -221,7 +222,8 @@ abstract class MyClass
 
 class MySecondClass : MyClass
 {
-    MySecondClass(){
+    MySecondClass()
+    {
         myMethod(myInt);
     }
 }
@@ -260,6 +262,9 @@ class MySecondClass : MyClass
     }
 }
 
+//title
+Sealing (sealed)
+
 //text
 When a class is sealed, the class cannot be used as a super class.
 The class cannot be Inherited by another class.
@@ -276,6 +281,8 @@ sealed class MyClass
     }
 }
 
+//title
+Super class (super) and This class (this)
 
 //text
 When using the same identifier in the child class as in the parent class, the child class will override the parent identifier.
@@ -295,7 +302,8 @@ class MyClass
 
 class MySecondClass : MyClass
 {
-    MySecondClass(){
+    MySecondClass()
+    {
         myMethod();
         super.myMethod(myInt);
         this.myMethod(myInt);
@@ -308,7 +316,7 @@ class MySecondClass : MyClass
 }
 
 //title
-Creating Interfaces
+Creating Interfaces (interface)
 
 //text
 To create an interface write __interface__ followed by the name of the interface and __{}__.
@@ -382,7 +390,7 @@ class MyClass
 }
 
 //title
-Destructor
+Destructor (~)
 
 //text
 A destructor is optional, but if created it will be run when a instance of a object is deleted.
@@ -391,7 +399,8 @@ No parameters can be added to the destructor parameter body.
 //code
 class MyClass
 {
-    ~MyClass(){
+    ~MyClass()
+    {
         
     }
 }
@@ -432,7 +441,8 @@ class MyClass
 class MySecondClass : MyClass
 {
     int mySecondInt;
-    MySecondClass(this.mySecondInt, super.myInt){
+    MySecondClass(this.mySecondInt, super.myInt)
+    {
         //your constructor code
     }
 }
@@ -456,7 +466,7 @@ class MyClass
 }
 
 //title
-Getters and Setters
+Getters (get) and Setters (set)
 
 //text
 Getters and setters are methods that will be run when the specific field is accessed.
@@ -467,18 +477,20 @@ Note that in the example the integer was initialially private, but has become pu
 //code
 class MyClass
 {
-    int myInt;
+    private int myInt;
 
     MyClass(this.myInt)
     {
         //your constructor code
     }
 
-    public get.myInt(){
+    public get myInt()
+    {
         return myInt+1;
     }
 
-    public set.myInt(int myInt){
+    public set myInt(int myInt)
+    {
         this.myInt = myInt-1;
     }
 }
@@ -505,7 +517,7 @@ bool
 percent
 
 //title
-Strings
+Strings (string)
 
 //text
 A string is an object that stores an array of characters.
@@ -514,6 +526,9 @@ You can define a string by using __''__ or __""__.
 //code
 string myString = "Hello World!";
 myString = 'Hello World!';
+
+//subtitle
+Concatenatenation
 
 //text
 To concatenate two strings use the plus operator.
@@ -524,19 +539,62 @@ string myString = 'Hello' + "World!";
 
 string myDoubleString = myString + myString;
 
+//subtitle
+Escape characters (\)
+
 //text
-To use string interpolation use a dollarSign.
+Use escape characters to use characters that would normaly have a different meaning or to give a character a different meaning.
+To use escape character use __\__.
+Escape characters can be used in a string or char.
+
+//tablehead
+Escape chapter,Meaning
+
+//table
+\n,New line
+\b,Backspace
+\t,Tab
+\$,A literal __$__
+\\,A literal __\__
+\',A literal __'__
+\",A literal __"__
+
+//code
+string myNewLine = 'This is on line one,\nAnd this on line two';
+string myBackspace = 'This removes the last character from this string\b';
+string myTab = 'This adds a tab\bin this string';
+string myDollarSign = 'This escapes the use of the \$ for using interpolation';
+string myBackslash =  'This escapes the use of the \\ for escaping characters';
+string mySingleQuote = 'This escapes the use of the \' for creating a string or char';
+string myDoubleQuote = "this escapes the use of the \" for creating a string or char";
+
+//subtitle
+Interpolation
+
+//text
+To use string interpolation use a __$__ or use __${}__.
+When only using the __$__ you need to have a space between the variable and the next part of the string 
+
+//code
+string myName = 'Jack';
+
+string myString = 'Hello $myName how are you doing?'
+
+myString = 'Hello ${myName + "how"} are you doing?'
+
+//subtitle
+Indexing
 
 //text
 Read a character from a string by using __[]__.
 Indexing starts at index 0.
 
 //code
-string myString = "Hello World!";
+string myString = 'Hello World!';
 myString[0];
 
 //title
-Characters
+Characters (char)
 
 //text
 A __char__ is a primitive that stores just one character.
@@ -546,14 +604,28 @@ You can define a __char__ by using __''__ or __""__.
 char myChar = "H";
 myChar = '!';
 
+//subtile
+Concatenatenation
+
 //text
 If you want to concatenate two characters you need to store them in a __string__.
 
 //code
 string myTwoChars = 'H' + "!";
 
+//subtile
+Escape characters (\)
+
+//text
+To use escape characters in a string use __\__.
+Escape characters can be used in a string or char.
+
+//code
+char mySingleQuoteChar = '\'';
+char myDoubleQuoteChar = "\"";
+
 //title
-Integers
+Integers (int)
 
 //text
 An __int__ is a primitive that can store any whole number between -2,147,483,648 and 2,147,483,647.
@@ -561,6 +633,39 @@ An __int__ is a primitive that can store any whole number between -2,147,483,648
 //code
 int myInt = 13135;
 myInt;
+
+//subtitle
+Int with a different base
+
+//text
+When using a number from a different base use one of the following prefixes.
+
+//tablehead
+Prefix,Meaning,Base
+
+//table
+0b,Binary,2
+0o,Octal,8
+0x,Hexadecimal,16
+
+//code
+int myBinaryInt = 0b01010;
+int myOcalInt = 0o37461;
+int myHexadecimalInt = 0x3D24AF;
+
+//subtitle
+Exponent of 10 (e)
+
+//text
+Raise a number to 10 to the power of any integer number by use the suffix __e__.
+Note that the the value must be an integer after evaluation.
+
+//code
+int myInt = 4e5;
+myInt = 1.5e7;
+
+//subtitle
+Indexing
 
 //text
 To get a digit from an __int__, access the __int__ in the same way as how you would get a __char__ from a string.
@@ -573,19 +678,39 @@ int myInt = 13135;
 myInt[0];
 
 //title
-Doubles
+Doubles (double)
 
 //text
 A __double__ is a primitive that can store any floating point number, between -1.7*10^308 and 1.7*10^308 with a precision of 15 digits.
 To define a __double__ use a dot where the decimal digits should be.
-Note that a __double__ is not perfectly precise.
+Note that a __double__ is not perfectly precise when used in calculations.
 
 //code
 double myDouble = 13135.13135;
 myDouble;
 
+//text
+Literal int values and numbers from different bases are allowed to be assigned to a double.
+
+//code
+double myIntegerDouble = 312;
+double myBinaryDouble = 0b01010;
+double myOcalDouble = 0o37461;
+double myHexadecimalDouble = 0x3D24AF;
+
+//subtitle
+Exponent of 10 (e)
+
+//text
+Raise a number to 10 to the power of any integer number by use the suffix __e__.
+You can use a positive or negative integer exponent.
+
+//code
+int myInt = 4.3e5;
+myInt = 3.8e-2
+
 //title
-Booleans
+Booleans (bool)
 
 //text
 A __bool__ is a primitive that can store either a zero or a one.
@@ -597,7 +722,7 @@ bool myBool = true;
 myBool = 0;
 
 //title
-Percentage
+Percentage (percent)
 
 //text
 miss meer een system function / math function?
