@@ -89,6 +89,9 @@ All public elements in the namespace can be directly accessed.
 using ./MyNamespace;
 myFirstDirectlyAccessedElement;
 
+//subtitle
+Use elements
+
 //text
 If you want to use specific elements of a namespace, add your elements separated by commas.
 Next, write __from__, followed by the path and your namespace ending with a __;__.
@@ -100,6 +103,9 @@ using myFirstElement, mySecondElement from ./MyNamespace;
 myFirstElement;
 mySecondElement;
 
+//subtitle
+Name a namespace (as)
+
 //text
 If you want to name your namespace write __as__ after your namespace path followed by a given namespace name.
 To access an element of a named namespace, write the given name followed by an element.
@@ -110,6 +116,9 @@ using myFirstElement, mySecondElement from ./MySecondNamespace as MySecondNamedN
 
 MyNamedNamespace.myFirstElement;
 MySecondNamedNamespace.mySecondElement;
+
+//subtitle
+Rename elements (as)
 
 //text
 If you want to rename your namespace elements, write __as__ after the element followed with your new name;
@@ -316,7 +325,7 @@ class MySecondClass : MyClass
 }
 
 //title
-Creating Interfaces (interface)
+Interfaces (interface)
 
 //text
 To create an interface write __interface__ followed by the name of the interface and __{}__.
