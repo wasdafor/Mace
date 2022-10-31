@@ -517,13 +517,16 @@ Variables
 Mace has the following primitive data types.
 Define variables by writing the following structure; a variable keyword or object type, a unique identifier, an equal sign, your expression and a semicolon.
 
+//tablehead
+Primitive,  Meaning,
+
 //table
-string
-char
-int
-double
-bool
-percent
+string,     Stores any array of characters.
+char,       Stores any singular character       
+int,        Stores any whole number between -2,147,483,648 and 2,147,483,647.
+double,     Stores any floating point number, between -1.7*10^308 and 1.7*10^308 
+bool,       Stores true or false
+percent,    Stores a faction
 
 //title
 Strings (string)
@@ -557,16 +560,16 @@ To use escape character use __\__.
 Escape characters can be used in a string or char.
 
 //tablehead
-Escape chapter,Meaning
+Escape chapter, Meaning
 
 //table
-\n,New line
-\b,Backspace
-\t,Tab
-\$,A literal __$__
-\\,A literal __\__
-\',A literal __'__
-\",A literal __"__
+\n,             New line
+\b,             Backspace
+\t,             Tab
+\$,             A literal __$__
+\\,             A literal __\__
+\',             A literal __'__
+\",             A literal __"__
 
 //code
 string myNewLine = 'This is on line one,\nAnd this on line two';
@@ -750,29 +753,57 @@ myPercent = 71.428571428;
 //chapter
 Operators
 
+//title
+Arithmetic
+
 //text
-Mace has the following operators.
+Arithmetic operators are mostly used so to apply mathematical aquasions to values.
+Some of these operator can be used on strings, arrays, sets and maps.
+
+//tablehead
+Operator,   Name,                       Example
 
 //table
-+
--
-*
-/
-^
-^.5
-!
-%
++,          Addition,                   myInt + 5
+++,         Increment,                  ++myInt    
+-,          Negatation or Subtraction,  myInt -5    
+--,         Decrement,                  --myInt    
+*,          Multiplication,             myInt * 5
+/,          Division,                   myInt / 5
+^,          Exponentiation,             myInt ^ 5
+!,          Factorization,              myInt!
+%,          Modulation,                 myInt % 5          
 
-//title
+//subtitle
 Addition __+__
 
 //text
 The __+__ is used when any two numbers need to be added to each other.
 
 //code
-int myInt = 1+3;
+int myInt = 1 + 3;
 
-//title
+//text
+The __+__ can also be used to concatenate strings, arrays, sets or maps.
+Concatenating strings, arrays, sets or maps will add the values together and return a new string, array, set or map.
+
+//code
+string myString = 'Hello' + 'World!';
+int[] myArray = [1,3] + [2,4];
+map<string,int> myMap = {'firstValue': 1} + {'secondValue': 2};
+set<int> mySet = {1,4,2} + {2,3,8};
+
+//subtitle
+Increment
+
+//text
+The __++__ is used to increment a number variable by 1 before using it;
+
+//code
+int myInt = 0;
+myInt = ++myInt;
+
+//subtitle
 Negatation or Subtraction __-__
 
 //text
@@ -780,37 +811,77 @@ The __-__ is used when a number needs to be negated or two numbers need to be Su
 
 //code
 int myInt = -1;
-myInt = 4-3;
-myInt = 3-4;
+myInt = 4 - 3;
+myInt = 3 -4;
 
-//title
+//text
+The __-__ can also be used to subtract strings, arrays or maps.
+Subtracting strings, arrays, sets or maps will remove the righthand side value(s) from the lefthand side and return a new string, array, set or map.
+Note when using subtracting only one instance of the value(s) wil be removed this starts at the end of the string or list.
+
+//code
+string myString = 'Hello World!' - 'World!';
+int[] myArray = [1,2,3,4] - [2,4];
+map<string,int> myMap = {'firstValue': 1, 'secondValue': 2} - {'firstValue': 1};
+set<int> mySet = {1,4,2} - {2,3,8};
+
+//subtitle
+Decrement
+
+//text
+The __--__ is used to decrement a number variable by 1 before using it;
+
+//code
+int myInt = 0;
+myInt = --myInt;
+
+//subtitle
 Multiplication __*__
 
 //text
 The __*__ is used when any two numbers need to be multiplied.
 
 //code
-int myInt = 3*4;
+int myInt = 3 * 4;
 
-//title
+//text
+The __*__ can also be used to multiply strings, sets or arrays.
+Multiplying a string, set or array will repeat the values inside and return a new string, set or array.
+Note you must use integer values for multiplication.
+
+//code
+string myString = 'Hello World!' * 2;
+int[] myArray = [1,2,3,4] * 2;
+set<int> mySet = {1,2,3,4} * {1,2,3,4};
+
+//subtitle
 Division __/__
 
 //text
 The __/__ is used when any two numbers need to be divided by each other.
 
 //code
-int myInt = 4/2;
+int myInt = 4 / 2;
 
-//title
+//text
+The __/__ can also be used to divide strings or arrays.
+Dividing a string or array will count the occunces of the value given and returns an int.
+Note that the order matters.
+
+//code
+int countString = 'Hello World!' / 'l';
+int countArray = [1,2,3,4,2,3] / [2,3];
+
+//subtitle
 Exponentiation __^__
 
 //text
 The __^__ is used when a number needs to be exponented by an other number.
 
 //code
-int myInt = 3^2;
+int myInt = 3 ^ 2;
 
-//title
+//subtitle
 Factorization __!__
 
 //text
@@ -819,11 +890,124 @@ The __!__ is used when the factorial needs te be found of a number.
 //code
 int myInt = 5!;
 
-//title
+//subtitle
 Modulation __%__
 
 //text
 The __%__ is used when the remainder of a number needs te be found after subtraction by an other number just before it becomes negative.
 
 //code
-int myInt = 5%2;
+int myInt = 5 % 2;
+
+//text
+The __%__ can also be used to modulate strings or arrays.
+modulating a string or array will remove all the occunces of the value(s) on the righthand side from the lefthand side and return a new string or array.
+Note that the order matters.
+
+//code
+string myString = 'Hello World!' % 'l';
+int[] myArray = [1,2,3,4,2,3] % [2,3];
+
+//title
+Assignment
+
+//text
+Assignment operator are used to assign or reassing a value to a variable
+Some of these operator can be used on strings, arrays, sets and maps.
+For all the arithmetic assignment operator check out the arithmetic chapter.
+
+
+//tablehead
+Operator,   Name,                                   Example,           Same as
+
+//table
+=,          Assignment,                             myInt = 0;,        myInt = 0;
++=,         Addition assignment,                    myInt += 5;,       myInt = myInt + 5; 
+++,         Increment assignment,                   myInt++;,          myInt = ++myInt; or myInt = myInt + 1;
+-=,         Negatation or Subtraction assignment,   myInt -= 5;,       myInt = myInt - 5; 
+--,         Decrement assignment,                   myInt--;,          myInt = --myInt; or myInt = myInt - 1;
+*=,         Multiplication assignment,              myInt *= 5;,       myInt = myInt * 5; 
+/=,         Division assignment,                    myInt /= 5;,       myInt = myInt / 5; 
+^=,         Exponentiation assignment,              myInt ^= 5;,       myInt = myInt ^ 5; 
+!!,         Factorization,                          myInt!!;,          myInt = myInt!; 
+%=,         Modulation assignment,                  myInt %= 5;,       myInt = myInt % 5;
+??=,        Null-coalescing assignment,             myInt =?? 5;,      myInt = myInt == null ? 5 : myInt;  
+
+//subtitle
+Assignment
+
+//text
+The __=__ is used to assign a literal value or variable to a variable.
+
+//code
+int myInt = 0;
+int mySecondInt = myInt + 5;
+
+//title
+Comparison
+
+//text
+Comparison operator are used to compare two values with each other to return a bool.
+
+//tablehead
+Operator,   Name,                       Example
+
+//table
+==,         Equal to,                   myInt == 6
+!=,         Not equal to,               myInt != 6
+>,          Greater than,               myInt > 6
+>=,         Greater than or equal to,   myInt >= 6
+<,          Less than,                  myInt < 6
+<=,         Less than or equal to,      myInt <= 6
+
+//title
+Logical
+
+//text
+Logical operator are used to compare two bools with each other to return a bool.
+
+//tablehead
+Operator,   Name,           Example
+
+//table
+&&,         Logical and,    true && true     
+||,         Logical or,     false && true
+!,          Logical not,    !false
+
+//title
+Logical Comparison
+
+//text
+Logical Comparison operators are used to compare two values with each other.
+These operator are different to normal comparison because Logical Comparison operators lets you chain multiple comparison operations on the same value.
+
+//tablehead
+Operator,   Name,                           Example,            Same as
+
+//table
+&==,        And equal to,                   myInt > 5 &== 7,    myInt > 5 && myInt == 7 
+&!=,        And not equal to,               myInt > 5 &!= 7,    myInt > 5 && myInt != 7 
+&>,         And greater than,               myInt < 7 &> 5,     myInt < 5 && myInt > 7 
+&>=,        And greater than or equal to,   myInt < 7 &>= 5,    myInt < 5 && myInt >= 7 
+&<,         And less than,                  myInt > 5 &< 7,     myInt > 5 && myInt < 7 
+&<=,        And less than or equal to,      myInt > 5 &<= 7,    myInt > 5 && myInt <= 7
+|==,        Or equal to,                    myInt > 5 |== 3,    myInt > 5 || myInt == 3
+|!=,        Or not equal to,                myInt > 5 |!= 3,    myInt > 5 || myInt != 3
+|>,         Or greater than,                myInt < 7 |> 5,     myInt < 5 || myInt > 7
+|>=,        Or greater than or equal to,    myInt < 7 |>= 5,    myInt < 5 || myInt >= 7
+|<,         Or less than,                   myInt > 5 |< 3,     myInt > 5 || myInt < 3
+|<=,        Or less than or equal to,       myInt > 5 |< 3,     myInt > 5 || myInt < 3             
+
+//title
+Null safety
+
+//text
+Null safety operators are used to manage null values better and more easily in you programm to avoid runtime errors.
+
+//tablehead
+Operator,   Name,                   Example
+
+//table
+?,          Nullability indicator,  int? myInt = null;
+?,          Null-aware,             myObject?.toString();
+??,         Null-coalescing,        myString ?? 'Defualt value';
