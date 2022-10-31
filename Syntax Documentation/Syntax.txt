@@ -104,3 +104,47 @@ TODO - warning
 System.
 system math
 10e10 1_000
+
+//title
+Percentage (percent)
+
+//text
+miss meer een system function / math function?
+bedoel je dit?:
+https://www.best-microcontroller-projects.com/arduino-map.html
+of dit?:
+
+//text
+A __percentage__ is a primitive that can store a floating point number between 0 and 100.
+If a fraction is given as value to the this primitive, __percentage__ will convert it to the corresponding percentage.
+
+//code
+percent myPercent = 40%;
+myPercent = 71.428571428;
+
+----------------------- null checks and pointers
+
+int? myInt;
+int? mySecondInt;
+int*?[] myThirdInt;
+
+unnullify ({myInt:5},{mySecondInt:5}){
+    int mySecondInt = myInt;
+}
+
+
+double[5] balance = [1000.0, 2.0, 3.4, 17.0, 50.0];
+double[5] balance2 = balance;
+
+double *p;
+double[]
+
+deep copy
+shallow copy
+reference
+pointer
+
+
+cpp
+A pointer in C++ is a variable that holds the memory address of another variable.
+A reference is an alias for an already existing variable. Once a reference is initialized to a variable, it cannot be changed to refer to another variable.

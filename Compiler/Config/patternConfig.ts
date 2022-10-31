@@ -88,7 +88,7 @@ enum Identifier {
 }
 
 
-type CodePart = AccessModifier | TypeQualifier | NameSpaceKeyWord | LiteralValue | Seperator | Identifier
+type CodePart = (AccessModifier | TypeQualifier | NameSpaceKeyWord | LiteralValue | Seperator | Identifier)
 type CodeSectionRequired = CodeSectionCodePartRequired | CodeSectionBranchRequired | CodeSectionListRequired | CodeSectionSeparatedListRequired
 type CodeSectionOptional = CodeSectionCodePartOptional | CodeSectionBranchOptional | CodeSectionListOptional | CodeSectionSeparatedListOptional;
 type CodeSection = CodeSectionRequired | CodeSectionOptional;

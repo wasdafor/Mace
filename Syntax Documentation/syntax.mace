@@ -185,10 +185,10 @@ Myclass myClass = MyClass();
 MySecondClass mySecondClass = MySecondClass();
 
 //title
-Inheritance (extends)
+Inheritance (extend)
 
 //text
-To inherit a class from another class use the a __:__ after the name of the child class followed by the name of the class you want to inherit from.
+To inherit a class from another class use the a __extend__ after the name of the child class followed by the name of the class you want to inherit from.
 When a class inherits from another class you can access the fields and methods of the parent class.
 
 //code
@@ -202,7 +202,7 @@ class MyClass
     }
 }
 
-class MySecondClass extends MyClass
+class MySecondClass extend MyClass
 {
     MySecondClass()
     {
@@ -235,7 +235,7 @@ abstract class MyClass
     }
 }
 
-class MySecondClass : MyClass
+class MySecondClass extend MyClass
 {
     MySecondClass()
     {
@@ -249,31 +249,55 @@ Fields and methods
 //text
 Only abstract classes and interfaces can contain abstract fields and methods. 
 When a field or method is abstract this means that they need to be implemented in the child class.
-When using the abstract keyword you can not use an access modifier on this field or method.
 To implement an abstract field or method write __override__ before the field or method.
-It is important that the field you want to implement has the same type and identifier as the one you want to override.
-If a field is an abstract field it can not have a default value.
-The same applies for methods, the implemented method needs to have the same return type, identifier and parameters as the method you want to override.
-When an abstract method has code, this code will be run before the code from the child class.
+It is important that the field you want to implement has the same access modifier, type and identifier as the one you want to override.
+If a field is an abstract field it may have a default value.
+When the child class defines the field it overrides the value, if the child class only declares the field the default value of the parent class.
+The same applies for methods, the implemented method needs to have the same access modifier, return type, identifier and parameters as the method you want to override.
+If a method is an abstract field it may have a body.
+When the child class defines the method it overrides the code in the body of the abstract class, if the child class only declares the method, the code of the parent class is run.
+Note that definition of a field or method must happen, either or both in the parent and child class.
 
 //code
 abstract class MyClass
 {
-    abstract int myInt;
+    public abstract int myInt = 0;
 
-    abstract void myMethod(int value)
+    abstract string myString = 'Value';
+
+    protected abstract double myDouble;
+
+    public abstract void myMethod(int value)
     {
-
+        print(value);
     }
+
+    abstract void mySecondMethod(string value)
+    {
+        print(value);
+    }
+
+    protected abstract void myThirdMethod(double value);
 }
 
-class MySecondClass : MyClass
+class MySecondClass extend MyClass
 {
-    override int myInt;
-    
-    override void myMethod(int value)
-    {
+    public override int myInt;
 
+    override string myString 'Overwritten value';
+
+    protected override double myDouble = 3.3;
+    
+    public override void myMethod(int value);
+    
+    override void mySecondMethod(string value)
+    {
+        print(value + "Overwritten");
+    }
+
+    protected override void myThirdMethod(double value)
+    {
+        print(value);
     }
 }
 
@@ -281,8 +305,8 @@ class MySecondClass : MyClass
 Sealing (sealed)
 
 //text
-When a class is sealed, the class cannot be used as a super class.
-The class cannot be Inherited by another class.
+When a class is __sealed__, the class cannot be used as a super class.
+The class cannot be inherited by another class.
 A sealed class cannot contain abstract fields or methods.
 
 //code
@@ -291,6 +315,26 @@ sealed class MyClass
     int myInt;
 
     void myMethod(int value)
+    {
+
+    }
+}
+
+//title
+Static (static)
+
+//text
+When a class is __static__, the class cannot be used as a super class.
+The class cannot be inherited by another class.
+A static class can only contain static fields or methods.
+A static class cannot be instanciated.
+
+//code
+static class MyClass
+{
+    static int myInt;
+
+    static void myMethod(int value)
     {
 
     }
@@ -315,7 +359,7 @@ class MyClass
     }
 }
 
-class MySecondClass : MyClass
+class MySecondClass extend MyClass
 {
     MySecondClass()
     {
@@ -334,9 +378,11 @@ class MySecondClass : MyClass
 Interfaces (interface)
 
 //text
-To create an interface write __interface__ followed by the name of the interface and __{}__.
-You can define any fields or methods in a interface.
+To create an interface write __interface__ followed by the name of the interface, the keyword __implement__ and __{}__.
+You can define any fields or methods in an interface.
 Note that an interfaces can contain only abstract fields and methods.
+Fields cannot be defined and methods cannot have a body.
+Interfaces can be compared to blueprints for clasess.
 You can only define an interface in a namespace.
 
 //code
@@ -347,7 +393,7 @@ interface MyInterface
     abstract void myMethod();
 }
 
-class MyClass : MyInterface
+class MyClass implement MyInterface
 {
     override int myInt = 0;
 
@@ -370,17 +416,17 @@ class MyClass
 {
     MyClass()
     {
-        //your constructor code
+        // Your constructor code.
     }
 
     MyClass.MyNamedConstructor()
     {
-        //your named constructor code
+        // Your named constructor code.
     }
 }
 
-MyClass();
-MyClass.MyNamedConstructor();
+MyClass myClass = MyClass();
+myClass = MyClass.MyNamedConstructor();
 
 //text
 A constructor can call another constructor by using a __:__ after the parameter body followed by __this__.
@@ -390,17 +436,17 @@ If you want to call a named constructor use the access operator and your constru
 class MyClass
 {
     MyClass() : this.MySecondNamedConstructor(){
-        //your constructor code
+        // Your constructor code.
     }
 
     MyClass.MyNamedConstructor() : this()
     {
-        //your named constructor code
+        // Your named constructor code.
     }
 
     MyClass.MySecondNamedConstructor()
     {
-        //your named second constructor code
+        // Your named second constructor code.
     }
 }
 
@@ -423,6 +469,9 @@ class MyClass
 //title
 Methods
 
+//subtitle
+Short assignment
+
 //text
 Short assignment of fields in class methods or constructors can be accomplished by using a different syntax in the parameter body.
 When using short assignment the parameters are assigned to the variables in the class automatically.
@@ -437,13 +486,13 @@ class MyClass
 
     MyClass(this.myInt, this.myString)
     {
-        //your constructor code
+        // Your constructor code.
     }
 
     myMethod(this.myInt, this.myString)
     {
         myString += " Goodbye!"
-        //your method code
+        // Your method code.
     }
 }
 
@@ -453,12 +502,12 @@ class MyClass
     int myInt = 0;
 }
 
-class MySecondClass : MyClass
+class MySecondClass extend MyClass
 {
     int mySecondInt;
     MySecondClass(this.mySecondInt, super.myInt)
     {
-        //your constructor code
+        // Your constructor code.
     }
 }
 
@@ -476,11 +525,11 @@ class MyClass
     MyClass(this.myInt, myString)
     {
         this.myString = myString;
-        //your constructor code
+        // Your constructor code.
     }
 }
 
-//title
+//subtitle
 Getters (get) and Setters (set)
 
 //text
@@ -496,25 +545,24 @@ class MyClass
 
     MyClass(this.myInt)
     {
-        //your constructor code
+        // Your constructor code.
     }
 
     public get myInt()
     {
-        return myInt+1;
+        return myInt + 1;
     }
 
-    public set myInt(int myInt)
+    protected set myInt(int myInt)
     {
-        this.myInt = myInt-1;
+        this.myInt = myInt - 1;
     }
 }
-
 
 //title
 Lambda funtions
 
-
+//TODO
 
 //chapter
 Variables
@@ -524,15 +572,15 @@ Mace has the following primitive data types.
 Define variables by writing the following structure; a variable keyword or object type, a unique identifier, an equal sign, your expression and a semicolon.
 
 //tablehead
-Primitive,  Meaning,
+Primitive`  Meaning
 
 //table
-string,     Stores any array of characters.
-char,       Stores any singular character       
-int,        Stores any whole number between -2,147,483,648 and 2,147,483,647.
-double,     Stores any floating point number, between -1.7*10^308 and 1.7*10^308 
-bool,       Stores true or false
-percent,    Stores a faction
+string`     Stores any array of characters.
+char`       Stores any singular character.
+int`        Stores any whole number between -2,147,483,648 and 2,147,483,647.
+double`     Stores any floating point number, between -1.7*10^308 and 1.7*10^308.
+bool`       Stores true or false.
+percent`    Stores a faction.
 
 //title
 Strings (string)
@@ -546,7 +594,7 @@ string myString = "Hello World!";
 myString = 'Hello World!';
 
 //subtitle
-Concatenatenation
+Concatenation
 
 //text
 To concatenate two strings use the plus operator.
@@ -566,21 +614,21 @@ To use escape character use __\__.
 Escape characters can be used in a string or char.
 
 //tablehead
-Escape chapter, Meaning
+Escape chapter` Meaning
 
 //table
-\n,             New line
-\b,             Backspace
-\t,             Tab
-\$,             A literal __$__
-\\,             A literal __\__
-\',             A literal __'__
-\",             A literal __"__
+\n`             New line
+\b`             Backspace
+\t`             Tab
+\$`             A literal __$__
+\\`             A literal __\__
+\'`             A literal __'__
+\"`             A literal __"__
 
 //code
 string myNewLine = 'This is on line one,\nAnd this on line two';
 string myBackspace = 'This removes the last character from this string\b';
-string myTab = 'This adds a tab\bin this string';
+string myTab = 'This adds a tab\tin this string';
 string myDollarSign = 'This escapes the use of the \$ for using interpolation';
 string myBackslash =  'This escapes the use of the \\ for escaping characters';
 string mySingleQuote = 'This escapes the use of the \' for creating a string or char';
@@ -609,7 +657,7 @@ Indexing starts at index 0.
 
 //code
 string myString = 'Hello World!';
-myString[0];
+print(myString[0]);
 
 //title
 Characters (char)
@@ -623,7 +671,7 @@ char myChar = "H";
 myChar = '!';
 
 //subtile
-Concatenatenation
+Concatenation
 
 //text
 If you want to concatenate two characters you need to store them in a __string__.
@@ -659,28 +707,17 @@ Int with a different base
 When using a number from a different base use one of the following prefixes.
 
 //tablehead
-Prefix,Meaning,Base
+Prefix` Meaning`    Base
 
 //table
-0b,Binary,2
-0o,Octal,8
-0x,Hexadecimal,16
+0b`     Binary`     2
+0o`     Octal`      8
+0x`     Hexadecimal`16
 
 //code
 int myBinaryInt = 0b01010;
 int myOcalInt = 0o37461;
 int myHexadecimalInt = 0x3D24AF;
-
-//subtitle
-Exponent of 10 (e)
-
-//text
-Raise a number to 10 to the power of any integer number by use the suffix __e__.
-Note that the the value must be an integer after evaluation.
-
-//code
-int myInt = 4e5;
-myInt = 1.5e7;
 
 //subtitle
 Indexing
@@ -693,7 +730,7 @@ https://www.geeksforgeeks.org/find-first-last-digits-number/#:~:text=To%20find%2
 
 //code
 int myInt = 13135;
-myInt[0];
+print(myInt[0]);
 
 //title
 Doubles (double)
@@ -705,7 +742,7 @@ Note that a __double__ is not perfectly precise when used in calculations.
 
 //code
 double myDouble = 13135.13135;
-myDouble;
+print(myDouble);
 
 //text
 Literal int values and numbers from different bases are allowed to be assigned to a double.
@@ -720,12 +757,12 @@ double myHexadecimalDouble = 0x3D24AF;
 Exponent of 10 (e)
 
 //text
-Raise a number to 10 to the power of any integer number by use the suffix __e__.
+multiply a number to 10 to the power of any integer number by use the suffix __e__.
 You can use a positive or negative integer exponent.
 
 //code
-int myInt = 4.3e5;
-myInt = 3.8e-2
+double myInt = 4.3e5;
+myInt = 3.8e-2;
 
 //title
 Booleans (bool)
@@ -733,28 +770,24 @@ Booleans (bool)
 //text
 A __bool__ is a primitive that can store either a zero or a one.
 Because there are only two states, the 0 is also equal to __false__, and the 1 is equal to __true__;
-This equality applies also for integers and doubles, if they are exactly 0 or exactly 1;
+All datatypes that are empty or null are false if casted to an boolean.
+If they contain a value they are true.
+
+//tablehead
+Datatype`       Empty value
+
+//table
+int`            0
+double`         0.0
+string`         ''
+string[]`       []
+Map<string,int>`{}
+Set<string>`    Set.empty
+List<string>`   []
 
 //code
 bool myBool = true;
-myBool = 0;
-
-//title
-Percentage (percent)
-
-//text
-miss meer een system function / math function?
-bedoel je dit?:
-https://www.best-microcontroller-projects.com/arduino-map.html
-of dit?:
-
-//text
-A __percentage__ is a primitive that can store a floating point number between 0 and 100.
-If a fraction is given as value to the this primitive, __percentage__ will convert it to the corresponding percentage.
-
-//code
-percent myPercent = 5/7;
-myPercent = 71.428571428;
+myBool = (bool)0
 
 //chapter
 Operators
@@ -763,25 +796,25 @@ Operators
 Arithmetic
 
 //text
-Arithmetic operators are mostly used so to apply mathematical aquasions to values.
-Some of these operator can be used on strings, arrays, sets and maps.
+Arithmetic operators are mostly used so to apply mathematical equations to values.
+Some of these operators can be used on strings, arrays, maps, sets and lists.
 
 //tablehead
-Operator,   Name,                       Example
+Operator`   Name`                       Example
 
 //table
-+,          Addition,                   myInt + 5
-++,         Increment,                  ++myInt    
--,          Negatation or Subtraction,  myInt -5    
---,         Decrement,                  --myInt    
-*,          Multiplication,             myInt * 5
-/,          Division,                   myInt / 5
-^,          Exponentiation,             myInt ^ 5
-!,          Factorization,              myInt!
-%,          Modulation,                 myInt % 5          
++`          Addition`                   myInt + 5
+++`         Increment`                  ++myInt    
+-`          Negatation or Subtraction`  myInt - 5    
+--`         Decrement`                  --myInt    
+*`          Multiplication`             myInt * 5
+/`          Division`                   myInt / 5
+^`          Exponentiation`             myInt ^ 5
+!`          Factorization`              myInt!
+%`          Modulation`                 myInt % 5          
 
 //subtitle
-Addition __+__
+Addition (+)
 
 //text
 The __+__ is used when any two numbers need to be added to each other.
@@ -790,17 +823,18 @@ The __+__ is used when any two numbers need to be added to each other.
 int myInt = 1 + 3;
 
 //text
-The __+__ can also be used to concatenate strings, arrays, sets or maps.
-Concatenating strings, arrays, sets or maps will add the values together and return a new string, array, set or map.
+The __+__ can also be used to concatenate strings, arrays, sets, maps or lists.
+Concatenating strings, arrays, sets, maps or lists will add the values together and return a new string, array, sets, maps or lists.
 
 //code
 string myString = 'Hello' + 'World!';
 int[] myArray = [1,3] + [2,4];
-map<string,int> myMap = {'firstValue': 1} + {'secondValue': 2};
-set<int> mySet = {1,4,2} + {2,3,8};
+Map<string,int> myMap = {'firstValue': 1} + {'secondValue': 2};
+Set<int> mySet = {1,4,2} + {2,3,8};
+List<int> myList = [1,3] + [2,4];
 
 //subtitle
-Increment
+Increment (++)
 
 //text
 The __++__ is used to increment a number variable by 1 before using it;
@@ -810,10 +844,10 @@ int myInt = 0;
 myInt = ++myInt;
 
 //subtitle
-Negatation or Subtraction __-__
+Negatation or Subtraction (-)
 
 //text
-The __-__ is used when a number needs to be negated or two numbers need to be Subtracted from each other.
+The __-__ is used when a number needs to be negated or two numbers need to be subtracted from each other.
 
 //code
 int myInt = -1;
@@ -821,18 +855,23 @@ myInt = 4 - 3;
 myInt = 3 -4;
 
 //text
-The __-__ can also be used to subtract strings, arrays or maps.
-Subtracting strings, arrays, sets or maps will remove the righthand side value(s) from the lefthand side and return a new string, array, set or map.
-Note when using subtracting only one instance of the value(s) wil be removed this starts at the end of the string or list.
+The __-__ can also be used to subtract strings, arrays, maps, sets or lists.
+When subtracting a string from another string, the order of the characters is important.
+Note here that only one substring that is equal to the righthand string will be removed.
+When subtracting an array from another array, the order of the elements is important. The same applies for lists.
+Note here that all the elements in the righthand array will be removed from the lefthand array if they exist.
+When subtracting a map from another map, the order of the elements is not important. The same applies for lists.
+Searching and removing will start at the end.
 
 //code
 string myString = 'Hello World!' - 'World!';
-int[] myArray = [1,2,3,4] - [2,4];
-map<string,int> myMap = {'firstValue': 1, 'secondValue': 2} - {'firstValue': 1};
-set<int> mySet = {1,4,2} - {2,3,8};
+int[] myArray = [1,2,4,3] - [2,4];
+Map<string,int> myMap = {'firstValue': 1, 'secondValue': 2} - {'firstValue': 1};
+Set<int> mySet = {1,4,2} - {2,3,8};
+List<int> myList = [1,2,4,3] - [2,4];
 
 //subtitle
-Decrement
+Decrement (--)
 
 //text
 The __--__ is used to decrement a number variable by 1 before using it;
@@ -840,6 +879,15 @@ The __--__ is used to decrement a number variable by 1 before using it;
 //code
 int myInt = 0;
 myInt = --myInt;
+
+//text
+The __--__ can also be used to subtract strings, arrays or lists.
+When applying this operator, the last element will be removed.
+
+//code
+string myString = --"Hello world!"
+int[] myArray = --[1,2,3,4];
+List<int> myList = --[1,2,3,4];
 
 //subtitle
 Multiplication __*__
@@ -853,12 +901,13 @@ int myInt = 3 * 4;
 //text
 The __*__ can also be used to multiply strings, sets or arrays.
 Multiplying a string, set or array will repeat the values inside and return a new string, set or array.
-Note you must use integer values for multiplication.
+Note you must use an integer value when multiplying with a number.
+When multiplying an array or a set with another array or set, the result will be a cartesian product.
 
 //code
 string myString = 'Hello World!' * 2;
 int[] myArray = [1,2,3,4] * 2;
-set<int> mySet = {1,2,3,4} * {1,2,3,4};
+Set<int> mySet = {1,2,3,4} * {1,2,3,4};
 
 //subtitle
 Division __/__
@@ -870,13 +919,14 @@ The __/__ is used when any two numbers need to be divided by each other.
 int myInt = 4 / 2;
 
 //text
-The __/__ can also be used to divide strings or arrays.
-Dividing a string or array will count the occunces of the value given and returns an int.
+The __/__ can also be used to divide strings, arrays or lists.
+Dividing a string, array or list by a value will count the occurrences of the given value and returns an int.
 Note that the order matters.
 
 //code
 int countString = 'Hello World!' / 'l';
-int countArray = [1,2,3,4,2,3] / [2,3];
+int[] countArray = [1,2,3,4,2,3] / [2,3];
+List<int> countList = [1,2,3,4,2,3] / [2,3];
 
 //subtitle
 Exponentiation __^__
@@ -907,37 +957,38 @@ int myInt = 5 % 2;
 
 //text
 The __%__ can also be used to modulate strings or arrays.
-modulating a string or array will remove all the occunces of the value(s) on the righthand side from the lefthand side and return a new string or array.
+modulating a string or array will remove all the occurrences of the value(s) on the righthand side from the lefthand side and return a new string or array.
 Note that the order matters.
 
 //code
 string myString = 'Hello World!' % 'l';
 int[] myArray = [1,2,3,4,2,3] % [2,3];
+List<int> myList = [1,2,3,4,2,3] % [2,3];
 
 //title
 Assignment
 
 //text
-Assignment operator are used to assign or reassing a value to a variable
-Some of these operator can be used on strings, arrays, sets and maps.
-For all the arithmetic assignment operator check out the arithmetic chapter.
+Assignment operators are used to assign or for reassigning a value to a variable.
+Some of these operators can be used on strings, arrays, sets and maps.
+For all the arithmetic assignment operators check out the arithmetic or null safety chapter.
 
 
 //tablehead
-Operator,   Name,                                   Example,           Same as
+Operator`   Name`                                   Example`           Same as
 
 //table
-=,          Assignment,                             myInt = 0;,        myInt = 0;
-+=,         Addition assignment,                    myInt += 5;,       myInt = myInt + 5; 
-++,         Increment assignment,                   myInt++;,          myInt = ++myInt; or myInt = myInt + 1;
--=,         Negatation or Subtraction assignment,   myInt -= 5;,       myInt = myInt - 5; 
---,         Decrement assignment,                   myInt--;,          myInt = --myInt; or myInt = myInt - 1;
-*=,         Multiplication assignment,              myInt *= 5;,       myInt = myInt * 5; 
-/=,         Division assignment,                    myInt /= 5;,       myInt = myInt / 5; 
-^=,         Exponentiation assignment,              myInt ^= 5;,       myInt = myInt ^ 5; 
-!!,         Factorization,                          myInt!!;,          myInt = myInt!; 
-%=,         Modulation assignment,                  myInt %= 5;,       myInt = myInt % 5;
-??=,        Null-coalescing assignment,             myInt =?? 5;,      myInt = myInt == null ? 5 : myInt;  
+=`          Assignment`                             myInt = 0;`        myInt = 0;
++=`         Addition assignment`                    myInt += 5;`       myInt = myInt + 5; 
+++`         Increment assignment`                   myInt++;`          myInt = ++myInt; or myInt = myInt + 1;
+-=`         Negatation or Subtraction assignment`   myInt -= 5;`       myInt = myInt - 5; 
+--`         Decrement assignment`                   myInt--;`          myInt = --myInt; or myInt = myInt - 1;
+*=`         Multiplication assignment`              myInt *= 5;`       myInt = myInt * 5; 
+/=`         Division assignment`                    myInt /= 5;`       myInt = myInt / 5; 
+^=`         Exponentiation assignment`              myInt ^= 5;`       myInt = myInt ^ 5; 
+!!`         Factorization`                          myInt!!;`          myInt = myInt!; 
+%=`         Modulation assignment`                  myInt %= 5;`       myInt = myInt % 5;
+??=`        Null-coalescing assignment`             myInt =?? 5;`      myInt = myInt ?? 5; or myInt = myInt == null ? 5 : myInt;  
 
 //subtitle
 Assignment
@@ -953,67 +1004,67 @@ int mySecondInt = myInt + 5;
 Comparison
 
 //text
-Comparison operator are used to compare two values with each other to return a bool.
+Comparison operators are used to compare two values with each other to return a bool.
 
 //tablehead
-Operator,   Name,                       Example
+Operator`   Name`                       Example
 
 //table
-==,         Equal to,                   myInt == 6
-!=,         Not equal to,               myInt != 6
->,          Greater than,               myInt > 6
->=,         Greater than or equal to,   myInt >= 6
-<,          Less than,                  myInt < 6
-<=,         Less than or equal to,      myInt <= 6
+==`         Equal to`                   myInt == 6
+!=`         Not equal to`               myInt != 6
+>`          Greater than`               myInt > 6
+>=`         Greater than or equal to`   myInt >= 6
+<`          Less than`                  myInt < 6
+<=`         Less than or equal to`      myInt <= 6
 
 //title
 Logical
 
 //text
-Logical operator are used to compare two bools with each other to return a bool.
+Logical operators are used to compare two bools with each other to return a bool.
 
 //tablehead
 Operator,   Name,           Example
 
 //table
-&&,         Logical and,    true && true     
-||,         Logical or,     false && true
-!,          Logical not,    !false
+&&`         Logical and`    true && true     
+||`         Logical or`     false && true
+!`          Logical not`    !false
 
 //title
 Logical Comparison
 
 //text
 Logical Comparison operators are used to compare two values with each other.
-These operator are different to normal comparison because Logical Comparison operators lets you chain multiple comparison operations on the same value.
+These operators are different to normal comparison because Logical Comparison operators let you chain multiple comparison operations to the same value.
 
 //tablehead
-Operator,   Name,                           Example,            Same as
+Operator`   Name`                           Example`            Same as
 
 //table
-&==,        And equal to,                   myInt > 5 &== 7,    myInt > 5 && myInt == 7 
-&!=,        And not equal to,               myInt > 5 &!= 7,    myInt > 5 && myInt != 7 
-&>,         And greater than,               myInt < 7 &> 5,     myInt < 5 && myInt > 7 
-&>=,        And greater than or equal to,   myInt < 7 &>= 5,    myInt < 5 && myInt >= 7 
-&<,         And less than,                  myInt > 5 &< 7,     myInt > 5 && myInt < 7 
-&<=,        And less than or equal to,      myInt > 5 &<= 7,    myInt > 5 && myInt <= 7
-|==,        Or equal to,                    myInt > 5 |== 3,    myInt > 5 || myInt == 3
-|!=,        Or not equal to,                myInt > 5 |!= 3,    myInt > 5 || myInt != 3
-|>,         Or greater than,                myInt < 7 |> 5,     myInt < 5 || myInt > 7
-|>=,        Or greater than or equal to,    myInt < 7 |>= 5,    myInt < 5 || myInt >= 7
-|<,         Or less than,                   myInt > 5 |< 3,     myInt > 5 || myInt < 3
-|<=,        Or less than or equal to,       myInt > 5 |< 3,     myInt > 5 || myInt < 3             
+&==`        And equal to`                   myInt > 5 &== 7`    myInt > 5 && myInt == 7
+&!=`        And not equal to`               myInt > 5 &!= 7`    myInt > 5 && myInt != 7 
+&>`         And greater than`               myInt < 7 &> 5`     myInt < 5 && myInt > 7 
+&>=`        And greater than or equal to`   myInt < 7 &>= 5`    myInt < 5 && myInt >= 7 
+&<`         And less than`                  myInt > 5 &< 7`     myInt > 5 && myInt < 7 
+&<=`        And less than or equal to`      myInt > 5 &<= 7`    myInt > 5 && myInt <= 7
+|==`        Or equal to`                    myInt > 5 |== 3`    myInt > 5 || myInt == 3
+|!=`        Or not equal to`                myInt > 5 |!= 3`    myInt > 5 || myInt != 3
+|>`         Or greater than`                myInt < 7 |> 5`     myInt < 5 || myInt > 7
+|>=`        Or greater than or equal to`    myInt < 7 |>= 5`    myInt < 5 || myInt >= 7
+|<`         Or less than`                   myInt > 5 |< 3`     myInt > 5 || myInt < 3
+|<=`        Or less than or equal to`       myInt > 5 |< 3`     myInt > 5 || myInt < 3             
 
 //title
 Null safety
 
 //text
-Null safety operators are used to manage null values better and more easily in you programm to avoid runtime errors.
+Null safety operators are used to manage null values in you program to avoid runtime errors.
 
 //tablehead
 Operator,   Name,                   Example
 
 //table
 ?,          Nullability indicator,  int? myInt = null;
-?,          Null-aware,             myObject?.toString();
+?,          Null-aware,             myObject?.toString(); or myArray?[1]; or myMap?['key'];
 ??,         Null-coalescing,        myString ?? 'Default value';
