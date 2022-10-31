@@ -56,7 +56,7 @@ When defining fields, methods and classes they are automatically static, so the 
 //code
 namespace MyNamespace
 {
-    //your classes and static fields
+    // Your classes and static fields.
 }
 
 //text
@@ -87,10 +87,11 @@ All public elements in the namespace can be directly accessed.
 
 //code
 using ./MyNamespace;
-myFirstDirectlyAccessedElement;
+// Print public element from MyNamespace.
+print(myElement);
 
 //subtitle
-Use elements
+Using elements
 
 //text
 If you want to use specific elements of a namespace, add your elements separated by commas.
@@ -100,11 +101,11 @@ To access an element of a namespace, use the name of the elements.
 //code
 using myFirstElement, mySecondElement from ./MyNamespace;
 
-myFirstElement;
-mySecondElement;
+print(myFirstElement);
+print(mySecondElement);
 
 //subtitle
-Name a namespace (as)
+Naming a namespace (as)
 
 //text
 If you want to name your namespace write __as__ after your namespace path followed by a given namespace name.
@@ -112,13 +113,15 @@ To access an element of a named namespace, write the given name followed by an e
 
 //code
 using ./MyNamespace as MyNamedNamespace;
+// Print public element from MyNamespace named MyNamedNamespace.
+print(MyNamedNamespace.myFirstElement);
+
 using myFirstElement, mySecondElement from ./MySecondNamespace as MySecondNamedNamespace;
 
-MyNamedNamespace.myFirstElement;
-MySecondNamedNamespace.mySecondElement;
+print(MySecondNamedNamespace.mySecondElement);
 
 //subtitle
-Rename elements (as)
+Renaming elements (as)
 
 //text
 If you want to rename your namespace elements, write __as__ after the element followed with your new name;
@@ -126,12 +129,13 @@ To access a renamed element of a namespace, use the renamed name of the elements
 
 //code
 using myFirstElement as myFirstRenamedElement, mySecondElement as mySecondRenamedElement from ./MyNamespace;
+
+print(myFirstRenamedElement);
+print(mySecondRenamedElement);
+
 using myFirstElement as myFirstRenamedElement from ./MySecondNamespace as MySecondNamedNamespace;
 
-myFirstRenamedElement;
-mySecondRenamedElement;
-
-MySecondNamedNamespace.myFirstRenamedElement;
+print(MySecondNamedNamespace.myFirstRenamedElement);
 
 //title
 Using system namepaces (system)
@@ -142,6 +146,8 @@ This wil start your namespace path in the system directory. This means that addi
 
 //code
 system using Networking/RequestManager;
+// Print return value from the getURL method from RequestManager.
+print(getURL("https://google.com"));
 
 //chapter
 Classes
@@ -175,11 +181,11 @@ namespace MyNamespace
     }
 }
 
-MyClass();
-MySecondClass();
+Myclass myClass = MyClass();
+MySecondClass mySecondClass = MySecondClass();
 
 //title
-Inheritance
+Inheritance (extends)
 
 //text
 To inherit a class from another class use the a __:__ after the name of the child class followed by the name of the class you want to inherit from.
@@ -196,7 +202,7 @@ class MyClass
     }
 }
 
-class MySecondClass : MyClass
+class MySecondClass extends MyClass
 {
     MySecondClass()
     {
@@ -1010,4 +1016,4 @@ Operator,   Name,                   Example
 //table
 ?,          Nullability indicator,  int? myInt = null;
 ?,          Null-aware,             myObject?.toString();
-??,         Null-coalescing,        myString ?? 'Defualt value';
+??,         Null-coalescing,        myString ?? 'Default value';
