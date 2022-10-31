@@ -890,7 +890,7 @@ int[] myArray = --[1,2,3,4];
 List<int> myList = --[1,2,3,4];
 
 //subtitle
-Multiplication __*__
+Multiplication (*)
 
 //text
 The __*__ is used when any two numbers need to be multiplied.
@@ -910,7 +910,7 @@ int[] myArray = [1,2,3,4] * 2;
 Set<int> mySet = {1,2,3,4} * {1,2,3,4};
 
 //subtitle
-Division __/__
+Division (/)
 
 //text
 The __/__ is used when any two numbers need to be divided by each other.
@@ -929,7 +929,7 @@ int[] countArray = [1,2,3,4,2,3] / [2,3];
 List<int> countList = [1,2,3,4,2,3] / [2,3];
 
 //subtitle
-Exponentiation __^__
+Exponentiation (^)
 
 //text
 The __^__ is used when a number needs to be exponented by an other number.
@@ -938,7 +938,7 @@ The __^__ is used when a number needs to be exponented by an other number.
 int myInt = 3 ^ 2;
 
 //subtitle
-Factorization __!__
+Factorization (!)
 
 //text
 The __!__ is used when the factorial needs te be found of a number.
@@ -947,7 +947,7 @@ The __!__ is used when the factorial needs te be found of a number.
 int myInt = 5!;
 
 //subtitle
-Modulation __%__
+Modulation (%)
 
 //text
 The __%__ is used when the remainder of a number needs te be found after subtraction by an other number just before it becomes negative.
@@ -991,7 +991,7 @@ Operator`   Name`                                   Example`           Same as
 ??=`        Null-coalescing assignment`             myInt =?? 5;`      myInt = myInt ?? 5; or myInt = myInt == null ? 5 : myInt;  
 
 //subtitle
-Assignment
+Assignment (=)
 
 //text
 The __=__ is used to assign a literal value or variable to a variable.
@@ -1062,9 +1062,9 @@ Null safety
 Null safety operators are used to manage null values in you program to avoid runtime errors.
 
 //tablehead
-Operator,   Name,                   Example
+Operator`   Name`                   Example
 
 //table
-?,          Nullability indicator,  int? myInt = null;
-?,          Null-aware,             myObject?.toString(); or myArray?[1]; or myMap?['key'];
-??,         Null-coalescing,        myString ?? 'Default value';
+?`          Nullability indicator`  int? myInt = null;
+?`          Null-aware`             myObject?.toString(); or myArray?[1]; or myMap?['key'];
+??`         Null-coalescing`        myString ?? 'Default value';
