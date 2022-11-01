@@ -1237,7 +1237,7 @@ switch(myInt)
 //text
 The __default__ keyword can be used to define a block of code that ony gets executed when no cases where executed.
 Note that break is not needed.
-//Misschien else gebruiken na de switch net zoals bij een loop?
+//Misschien else gebruiken na de switch net zoals bij een loop? (Ik heb nu bij de scopes het { na de statement gezet mis dat toch maar op de andere pleken ziet er net iets nicer en korter uit.)
 
 //code
 switch(myInt)
