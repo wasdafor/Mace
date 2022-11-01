@@ -1088,7 +1088,7 @@ Branching
 Branching statements are used when you want to branch you code in a wel defined path.
 
 //subtitle
-if (if)
+If (if)
 
 //text
 The __if__ keyword is used when a specific piece of code can only be ran under a specfied conditition.
@@ -1105,7 +1105,7 @@ if(myInt > 5){
 }
 
 //subtitle
-else (else)
+Else (else)
 
 //text
 The __else__ keyword is used when a specfied piece of code can only ran when the parent if expression is returned to false.
@@ -1155,7 +1155,7 @@ else{
 }
 
 //subtitle
-else if
+Else if (else if)
 The __else if__ keywords are used when a specfied piece of code can only ran when the parent if expression is returned to false and another expression is evaluated to true.
 To create an __else if__ statement write __else if__ followed by __()__ ending with __{}__.
 Note that any __else if__ statement must me bounded to an if or else if statement.
@@ -1181,6 +1181,9 @@ else if(mySecondBoolean){
 else if(myThirdBoolean){
     //Code that only runs when myBoolean is false and mySecondBoolean is false and myThirdBoolean is true.
 }
+
+//subtitle
+Switch (switch)
 
 //title
 Looping
