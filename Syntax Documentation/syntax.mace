@@ -771,7 +771,7 @@ double myInt = 4.3e5;
 myInt = 3.8e-2;
 
 //title
-Booleans (bool)
+Booleans (bool), (true), (false)
 
 //text
 A __bool__ is a primitive that can store either a zero or a one.
