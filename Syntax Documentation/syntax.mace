@@ -1092,6 +1092,7 @@ if (if)
 
 //text
 The __if__ keyword is used when a specific piece of code can only be ran under a specfied conditition.
+To create an __if__ statement write __if__ followed by __()__ ending with __{}__.
 The body of an if statement only gets ran when the expression inside the __()__ is evaluated to __true__.
 
 //code
@@ -1108,7 +1109,8 @@ else (else)
 
 //text
 The __else__ keyword is used when a specfied piece of code can only ran when the parent if expression is returned to false.
-Note that any __else__ statement must me bounded to an if or else if statement.
+To create an __else__ statement write __else__ following __{}__.
+Note that any __else__ statement must me bounded to an if, else if, while or for statement.
 
 //code
 if(myBoolean){
@@ -1118,9 +1120,45 @@ else{
     //Code that only runs when myBoolean is false.
 }
 
+//text
+The __else__ statement can also be bounded to any else if statement.
+Note that the else statement only gets ran when the if and all the else if expressions are evaluated to false. 
+
+//code
+if(myBoolean){
+    //Code that only runs when myBoolean is true.
+}
+else if(mySecondBoolean){
+    //Code that only runs when myBoolean is false and mySecondBoolean is true.
+}
+else{
+    //Code that only runs when myBoolean is false and mySecondBoolean is false.
+}
+
+//text
+The __else__ statement can also be bounded to any for or while loop.
+Note that the else statement only gets ran when the loop ends without using break.
+
+//code
+for(int value in values){
+    //Code that gets ran for every value of values.
+}
+else{
+    //Code that gets ran when the loop ended.
+}
+
+while(myBoolean){
+    //Code that gets ran for as long as myBoolean is true.
+}
+else{
+    //Code that gets can when the loop ended.
+}
+
 //subtitle
 else if
 The __else if__ keywords are used when a specfied piece of code can only ran when the parent if expression is returned to false and another expression is evaluated to true.
+To create an __else if__ statement write __else if__ followed by __()__ ending with __{}__.
+Note that any __else if__ statement must me bounded to an if or else if statement.
 
 //code
 if(myBoolean){
@@ -1131,7 +1169,7 @@ else if(mySecondBoolean){
 }
 
 //text
-else if statements can be stacked a many times as you would like.
+The __else if__ statements can be stacked as many times as you would like.
 
 //code
 if(myBoolean){
@@ -1143,9 +1181,6 @@ else if(mySecondBoolean){
 else if(myThirdBoolean){
     //Code that only runs when myBoolean is false and mySecondBoolean is false and myThirdBoolean is true.
 }
-
-//text
-else statements can be bounded to any else if statement.
 
 //title
 Looping
