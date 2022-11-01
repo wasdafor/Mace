@@ -50,8 +50,9 @@ Namespaces
 Creating Namespaces (namespace)
 
 //text
-To create a namespace write the __namespace__ keyword, followed by the name of the namespace with opening and closing curly brackets,
-When defining fields, methods and classes they are automatically static, so the __static__ keyword is not required.
+The __namespace__ keyword is used to create a __namespace__
+To create a __namespace__ write the __namespace__ keyword, followed by the name of the namespace with opening and closing curly brackets,
+When defining fields, methods and classes they are automatically __static__, so the __static__ keyword is not required.
 
 //code
 namespace MyNamespace
@@ -82,7 +83,8 @@ namespace MyNamespace
 Using Namespaces (using)
 
 //text
-To use a namespace, write __using__ followed by the path where the namespace is located ending with a __;__.
+The __using__ keyword is used to use a namespace. 
+To use a namespace write __using__ followed by the path where the namespace is located ending with a __;__.
 All public elements in the namespace can be directly accessed.
 
 //code
@@ -94,7 +96,8 @@ print(myElement);
 Using elements
 
 //text
-If you want to use specific elements of a namespace, add your elements separated by commas.
+The __,__ can be used to use specific elements of a namespace.
+To use specific elements add your elements separated by commas.
 Next, write __from__, followed by the path and your namespace ending with a __;__.
 To access an element of a namespace, use the name of the elements.
 
@@ -108,7 +111,8 @@ print(mySecondElement);
 Naming a namespace (as)
 
 //text
-If you want to name your namespace write __as__ after your namespace path followed by a given namespace name.
+The __as__ keyword can used to name a namespace. 
+To name your namespace write __as__ after your namespace path followed by a given namespace name.
 To access an element of a named namespace, write the given name followed by an element.
 
 //code
@@ -124,7 +128,8 @@ print(MySecondNamedNamespace.mySecondElement);
 Renaming elements (as)
 
 //text
-If you want to rename your namespace elements, write __as__ after the element followed with your new name;
+The __as__ keyword can used to rename namespace elements. 
+To rename your namespace elements, write __as__ after the element followed with your new name;
 To access a renamed element of a namespace, use the renamed name of the elements.
 
 //code
@@ -141,7 +146,8 @@ print(MySecondNamedNamespace.myFirstRenamedElement);
 Using system namepaces (system)
 
 //text
-If you want to use any namespace from the mace system namespaces, write __system__ before your __using__ statement. 
+The __system__ keyword is used to use any namespace from the mace system namespaces.
+To use the system namepaces, write __system__ before your __using__ statement. 
 This wil start your namespace path in the system directory. This means that adding the ./ prefix in your namespace path is not required.
 
 //code
@@ -817,7 +823,7 @@ Operator`   Name`                       Example
 Addition (+)
 
 //text
-The __+__ is used when any two numbers need to be added to each other.
+The __+__ operator is used when any two numbers need to be added to each other.
 
 //code
 int myInt = 1 + 3;
@@ -837,7 +843,7 @@ List<int> myList = [1,3] + [2,4];
 Increment (++)
 
 //text
-The __++__ is used to increment a number variable by 1 before using it;
+The __++__ operator is used to increment a number variable by 1 before using it;
 
 //code
 int myInt = 0;
@@ -847,7 +853,7 @@ myInt = ++myInt;
 Negatation or Subtraction (-)
 
 //text
-The __-__ is used when a number needs to be negated or two numbers need to be subtracted from each other.
+The __-__ operator is used when a number needs to be negated or two numbers need to be subtracted from each other.
 
 //code
 int myInt = -1;
@@ -855,7 +861,7 @@ myInt = 4 - 3;
 myInt = 3 -4;
 
 //text
-The __-__ can also be used to subtract strings, arrays, maps, sets or lists.
+The __-__ operator can also be used to subtract strings, arrays, maps, sets or lists.
 When subtracting a string from another string, the order of the characters is important.
 Note here that only one substring that is equal to the righthand string will be removed.
 When subtracting an array from another array, the order of the elements is important. The same applies for lists.
@@ -874,14 +880,14 @@ List<int> myList = [1,2,4,3] - [2,4];
 Decrement (--)
 
 //text
-The __--__ is used to decrement a number variable by 1 before using it;
+The __--__ operator is used to decrement a number variable by 1 before using it;
 
 //code
 int myInt = 0;
 myInt = --myInt;
 
 //text
-The __--__ can also be used to subtract strings, arrays or lists.
+The __--__ operator can also be used to subtract strings, arrays or lists.
 When applying this operator, the last element will be removed.
 
 //code
@@ -893,13 +899,13 @@ List<int> myList = --[1,2,3,4];
 Multiplication (*)
 
 //text
-The __*__ is used when any two numbers need to be multiplied.
+The __*__ operator is used when any two numbers need to be multiplied.
 
 //code
 int myInt = 3 * 4;
 
 //text
-The __*__ can also be used to multiply strings, sets or arrays.
+The __*__ operator can also be used to multiply strings, sets or arrays.
 Multiplying a string, set or array will repeat the values inside and return a new string, set or array.
 Note you must use an integer value when multiplying with a number.
 When multiplying an array or a set with another array or set, the result will be a cartesian product.
@@ -913,13 +919,13 @@ Set<int> mySet = {1,2,3,4} * {1,2,3,4};
 Division (/)
 
 //text
-The __/__ is used when any two numbers need to be divided by each other.
+The __/__ operator is used when any two numbers need to be divided by each other.
 
 //code
 int myInt = 4 / 2;
 
 //text
-The __/__ can also be used to divide strings, arrays or lists.
+The __/__ operator can also be used to divide strings, arrays or lists.
 Dividing a string, array or list by a value will count the occurrences of the given value and returns an int.
 Note that the order matters.
 
@@ -932,7 +938,7 @@ List<int> countList = [1,2,3,4,2,3] / [2,3];
 Exponentiation (^)
 
 //text
-The __^__ is used when a number needs to be exponented by an other number.
+The __^__ operator is used when a number needs to be exponented by an other number.
 
 //code
 int myInt = 3 ^ 2;
@@ -941,7 +947,7 @@ int myInt = 3 ^ 2;
 Factorization (!)
 
 //text
-The __!__ is used when the factorial needs te be found of a number.
+The __!__ operator is used when the factorial needs te be found of a number.
 
 //code
 int myInt = 5!;
@@ -950,13 +956,13 @@ int myInt = 5!;
 Modulation (%)
 
 //text
-The __%__ is used when the remainder of a number needs te be found after subtraction by an other number just before it becomes negative.
+The __%__ operator is used when the remainder of a number needs te be found after subtraction by an other number just before it becomes negative.
 
 //code
 int myInt = 5 % 2;
 
 //text
-The __%__ can also be used to modulate strings or arrays.
+The __%__ operator can also be used to modulate strings or arrays.
 modulating a string or array will remove all the occurrences of the value(s) on the righthand side from the lefthand side and return a new string or array.
 Note that the order matters.
 
@@ -1068,3 +1074,84 @@ Operator`   Name`                   Example
 ?`          Nullability indicator`  int? myInt = null;
 ?`          Null-aware`             myObject?.toString(); or myArray?[1]; or myMap?['key'];
 ??`         Null-coalescing`        myString ?? 'Default value';
+
+//chapter
+Control statements
+
+//text
+Control statements ar statements that direct the flow of you code to a disired path.
+
+//title
+Branching
+
+//text
+Branching statements are used when you want to branch you code in a wel defined path.
+
+//subtitle
+if (if)
+
+//text
+The __if__ keyword is used when a specific piece of code can only be ran under a specfied conditition.
+The body of an if statement only gets ran when the expression inside the __()__ is evaluated to __true__.
+
+//code
+if(myBoolean){
+    //Code that only runs when myBoolean is true
+}
+
+if(myInt > 5){
+    //Code that only runs when myInt is greater than 5
+}
+
+//subtitle
+else (else)
+
+//text
+The __else__ keyword is used when a specfied piece of code can only ran when the parent if expression is returned to false.
+Note that any __else__ statement must me bounded to an if or else if statement.
+
+//code
+if(myBoolean){
+    //Code that only runs when myBoolean is true.
+}
+else{
+    //Code that only runs when myBoolean is false.
+}
+
+//subtitle
+else if
+The __else if__ keywords are used when a specfied piece of code can only ran when the parent if expression is returned to false and another expression is evaluated to true.
+
+//code
+if(myBoolean){
+    //Code that only runs when myBoolean is true.
+}
+else if(mySecondBoolean){
+    //Code that only runs when myBoolean is false and mySecondBoolean is true.
+}
+
+//text
+else if statements can be stacked a many times as you would like.
+
+//code
+if(myBoolean){
+    //Code that only runs when myBoolean is true.
+}
+else if(mySecondBoolean){
+    //Code that only runs when myBoolean is false and mySecondBoolean is true.
+}
+else if(myThirdBoolean){
+    //Code that only runs when myBoolean is false and mySecondBoolean is false and myThirdBoolean is true.
+}
+
+//text
+else statements can be bounded to any else if statement.
+
+//title
+Looping
+
+//title
+Error handling
+
+//title
+Null safety handling
