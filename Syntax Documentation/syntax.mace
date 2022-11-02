@@ -1079,7 +1079,7 @@ Operator`   Name`                   Example
 Control statements
 
 //text
-Control statements ar statements that direct the flow of you code to a desired path.
+Control statements are statements that direct the flow of your code to a desired path.
 
 //title
 Branching
@@ -1092,16 +1092,16 @@ If (if)
 
 //text
 The __if__ keyword is used when a specific block of code can only be executed under a specfied conditition.
-To create an __if__ statement write __if__ followed by __()__ ending with __{}__.
+To create an __if__ statement write __if__ followed by __()__ and ending with __{}__.
 The body of an if statement only gets executed when the expression inside the __()__ is evaluated to __true__.
 
 //code
 if(myBoolean){
-    //Code that executes when myBoolean is true.
+    // Code that executes when myBoolean is true.
 }
 
 if(myInt > 5){
-    //Code that executes when myInt is greater than 5.
+    // Code that executes when myInt is greater than 5.
 }
 
 //subtitle
@@ -1109,15 +1109,15 @@ Else (else)
 
 //text
 The __else__ keyword is used when a specfied block of code can only be executed when the parent if expression is evaluated to false.
-To create an __else__ statement write __else__ following __{}__.
-Note that any __else__ statement must me bounded to an if, else if, while or for statement.
+To create an __else__ statement write __else__ followed by a __{}__.
+Note that any __else__ statement must be bounded to an if, else if, while or for statement.
 
 //code
 if(myBoolean){
-    //Code that executes when myBoolean is true.
+    // Code that executes when myBoolean is true.
 }
 else{
-    //Code that executes when myBoolean is false.
+    // Code that executes when myBoolean is false.
 }
 
 //text
@@ -1126,13 +1126,13 @@ Note that the else statement only gets executed when the if and all the else if 
 
 //code
 if(myBoolean){
-    //Code that executes when myBoolean is true.
+    // Code that executes when myBoolean is true.
 }
 else if(mySecondBoolean){
-    //Code that executes when myBoolean is false and mySecondBoolean is true.
+    // Code that executes when myBoolean is false and mySecondBoolean is true.
 }
 else{
-    //Code that executes when myBoolean is false and mySecondBoolean is false.
+    // Code that executes when myBoolean is false and mySecondBoolean is false.
 }
 
 //text
@@ -1141,80 +1141,80 @@ Note that the else statement only gets executed when the loop ends without using
 
 //code
 for(int value in values){
-    //Code that executes for every value of values.
+    // Code that executes for every value of values.
 }
 else{
-    //Code that executes when the loop ended.
+    // Code that executes when the loop ended.
 }
 
 while(myBoolean){
-    //Code that executes for as long as myBoolean is true.
+    // Code that executes for as long as myBoolean is true.
 }
 else{
-    //Code that executes when the loop ended.
+    // Code that executes when the loop ended.
 }
 
 //subtitle
 Else if (else if)
-The __else if__ keywords are used when a specfied block of code can only executed when the parent if expression is returned to false and another expression is evaluated to true.
-To create an __else if__ statement write __else if__ followed by __()__ ending with __{}__.
-Note that any __else if__ statement must me bounded to an if or else if statement.
+The __else if__ keywords are used when a specfied block of code can only be executed when the parent if expression is returned to false and another expression is evaluated to true.
+To create an __else if__ statement write __else if__ followed by __()__ and ending with __{}__.
+Note that any __else if__ statement must be bounded to an if or else if statement.
 
 //code
 if(myBoolean){
-    //Code that executes when myBoolean is true.
+    // Code that executes when myBoolean is true.
 }
 else if(mySecondBoolean){
-    //Code that executes when myBoolean is false and mySecondBoolean is true.
+    // Code that executes when myBoolean is false and mySecondBoolean is true.
 }
 
 //text
-The __else if__ statements can be stacked as many times as you would like.
+The __else if__ statements can be stacked as many times as needed.
 
 //code
 if(myBoolean){
-    //Code that executes when myBoolean is true.
+    // Code that executes when myBoolean is true.
 }
 else if(mySecondBoolean){
-    //Code that executes when myBoolean is false and mySecondBoolean is true.
+    // Code that executes when myBoolean is false and mySecondBoolean is true.
 }
 else if(myThirdBoolean){
-    //Code that executes when myBoolean is false and mySecondBoolean is false and myThirdBoolean is true.
+    // Code that executes when myBoolean is false and mySecondBoolean is false and myThirdBoolean is true.
 }
 
 //subtitle
 Switch (switch), (case), (default), (break)
 
 //text
-The __switch__ keyword is used to check a certian value for many cases.
-To create a __switch__ statement write __switch__ followed by __()__ ending with __{}__.
+The __switch__ keyword is used to check a certain value for many cases.
+To create a __switch__ statement write __switch__ followed by __()__ and ending with __{}__.
 Inside the __()__ enter any value.
 
 The __case__ keyword is used to define a block of code that gets executed when the value from the switch is equal to the value(s) in the switch statement.
-To create a case write __case__ followed by __()_ ending with __{}__ inside the __{}__.
+To create a case write __case__ followed by __()__ and ending with __{}__ inside the __{}__.
 Inside the __()__ enter any value with the same type as the value from the switch statement.
-Any number of case statement is allowed.
+Any number of case statements is allowed.
 
 //code
 switch(myInt)
 {
     case(5){
-        //Code that executes when myInt is 5.
+        // Code that executes when myInt is 5.
     }
     case(6){
-        //Code that executes when myInt is 6.
+        // Code that executes when myInt is 6.
     }
 }
 
 //text
 The __,__ can be used to define multiple values in one switch statement.
-These comma separated values work like an logical or operator.
+These comma separated values work like a logical or operator.
 
 //code
 switch(myInt)
 {
     case(5,6){
-        //Code that executes when myInt is 5 or 6.
+        // Code that executes when myInt is 5 or 6.
     }
 }
 
@@ -1225,17 +1225,17 @@ The __break__ keyword can be used to break out of the switch statement and stops
 switch(myInt)
 {
     case(5){
-        //Code that executes when myInt is 5.
+        // Code that executes when myInt is 5.
         break;
     }
     case(6){
-        //Code that executes when myInt is 6.
+        // Code that executes when myInt is 6.
         break;
     }
 }
 
 //text
-The __default__ keyword can be used to define a block of code that ony gets executed when no cases where executed.
+The __default__ keyword can be used to define a block of code that only gets executed when no cases were executed.
 Note that break is not needed.
 //Misschien else gebruiken na de switch net zoals bij een loop? (Ik heb nu bij de scopes het { na de statement gezet mis dat toch maar op de andere pleken ziet er net iets nicer en korter uit.)
 
@@ -1243,15 +1243,15 @@ Note that break is not needed.
 switch(myInt)
 {
     case(5){
-        //Code that executes when myInt is 5.
+        // Code that executes when myInt is 5.
         break;
     }
     case(6){
-        //Code that executes when myInt not is 5 and is 6.
+        // Code that executes when myInt is not 5 and is 6.
         break;
     }
     default{
-        //Code that executes when myInt not is 6 and not is 5.
+        // Code that executes when myInt is not 6 and is not 5.
     }
 }
 
