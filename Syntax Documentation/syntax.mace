@@ -1075,6 +1075,16 @@ Operator`   Name`                   Example
 ?`          Null-aware`             myObject?.toString(); or myArray?[1]; or myMap?['key'];
 ??`         Null-coalescing`        myString ?? 'Default value';
 
+//title
+Ternary
+
+//text
+The __? :__ operators are used to create an if statement that can ben used inside of expressions.
+To use the ternary operator write to following structure a boolean expression, __?__, a expression of any type, __:__, a expression of any type.
+
+//code
+string myString = myBoolean ? 'True' : "False"
+
 //chapter
 Control statements
 
@@ -1257,6 +1267,160 @@ switch(myInt)
 
 //title
 Looping
+
+//text
+Loops are used to iterate over sequences or code that needs to run for a specfied amount of times.
+
+//subtitle
+For (for), (in)
+
+//text
+The __for__ keyword is used to define a block of code that can be executed multiple times.
+To create a for loop write __for__ followed by __()__ and ending with __{}__.
+
+The __in__ keyword is used to bind variable(s) to a given collection of items.
+To create a in statement write one or two variable declarations followed by __in__ ending with a collection.
+
+Note that in statements can only be defined between the __()__ of a for loop.
+
+//code
+for(string value in myArray){
+    print(value);
+    // Code that executes for every value of the myArray array.
+}
+
+for(int index, string value in myArray){
+    print(index);
+    print(value);
+    // Code that executes for every value of the myArray array.
+}
+
+//text
+The __for__ loop can also be used to loop a defined amount of times by defining two code statements and one boolean expression.
+To create such a for loop write inside of the __()__ from the for loop a code statement followed by a boolean expression followed by another code statement.
+The first code statement wil ony be executed once when the loop gets executed.
+The boolean expression will executed before each iteration when evaluated to true the code block of the for loop wil be executed.
+The second code statement will be executed at the end of every iteration.
+
+//code
+for(int i = 0; i < 10; i++){
+    // Code that executes for as long as i is less than 10.
+}
+
+//subtitle
+While (while), (do)
+
+//text
+The __while__ keyword is used to define a block of code that gets executed while a boolean expression is evaluated to __true__.
+To create a __while__ loop write __while__ following by __()__ and ending with __{}__.
+Note that when myBoolean is __false__ before the while loop is executed the while loop never gets executed.
+
+//code
+while(myBoolean){
+    // Code that executes als long as myBoolean is true.
+}
+
+//text
+The __do__ keyword is used to move the code block from the while loop above the while loop so the code block always gets executed at least once.
+To create a __do while__ loop write __do__ then __{}__ followed by __while__ and ending with __()__.
+Between the __()__ of the while a boolean expression is required.
+Note that when myBoolean is __false__ before the do while loop is executed the do while loop gets executed once.
+
+//code
+do{
+    // Code that executes at least once after that als long as myBoolean is true.
+}
+while(myBoolean)
+
+
+//subtile
+Else after loops (else)
+
+//text
+The __else__ keyword can be used to bind a block of code to any loop this code gets executed when the loop finishes without using a __break__ statement.
+To bind the __else__ statement write __else__ followed by __{}__.
+
+//code
+for(string value in myArray){
+    // Code that executes for every value of the myArray array.
+}
+else{
+    // Code that executes when the for loop finishes.
+}
+
+for(int i = 0; i < 10; i++){
+    // Code that executes for as long as i is less than 10.
+}
+else{
+    // Code that executes when the for loop finishes.
+}
+
+do{
+    // Code that executes at least once after that als long as myBoolean is true.
+}
+while(myBoolean)
+else{
+    // Code that executes when the for loop finishes.
+}
+
+//text
+When using the __break__ statement inside a loop the else statement wil not be executed.
+
+//code
+for(string value in myArray){
+    break;    
+}
+else{
+    // Code gets never executed because the break statement is used.
+}
+
+//subtitle
+Break (break)
+
+//text
+The __break__ keyword is used to exit/break out of any loop.
+To use a __break__ statement write __break__ and ending with a __;__.
+Note that code after a break statement does not get executed.
+
+//code
+for(int i = 0; i < 10; i++){
+    // Code that executes for as long as i is less than eqaul or less than 5.
+    if(i == 5){
+        break;
+        // Code that never gets executed.
+    }
+}
+
+//text
+When using the __break__ statement the else statement of any loop wil not be executed.
+
+//code
+for(string value in myArray){
+    break;    
+}
+else{
+    // Code gets never executed because the break statement is used.
+}
+
+
+//subtitle
+Continue (continue)
+
+//text
+The continue keyword is used to stop the current iteration of the loop and continue to a new iteration out of any loop.
+To use a continue statement write __continue__ and ending with a __;__.
+Note that code after a continue statement does not get executed.
+
+//code
+for(int i = 0; i < 10; i++){
+    // Code that executes for as long as i is less than eqaul or less than 5.
+    if(i == 5){
+        continue;
+        // Code that never gets executed.
+    }
+    // This print will be executed for every iteration except when i == 5.
+    print(i);
+}
 
 //title
 Error handling
