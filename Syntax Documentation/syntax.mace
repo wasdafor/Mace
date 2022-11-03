@@ -1086,7 +1086,7 @@ Operator`   Name`                       Example
 Logical
 
 //text
-Logical operators are used to compare two bools with each other to return a bool.
+Logical operators are used to compare two booleans with each other to return one bool.
 
 //tablehead
 Operator,   Name,           Example
@@ -1095,6 +1095,42 @@ Operator,   Name,           Example
 &&`         Logical and`    true && true     
 ||`         Logical or`     false && true
 !`          Logical not`    !false
+
+//subtile
+Logical and (&&)
+
+//text
+The __&&__ operator is used the evaluated two boolean expressions when both expressions are evaluated to true the logical and expression is evaluated to true.
+To use the logical and operator write a boolean expression followed by __&&__ and ending with another boolean expression.
+
+//code
+if(myBoolean && mySecondBoolean){
+    // Code that executes when myBoolean and mySecondBoolean are true.
+}
+
+//subtile
+Logical or (||)
+
+//text
+The __||__ operator is used the evaluated two boolean expressions when at least on expression is evaluated to true the logical or expression is evaluated to true.
+To use the logical and operator write a boolean expression followed by __||__ and ending with another boolean expression.
+
+//code
+if(myBoolean || mySecondBoolean){
+    // Code that executes when myBoolean or mySecondBoolean is true.
+}
+
+//subtile
+Logical not (!)
+
+//text
+The __!__ operator can be used to negate/invert a boolean value.
+To use the logical not operator write __!__ followed by a boolean expression.
+
+//code
+if(!myBoolean){
+    // Code that executes when myBoolean is false.
+}
 
 //title
 Logical Comparison
@@ -1224,7 +1260,7 @@ if(myInt > 5){
 Else (else)
 
 //text
-The __else__ keyword is used when a specfied block of code can only be executed when the parent if expression is evaluated to false.
+The __else__ keyword can be used when a specfied block of code can only be executed when the parent if expression is evaluated to false.
 To create an __else__ statement write __else__ followed by a __{}__.
 Note that any __else__ statement must be bounded to an if, else if, while or for statement.
 
