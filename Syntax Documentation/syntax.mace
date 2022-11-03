@@ -50,9 +50,9 @@ Namespaces
 Creating Namespaces (namespace)
 
 //text
-The __namespace__ keyword is used to create a __namespace__
-To create a __namespace__ write the __namespace__ keyword, followed by the name of the namespace with opening and closing curly brackets,
-When defining fields, methods and classes they are automatically __static__, so the __static__ keyword is not required.
+The __namespace__ keyword is used to create a __namespace__.
+To create a __namespace__ write the __namespace__ keyword, followed by the name of the __namespace__ with opening and closing curly brackets.
+When defining fields, methods and classes inside a __namespace__, they are automatically __static__, so the __static__ keyword is not required.
 
 //code
 namespace MyNamespace
@@ -84,7 +84,7 @@ Using Namespaces (using)
 
 //text
 The __using__ keyword is used to use a namespace. 
-To use a namespace write __using__ followed by the path where the namespace is located ending with a __;__.
+To use a namespace write __using__ followed by the path to the location of the namespace ending with a __;__.
 All public elements in the namespace can be directly accessed.
 
 //code
@@ -1315,9 +1315,9 @@ The __for__ keyword is used to define a block of code that can be executed multi
 To create a for loop write __for__ followed by __()__ and ending with __{}__.
 
 The __in__ keyword is used to bind variable(s) to a given collection of items.
-To create a in statement write one or two variable declarations followed by __in__ ending with a collection.
+To create an in statement write one or two variable declarations followed by __in__ ending with a collection.
 
-Note that in statements can only be defined between the __()__ of a for loop.
+Note that in statements can only be defined between the __()__ of a __for loop__.
 
 //code
 for(string value in myArray){
@@ -1332,10 +1332,10 @@ for(int index, string value in myArray){
 }
 
 //text
-The __for__ loop can also be used to loop a defined amount of times by defining two code statements and one boolean expression.
-To create such a for loop write inside of the __()__ from the for loop a code statement followed by a boolean expression followed by another code statement.
-The first code statement wil ony be executed once when the loop gets executed.
-The boolean expression will executed before each iteration when evaluated to true the code block of the for loop wil be executed.
+The __for loop__ can also be used to loop a defined amount of times by defining two code statements and one boolean expression.
+To create such a __for loop__ write inside the __()__ of the for loop a code statement followed by a boolean expression and ending with another code statement.
+The first code statement wil only be executed once when the loop gets executed.
+The boolean expression will be executed before each iteration when evaluated to true the code block of the __for loop__ wil be executed.
 The second code statement will be executed at the end of every iteration.
 
 //code
@@ -1348,23 +1348,23 @@ While (while), (do)
 
 //text
 The __while__ keyword is used to define a block of code that gets executed while a boolean expression is evaluated to __true__.
-To create a __while__ loop write __while__ following by __()__ and ending with __{}__.
-Note that when myBoolean is __false__ before the while loop is executed the while loop never gets executed.
+To create a __while loop__ write __while__ followed by __()__ and ending with __{}__.
+Note that when myBoolean is __false__ before the __while loop__ is executed, the codeblock of the __while loop__ never gets executed.
 
 //code
 while(myBoolean){
-    // Code that executes als long as myBoolean is true.
+    // Code that executes as long as myBoolean is true.
 }
 
 //text
-The __do__ keyword is used to move the code block from the while loop above the while loop so the code block always gets executed at least once.
-To create a __do while__ loop write __do__ then __{}__ followed by __while__ and ending with __()__.
-Between the __()__ of the while a boolean expression is required.
-Note that when myBoolean is __false__ before the do while loop is executed the do while loop gets executed once.
+The __do__ keyword is used to move the code block from the while loop to above the while loop so the code block always gets executed at least once.
+To create a __do while loop__ write __do__ then __{}__ followed by __while__ and ending with __()__.
+Between the __()__ a boolean expression is required.
+Note that when myBoolean is __false__ before the __do while loop__ is executed, the code block of the __do while loop__ gets executed once.
 
 //code
 do{
-    // Code that executes at least once after that als long as myBoolean is true.
+    // Code that executes at least once, after which it executes as long as myBoolean is true.
 }
 while(myBoolean)
 
@@ -1373,7 +1373,7 @@ while(myBoolean)
 Else after loops (else)
 
 //text
-The __else__ keyword can be used to bind a block of code to any loop this code gets executed when the loop finishes without using a __break__ statement.
+The __else__ keyword can be used to bind a block of code to any loop. This code gets executed when the loop finishes without encountering a __break__ statement.
 To bind the __else__ statement write __else__ followed by __{}__.
 
 //code
@@ -1392,11 +1392,11 @@ else{
 }
 
 do{
-    // Code that executes at least once after that als long as myBoolean is true.
+    // Code that executes at least once, after which it executes as long as myBoolean is true.
 }
 while(myBoolean)
 else{
-    // Code that executes when the for loop finishes.
+    // Code that executes when the do while loop finishes.
 }
 
 //text
@@ -1420,11 +1420,12 @@ Note that code after a break statement does not get executed.
 
 //code
 for(int i = 0; i < 10; i++){
-    // Code that executes for as long as i is less than eqaul or less than 5.
+    // Code that executes for as long as i is less than or equal to 5.
     if(i == 5){
         break;
         // Code that never gets executed.
     }
+    // Code that executes for as long as i is less than 5.
 }
 
 //text
@@ -1443,19 +1444,18 @@ else{
 Continue (continue)
 
 //text
-The continue keyword is used to stop the current iteration of the loop and continue to a new iteration out of any loop.
-To use a continue statement write __continue__ and ending with a __;__.
+The continue keyword is used to stop/break out of the current iteration of the loop, and continue to the next iteration of said loop.
+To use a continue statement write __continue__ followed by a __;__.
 Note that code after a continue statement does not get executed.
 
 //code
 for(int i = 0; i < 10; i++){
-    // Code that executes for as long as i is less than eqaul or less than 5.
+    // Code that executes for as long as i is less than or equal to 5.
     if(i == 5){
         continue;
         // Code that never gets executed.
     }
-    // This print will be executed for every iteration except when i == 5.
-    print(i);
+    // Code that executes for every iteration except as when i is equal to 5.
 }
 
 //title
