@@ -1030,6 +1030,23 @@ List<int> myList = [1,2,3,4,2,3] % [2,3];
 // myList becomes: [1,4]
 
 //title
+Bitwise
+
+//text
+Bitwise operators can be used the manipulate bit sequences
+
+//tablehead
+Operator`   Name
+
+//table
+&`          Bitwise AND
+|`	        Bitwise OR
+^^`	        Bitwise XOR
+~`	        Bitwise Complement
+<<`	        Bitwise Shift Left
+>>`	        Bitwise Shift Right
+
+//title
 Assignment
 
 //text
@@ -1052,6 +1069,12 @@ Operator`   Name`                                   Example`           Same as
 ^=`         Exponentiation assignment`              myInt ^= 5;`       myInt = myInt ^ 5; 
 !!`         Factorization`                          myInt!!;`          myInt = myInt!; 
 %=`         Modulation assignment`                  myInt %= 5;`       myInt = myInt % 5;
+&=`         Bitwise AND assignment`                 myInt &= 5;`       myInt = myInt & 5; 
+|=`         Bitwise OR assignment`                  myInt |= 5;`       myInt = myInt | 5; 
+^^=`        Bitwise XOR assignment`                 myInt ^^= 5;`      myInt = myInt ^^ 5; 
+~~`         Bitwise Complement assignment`          myInt~~;`          myInt = ~myInt; 
+<<=`        Bitwise Shift Left assignment`          myInt <<= 5;`      myInt = myInt << 5; 
+>>=         Bitwise Shift Right assignment`         myInt >>= 5;`      myInt = myInt >> 5; 
 ??=`        Null-coalescing assignment`             myInt =?? 5;`      myInt = myInt ?? 5; or myInt = myInt == null ? 5 : myInt;  
 
 //subtitle
@@ -1179,8 +1202,58 @@ To use the ternary operator write to following structure a boolean expression, _
 
 //code
 myBoolean = false;
-string myString = myBoolean ? 'True' : 'False' + test := 'hoi';
+string myString = myBoolean ? 'True' : 'False';
 // myString becomes: 'False'
+
+//title
+Optional expression
+
+//text
+Optional expressions can be used to define a expression that only get evaluated when a boolean is true.
+The following operators can be used with this operator.
+
+//tablehead
+Operator`   optional expression operator(s)`
+
+//table
+=`          <?                                              
++=`         <? 
+-=`         <? 
+*=`         <? 
+/=`         <? 
+^=`         <? 
+%=`         <?
+&=`         <? 
+|=`         <? 
+^^=`        <?
+<<=`        <?
+>>=`        <? 
++`          <? or >? 
+-`          <? or >? 
+*`          <? or >? 
+/`          <? or >? 
+^`          <? or >? 
+!`          <? or >? 
+%`          <? or >? 
+,`          <? or >? 
+
+//text
+The __<?__  operator is used to define a optional expression with the operator on the lefthand side.
+To use this operator write a valid operator followed by a boolean expression and ending by a value.
+
+//code
+int? myInt = myBoolean <? 7;
+
+myString = myBoolean <? "Hello World!";
+
+//text
+The __>?__  operator is used to define a optional expression with the operator on the righthand side.
+To use this operator write a boolean expression followed by a value and ending with a valid operator.
+
+//code
+int? myInt = myBoolean >? 7 + 5;
+
+myString = myBoolean >? "Hello " + "World!";
 
 //text
 The __= ?__ operators are used to optionaly define a value.
@@ -1467,7 +1540,7 @@ do{
 Else after loops (else)
 
 //text
-The __else__ keyword can be used to bind a block of code to any loop. This code gets executed when the loop finishes without encountering a __break__ statement.
+The __else__ keyword can be used to bind a block of code to any loop or switch statement. This code gets executed when the loop or switch finishes without encountering a __break__ statement.
 To bind the __else__ statement write __else__ followed by __{}__.
 
 //code
@@ -1487,6 +1560,20 @@ do{
     // Code that executes at least once, after which it executes as long as myBoolean is true.
 }while(myBoolean)else{
     // Code that executes when the do while loop finishes.
+}
+
+switch (myInt)
+{
+    case(5){
+        // Code that executes when myInt is 5.
+        break;
+    }
+    case(6){
+        // Code that executes when myInt is not 5 and is 6.
+        break;
+    }
+}else{
+    // Code that executes when the switch finishes.
 }
 
 //text
