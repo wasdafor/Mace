@@ -39,7 +39,7 @@ Your comment here (this text should not be compiled to html)
 Your table titles here
 
 //table
-Your table elements here saperate collums by a comma
+Your table elements here seperate collums by a comma
 
 __Your label here__
 
@@ -984,8 +984,6 @@ countArray = [3,3,3] / [3,3];
 int countList = [1,2,3,4,2,3] / [2,3];
 // countList becomes: 2
 
-
-
 //subtitle
 Exponentiation (^)
 
@@ -1053,7 +1051,6 @@ Assignment
 Assignment operators are used to assign or for reassigning a value to a variable.
 Some of these operators can be used on strings, arrays, sets and maps.
 For all the arithmetic assignment operators check out the arithmetic or null safety chapter.
-
 
 //tablehead
 Operator`   Name`                                   Example`           Same as
@@ -1209,6 +1206,8 @@ string myString = myBoolean ? 'True' : 'False';
 Optional expression
 
 //text
+//NOTE de uitleg die ik nu heb gescheven ben ik nog niet helemaal tevreden mee dus als jij het anders wilt uitleggen (graag) is dat geen probleem ik hoop
+//dat de uitleg die ik nu hebt gescheven duidelijk voor jouw is om het te hunnen herschijven ook is heb ik nog geen gewelidige naam kunnen verzinnen.
 Optional expressions can be used to define a expression that only get evaluated when a boolean is true.
 The following operators can be used with this operator.
 
@@ -1233,27 +1232,68 @@ Operator`   optional expression operator(s)`
 *`          <? or >? 
 /`          <? or >? 
 ^`          <? or >? 
-!`          <? or >? 
 %`          <? or >? 
+|`          <? or >? 
+^^`         <? or >? 
+<<`         <? or >? 
+>>`         <? or >? 
 ,`          <? or >? 
+
+//subtitle
+Left optional expression (<?)
 
 //text
 The __<?__  operator is used to define a optional expression with the operator on the lefthand side.
-To use this operator write a valid operator followed by a boolean expression and ending by a value.
+To use this operator write a valid operator followed by a boolean expression and ending with a literal value or variable.
+
+When the boolean expression is evaluated to true the value will be included in the expression.
+When the boolean expression is evaluated to false the literal value or variable and the operator before the boolean expression will be ignored.
 
 //code
 int? myInt = myBoolean <? 7;
+// myInt becomes: 7 when myBoolean is true
+// myInt becomes: null when myBoolean is false
 
-myString = myBoolean <? "Hello World!";
+myInt = 5 + myBoolean <? 7;
+// myInt becomes: 12 when myBoolean is true
+// myInt becomes: 5 when myBoolean is false
+
+myString = myBoolean <? 'Hello World!';
+// myString becomes: "Hello World!" when myBoolean is true
+// myString keeps the current value when myBoolean is false
+
+//text
+The __<?__ operator can also be used on a __,__ to optionaly add values to collections.
+
+int[] myArray = [1,2,myBoolean <? 3]
+// myArray becomes: [1,2,3] when myBoolean is true
+// myArray becomes: [1,2] when myBoolean is false
+
+//subtitle
+Right optional expression (>?)
 
 //text
 The __>?__  operator is used to define a optional expression with the operator on the righthand side.
-To use this operator write a boolean expression followed by a value and ending with a valid operator.
+To use this operator write a boolean expression followed by a literal value or variable and ending with a valid operator.
+
+When the boolean expression is evaluated to true the value will be included in the expression.
+When the boolean expression is evaluated to false the literal value or variable and the operator after the literal value or variable will be ignored.
 
 //code
-int? myInt = myBoolean >? 7 + 5;
+int myInt = myBoolean >? 7 + 5;
+// myInt becomes: 12 when myBoolean is true
+// myInt becomes: 5 when myBoolean is false
 
-myString = myBoolean >? "Hello " + "World!";
+myString = myBoolean >? 'Hello ' + 'World!';
+// myString becomes: "Hello World!" when myBoolean is true
+// myString becomes: "World!" when myBoolean is false
+
+//text
+The __>?__ operator can also be used on a __,__ to optionaly add values to collections.
+
+int[] myArray = [myBoolean >? 1,2,3]
+// myArray becomes: [1,2,3] when myBoolean is true
+// myArray becomes: [2,2] when myBoolean is false
 
 //text
 The __= ?__ operators are used to optionaly define a value.
@@ -1358,8 +1398,8 @@ if(myBoolean){
 }
 
 //text
-The __else__ statement can also be bounded to any for or while loop.
-Note that the else statement only gets executed when the loop ends without using break.
+The __else__ statement can also be bounded to any for or while loop or switch.
+Note that the else statement only gets executed when the loop or switch finishes without executing a break.
 
 //code
 for(int value in values){
@@ -1373,6 +1413,21 @@ while(myBoolean){
 }else{
     // Code that executes when the loop ended.
 }
+
+switch (myInt)
+{
+    case(5){
+        // Code that executes when myInt is 5.
+        break;
+    }
+    case(6){
+        // Code that executes when myInt is not 5 and is 6.
+        break;
+    }
+}else{
+    // Code that executes when the switch finishes.
+}
+
 
 //subtitle
 Else if (else if)
@@ -1476,14 +1531,14 @@ Looping
 Loops are used to iterate over sequences or code that needs to run for a specfied amount of times.
 
 //subtitle
-For (for), (in)
+For (for), (in), (with)
 
 //text
 The __for__ keyword is used to define a block of code that can be executed multiple times.
 To create a for loop write __for__ followed by __()__ and ending with __{}__.
 
 The __in__ keyword is used to bind variable(s) to a given collection of items.
-To create an in statement write one or two variable declarations followed by __in__ ending with a collection.
+To create an in statement write one or two variable separated declarations followed by __in__ ending with a collection.
 
 Note that in statements can only be defined between the __()__ of a __for loop__.
 
@@ -1493,9 +1548,21 @@ for(string value in myArray){
     // Code that executes for every value of the myArray array.
 }
 
-for(int index, string value in myArray){
+Map<string,int> myMap = {'FirstValue':4,'SecondValue':9};
+for(string key, int value in myMap){
     print(index);
     print(value);
+    // Code that executes for every value of the myArray array.
+}
+
+//text
+The __with__ keyword is used to bind a int variable to a for in loop its index.
+To use the with statement write after the content in the __()__ __with__ followed by a int variable declaration.
+
+//code
+for(string value in myArray with int index){
+    print(value);
+    print(index);
     // Code that executes for every value of the myArray array.
 }
 
@@ -1540,7 +1607,7 @@ do{
 Else after loops (else)
 
 //text
-The __else__ keyword can be used to bind a block of code to any loop or switch statement. This code gets executed when the loop or switch finishes without encountering a __break__ statement.
+The __else__ keyword can be used to bind a block of code to any loop. This code gets executed when the loop finishes without encountering a __break__ statement.
 To bind the __else__ statement write __else__ followed by __{}__.
 
 //code
@@ -1560,20 +1627,6 @@ do{
     // Code that executes at least once, after which it executes as long as myBoolean is true.
 }while(myBoolean)else{
     // Code that executes when the do while loop finishes.
-}
-
-switch (myInt)
-{
-    case(5){
-        // Code that executes when myInt is 5.
-        break;
-    }
-    case(6){
-        // Code that executes when myInt is not 5 and is 6.
-        break;
-    }
-}else{
-    // Code that executes when the switch finishes.
 }
 
 //text
