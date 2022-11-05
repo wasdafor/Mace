@@ -1032,10 +1032,11 @@ List<int> myList = [1,2,3,4,2,3] % [2,3];
 // myList becomes: [1,4]
 
 //title
-Bitwise
+Bitwise depended
 
 //text
-Bitwise operators can be used the manipulate bit sequences
+Depended bitwise operators can be used to manipulate two bit sequences in relation to each other.
+The result will be a combination of the two via specific rules.
 
 //tablehead
 Operator`   Name
@@ -1044,9 +1045,16 @@ Operator`   Name
 &`          Bitwise AND
 |`	        Bitwise OR
 ^^`	        Bitwise XOR
+
 ~`	        Bitwise NOT
-<<`	        Bitwise Shift Left
->>`	        Bitwise Shift Right
+<<`	        Bitwise signed left shift
+>>`	        Bitwise signed right shift
+<<<`        Bitwise unsigned left shift
+>>>`        Bitwise unsigned right shift
+@>>         
+@<<
+@>>>
+@<<<
 
 //subtitle
 Bitwise AND (&)
@@ -1058,7 +1066,7 @@ If one or both bits are zero a zero wil be return in the new sequence of bits.
 
 //code
 int myInt = 0b1100 & 0b1010;
-// myInt becomes: 0b1000 whitch is 8
+// myInt becomes: 0b1000 which is 8
 
 myInt = 12 & 10;
 // myInt becomes: 8
@@ -1161,8 +1169,10 @@ Operator`   Name`                                   Example`           Same as
 |=`         Bitwise OR assignment`                  myInt |= 5;`       myInt = myInt | 5; 
 ^^=`        Bitwise XOR assignment`                 myInt ^^= 5;`      myInt = myInt ^^ 5; 
 ~~`         Bitwise Complement assignment`          myInt~~;`          myInt = ~myInt; 
-<<=`        Bitwise Shift Left assignment`          myInt <<= 5;`      myInt = myInt << 5; 
->>=         Bitwise Shift Right assignment`         myInt >>= 5;`      myInt = myInt >> 5; 
+<<=`        Bitwise signed shift left assignment`   myInt <<= 5;`      myInt = myInt << 5; 
+>>=         Bitwise signed shift right assignment`  myInt >>= 5;`      myInt = myInt >> 5;
+<<<=`       Bitwise unsigned shift left assignment` myInt <<= 5;`      myInt = myInt << 5; 
+>>>=        Bitwise signed shift right assignment`  myInt >>= 5;`      myInt = myInt >> 5;  
 ??=`        Null-coalescing assignment`             myInt =?? 5;`      myInt = myInt ?? 5; or myInt = myInt == null ? 5 : myInt;  
 
 //subtitle
@@ -1200,7 +1210,7 @@ Logical
 Logical operators are used to compare two booleans with each other to return one bool.
 
 //tablehead
-Operator,   Name,           Example
+Operator`   Name`           Example
 
 //table
 &&`         Logical and`    true && true     
@@ -1278,7 +1288,7 @@ Operator`   Name`                   Example
 
 //table
 ?`          Nullability indicator`  int? myInt = null;
-?`          Null-aware`             myObject?.toString(); or myArray?[1]; or myMap?['key'];
+?.`          Null-aware`             myObject?.toString(); or myArray?[1]; or myMap?['key'];
 ??`         Null-coalescing`        myString ?? 'Default value';
 
 //title
@@ -1317,7 +1327,9 @@ Operator`   optional expression operator(s)`
 |=`         <? 
 ^^=`        <?
 <<=`        <?
->>=`        <? 
+>>=`        <?
+<<<=`       <?
+>>>=`       <? 
 +`          <? or >? 
 -`          <? or >? 
 *`          <? or >? 
@@ -1326,8 +1338,8 @@ Operator`   optional expression operator(s)`
 %`          <? or >? 
 |`          <? or >? 
 ^^`         <? or >? 
-<<`         <? or >? 
->>`         <? or >? 
+<<<`        <? or >? 
+>>>`        <? or >? 
 ,`          <? or >? 
 
 //subtitle
@@ -1384,7 +1396,7 @@ The __>?__ operator can also be used on a __,__ to optionaly add values to colle
 
 int[] myArray = [myBoolean >? 1,2,3]
 // myArray becomes: [1,2,3] when myBoolean is true
-// myArray becomes: [2,2] when myBoolean is false
+// myArray becomes: [2,3] when myBoolean is false
 
 //text
 The __= ?__ operators are used to optionaly define a value.

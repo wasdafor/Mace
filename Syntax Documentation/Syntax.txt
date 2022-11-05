@@ -148,3 +148,56 @@ pointer
 cpp
 A pointer in C++ is a variable that holds the memory address of another variable.
 A reference is an alias for an already existing variable. Once a reference is initialized to a variable, it cannot be changed to refer to another variable.
+
+
+negate signed byte
+-------------
+signed
+0b00000110 = 6
+flip all numbers
+0b11111001
+add binary one
+0b11111010
+msb staat aan dus is -128
+-128 + 64 + 32 + 16 + 8 + 0 + 2 + 0 = -6
+----------- twos compliment method
+
+~myInt + 1 == -myInt
+
+
+
+-not
+
+---
+
+0b10000110 >> 1
+-128 + 6 = -122
+
+0b11111001
+-128 + 64 + 32 + 16 + 8 + 0 + 0 + 1 = -7
+
+signed:
+0b10000001
+-128 + 1 = -127
+pas toe: << 1
+0b10000010 = -128 + 2 = -126
+pas toe: <<< 1
+0b00000010 = 2
+
+
+
+
+int i,j
+j = 1
+if ((bool)(i & 1)){
+    
+}
+
+34 @>>> 3;
+i @>>>= 1;
+savedBits = 34 & 0000000000000111;
+0011 & 000000000000000001
+modulus 2
+savedBits <<<= 16 - 3;
+newValue = 34 >>> 3;
+newValue |= savedBits;
