@@ -956,6 +956,8 @@ string myString = 'Hello World!' * 2;
 // myString becomes: 'Hello World!Hello World!'
 int[] myArray = [1,2,3,4] * 2;
 // myArray becomes: [1,2,3,4,1,2,3,4]
+List<int> myList = [1,2,3,4] * 2;
+// myList becomes: [1,2,3,4,1,2,3,4]
 Set<int[]> mySet = {1,2,3,4} * {5,6,7,8};
 // mySet becomes: {[1,5],[1,6],[1,7],[1,8],[2,5],[2,6],[2,7],[2,8],[3,5],[3,6],[3,7],[3,8],[4,5],[4,6],[4,7],[4,8]}
 
@@ -1024,6 +1026,8 @@ string myString = 'Hello World!' % 'l';
 // myString becomes: 'Heo Word!'
 int[] myArray = [1,2,3,4,2,3] % [2,3];
 // myArray becomes: [1,4]
+myArray = [3,3,3] & [3,3];
+// myArray becomes: [3]
 List<int> myList = [1,2,3,4,2,3] % [2,3];
 // myList becomes: [1,4]
 
@@ -1040,9 +1044,96 @@ Operator`   Name
 &`          Bitwise AND
 |`	        Bitwise OR
 ^^`	        Bitwise XOR
-~`	        Bitwise Complement
+~`	        Bitwise NOT
 <<`	        Bitwise Shift Left
 >>`	        Bitwise Shift Right
+
+//subtitle
+Bitwise AND (&)
+
+//text
+The __&__ operator is used to check if both bits are one. 
+If both bits are one a one wil be return in the new sequence of bits.
+If one or both bits are zero a zero wil be return in the new sequence of bits.
+
+//code
+int myInt = 0b1100 & 0b1010;
+// myInt becomes: 0b1000 whitch is 8
+
+myInt = 12 & 10;
+// myInt becomes: 8
+
+//text
+The __&__ can also be used to get the intersect of two strings, arrays, lists or sets.
+Note that the return type of the intersect will always be a set.
+
+//code
+Set<string> myStringSet = '1235' & '245';
+// myStringSet becomes: {'2','5'}
+
+Set<int> mySet = [1,2,3,5] & [2,4,5];
+// mySet becomes: {2,5}
+ 
+mySet = {1,2,3,5} & {2,4,5};
+// mySet becomes: {2,5}
+
+//subtitle
+Bitwise OR (|)
+
+//text
+The __|__ operator is used to check if one or both bits are one. 
+If one or both bits is one a one wil be return in the new sequence of bits.
+If both bits are zero a zero wil be return in the new sequence of bits.
+
+//code
+int myInt = 0b1100 | 0b1010;
+// myInt becomes: 0b1110 whitch is 14
+
+myInt = 12 | 10;
+// myInt becomes: 14
+
+//text
+The __|__ can also be used to get the union of two strings, arrays, lists or sets.
+Note that the return type of the union will always be a set.
+
+//code
+Set<char> myStringSet = '1235' | '245';
+// myStringSet becomes: {'1','2','3','4','5'}
+
+Set<int> mySet = [1,2,3,5] | [2,4,5];
+// mySet becomes: {1,2,3,4,5}
+ 
+mySet = {1,2,3,5} | {2,4,5};
+// mySet becomes: {1,2,3,4,5}
+
+//subtitle
+Bitwise XOR (^^)
+
+//text
+The __^^__ operator is used to check if one of both bits is one. 
+If one of both bits is one a one wil be return in the new sequence of bits.
+If both bits are zero or one a zero wil be return in the new sequence of bits.
+
+//code
+int myInt = 0b1100 ^^ 0b1010;
+// myInt becomes: 0b0110 whitch is 6
+
+myInt = 12 ^^ 10;
+// myInt becomes: 6
+
+//subtitle
+Bitwise NOT (~)
+
+//text
+The __~__ operator is used to flip the bits of the operhand. 
+
+//code
+int myInt = ~0b1100;
+// myInt becomes: 0b0011 whitch is 3
+
+myInt = 12 ^^ 10;
+// myInt becomes: 6
+
 
 //title
 Assignment
