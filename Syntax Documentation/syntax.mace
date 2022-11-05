@@ -837,7 +837,7 @@ Operator`   Name`                       Example
 --`         Decrement`                  --myInt    
 *`          Multiplication`             myInt * 5
 /`          Division`                   myInt / 5
-^`          Exponentiation`             myInt ^ 5
+**`         Exponentiation`             myInt ** 5
 !`          Factorization`              myInt!
 %`          Modulation`                 myInt % 5          
 
@@ -987,13 +987,13 @@ int countList = [1,2,3,4,2,3] / [2,3];
 // countList becomes: 2
 
 //subtitle
-Exponentiation (^)
+Exponentiation (**)
 
 //text
-The __^__ operator is used when a number needs to be exponented by an other number.
+The __**__ operator is used when a number needs to be exponented by an other number.
 
 //code
-int myInt = 3 ^ 2;
+int myInt = 3 ** 2;
 // myInt becomes: 9
 
 //subtitle
@@ -1044,7 +1044,7 @@ Operator`   Name
 //table
 &`          Bitwise AND
 |`	        Bitwise OR
-^^`	        Bitwise XOR
+^`	        Bitwise XOR
 
 //subtitle
 Bitwise AND (&)
@@ -1105,18 +1105,18 @@ mySet = {1,2,3,5} | {2,4,5};
 // mySet becomes: {1,2,3,4,5}
 
 //subtitle
-Bitwise XOR (^^)
+Bitwise XOR (^)
 
 //text
-The __^^__ operator is used to check if one of both bits is one. 
+The __^__ operator is used to check if one of both bits is one. 
 If one of both bits is one a one wil be return in the new sequence of bits.
 If both bits are zero or one a zero wil be return in the new sequence of bits.
 
 //code
-int myInt = 0b1100 ^^ 0b1010;
+int myInt = 0b1100 ^ 0b1010;
 // myInt becomes: 0b0110 whitch is 6
 
-myInt = 12 ^^ 10;
+myInt = 12 ^ 10;
 // myInt becomes: 6
 
 //title
@@ -1196,12 +1196,12 @@ Operator`   Name`                                       Combined operator`  Exam
 --`         Decrement assignment`                       --`                 myInt--;`          myInt = --myInt; or myInt = myInt - 1;
 *=`         Multiplication assignment`                  *`                  myInt *= 5;`       myInt = myInt * 5; 
 /=`         Division assignment`                        /`                  myInt /= 5;`       myInt = myInt / 5; 
-^=`         Exponentiation assignment`                  ^`                  myInt ^= 5;`       myInt = myInt ^ 5; 
+**=`        Exponentiation assignment`                  **`                 myInt **= 5;`      myInt = myInt ** 5; 
 !!`         Factorization`                              !`                  myInt!!;`          myInt = myInt!; 
 %=`         Modulation assignment`                      %`                  myInt %= 5;`       myInt = myInt % 5;
 &=`         Bitwise AND assignment`                     &`                  myInt &= 5;`       myInt = myInt & 5; 
 |=`         Bitwise OR assignment`                      |`                  myInt |= 5;`       myInt = myInt | 5; 
-^^=`        Bitwise XOR assignment`                     ^^`                 myInt ^^= 5;`      myInt = myInt ^^ 5; 
+^=`         Bitwise XOR assignment`                     ^`                  myInt ^= 5;`      myInt = myInt ^ 5; 
 ~~`         Bitwise Complement assignment`              ~`                  myInt~~;`          myInt = ~myInt;
 >>=         Bitwise signed right shift assignment`      >>`                 myInt >>= 5;`      myInt = myInt >> 5; 
 <<=`        Bitwise signed left shift assignment`       <<`                 myInt <<= 5;`      myInt = myInt << 5; 
@@ -1250,7 +1250,8 @@ Operator`   Name`           Example
 
 //table
 &&`         Logical and`    true && true     
-||`         Logical or`     false && true
+||`         Logical or`     false || true
+^^`         Logical xor`    false ^^ true
 !`          Logical not`    !false
 
 //subtile
@@ -1331,11 +1332,11 @@ Operator`   optional expression operator(s)`
 -=`         <? 
 *=`         <? 
 /=`         <? 
-^=`         <? 
+**=`        <? 
 %=`         <?
 &=`         <? 
 |=`         <? 
-^^=`        <?
+^=`         <?
 >>=`        <?
 <<=`        <?
 >>>=`       <? 
@@ -1346,10 +1347,10 @@ Operator`   optional expression operator(s)`
 -`          <? or >? 
 *`          <? or >? 
 /`          <? or >? 
-^`          <? or >? 
+**`         <? or >? 
 %`          <? or >? 
 |`          <? or >? 
-^^`         <? or >? 
+^`          <? or >? 
 >>`         <? or >?
 <<`         <? or >? 
 >>>`        <? or >?
