@@ -1046,16 +1046,6 @@ Operator`   Name
 |`	        Bitwise OR
 ^^`	        Bitwise XOR
 
-~`	        Bitwise NOT
-<<`	        Bitwise signed left shift
->>`	        Bitwise signed right shift
-<<<`        Bitwise unsigned left shift
->>>`        Bitwise unsigned right shift
-@>>         
-@<<
-@>>>
-@<<<
-
 //subtitle
 Bitwise AND (&)
 
@@ -1129,6 +1119,26 @@ int myInt = 0b1100 ^^ 0b1010;
 myInt = 12 ^^ 10;
 // myInt becomes: 6
 
+//title
+Bitwise independed
+
+//text
+independed bitwise operators can be used to manipulate a bit sequences.
+
+//tablehead
+Operator`   Name
+
+//table
+~`	        Bitwise NOT
+>>`	        Bitwise signed right shift
+<<`	        Bitwise signed left shift
+>>>`        Bitwise unsigned right shift
+<<<`        Bitwise unsigned left shift
+@>>`        Bitwise sigend right shift loop         
+@<<`        Bitwise sigend left shift loop
+@>>>`       Bitwise unsigend right shift loop         
+@<<<`       Bitwise unsigend left shift loop
+
 //subtitle
 Bitwise NOT (~)
 
@@ -1136,44 +1146,70 @@ Bitwise NOT (~)
 The __~__ operator is used to flip the bits of the operhand. 
 
 //code
-int myInt = ~0b1100;
-// myInt becomes: 0b0011 whitch is 3
+int myInt = ~0b00000000000000000000000000001100;
+// myInt becomes: 0b11111111111111111111111111110011 whitch is -13
 
-myInt = 12 ^^ 10;
-// myInt becomes: 6
+myInt = ~12;
+// myInt becomes: -13
 
+//title
+Null safety
+
+//text
+Null safety operators are used to manage null values in you program to avoid runtime errors.
+
+//tablehead
+Operator`   Name`                   Example
+
+//table
+?`          Nullability indicator`  int? myInt = null;
+?`          Null-aware`             myObject?.toString(); or myArray?[1]; or myMap?['key'];
+??`         Null-coalescing`        myString ?? 'Default value';
+
+//title
+Ternary
+
+//text
+The __? :__ operators are used to create an if statement that can ben used inside of expressions.
+To use the ternary operator write to following structure a boolean expression, __?__, a expression of any type, __:__, a expression of any type.
+
+//code
+myBoolean = false;
+string myString = myBoolean ? 'True' : 'False';
+// myString becomes: 'False'
 
 //title
 Assignment
 
 //text
-Assignment operators are used to assign or for reassigning a value to a variable.
-Some of these operators can be used on strings, arrays, sets and maps.
-For all the arithmetic assignment operators check out the arithmetic or null safety chapter.
+Assignment operators are used to assign or reassigning a value to a variable.
+For more information about combined assignment operators check their chapers.
 
 //tablehead
-Operator`   Name`                                   Example`           Same as
+Operator`   Name`                                       Combined operator`  Example`           Same as
 
 //table
-=`          Assignment`                             myInt = 0;`        myInt = 0;
-+=`         Addition assignment`                    myInt += 5;`       myInt = myInt + 5; 
-++`         Increment assignment`                   myInt++;`          myInt = ++myInt; or myInt = myInt + 1;
--=`         Negatation or Subtraction assignment`   myInt -= 5;`       myInt = myInt - 5; 
---`         Decrement assignment`                   myInt--;`          myInt = --myInt; or myInt = myInt - 1;
-*=`         Multiplication assignment`              myInt *= 5;`       myInt = myInt * 5; 
-/=`         Division assignment`                    myInt /= 5;`       myInt = myInt / 5; 
-^=`         Exponentiation assignment`              myInt ^= 5;`       myInt = myInt ^ 5; 
-!!`         Factorization`                          myInt!!;`          myInt = myInt!; 
-%=`         Modulation assignment`                  myInt %= 5;`       myInt = myInt % 5;
-&=`         Bitwise AND assignment`                 myInt &= 5;`       myInt = myInt & 5; 
-|=`         Bitwise OR assignment`                  myInt |= 5;`       myInt = myInt | 5; 
-^^=`        Bitwise XOR assignment`                 myInt ^^= 5;`      myInt = myInt ^^ 5; 
-~~`         Bitwise Complement assignment`          myInt~~;`          myInt = ~myInt; 
-<<=`        Bitwise signed shift left assignment`   myInt <<= 5;`      myInt = myInt << 5; 
->>=         Bitwise signed shift right assignment`  myInt >>= 5;`      myInt = myInt >> 5;
-<<<=`       Bitwise unsigned shift left assignment` myInt <<= 5;`      myInt = myInt << 5; 
->>>=        Bitwise signed shift right assignment`  myInt >>= 5;`      myInt = myInt >> 5;  
-??=`        Null-coalescing assignment`             myInt =?? 5;`      myInt = myInt ?? 5; or myInt = myInt == null ? 5 : myInt;  
+=`          Assignment`                                 None`               myInt = 0;`        None
++=`         Addition assignment`                        +`                  myInt += 5;`       myInt = myInt + 5; 
+++`         Increment assignment`                       ++`                 myInt++;`          myInt = ++myInt; or myInt = myInt + 1;
+-=`         Negatation or Subtraction assignment`       -`                  myInt -= 5;`       myInt = myInt - 5; 
+--`         Decrement assignment`                       --`                 myInt--;`          myInt = --myInt; or myInt = myInt - 1;
+*=`         Multiplication assignment`                  *`                  myInt *= 5;`       myInt = myInt * 5; 
+/=`         Division assignment`                        /`                  myInt /= 5;`       myInt = myInt / 5; 
+^=`         Exponentiation assignment`                  ^`                  myInt ^= 5;`       myInt = myInt ^ 5; 
+!!`         Factorization`                              !`                  myInt!!;`          myInt = myInt!; 
+%=`         Modulation assignment`                      %`                  myInt %= 5;`       myInt = myInt % 5;
+&=`         Bitwise AND assignment`                     &`                  myInt &= 5;`       myInt = myInt & 5; 
+|=`         Bitwise OR assignment`                      |`                  myInt |= 5;`       myInt = myInt | 5; 
+^^=`        Bitwise XOR assignment`                     ^^`                 myInt ^^= 5;`      myInt = myInt ^^ 5; 
+~~`         Bitwise Complement assignment`              ~`                  myInt~~;`          myInt = ~myInt;
+>>=         Bitwise signed right shift assignment`      >>`                 myInt >>= 5;`      myInt = myInt >> 5; 
+<<=`        Bitwise signed left shift assignment`       <<`                 myInt <<= 5;`      myInt = myInt << 5; 
+>>>=        Bitwise signed right shift assignment`      >>>`                myInt >>>= 5;`     myInt = myInt >>> 5;  
+<<<=`       Bitwise unsigned left shift assignment`     <<<`                myInt <<<= 5;`     myInt = myInt <<< 5; 
+@>>>=       Bitwise signed right shift loop assignment` @>>>`               myInt @>>>= 5;`    myInt = myInt @>>> 5;  
+@<<<=`      Bitwise unsigned left shift loop assignment`@<<<`               myInt @<<<= 5;`    myInt = myInt @<<< 5; 
+??=`        Null-coalescing assignment`                 ??`                 myInt =?? 5;`      myInt = myInt ?? 5; or myInt = myInt == null ? 5 : myInt;  
 
 //subtitle
 Assignment (=)
@@ -1278,32 +1314,6 @@ Operator`   Name`                           Example`            Same as
 |<=`        Or less than or equal to`       myInt > 5 |< 3`     myInt > 5 || myInt < 3             
 
 //title
-Null safety
-
-//text
-Null safety operators are used to manage null values in you program to avoid runtime errors.
-
-//tablehead
-Operator`   Name`                   Example
-
-//table
-?`          Nullability indicator`  int? myInt = null;
-?.`          Null-aware`             myObject?.toString(); or myArray?[1]; or myMap?['key'];
-??`         Null-coalescing`        myString ?? 'Default value';
-
-//title
-Ternary
-
-//text
-The __? :__ operators are used to create an if statement that can ben used inside of expressions.
-To use the ternary operator write to following structure a boolean expression, __?__, a expression of any type, __:__, a expression of any type.
-
-//code
-myBoolean = false;
-string myString = myBoolean ? 'True' : 'False';
-// myString becomes: 'False'
-
-//title
 Optional expression
 
 //text
@@ -1326,10 +1336,12 @@ Operator`   optional expression operator(s)`
 &=`         <? 
 |=`         <? 
 ^^=`        <?
-<<=`        <?
 >>=`        <?
-<<<=`       <?
+<<=`        <?
 >>>=`       <? 
+<<<=`       <?
+@>>>=`      <? 
+@<<<=`      <?
 +`          <? or >? 
 -`          <? or >? 
 *`          <? or >? 
@@ -1338,8 +1350,12 @@ Operator`   optional expression operator(s)`
 %`          <? or >? 
 |`          <? or >? 
 ^^`         <? or >? 
+>>`         <? or >?
+<<`         <? or >? 
+>>>`        <? or >?
 <<<`        <? or >? 
->>>`        <? or >? 
+@>>>`       <? or >?  
+@<<<`       <? or >? 
 ,`          <? or >? 
 
 //subtitle
@@ -1397,51 +1413,6 @@ The __>?__ operator can also be used on a __,__ to optionaly add values to colle
 int[] myArray = [myBoolean >? 1,2,3]
 // myArray becomes: [1,2,3] when myBoolean is true
 // myArray becomes: [2,3] when myBoolean is false
-
-//text
-The __= ?__ operators are used to optionaly define a value.
-When assigning a variable, the operators will return the optional value or null.
-When using the operators inside an expression, they will return the optional value or will not be included in the expression.
-
-The following operators cannot be replaced.
-
-//table
-??
-?
-:
-
-//code
-bool myBoolean = true;
-string? myString = myBoolean ? 'True';
-// myString becomes: 'True'
-
-myBoolean = false;
-myString = myBoolean ? 'True';
-// myString becomes: null
-
-myBoolean = true;
-myString = '1' + myBoolean ? '2' + '3';
-// myString becomes: '123'
-
-myBoolean = false;
-myString = '1' + myBoolean ? '2' + '3';
-// myString becomes: '13'
-
-myBoolean = true;
-int myInt = 4 / myBoolean ? 2 + 3;
-// myInt becomes: 5
-
-myBoolean = false;
-myInt = 4 / myBoolean ? 2 + 3;
-// myInt becomes: 7
-
-myBoolean = true;
-int[] myArray = [myBoolean ? 5,4,7];
-// myArray becomes: [5,4,7]
-
-myBoolean = false;
-myArray = [myBoolean ? 5,4,7];
-// myArray becomes: [4,7]
 
 //chapter
 Control statements
@@ -1660,7 +1631,7 @@ for(string key, int value in myMap){
 
 //text
 The __with__ keyword is used to bind a int variable to a for in loop its index.
-To use the with statement write after the content in the __()__ __with__ followed by a int variable declaration.
+To use the __with__ statement write after the content in the __()__ __with__ followed by a int variable declaration.
 
 //code
 for(string value in myArray with int index){
