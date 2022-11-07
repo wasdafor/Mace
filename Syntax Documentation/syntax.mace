@@ -1601,7 +1601,7 @@ Optional expressions can be used to define a expression that only get evaluated 
 The following operators can be used with this operator.
 
 //tablehead
-Operator`   optional expression operator(s)`
+Operator`   optional expression operator(s)
 
 //table
 =`          <?                                              
@@ -2040,6 +2040,25 @@ for(int i = 0; i < 10; i++){
 
 //title
 Error handling
+
+//subtitle
+Try catch (try), (catch)
+//Misschien then toevoegen?
+
+//text
+The __try catch__ keyword are used to catch and handle errors that can occur at runtime.
+Use the __try__ statement to create a block of code that can pass errors to the catch statement.
+Use the __catch__ statement to bind a block of code to the try statement to catch and handle its errors.
+To use a ___try catch__ statement write the following structure: __try__, __{}__, __catch__, __()__, __{}__.
+Note that between the __()__ of the catch statement you must define an exception parameter.
+
+//code
+try{
+    // Code that gets checked for errors at runtime to pass them to the catch statement.
+}catch(Exception e){
+    // Code that exexutes when an error has occurred in the try statement.
+}
+
 
 //title
 Null safety handling

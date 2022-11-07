@@ -38,7 +38,7 @@
 			"patterns": [
 				{
 					"name": "keyword.control.mace",
-					"match": "\\b(if|else|while|for|return|in|case|switch|default|break|continue|do|with)\\b"
+					"match": "\\b(if|else|while|for|return|in|case|switch|default|break|continue|do|with|try|catch)\\b"
 				},
 				{
 					"name": "keyword",
