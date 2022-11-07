@@ -897,7 +897,7 @@ When subtracting a string from another string, the order of the characters is im
 Note here that only one substring that is equal to the righthand string will be removed.
 When subtracting an array from another array, the order of the elements is important. The same applies for lists.
 Note here that all the elements in the righthand array will be removed from the lefthand array if they exist.
-When subtracting a map from another map, the order of the elements is not important. The same applies for lists.
+When subtracting a map from another map, the order of the elements is not important. The same applies for sets.
 Searching and removing will start at the end.
 
 //code
@@ -922,20 +922,6 @@ The __--__ operator is used to decrement a number variable by 1 before using it;
 int myInt = 0;
 myInt = --myInt;
 // myInt becomes: -1
-
-
-//Ik denk dat deze code nu redundant is omdat deze functionaliteit beter is geimplementeerd bij de shift operators.
-//text
-The __--__ operator can also be used to subtract strings, arrays or lists.
-When applying this operator, the last element will be removed.
-
-//code
-string myString = --'Hello world!'
-// myString becomes: 'Hello world'
-int[] myArray = --[1,2,3,4];
-// myArray becomes: [1,2,3]
-List<int> myList = --[1,2,3,4];
-// myList becomes: [1,2,3]
 
 //subtitle
 Multiplication (*)
@@ -1053,8 +1039,8 @@ Bitwise AND (&)
 
 //text
 The __&__ operator is used to check if both bits are one. 
-If both bits are one a one will be returned in the new bit sequence.
-If one or both bits are zero a zero will be returned in the new bit sequence.
+If both bits are one, a one will be returned in the new bit sequence.
+If one or both bits are zero, a zero will be returned in the new bit sequence.
 
 //code
 int myInt = 0b00000000000000000000000000001100 & 0b00000000000000000000000000001010;
@@ -1065,6 +1051,7 @@ myInt = 12 & 10;
 
 //text
 The __&__ operator can also be used to get the intersect of two strings, arrays, lists or sets.
+Note that the order does not matter.
 
 //code
 string myString = '1235' & '245';
@@ -1084,12 +1071,12 @@ Bitwise OR (|)
 
 //text
 The __|__ operator is used to check if one or both bits are one. 
-If one or both bits are one a one will be returned in the new bit sequence.
-If both bits are zero a zero will be returned in the new bit sequence.
+If one or both bits are one, a one will be returned in the new bit sequence.
+If both bits are zero, a zero will be returned in the new bit sequence.
 
 //code
 int myInt = 0b00000000000000000000000000001100 | 0b00000000000000000000000000001010;
-// myInt becomes: 0b00000000000000000000000000001110 whitch is 14
+// myInt becomes: 0b00000000000000000000000000001110 which is 14
 
 myInt = 12 | 10;
 // myInt becomes: 14
@@ -1115,12 +1102,12 @@ Bitwise XOR (^)
 
 //text
 The __^__ operator is used to check if one of both bits is one. 
-If one of both bits is one a one will be returned in the new bit sequence.
-If one or both bits are zero a zero will be returned in the new bit sequence.
+If one of both bits is one, a one will be returned in the new bit sequence.
+If one or both bits are zero, a zero will be returned in the new bit sequence.
 
 //code
 int myInt = 0b00000000000000000000000000001100 ^ 0b00000000000000000000000000001010;
-// myInt becomes: 0b0110 whitch is 6
+// myInt becomes: 0b00000000000000000000000000000110 which is 6
 
 myInt = 12 ^ 10;
 // myInt becomes: 6
@@ -1169,7 +1156,7 @@ The __~__ operator is used to flip the bits of the operhand.
 
 //code
 int myInt = ~0b00000000000000000000000000001100;
-// myInt becomes: 0b11111111111111111111111111110011 whitch is -13
+// myInt becomes: 0b11111111111111111111111111110011 which is -13
 
 myInt = ~12;
 // myInt becomes: -13
@@ -1183,7 +1170,7 @@ The most right bits will be lost and the empty spaces after the MSB at the left 
 
 //code
 int myInt = 0b00000000000000000000000000001100 >> 1;
-// myInt becomes: 0b00000000000000000000000000000110 whitch is 6
+// myInt becomes: 0b00000000000000000000000000000110 which is 6
 
 myInt = 12 >> 2;
 // myInt becomes: 3
@@ -1200,7 +1187,7 @@ The most left bits after the MSB will be lost and the empty spaces at the right 
 
 //code
 int myInt = 0b00000000000000000000000000001100 << 1;
-// myInt becomes: 0b00000000000000000000000000011000 whitch is 24
+// myInt becomes: 0b00000000000000000000000000011000 which is 24
 
 myInt = 12 << 2;
 // myInt becomes: 48
@@ -1217,7 +1204,7 @@ The most right bits will be lost and the empty spaces at the left are filled wit
 
 //code
 int myInt = 0b00000000000000000000000000001100 >>> 1;
-// myInt becomes: 0b00000000000000000000000000000110 whitch is 6
+// myInt becomes: 0b00000000000000000000000000000110 which is 6
 
 myInt = 12 >>> 2;
 // myInt becomes: 3
@@ -1247,7 +1234,7 @@ The most left bits will be lost and the empty spaces at the right are filled wit
 
 //code
 int myInt = 0b00000000000000000000000000001100 <<< 1;
-// myInt becomes: 0b00000000000000000000000000011000 whitch is 24
+// myInt becomes: 0b00000000000000000000000000011000 which is 24
 
 myInt = 12 <<< 2;
 // myInt becomes: 28
@@ -1277,7 +1264,7 @@ The most right bits will be moved to the left after the MSB.
 
 //code
 int myInt = 0b00000000000000000000000000001100 @>> 1;
-// myInt becomes: 0b00000000000000000000000000000110 whitch is 6
+// myInt becomes: 0b00000000000000000000000000000110 which is 6
 
 myInt = 12 @>> 2;
 // myInt becomes: 3
@@ -1294,7 +1281,7 @@ The most left bits after the MSB will be moved to the right.
 
 //code
 int myInt = 0b00000000000000000000000000001100 @<< 1;
-// myInt becomes: 0b00000000000000000000000000011000 whitch is 24
+// myInt becomes: 0b00000000000000000000000000011000 which is 24
 
 myInt = 12 @<< 2;
 // myInt becomes: 48
@@ -1311,7 +1298,7 @@ The most right bits will be moved to the left.
 
 //code
 int myInt = 0b00000000000000000000000000001100 @>>> 1;
-// myInt becomes: 0b00000000000000000000000000000110 whitch is 6
+// myInt becomes: 0b00000000000000000000000000000110 which is 6
 
 myInt = 12 @>>> 2;
 // myInt becomes: 3
@@ -1342,7 +1329,7 @@ The most left bits will be moved to the right.
 
 //code
 int myInt = 0b00000000000000000000000000001100 <<< 1;
-// myInt becomes: 0b00000000000000000000000000011000 whitch is 24
+// myInt becomes: 0b00000000000000000000000000011000 which is 24
 
 myInt = 12 @<<< 2;
 // myInt becomes: 28
