@@ -1450,6 +1450,72 @@ Operator`   Name`                       Example
 <`          Less than`                  myInt < 6
 <=`         Less than or equal to`      myInt <= 6
 
+//subtitle
+Equality (==)
+
+//text
+The __==__ operator can be used to check if 2 values are equal.
+
+//code
+if(myInt == 5){
+    // Code that executes when myInt is equal to 5.
+}
+
+//subtitle
+Inequality (!=)
+
+//text
+The __!=__ operator can be used to check if 2 values are not equal.
+
+//code
+if(myInt != 5){
+    // Code that executes when myInt is not equal to 5.
+}
+
+//subtitle
+Greater than (>)
+
+//text
+The __>__ operator can be used to check if the left operhand is greater than the right operhand.
+
+//code
+if(myInt > 5){
+    // Code that executes when myInt greater than 5.
+}
+
+//subtitle
+Greater than or equal to (>=)
+
+//text
+The __>=__ operator can be used to check if the left operhand is greater than or equal to the right operhand.
+
+//code
+if(myInt >= 5){
+    // Code that executes when myInt greater than or equal to 5.
+}
+
+//subtitle
+Less than (<)
+
+//text
+The __<__ operator can be used to check if the left operhand is less than the right operhand.
+
+//code
+if(myInt < 5){
+    // Code that executes when myInt less than 5.
+}
+
+//subtitle
+Less than or equal to (<=)
+
+//text
+The __<=__ operator can be used to check if the left operhand is less than or equal to the right operhand.
+
+//code
+if(myInt <= 5){
+    // Code that executes when myInt less than or equal to 5.
+}
+
 //title
 Logical
 
