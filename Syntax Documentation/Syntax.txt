@@ -201,3 +201,8 @@ modulus 2
 savedBits <<<= 16 - 3;
 newValue = 34 >>> 3;
 newValue |= savedBits;
+
+underscores, the operator structure, operand
+
+range
+meerdere datatypes

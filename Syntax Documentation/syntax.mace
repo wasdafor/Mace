@@ -1113,7 +1113,7 @@ myInt = 12 ^ 10;
 // myInt becomes: 6
 
 //text
-The __^__ operator can also be used to get the unique items of two strings, arrays, lists or sets.
+The __^__ operator can also be used to get the symmetric difference of two strings, arrays, lists or sets.
 
 //code
 string myString = '1235' ^ '245';
@@ -1132,7 +1132,7 @@ Set<int> mySet = {1,2,3,5} ^ {2,4,5};
 Bitwise independed
 
 //text
-independed bitwise operators can be used to manipulate a bit sequences.
+Independed bitwise operators can be used to manipulate a single bit sequence.
 
 //tablehead
 Operator`   Name
@@ -1143,16 +1143,14 @@ Operator`   Name
 <<`	        Bitwise signed left shift
 >>>`        Bitwise unsigned right shift
 <<<`        Bitwise unsigned left shift
-@>>`        Bitwise sigend right shift loop         
-@<<`        Bitwise sigend left shift loop
-@>>>`       Bitwise unsigend right shift loop         
-@<<<`       Bitwise unsigend left shift loop
+@>>>`       Bitwise unsigned right shift loop         
+@<<<`       Bitwise unsigned left shift loop
 
 //subtitle
 Bitwise NOT (~)
 
 //text
-The __~__ operator is used to flip the bits of the operhand. 
+The __~__ operator is used to flip the bits of the operand. 
 
 //code
 int myInt = ~0b00000000000000000000000000001100;
@@ -1166,7 +1164,7 @@ Bitwise signed right shift (>>)
 
 //text
 The __>>__ operator is used to shift every bit in a bit sequence a given amount of places to the right.
-The most right bits will be lost and the empty spaces after the MSB at the left are filled with zeros.
+The most right bits will be lost and the empty spaces after the MSB at the left are filled with zeros if the MSB is a zero and with ones of the MSB is a one.
 
 //code
 int myInt = 0b00000000000000000000000000001100 >> 1;
@@ -1175,8 +1173,11 @@ int myInt = 0b00000000000000000000000000001100 >> 1;
 myInt = 12 >> 2;
 // myInt becomes: 3
 
-myInt = -12 >> 1;
-// myInt becomes: -6
+myInt = 0b11111111111111111111111111110100 >> 1;
+// myInt becomes: 0b11111111111111111111111111111010 which is -6
+
+myInt = -12 >> 2;
+// myInt becomes: -3
 
 //subtile
 Bitwise signed left shift (<<)
@@ -1192,8 +1193,11 @@ int myInt = 0b00000000000000000000000000001100 << 1;
 myInt = 12 << 2;
 // myInt becomes: 48
 
-myInt = -12 << 1;
-// myInt becomes: -24
+myInt = 0b11111111111111111111111111110100 << 1;
+// myInt becomes: 0b11111111111111111111111111101000 which is -24
+
+myInt = -12 << 2;
+// myInt becomes: -48
 
 //subtile
 Bitwise unsigned right shift (>>>)
@@ -1209,8 +1213,11 @@ int myInt = 0b00000000000000000000000000001100 >>> 1;
 myInt = 12 >>> 2;
 // myInt becomes: 3
 
-myInt = -12 >>> 1;
-// myInt becomes: 2147483642
+myInt = 0b11111111111111111111111111110100 >>> 1;
+// myInt becomes: 0b00000000000000000000000000000110 which is 2147483642
+
+myInt = -12 >>> 2;
+// myInt becomes: 1073741821
 
 //text
 The __>>>__ operator can also be used to remove characters from the end of strings or items from the end of arrays or lists.
@@ -1239,8 +1246,11 @@ int myInt = 0b00000000000000000000000000001100 <<< 1;
 myInt = 12 <<< 2;
 // myInt becomes: 28
 
-myInt = -12 <<< 1;
-// myInt becomes: -24
+myInt = 0b11111111111111111111111111110100 <<< 1;
+// myInt becomes: 0b11111111111111111111111111101000 which is -24
+
+myInt = -12 <<< 2;
+// myInt becomes: -48
 
 //text
 The __<<<__ operator can also be used to remove characters from the start of strings or items from the start of arrays or lists.
@@ -1256,45 +1266,12 @@ List<int> myList = [1,2,3,4,5] <<< 1;
 // myList becomes: [2,3,4,5]
 
 //subtile
-Bitwise signed right shift loop (@>>)
-
-//text
-The __@>>__ operator is used to loop every bit in a bit sequence a given amount of places to the right.
-The most right bits will be moved to the left after the MSB.
-
-//code
-int myInt = 0b00000000000000000000000000001100 @>> 1;
-// myInt becomes: 0b00000000000000000000000000000110 which is 6
-
-myInt = 12 @>> 2;
-// myInt becomes: 3
-
-myInt = -12 @>> 1;
-// myInt becomes: -6
-
-//subtile
-Bitwise signed left shift loop (@<<)
-
-//text
-The __@<<__ operator is used to loop every bit in a bit sequence a given amount of places to the left.
-The most left bits after the MSB will be moved to the right.
-
-//code
-int myInt = 0b00000000000000000000000000001100 @<< 1;
-// myInt becomes: 0b00000000000000000000000000011000 which is 24
-
-myInt = 12 @<< 2;
-// myInt becomes: 48
-
-myInt = -12 @<< 1;
-// myInt becomes: -24
-
-//subtile
 Bitwise unsigned right shift loop (@>>>)
 
 //text
 The __@>>>__ operator is used to loop every bit in a bit sequence a given amount of places to the right.
 The most right bits will be moved to the left.
+Note that the MSB will be moved.
 
 //code
 int myInt = 0b00000000000000000000000000001100 @>>> 1;
@@ -1303,8 +1280,11 @@ int myInt = 0b00000000000000000000000000001100 @>>> 1;
 myInt = 12 @>>> 2;
 // myInt becomes: 3
 
-myInt = -12 @>>> 1;
-// myInt becomes: 2147483642
+myInt = 0b11111111111111111111111111110100 @>>> 1;
+// myInt becomes: 0b1011111111111111111111111111010 which is 1610612730
+
+myInt = -12 @>>> 2;
+// myInt becomes: 1342177277
 
 //text
 The __@>>>__ operator can also be used to loop every character or item in a string, array or list a given amount of places to the right.
@@ -1328,14 +1308,17 @@ The __@<<<__ operator is used to loop every bit in a bit sequence a given amount
 The most left bits will be moved to the right.
 
 //code
-int myInt = 0b00000000000000000000000000001100 <<< 1;
+int myInt = 0b00000000000000000000000000001100 @<<< 1;
 // myInt becomes: 0b00000000000000000000000000011000 which is 24
 
 myInt = 12 @<<< 2;
-// myInt becomes: 28
+// myInt becomes: 48
 
-myInt = -12 @<<< 1;
-// myInt becomes: -24
+myInt = 0b11111111111111111111111111110100 @<<< 1;
+// myInt becomes: 0b11111111111111111111111111101001 which is -23
+
+myInt = -12 @<<< 2;
+// myInt becomes: -45
 
 The __@<<<__ operator can also be used to loop every character or item in a string, array or list a given amount of places to the left.
 The most left items or characters will be moved to the right.
@@ -1354,7 +1337,7 @@ List<int> myList = [1,2,3,4,5] @<<< 1;
 Null safety
 
 //text
-Null safety operators are used to manage null values in you program to avoid runtime errors.
+Null safety operators are used to manage null values in your program to avoid runtime errors.
 
 //tablehead
 Operator`   Name`                   Example
@@ -1381,33 +1364,37 @@ Assignment
 
 //text
 Assignment operators are used to assign or reassigning a value to a variable.
-For more information about combined assignment operators check their chapers.
+For more information about combined assignment operators check their chapters.
 
 //tablehead
-Operator`   Name`                                       Combined operator`  Example`           Same as
+Operator`   Name`                                       Combined operator`  Example`            Same as
 
 //table
-=`          Assignment`                                 None`               myInt = 0;`        None
-+=`         Addition assignment`                        +`                  myInt += 5;`       myInt = myInt + 5; 
-++`         Increment assignment`                       ++`                 myInt++;`          myInt = ++myInt; or myInt = myInt + 1;
--=`         Negatation or Subtraction assignment`       -`                  myInt -= 5;`       myInt = myInt - 5; 
---`         Decrement assignment`                       --`                 myInt--;`          myInt = --myInt; or myInt = myInt - 1;
-*=`         Multiplication assignment`                  *`                  myInt *= 5;`       myInt = myInt * 5; 
-/=`         Division assignment`                        /`                  myInt /= 5;`       myInt = myInt / 5; 
-**=`        Exponentiation assignment`                  **`                 myInt **= 5;`      myInt = myInt ** 5; 
-!!`         Factorization`                              !`                  myInt!!;`          myInt = myInt!; 
-%=`         Modulation assignment`                      %`                  myInt %= 5;`       myInt = myInt % 5;
-&=`         Bitwise AND assignment`                     &`                  myInt &= 5;`       myInt = myInt & 5; 
-|=`         Bitwise OR assignment`                      |`                  myInt |= 5;`       myInt = myInt | 5; 
-^=`         Bitwise XOR assignment`                     ^`                  myInt ^= 5;`      myInt = myInt ^ 5; 
-~~`         Bitwise Complement assignment`              ~`                  myInt~~;`          myInt = ~myInt;
->>=         Bitwise signed right shift assignment`      >>`                 myInt >>= 5;`      myInt = myInt >> 5; 
-<<=`        Bitwise signed left shift assignment`       <<`                 myInt <<= 5;`      myInt = myInt << 5; 
->>>=        Bitwise signed right shift assignment`      >>>`                myInt >>>= 5;`     myInt = myInt >>> 5;  
-<<<=`       Bitwise unsigned left shift assignment`     <<<`                myInt <<<= 5;`     myInt = myInt <<< 5; 
-@>>>=       Bitwise signed right shift loop assignment` @>>>`               myInt @>>>= 5;`    myInt = myInt @>>> 5;  
-@<<<=`      Bitwise unsigned left shift loop assignment`@<<<`               myInt @<<<= 5;`    myInt = myInt @<<< 5; 
-??=`        Null-coalescing assignment`                 ??`                 myInt =?? 5;`      myInt = myInt ?? 5; or myInt = myInt == null ? 5 : myInt;  
+=`          Assignment`                                 None`               myInt = 0;`         None
++=`         Addition assignment`                        +`                  myInt += 5;`        myInt = myInt + 5; 
+++`         Increment assignment`                       ++`                 myInt++;`           myInt = ++myInt; or myInt = myInt + 1;
+-=`         Negatation or Subtraction assignment`       -`                  myInt -= 5;`        myInt = myInt - 5; 
+--`         Decrement assignment`                       --`                 myInt--;`           myInt = --myInt; or myInt = myInt - 1;
+*=`         Multiplication assignment`                  *`                  myInt *= 5;`        myInt = myInt * 5; 
+/=`         Division assignment`                        /`                  myInt /= 5;`        myInt = myInt / 5; 
+**=`        Exponentiation assignment`                  **`                 myInt **= 5;`       myInt = myInt ** 5; 
+!!!`        Factorization`                              !`                  myInt!!!;`          myInt = myInt!; 
+%=`         Modulation assignment`                      %`                  myInt %= 5;`        myInt = myInt % 5;
+&=`         Bitwise AND assignment`                     &`                  myInt &= 5;`        myInt = myInt & 5; 
+|=`         Bitwise OR assignment`                      |`                  myInt |= 5;`        myInt = myInt | 5; 
+^=`         Bitwise XOR assignment`                     ^`                  myInt ^= 5;`        myInt = myInt ^ 5; 
+~~`         Bitwise NOT assignment`                     ~`                  myInt~~;`           myInt = ~myInt;
+>>=         Bitwise signed right shift assignment`      >>`                 myInt >>= 5;`       myInt = myInt >> 5; 
+<<=`        Bitwise signed left shift assignment`       <<`                 myInt <<= 5;`       myInt = myInt << 5; 
+>>>=        Bitwise signed right shift assignment`      >>>`                myInt >>>= 5;`      myInt = myInt >>> 5;  
+<<<=`       Bitwise unsigned left shift assignment`     <<<`                myInt <<<= 5;`      myInt = myInt <<< 5; 
+@>>>=       Bitwise signed right shift loop assignment` @>>>`               myInt @>>>= 5;`     myInt = myInt @>>> 5;  
+@<<<=`      Bitwise unsigned left shift loop assignment`@<<<`               myInt @<<<= 5;`     myInt = myInt @<<< 5; 
+??=`        Null-coalescing assignment`                 ??`                 myInt ??= 5;`       myInt = myInt ?? 5; or myInt = myInt == null ? 5 : myInt;
+&&=`        Logical AND assignment`                     &&`                 myBoolean &&= true;`myBoolean = myBoolean && true;
+||=`        Logical OR assignment`                      ||`                 myBoolean ||= true;`myBoolean = myBoolean || true;
+^^=`        Logical XOR assignment`                     ^^`                 myBoolean ^^= true;`myBoolean = myBoolean ^^ true;
+!!`         Logical NOT assignment`                     !`                  myBoolean!!;`       myBoolean = !myBoolean;
 
 //subtitle
 Assignment (=)
@@ -1424,7 +1411,7 @@ int mySecondInt = myInt + 5;
 Comparison
 
 //text
-Comparison operators are used to compare two values with each other to return a bool.
+Comparison operators are used to compare two values with each other to return a boolean.
 
 //tablehead
 Operator`   Name`                       Example
@@ -1438,10 +1425,10 @@ Operator`   Name`                       Example
 <=`         Less than or equal to`      myInt <= 6
 
 //subtitle
-Equality (==)
+Equal to (==)
 
 //text
-The __==__ operator can be used to check if 2 values are equal.
+The __==__ operator can be used to check if two values are equal.
 
 //code
 if(myInt == 5){
@@ -1449,10 +1436,10 @@ if(myInt == 5){
 }
 
 //subtitle
-Inequality (!=)
+Not equal to (!=)
 
 //text
-The __!=__ operator can be used to check if 2 values are not equal.
+The __!=__ operator can be used to check if two values are not equal.
 
 //code
 if(myInt != 5){
@@ -1463,7 +1450,7 @@ if(myInt != 5){
 Greater than (>)
 
 //text
-The __>__ operator can be used to check if the left operhand is greater than the right operhand.
+The __>__ operator can be used to check if the left operand is greater than the right operand.
 
 //code
 if(myInt > 5){
@@ -1474,7 +1461,7 @@ if(myInt > 5){
 Greater than or equal to (>=)
 
 //text
-The __>=__ operator can be used to check if the left operhand is greater than or equal to the right operhand.
+The __>=__ operator can be used to check if the left operand is greater than or equal to the right operand.
 
 //code
 if(myInt >= 5){
@@ -1485,7 +1472,7 @@ if(myInt >= 5){
 Less than (<)
 
 //text
-The __<__ operator can be used to check if the left operhand is less than the right operhand.
+The __<__ operator can be used to check if the left operand is less than the right operand.
 
 //code
 if(myInt < 5){
@@ -1496,7 +1483,7 @@ if(myInt < 5){
 Less than or equal to (<=)
 
 //text
-The __<=__ operator can be used to check if the left operhand is less than or equal to the right operhand.
+The __<=__ operator can be used to check if the left operand is less than or equal to the right operand.
 
 //code
 if(myInt <= 5){
@@ -1507,23 +1494,23 @@ if(myInt <= 5){
 Logical
 
 //text
-Logical operators are used to compare two booleans with each other to return one bool.
+Logical operators are used to compare two booleans with each other to return one boolean.
 
 //tablehead
 Operator`   Name`           Example
 
 //table
-&&`         Logical and`    true && true     
-||`         Logical or`     false || true
-^^`         Logical xor`    false ^^ true
-!`          Logical not`    !false
+&&`         Logical AND`    true && true     
+||`         Logical OR`     false || true
+^^`         Logical XOR`    false ^^ true
+!`          Logical NOT`    !false
 
 //subtile
-Logical and (&&)
+Logical AND (&&)
 
 //text
-The __&&__ operator is used the evaluated two boolean expressions when both expressions are evaluated to true the logical and expression is evaluated to true.
-To use the logical and operator write a boolean expression followed by __&&__ and ending with another boolean expression.
+The __&&__ operator is used to evaluate two boolean expressions. When both expressions are evaluated to true the logical AND expression is evaluated to true.
+To use the logical AND operator, write a boolean expression followed by __&&__ and ending with another boolean expression.
 
 //code
 if(myBoolean && mySecondBoolean){
@@ -1531,11 +1518,11 @@ if(myBoolean && mySecondBoolean){
 }
 
 //subtile
-Logical or (||)
+Logical OR (||)
 
 //text
-The __||__ operator is used the evaluated two boolean expressions when at least one expression is evaluated to true the logical or expression is evaluated to true.
-To use the logical and operator write a boolean expression followed by __||__ and ending with another boolean expression.
+The __||__ operator is used to evaluate two boolean expressions. When at least one expression is evaluated to true the logical OR expression is evaluated to true.
+To use the logical OR operator, write a boolean expression followed by __||__ and ending with another boolean expression.
 
 //code
 if(myBoolean || mySecondBoolean){
@@ -1543,11 +1530,11 @@ if(myBoolean || mySecondBoolean){
 }
 
 //subtile
-Logical xor (^^)
+Logical XOR (^^)
 
 //text
-The __^^__ operator is used the evaluated two boolean expressions when only one expression is evaluated to true the logical xor expression is evaluated to true.
-To use the logical and operator write a boolean expression followed by __^^__ and ending with another boolean expression.
+The __^^__ operator is used to evaluate two boolean expressions. When only one expression is evaluated to true the logical XOR expression is evaluated to true.
+To use the logical XOR operator, write a boolean expression followed by __^^__ and ending with another boolean expression.
 
 //code
 if(myBoolean ^^ mySecondBoolean){
@@ -1556,11 +1543,11 @@ if(myBoolean ^^ mySecondBoolean){
 
 
 //subtile
-Logical not (!)
+Logical NOT (!)
 
 //text
 The __!__ operator can be used to negate/invert a boolean value.
-To use the logical not operator write __!__ followed by a boolean expression.
+To use the logical not operator, write __!__ followed by a boolean expression.
 
 //code
 if(!myBoolean){
@@ -1589,19 +1576,24 @@ Operator`   Name`                           Example`            Same as
 |>`         Or greater than`                myInt < 7 |> 5`     myInt < 5 || myInt > 7
 |>=`        Or greater than or equal to`    myInt < 7 |>= 5`    myInt < 5 || myInt >= 7
 |<`         Or less than`                   myInt > 5 |< 3`     myInt > 5 || myInt < 3
-|<=`        Or less than or equal to`       myInt > 5 |< 3`     myInt > 5 || myInt < 3             
+|<=`        Or less than or equal to`       myInt > 5 |<= 3`    myInt > 5 || myInt < 3
+^==`        Xor equal to`                   myInt > 5 ^== 3`    myInt > 5 ^^ myInt == 3
+^!=`        Xor not equal to`               myInt > 5 ^!= 3`    myInt > 5 ^^ myInt != 3
+^>`         Xor greater than`               myInt < 7 ^> 5`     myInt < 5 ^^ myInt > 7
+^>=`        Xor greater than or equal to`   myInt < 7 ^>= 5`    myInt < 5 ^^ myInt >= 7
+^<`         Xor less than`                  myInt > 5 ^< 3`     myInt > 5 ^^ myInt < 3
+^<=`        Xor less than or equal to`      myInt > 5 ^<= 3`    myInt > 5 ^^ myInt < 3                 
 
 //title
-Optional expression
+Bullet expression
 
 //text
-//NOTE de uitleg die ik nu heb gescheven ben ik nog niet helemaal tevreden mee dus als jij het anders wilt uitleggen (graag) is dat geen probleem ik hoop
-//dat de uitleg die ik nu hebt gescheven duidelijk voor jouw is om het te hunnen herschijven ook is heb ik nog geen gewelidige naam kunnen verzinnen.
-Optional expressions can be used to define a expression that only get evaluated when a boolean is true.
-The following operators can be used with this operator.
+Bullet expressions can be used to define short logic inside another expression.
+Bullet expressions are only evaluated when the given boolean is true.
+The following operators can be used with bullet expressions to define short logic.
 
 //tablehead
-Operator`   optional expression operator(s)
+Operator`   bullet expression operator(s)
 
 //table
 =`          <?                                              
@@ -1637,11 +1629,11 @@ Operator`   optional expression operator(s)
 ,`          <? or >? 
 
 //subtitle
-Left optional expression (<?)
+Left bullet expression (<?)
 
 //text
-The __<?__  operator is used to define a optional expression with the operator on the lefthand side.
-To use this operator write a valid operator followed by a boolean expression and ending with a literal value or variable.
+The __<?__  operator is used to define a bullet expression with the operator on the lefthand side.
+To use this operator, write a valid operator followed by a boolean expression and the bullet operator and ending with a literal value or variable.
 
 When the boolean expression is evaluated to true the value will be included in the expression.
 When the boolean expression is evaluated to false the literal value or variable and the operator before the boolean expression will be ignored.
@@ -1667,11 +1659,11 @@ int[] myArray = [1,2,myBoolean <? 3]
 // myArray becomes: [1,2] when myBoolean is false
 
 //subtitle
-Right optional expression (>?)
+Right bullet expression (>?)
 
 //text
-The __>?__  operator is used to define a optional expression with the operator on the righthand side.
-To use this operator write a boolean expression followed by a literal value or variable and ending with a valid operator.
+The __>?__  operator is used to define a bullet expression with the operator on the righthand side.
+To use this operator write a boolean expression and the bullet operator followed by a literal value or variable and ending with a valid operator.
 
 When the boolean expression is evaluated to true the value will be included in the expression.
 When the boolean expression is evaluated to false the literal value or variable and the operator after the literal value or variable will be ignored.
@@ -1880,7 +1872,7 @@ switch (myInt)
 Looping
 
 //text
-Loops are used to iterate over sequences or code that needs to run for a specfied amount of times.
+Loops are used to iterate over sequences of code that needs to run for a specified amount of times.
 
 //subtitle
 For (for), (in), (with)
@@ -1890,7 +1882,7 @@ The __for__ keyword is used to define a block of code that can be executed multi
 To create a for loop write __for__ followed by __()__ and ending with __{}__.
 
 The __in__ keyword is used to bind variable(s) to a given collection of items.
-To create an in statement write one or two variable separated declarations followed by __in__ ending with a collection.
+To create an in statement write one or two comma separated variable declarations followed by __in__ ending with a collection.
 
 Note that in statements can only be defined between the __()__ of a __for loop__.
 
@@ -1908,8 +1900,8 @@ for(string key, int value in myMap){
 }
 
 //text
-The __with__ keyword is used to bind a int variable to a for in loop its index.
-To use the __with__ statement write after the content in the __()__ __with__ followed by a int variable declaration.
+The __with__ keyword is used to bind an integer variable to the index of a for in loop.
+To use the __with__ statement, write after the content in the __()__ __with__ followed by an integer variable declaration.
 
 //code
 for(string value in myArray with int index){
@@ -2046,19 +2038,18 @@ Try catch (try), (catch)
 //Misschien then toevoegen?
 
 //text
-The __try catch__ keyword are used to catch and handle errors that can occur at runtime.
+The __try catch__ keywords are used to catch and handle errors that can occur at runtime.
 Use the __try__ statement to create a block of code that can pass errors to the catch statement.
 Use the __catch__ statement to bind a block of code to the try statement to catch and handle its errors.
-To use a ___try catch__ statement write the following structure: __try__, __{}__, __catch__, __()__, __{}__.
+To use a __try catch__ statement write the following structure: __try__, __{}__, __catch__, __()__, __{}__.
 Note that between the __()__ of the catch statement you must define an exception parameter.
 
 //code
 try{
     // Code that gets checked for errors at runtime to pass them to the catch statement.
 }catch(Exception e){
-    // Code that exexutes when an error has occurred in the try statement.
+    // Code that executes when an error has occurred in the try statement.
 }
-
 
 //title
 Null safety handling
