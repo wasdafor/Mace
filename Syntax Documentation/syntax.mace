@@ -923,6 +923,8 @@ int myInt = 0;
 myInt = --myInt;
 // myInt becomes: -1
 
+
+//Ik denk dat deze code nu redundant is omdat deze functionaliteit beter is geimplementeerd bij de shift operators.
 //text
 The __--__ operator can also be used to subtract strings, arrays or lists.
 When applying this operator, the last element will be removed.
@@ -1051,28 +1053,30 @@ Bitwise AND (&)
 
 //text
 The __&__ operator is used to check if both bits are one. 
-If both bits are one a one wil be return in the new sequence of bits.
-If one or both bits are zero a zero wil be return in the new sequence of bits.
+If both bits are one a one will be returned in the new bit sequence.
+If one or both bits are zero a zero will be returned in the new bit sequence.
 
 //code
-int myInt = 0b1100 & 0b1010;
-// myInt becomes: 0b1000 which is 8
+int myInt = 0b00000000000000000000000000001100 & 0b00000000000000000000000000001010;
+// myInt becomes: 0b00000000000000000000000000001000 which is 8
 
 myInt = 12 & 10;
 // myInt becomes: 8
 
 //text
-The __&__ can also be used to get the intersect of two strings, arrays, lists or sets.
-Note that the return type of the intersect will always be a set.
+The __&__ operator can also be used to get the intersect of two strings, arrays, lists or sets.
 
 //code
-Set<string> myStringSet = '1235' & '245';
-// myStringSet becomes: {'2','5'}
+string myString = '1235' & '245';
+// myString becomes: '25'
 
-Set<int> mySet = [1,2,3,5] & [2,4,5];
-// mySet becomes: {2,5}
+int[] myArray = [1,2,3,5] & [2,4,5];
+// myArray becomes: [2,5]
+
+List<int> myList = [1,2,3,5] & [2,4,5];
+// myList becomes: [2,5]
  
-mySet = {1,2,3,5} & {2,4,5};
+Set<int> mySet = {1,2,3,5} & {2,4,5};
 // mySet becomes: {2,5}
 
 //subtitle
@@ -1080,28 +1084,30 @@ Bitwise OR (|)
 
 //text
 The __|__ operator is used to check if one or both bits are one. 
-If one or both bits is one a one wil be return in the new sequence of bits.
-If both bits are zero a zero wil be return in the new sequence of bits.
+If one or both bits are one a one will be returned in the new bit sequence.
+If both bits are zero a zero will be returned in the new bit sequence.
 
 //code
-int myInt = 0b1100 | 0b1010;
-// myInt becomes: 0b1110 whitch is 14
+int myInt = 0b00000000000000000000000000001100 | 0b00000000000000000000000000001010;
+// myInt becomes: 0b00000000000000000000000000001110 whitch is 14
 
 myInt = 12 | 10;
 // myInt becomes: 14
 
 //text
-The __|__ can also be used to get the union of two strings, arrays, lists or sets.
-Note that the return type of the union will always be a set.
+The __|__ operator can also be used to get the union of two strings, arrays, lists or sets.
 
 //code
-Set<char> myStringSet = '1235' | '245';
-// myStringSet becomes: {'1','2','3','4','5'}
+string myString = '1235' | '245';
+// myString becomes: '12345'
 
-Set<int> mySet = [1,2,3,5] | [2,4,5];
-// mySet becomes: {1,2,3,4,5}
+int[] myArray = [1,2,3,5] | [2,4,5];
+// myArray becomes: [1,2,3,4,5]
+
+List<int> myList = [1,2,3,5] | [2,4,5];
+// myList becomes: [1,2,3,4,5]
  
-mySet = {1,2,3,5} | {2,4,5};
+Set<int> mySet = {1,2,3,5} | {2,4,5};
 // mySet becomes: {1,2,3,4,5}
 
 //subtitle
@@ -1109,15 +1115,31 @@ Bitwise XOR (^)
 
 //text
 The __^__ operator is used to check if one of both bits is one. 
-If one of both bits is one a one wil be return in the new sequence of bits.
-If both bits are zero or one a zero wil be return in the new sequence of bits.
+If one of both bits is one a one will be returned in the new bit sequence.
+If one or both bits are zero a zero will be returned in the new bit sequence.
 
 //code
-int myInt = 0b1100 ^ 0b1010;
+int myInt = 0b00000000000000000000000000001100 ^ 0b00000000000000000000000000001010;
 // myInt becomes: 0b0110 whitch is 6
 
 myInt = 12 ^ 10;
 // myInt becomes: 6
+
+//text
+The __^__ operator can also be used to get the unique items of two strings, arrays, lists or sets.
+
+//code
+string myString = '1235' ^ '245';
+// myString becomes: '134'
+
+int[] myArray = [1,2,3,5] ^ [2,4,5];
+// myArray becomes: [1,3,4]
+
+List<int> myList = [1,2,3,5] ^ [2,4,5];
+// myList becomes: [1,3,4]
+ 
+Set<int> mySet = {1,2,3,5} ^ {2,4,5};
+// mySet becomes: {1,3,4}
 
 //title
 Bitwise independed
@@ -1151,6 +1173,195 @@ int myInt = ~0b00000000000000000000000000001100;
 
 myInt = ~12;
 // myInt becomes: -13
+
+//subtile
+Bitwise signed right shift (>>)
+
+//text
+The __>>__ operator is used to shift every bit in a bit sequence a given amount of places to the right.
+The most right bits will be lost and the empty spaces after the MSB at the left are filled with zeros.
+
+//code
+int myInt = 0b00000000000000000000000000001100 >> 1;
+// myInt becomes: 0b00000000000000000000000000000110 whitch is 6
+
+myInt = 12 >> 2;
+// myInt becomes: 3
+
+myInt = -12 >> 1;
+// myInt becomes: -6
+
+//subtile
+Bitwise signed left shift (<<)
+
+//text
+The __<<__ operator is used to shift every bit in a bit sequence a given amount of places to the left.
+The most left bits after the MSB will be lost and the empty spaces at the right are filled with zeros.
+
+//code
+int myInt = 0b00000000000000000000000000001100 << 1;
+// myInt becomes: 0b00000000000000000000000000011000 whitch is 24
+
+myInt = 12 << 2;
+// myInt becomes: 48
+
+myInt = -12 << 1;
+// myInt becomes: -24
+
+//subtile
+Bitwise unsigned right shift (>>>)
+
+//text
+The __>>>__ operator is used to shift every bit in a bit sequence a given amount of places to the right.
+The most right bits will be lost and the empty spaces at the left are filled with zeros.
+
+//code
+int myInt = 0b00000000000000000000000000001100 >>> 1;
+// myInt becomes: 0b00000000000000000000000000000110 whitch is 6
+
+myInt = 12 >>> 2;
+// myInt becomes: 3
+
+myInt = -12 >>> 1;
+// myInt becomes: 2147483642
+
+//text
+The __>>>__ operator can also be used to remove characters from the end of strings or items from the end of arrays or lists.
+
+//code
+string myString = '12345' >>> 1;
+// myString becomes: '1234'
+
+int[] myArray = [1,2,3,4,5] >>> 1;
+// myArray becomes: [1,2,3,4]
+
+List<int> myList = [1,2,3,4,5] >>> 1;
+// myList becomes: [1,2,3,4]
+
+//subtile
+Bitwise unsigned left shift (<<<)
+
+//text
+The __<<<__ operator is used to shift every bit in a bit sequence a given amount of places to the left.
+The most left bits will be lost and the empty spaces at the right are filled with zeros.
+
+//code
+int myInt = 0b00000000000000000000000000001100 <<< 1;
+// myInt becomes: 0b00000000000000000000000000011000 whitch is 24
+
+myInt = 12 <<< 2;
+// myInt becomes: 28
+
+myInt = -12 <<< 1;
+// myInt becomes: -24
+
+//text
+The __<<<__ operator can also be used to remove characters from the start of strings or items from the start of arrays or lists.
+
+//code
+string myString = '12345' <<< 1;
+// myString becomes: '2345'
+
+int[] myArray = [1,2,3,4,5] <<< 1;
+// myArray becomes: [2,3,4,5]
+
+List<int> myList = [1,2,3,4,5] <<< 1;
+// myList becomes: [2,3,4,5]
+
+//subtile
+Bitwise signed right shift loop (@>>)
+
+//text
+The __@>>__ operator is used to loop every bit in a bit sequence a given amount of places to the right.
+The most right bits will be moved to the left after the MSB.
+
+//code
+int myInt = 0b00000000000000000000000000001100 @>> 1;
+// myInt becomes: 0b00000000000000000000000000000110 whitch is 6
+
+myInt = 12 @>> 2;
+// myInt becomes: 3
+
+myInt = -12 @>> 1;
+// myInt becomes: -6
+
+//subtile
+Bitwise signed left shift loop (@<<)
+
+//text
+The __@<<__ operator is used to loop every bit in a bit sequence a given amount of places to the left.
+The most left bits after the MSB will be moved to the right.
+
+//code
+int myInt = 0b00000000000000000000000000001100 @<< 1;
+// myInt becomes: 0b00000000000000000000000000011000 whitch is 24
+
+myInt = 12 @<< 2;
+// myInt becomes: 48
+
+myInt = -12 @<< 1;
+// myInt becomes: -24
+
+//subtile
+Bitwise unsigned right shift loop (@>>>)
+
+//text
+The __@>>>__ operator is used to loop every bit in a bit sequence a given amount of places to the right.
+The most right bits will be moved to the left.
+
+//code
+int myInt = 0b00000000000000000000000000001100 @>>> 1;
+// myInt becomes: 0b00000000000000000000000000000110 whitch is 6
+
+myInt = 12 @>>> 2;
+// myInt becomes: 3
+
+myInt = -12 @>>> 1;
+// myInt becomes: 2147483642
+
+//text
+The __@>>>__ operator can also be used to loop every character or item in a string, array or list a given amount of places to the right.
+The most right items or characters will be moved to the left.
+
+//code
+string myString = '12345' @>>> 1;
+// myString becomes: '51234'
+
+int[] myArray = [1,2,3,4,5] @>>> 1;
+// myArray becomes: [5,1,2,3,4]
+
+List<int> myList = [1,2,3,4,5] @>>> 1;
+// myList becomes: [5,1,2,3,4]
+
+//subtile
+Bitwise unsigned left shift (@<<<)
+
+//text
+The __@<<<__ operator is used to loop every bit in a bit sequence a given amount of places to the left.
+The most left bits will be moved to the right.
+
+//code
+int myInt = 0b00000000000000000000000000001100 <<< 1;
+// myInt becomes: 0b00000000000000000000000000011000 whitch is 24
+
+myInt = 12 @<<< 2;
+// myInt becomes: 28
+
+myInt = -12 @<<< 1;
+// myInt becomes: -24
+
+The __@<<<__ operator can also be used to loop every character or item in a string, array or list a given amount of places to the left.
+The most left items or characters will be moved to the right.
+
+//code
+string myString = '12345' @<<< 1;
+// myString becomes: '23451'
+
+int[] myArray = [1,2,3,4,5] @<<< 1;
+// myArray becomes: [2,3,4,5,1]
+
+List<int> myList = [1,2,3,4,5] @<<< 1;
+// myList becomes: [2,3,4,5,1]
 
 //title
 Null safety
@@ -1270,13 +1481,26 @@ if(myBoolean && mySecondBoolean){
 Logical or (||)
 
 //text
-The __||__ operator is used the evaluated two boolean expressions when at least on expression is evaluated to true the logical or expression is evaluated to true.
+The __||__ operator is used the evaluated two boolean expressions when at least one expression is evaluated to true the logical or expression is evaluated to true.
 To use the logical and operator write a boolean expression followed by __||__ and ending with another boolean expression.
 
 //code
 if(myBoolean || mySecondBoolean){
+    // Code that executes when myBoolean or/and mySecondBoolean is true.
+}
+
+//subtile
+Logical xor (^^)
+
+//text
+The __^^__ operator is used the evaluated two boolean expressions when only one expression is evaluated to true the logical xor expression is evaluated to true.
+To use the logical and operator write a boolean expression followed by __^^__ and ending with another boolean expression.
+
+//code
+if(myBoolean ^^ mySecondBoolean){
     // Code that executes when myBoolean or mySecondBoolean is true.
 }
+
 
 //subtile
 Logical not (!)
