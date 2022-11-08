@@ -1344,8 +1344,48 @@ Operator`   Name`                   Example
 
 //table
 ?`          Nullability indicator`  int? myInt = null;
-?`          Null-aware`             myObject?.toString(); or myArray?[1]; or myMap?['key'];
+?`          Optional chaining`      myObject?.toString(); or myArray?[1]; or myMap?['key'];
 ??`         Null-coalescing`        myString ?? 'Default value';
+
+//subtitle
+Nullability indicator (?)
+
+//text
+The __?__ operator can be used to indicate that a variable can contain __null__.
+Note you can only use the nullability indicator when declaring variables.
+
+//code
+string? myString = 'Hello World!';
+myString = null;
+
+int?[] = [1,4,null];
+
+//subtile
+Optional chaining (?)
+
+//text
+The __?__ operator can be used on nullable variable to indicate a optional chaining.
+When using optional chaining in a statement and null occurs the statement will be exited.
+When using optional chaining in an expression and null occurs the expression will be exited and null will be returned.
+
+//code
+myInt?.toString();
+
+string? myString = myInt?.toString();
+
+char myChar = myString?[1];
+
+double? myDouble = myMap?['Value'];
+
+//subtitle
+Null-coalescing (??)
+
+//text
+The __??__ operator can be used add default values to nullable variables.
+
+//code
+string mySecondString = myString ?? 'Default value';
+// mySecondString becomes the value of myString when it is not null when it is null is becomes: 'Default value'
 
 //title
 Ternary
