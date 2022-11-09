@@ -191,7 +191,7 @@ namespace MyNamespace
 }
 
 // Your constructors used.
-Myclass myClass = MyClass();
+MyClass myClass = MyClass();
 MySecondClass mySecondClass = MySecondClass();
 
 //title
@@ -379,6 +379,50 @@ class MySecondClass extend MyClass
     public void myMethod(int value){
         // Your method code.
     }
+}
+
+//title
+Extention methods (extend)
+
+//text
+The __extend__ keyword can be used to add methods to an already defined class.
+Use the __this__ keyword to access fields and methods from the original class or acces extended methods.
+
+//code
+extend string
+{
+    public set<string> toSet(){
+        
+    }
+}
+
+string myString = 'Hello World!';
+print(myString.toSet());
+
+//text
+The extended methods can also be used in inheritance.
+
+//code
+class MyClass
+{
+    // Your fields and methods.
+}
+
+extend MyClass
+{
+    public string toString(){
+        print()
+       
+    }
+}
+
+class MySecondClass extend MyClass
+{
+    MySecondClass(){
+        toString();
+        // Your constructor code.
+    }
+    // Your fields and methods.
 }
 
 //title
