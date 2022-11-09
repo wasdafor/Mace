@@ -382,17 +382,16 @@ class MySecondClass extend MyClass
 }
 
 //title
-Extention methods (extend)
-
+Extension methods (extend)
 //text
 The __extend__ keyword can be used to add methods to an already defined class.
-Use the __this__ keyword to access fields and methods from the original class or acces extended methods.
+Use the __this__ keyword to access fields and methods from the original class or to access extended methods.
 
 //code
 extend string
 {
     public set<string> toSet(){
-        
+        // Code that converts a string to a set.
     }
 }
 
@@ -405,25 +404,28 @@ The extended methods can also be used in inheritance.
 //code
 class MyClass
 {
+    public int myInt = 0;
     // Your fields and methods.
 }
 
 extend MyClass
 {
-    public string toString(){
-        print()
-       
+    public void printMyInt(){
+        print(this.myInt);
+        // Your method code.
     }
 }
 
 class MySecondClass extend MyClass
 {
     MySecondClass(){
-        toString();
         // Your constructor code.
     }
     // Your fields and methods.
 }
+
+MySecondClass mySecondClass = MySecondClass();
+mySecondClass.printMyInt();
 
 //title
 Interfaces (interface)
@@ -1396,7 +1398,7 @@ Nullability indicator (?)
 
 //text
 The __?__ operator can be used to indicate that a variable can contain __null__.
-Note you can only use the nullability indicator when declaring variables.
+Note that you can only use the nullability indicator when declaring variables.
 
 //code
 string? myString = 'Hello World!';
@@ -1408,8 +1410,8 @@ int?[] = [1,4,null];
 Optional chaining (?)
 
 //text
-The __?__ operator can be used on nullable variable to indicate a optional chaining.
-When using optional chaining in a statement and null occurs the statement will be exited.
+The __?__ operator can be used on nullable variables to indicate an optional chaining.
+When using optional chaining in a statement and null occurs, the statement will be exited.
 When using optional chaining in an expression and null occurs the expression will be exited and null will be returned.
 
 //code
@@ -1417,7 +1419,7 @@ myInt?.toString();
 
 string? myString = myInt?.toString();
 
-char myChar = myString?[1];
+char? myChar = myString?[0];
 
 double? myDouble = myMap?['Value'];
 
@@ -1429,14 +1431,15 @@ The __??__ operator can be used add default values to nullable variables.
 
 //code
 string mySecondString = myString ?? 'Default value';
-// mySecondString becomes the value of myString when it is not null when it is null is becomes: 'Default value'
+// mySecondString becomes the value of myString when myString is not null.
+// When myString is null mySecondString becomes 'Default value'.
 
 //title
 Ternary
 
 //text
 The __? :__ operators are used to create an if statement that can ben used inside of expressions.
-To use the ternary operator write to following structure a boolean expression, __?__, a expression of any type, __:__, a expression of any type.
+To use the ternary operator write to following structure; a boolean expression, __?__, an expression of any type, __:__, an expression of any type.
 
 //code
 myBoolean = false;
@@ -1447,7 +1450,7 @@ string myString = myBoolean ? 'True' : 'False';
 Assignment
 
 //text
-Assignment operators are used to assign or reassigning a value to a variable.
+Assignment operators are used to assign or for reassigning a value to a variable.
 For more information about combined assignment operators check their chapters.
 
 //tablehead
@@ -1610,7 +1613,7 @@ To use the logical OR operator, write a boolean expression followed by __||__ an
 
 //code
 if(myBoolean || mySecondBoolean){
-    // Code that executes when myBoolean or/and mySecondBoolean is true.
+    // Code that executes when myBoolean and/or mySecondBoolean is true.
 }
 
 //subtile
@@ -1949,14 +1952,14 @@ switch (myInt)
         break;
     }
 }else{
-
+    // Code that executes when myInt is not 5 and is not 6.
 }
 
 //title
 Looping
 
 //text
-Loops are used to iterate over sequences of code that needs to run for a specified amount of times.
+Loops are used to iterate over sequences of code that need to run for a specified amount of times.
 
 //subtitle
 For (for), (in), (with)
@@ -1984,7 +1987,7 @@ for(string key, int value in myMap){
 }
 
 //text
-The __with__ keyword is used to bind an integer variable to the index of a for in loop.
+The __with__ keyword is used to bind an integer variable to the index of a __for in loop__.
 To use the __with__ statement, write after the content in the __()__ __with__ followed by an integer variable declaration.
 
 //code
@@ -1998,7 +2001,7 @@ for(string value in myArray with int index){
 The __for loop__ can also be used to loop a defined amount of times by defining two code statements and one boolean expression.
 To create such a __for loop__ write inside the __()__ of the for loop a code statement followed by a boolean expression and ending with another code statement.
 The first code statement wil only be executed once when the loop gets executed.
-The boolean expression will be executed before each iteration when evaluated to true the code block of the __for loop__ wil be executed.
+The boolean expression will be executed before each iteration. When evaluated to true the code block of the __for loop__ wil be executed.
 The second code statement will be executed at the end of every iteration.
 
 //code
@@ -2092,7 +2095,7 @@ When using the __break__ statement the else statement of any loop wil not be exe
 for(string value in myArray){
     break;    
 }else{
-    // Code gets never executed because the break statement is used.
+    // Code that never gets executed because the break statement is used.
 }
 
 
@@ -2111,7 +2114,7 @@ for(int i = 0; i < 10; i++){
         continue;
         // Code that never gets executed.
     }
-    // Code that executes for every iteration except as when i is equal to 5.
+    // Code that executes for every iteration except when i is equal to 5.
 }
 
 //title
