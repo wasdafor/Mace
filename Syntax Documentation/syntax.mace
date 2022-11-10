@@ -382,14 +382,20 @@ class MySecondClass extend MyClass
 }
 
 //title
-Extension methods (extend)
+Class extension (extend)
+
 //text
-The __extend__ keyword can be used to add methods to an already defined class.
-Use the __this__ keyword to access fields and methods from the original class or to access extended methods.
+The __extend__ keyword can be used to add methods and fields to an already defined class.
+This works almost the same as normal classes and can only be defined in a namespace.
+The constructor and the destructor of the original class can not be overwritten/redefined/overloaded.
+To create a class extension write __extend__ followed by a class name and ending with __{}__.
+Multiple extensions can be created for the same class.
+Use the __this__ keyword to access fields and methods from the original class or from extensions.
 
 //code
 extend string
 {
+    public char[] myString = "";
     public set<string> toSet(){
         // Code that converts a string to a set.
     }
@@ -436,7 +442,7 @@ To create an interface write __interface__ followed by the name of the interface
 You can define any fields or methods in an interface.
 Note that an interfaces can contain only abstract fields and methods.
 Fields cannot be defined and methods cannot have a body.
-Interfaces can be compared to blueprints for classess.
+Interfaces can be compared to blueprints for classes.
 You can only define an interface in a namespace.
 
 //code
@@ -582,6 +588,7 @@ Getters (get) and Setters (set)
 Getters and setters are methods that will be run when the specific field is accessed.
 The keywords __public__, __private__ and __protected__ can be added to getters and setters.
 These access modifiers override the default getters and setters of the fields.
+Getters and setters can only be defined in the same class, interface or extension class as where the field is defined.  
 Note that in the example the integer was initialially private, but has become public because of the getter and setter.
 
 //code
@@ -604,10 +611,62 @@ class MyClass
     }
 }
 
+//text
+If only the access modifiers of a field need to be changed the shorthand can be used.
+For the setter use an access modifier followed by set before the field.
+For the getter use an access modifier followed by get before the field.
+You are not required to use both the getter and setter on the same field. If one is omitted it becomes private.
+
+//code
+class MyClass
+{
+    private set public get bool myBoolean;
+}
+
+//chapter
+Methods
+
+//title
+Data types
+
+//text
+To store a method in a variable use the method data type.
+
+//code
+class GoogleMaps
+{
+    void(GoogleMapsController googleMapsController) onInit;
+
+    public GoogleMaps(this.onInit){
+        System.sleep(5);
+        onInit(GoogleMapsController());
+    }
+}
+
+class GoogleMapsController
+{
+    void goToXY(){
+
+    }
+}
+
+GoogleMaps googleMaps = GoogleMaps(void (GoogleMapsController googleMapsController){
+    googleMapsController.goToXY();
+});
+
 //title
 Lambda funtions
 
-//TODO
+//text
+There are multiple ways to define a method.
+
+//code
+int addTwoNumbers0(int a, int b){
+    return a + b;
+}
+int addTwoNumbers1(int a, int b) => a + b;
+int() addTwoNumbers2 = int(int a, int b) {return a + b};
+int() addTwoNumbers3 = int(int a, int b) => a + b;
 
 //chapter
 Variables

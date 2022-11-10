@@ -206,3 +206,14 @@ underscores, the operator structure, operand
 
 range
 meerdere datatypes
+
+
+type JsonValue = int | string | bool;
+int[] default: -1 myArray = [1,2,3];
+int myValue = myArray[1];
+
+Map<string,JsonValue>
+Map<string, Object>
+string value = object
+//warning typecast is not certain
+int() | int test = int(){}
