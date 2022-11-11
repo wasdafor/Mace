@@ -12,6 +12,7 @@ First we will define the syntax that makes it possible to convert this file easi
 No tags are used inside other tags.
 
 The shortcodes are:
+
 //chapter
 Your chapter here
 
@@ -56,12 +57,26 @@ Creating Namespaces (namespace)
 //text
 The __namespace__ keyword is used to create a __namespace__.
 To create a __namespace__ write the __namespace__ keyword, followed by the name of the __namespace__ with opening and closing curly brackets.
-When defining fields, methods and classes inside a __namespace__, they are automatically __static__, so the __static__ keyword is not required.
+When defining multiple namespaces with the same name, the members of these namespaces will be merged.
+Use access modifiers to define where the members of the namespace can be used.
+Use __public__ to make the members available for using in other namepaces.
+Use __private__ to make the members only available inside the namespace itself.
+By default the members of a namespace will be private.
+
+The following members can be defined in a __namespace__:
+
+//table
+class
+extension class
+enum
+interface
+method
+field
 
 //code
 namespace MyNamespace
 {
-    // Your classes and static fields.
+    // Your namespace members.
 }
 
 //text
@@ -86,64 +101,64 @@ namespace MyNamespace
 Using Namespaces (using)
 
 //text
-The __using__ keyword is used to use a namespace. 
+The __using__ keyword is used to use the members of a namespace. 
 To use a namespace write __using__ followed by the path to the location of the namespace ending with a __;__.
-All public elements in the namespace can be directly accessed.
+Public members in the namespace can always be accessed while private members can only be accessed when inside a namespace with the same identifier.
 
 //code
 using ./MyNamespace;
-// Print public element from MyNamespace.
-print(myElement);
+// Print public member from MyNamespace.
+print(myMember);
 
 //subtitle
-Using elements
+Using members
 
 //text
-The __,__ can be used to use specific elements of a namespace.
-To use specific elements add your elements separated by commas.
-Next, write __from__, followed by the path and your namespace ending with a __;__.
-To access an element of a namespace, use the name of the elements.
+The __,__ can be used to use specific members of a namespace.
+To use specific members add your members separated by commas.
+Next, write __from__, followed by the path to your namespace and ending with a __;__.
+To access a member of a namespace, use the name of the member you want to use.
 
 //code
-using myFirstElement, mySecondElement from ./MyNamespace;
-// Print public elements from MyNamespace.
-print(myFirstElement);
-print(mySecondElement);
+using myFirstMember, mySecondMember from ./MyNamespace;
+// Print public members from MyNamespace.
+print(myFirstMember);
+print(mySecondMember);
 
 //subtitle
-Naming a namespace (as)
+Namespace name (as)
 
 //text
-The __as__ keyword can used to name a namespace. 
-To name your namespace write __as__ after your namespace path followed by a given namespace name.
-To access an element of a named namespace, write the given name followed by an element.
+The __as__ keyword can be used to add a name to a namespace. 
+To add a name to your namespace write __as__ after your namespace path followed by a given namespace name.
+To access a member of a namespace with a name, write the given name followed by a member.
 
 //code
 using ./MyNamespace as MyNamedNamespace;
-// Print public element from MyNamespace named MyNamedNamespace.
-print(MyNamedNamespace.myFirstElement);
+// Print public member from MyNamespace named MyNamedNamespace.
+print(MyNamedNamespace.myFirstMember);
 
-using myFirstElement, mySecondElement from ./MySecondNamespace as MySecondNamedNamespace;
-// Print public element from MyNamespace named MySecondNamedNamespace.
-print(MySecondNamedNamespace.mySecondElement);
+using myFirstMember, mySecondMember from ./MySecondNamespace as MySecondNamedNamespace;
+// Print public member from MyNamespace named MySecondNamedNamespace.
+print(MySecondNamedNamespace.mySecondMember);
 
 //subtitle
-Renaming elements (as)
+Rename members (as)
 
 //text
-The __as__ keyword can be used to rename namespace elements. 
-To rename your namespace elements, write __as__ after the element followed with your new name;
-To access a renamed element of a namespace, use the renamed name of the elements.
+The __as__ keyword can be used to rename namespace members. 
+To rename your namespace members, write __as__ after the member followed with your new name;
+To access a renamed member, use the new name of the member.
 
 //code
-using myFirstElement as myFirstRenamedElement, mySecondElement as mySecondRenamedElement from ./MyNamespace;
-// Print renamed public elements from MyNamespace 
-print(myFirstRenamedElement);
-print(mySecondRenamedElement);
+using myFirstMember as myFirstRenamedMember, mySecondMember as mySecondRenamedMember from ./MyNamespace;
+// Print renamed public members from MyNamespace 
+print(myFirstRenamedMember);
+print(mySecondRenamedMember);
 
-using myFirstElement as myFirstRenamedElement from ./MySecondNamespace as MySecondNamedNamespace;
-// Print renamed public elements from MySecondNamespace named MySecondNamedNamespace.
-print(MySecondNamedNamespace.myFirstRenamedElement);
+using myFirstMember as myFirstRenamedMember from ./MySecondNamespace as MySecondNamedNamespace;
+// Print renamed public members from MySecondNamespace named MySecondNamedNamespace.
+print(MySecondNamedNamespace.myFirstRenamedMember);
 
 //title
 Using system namepaces (system)
@@ -586,9 +601,11 @@ Getters (get) and Setters (set)
 
 //text
 Getters and setters are methods that will be run when the specific field is accessed.
-The keywords __public__, __private__ and __protected__ can be added to getters and setters.
-These access modifiers override the default getters and setters of the fields.
-Getters and setters can only be defined in the same class, interface or extension class as where the field is defined.  
+To create a setter or getter write the following structure; __get__ or __set__, the name of any field, __()__ and __{}__.
+Access modifiers can be added to the getter and setter. These access modifiers override the default getter and setter of the field.
+Getters and setters can only be defined with their field in the same class, interface or extension class.
+When defining the getter you must return a value with the same type as the field.
+When defining the setter you are required to have only one parameter of any type.
 Note that in the example the integer was initialially private, but has become public because of the getter and setter.
 
 //code
@@ -612,7 +629,7 @@ class MyClass
 }
 
 //text
-If only the access modifiers of a field need to be changed the shorthand can be used.
+If only the access modifiers of a field needs to be changed the shorthand can be used.
 For the setter use an access modifier followed by set before the field.
 For the getter use an access modifier followed by get before the field.
 You are not required to use both the getter and setter on the same field. If one is omitted it becomes private.
@@ -622,6 +639,33 @@ class MyClass
 {
     private set public get bool myBoolean;
 }
+
+//text
+The getter and setter can also be used to access the class with __[]__.
+To create such a getter or setter write the following structure; __get__ or __set_, __this[]__, __()__ and __{}__.
+When defining the getter you are required to have only one parameter of any type.
+When defining the setter you are required to have only two parameters of any type.
+
+//code
+class MyMap<T,S>
+{
+    get this[](T index){
+        return '';
+        // Return a value depending on the index given.
+    }
+
+    set this[](T index, S value){
+        // Save a value depending on the given index and value.
+    }
+}
+
+MyMap<string,int> myMap = MyMap<string,int>();
+
+myMap['value'] = 4;
+// Setting a value via an index
+
+print(myMap['value']);
+// Getting a value via an index
 
 //chapter
 Methods
@@ -1123,6 +1167,39 @@ myArray = [3,3,3] & [3,3];
 // myArray becomes: [3]
 List<int> myList = [1,2,3,4,2,3] % [2,3];
 // myList becomes: [1,4]
+
+//title
+Matrix arithmetic
+
+//text
+The following table shows all possible operations that can be applied on matrices or vertices.
+
+//code
+int[] a = [0,1,2];
+int[] b = [2,1,0];
+int[] myArray;
+int myScalar = 2;
+int myInt;
+
+//tablehead
+Operator`   Name`                           Example`                  Same as
+
+//table
+#+`         Matrix addition`                myArray = a #+ b;`        myArray = [a[0]+b[0], a[1]+b[1], a[2]+b[2]];
+#-`         Matrix subtraction`             myArray = a #- b;`        myArray = [a[0]-b[0], a[1]-b[1], a[2]-b[2]];
+#*`         Matrix scalar multiplication`   myArray = a #* myScalar;` myArray = [a[0]*myScalar, a[1]*myScalar, a[2]*myScalar];
+#/`         Matrix scalar division`         myArray = a #/ myScalar;` myArray = [a[0]/myScalar, a[1]/myScalar, a[2]/myScalar];
+#**`        Matrix cross product`           myArray = a #** b;`       myArray = [a[1]*b[2]-a[2]*b[1], a[2]*b[1]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]];
+#.`         Matrix dot product`             myInt = a #. b;`          myInt = a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+#-`         Matrix negatation`              myArray = #-a;`           myArray = [a[0]*-1, a[1]*-1, a[2]*-1];
+#^`         Matrix norm`                    myInt = #^a;              myInt = sqrt(a[0]**2 + a[1]**2 + a[2]**2);
+#%`         Matrix unit`                    myArray = #%a;            myArray = a #/ #^a;
+
+//subtitle
+Matrix addition (#+)
+
+//text
+TODO
 
 //title
 Bitwise depended
