@@ -56,11 +56,12 @@ Creating Namespaces (namespace)
 
 //text
 The __namespace__ keyword is used to create a __namespace__.
-To create a __namespace__ write the __namespace__ keyword, followed by the name of the __namespace__ with opening and closing curly brackets.
+To create a __namespace__ write the __namespace__ keyword, followed by the name of the __namespace__ ending with __{}__.
 When defining multiple namespaces with the same name, the members of these namespaces will be merged.
 Use access modifiers to define where the members of the namespace can be used.
-Use __public__ to make the members available for using in other namepaces.
+Use __public__ to make the members available for using in any other namepaces.
 Use __private__ to make the members only available inside the namespace itself.
+Use __protected__ to make the members available inside namepaces with the same name.
 By default the members of a namespace will be private.
 
 The following members can be defined in a __namespace__:
@@ -80,7 +81,7 @@ namespace MyNamespace
 }
 
 //text
-Namespace with classes, methods and fields
+Namespace with members
 
 //code
 namespace MyNamespace
@@ -103,11 +104,12 @@ Using Namespaces (using)
 //text
 The __using__ keyword is used to use the members of a namespace. 
 To use a namespace write __using__ followed by the path to the location of the namespace ending with a __;__.
-Public members in the namespace can always be accessed while private members can only be accessed when inside a namespace with the same identifier.
+Public members in the namespace can always be accessed while protected members can only be accessed when inside a namespace with the same name.
+Private members can not be accessed when using a __using__ statement.
 
 //code
 using ./MyNamespace;
-// Print public member from MyNamespace.
+// Print public or protected member from MyNamespace.
 print(myMember);
 
 //subtitle
@@ -121,7 +123,7 @@ To access a member of a namespace, use the name of the member you want to use.
 
 //code
 using myFirstMember, mySecondMember from ./MyNamespace;
-// Print public members from MyNamespace.
+// Print public or protected members from MyNamespace.
 print(myFirstMember);
 print(mySecondMember);
 
@@ -135,11 +137,11 @@ To access a member of a namespace with a name, write the given name followed by 
 
 //code
 using ./MyNamespace as MyNamedNamespace;
-// Print public member from MyNamespace named MyNamedNamespace.
+// Print public or protected member from MyNamespace named MyNamedNamespace.
 print(MyNamedNamespace.myFirstMember);
 
 using myFirstMember, mySecondMember from ./MySecondNamespace as MySecondNamedNamespace;
-// Print public member from MyNamespace named MySecondNamedNamespace.
+// Print public or protected member from MyNamespace named MySecondNamedNamespace.
 print(MySecondNamedNamespace.mySecondMember);
 
 //subtitle
@@ -152,12 +154,12 @@ To access a renamed member, use the new name of the member.
 
 //code
 using myFirstMember as myFirstRenamedMember, mySecondMember as mySecondRenamedMember from ./MyNamespace;
-// Print renamed public members from MyNamespace 
+// Print renamed public or protected members from MyNamespace 
 print(myFirstRenamedMember);
 print(mySecondRenamedMember);
 
 using myFirstMember as myFirstRenamedMember from ./MySecondNamespace as MySecondNamedNamespace;
-// Print renamed public members from MySecondNamespace named MySecondNamedNamespace.
+// Print renamed public or protected members from MySecondNamespace named MySecondNamedNamespace.
 print(MySecondNamedNamespace.myFirstRenamedMember);
 
 //title
@@ -166,7 +168,7 @@ Using system namepaces (system)
 //text
 The __system__ keyword is used to use any namespace from the mace system namespaces.
 To use the system namepaces, write __system__ before your __using__ statement. 
-This wil start your namespace path in the system directory. This means that adding the ./ prefix in your namespace path is not required.
+This wil start your namespace path in the system directory. This means that adding the __./__ prefix in your namespace path is not required.
 
 //code
 system using Networking/RequestManager;
@@ -176,23 +178,23 @@ print(getURL("https://google.com"));
 //chapter
 Classes
 
-//title
-Creating Classes (class)
-
 //text
 The __class__ keyword is used to create a class.
-To create a class write __class__ followed by the name of the class and __{}__.
-You can define any fields or methods in a class.
-To create an instance of a class use the class name followed by __()__ ending with a __;__.
-You can only define a class in a namespace.
-Classes will automatically be private.
+To create a class write __class__ followed by the name of the class and ending with __{}__.
+Classes can contain any field, method, getter or setter, these are called class members.
+Classes can only be declared in a namepace and will be private by default.
+
+Use access modifiers to define where the members of a class can be used.
+Use __public__ to make the members available for usage outside of the class.
+Use __private__ to make the members only available inside the class itself.
+Use __protected__ to make the members only available inside the class itself or derived classes.
 
 //code
 namespace MyNamespace
 {
     class MyClass
     {
-       // Your fields and methods.
+       // Your class members.
     }
 
     class MySecondClass
@@ -205,6 +207,9 @@ namespace MyNamespace
     }
 }
 
+//text
+To create an instance of a class use the class name followed by __()__.
+
 // Your constructors used.
 MyClass myClass = MyClass();
 MySecondClass mySecondClass = MySecondClass();
@@ -213,8 +218,9 @@ MySecondClass mySecondClass = MySecondClass();
 Inheritance (extend)
 
 //text
-To inherit a class from another class use the a __extend__ after the name of the child class followed by the name of the class you want to inherit from.
-When a class inherits from another class you can access the fields and methods of the parent class.
+The __extend__ keyword is used to inherit a class from another class.
+To inherit a class from another class write __extend__ after the name of the child class followed by the name of the class you want to inherit from.
+When a class inherits from another class you can access the public or protected members of the parent class.
 
 //code
 class MyClass
@@ -239,8 +245,8 @@ Abstraction (abstract)
 
 //text
 The __abstract__ keyword is used to create abstract classes.
-Write __abstract__ before your class, field or method to make it abstract.
-When a class, field or method is abstract it means that it cannot be used on its own.
+Write __abstract__ before your class or class member to make it abstract.
+When a class or class member is abstract it means that it cannot be used on its own.
 
 //subtitle
 Classes
@@ -268,19 +274,21 @@ class MySecondClass extend MyClass
 }
 
 //subtitle
-Fields and methods
+Class members
 
 //text
-Only abstract classes and interfaces can contain abstract fields and methods. 
-When a field or method is abstract this means that they need to be implemented in the child class.
-To implement an abstract field or method write __override__ before the field or method.
+Only abstract classes and interfaces can contain abstract members. 
+When a member is abstract this means that they need to be implemented in the child class.
+To implement an abstract member write __override__ before the member.
+
 It is important that the field you want to implement has the same access modifier, type and identifier as the one you want to override.
 If a field is an abstract field it may have a default value.
-When the child class defines the field it overrides the value, if the child class only declares the field the default value of the parent class.
+When the child class defines the field it overrides the value, if the child class only declares the field the default value of the parent class will be used.
+
 The same applies for methods, the implemented method needs to have the same access modifier, return type, identifier and parameters as the method you want to override.
-If a method is an abstract field it may have a body.
-When the child class defines the method it overrides the code in the body of the abstract class, if the child class only declares the method, the code of the parent class is run.
-Note that definition of a field or method must happen, either or both in the parent and child class.
+If a method is abstract it may have a body.
+When the child class defines the method it overrides the code in the body of the abstract class, if the child class only declares the method, the code of the parent class is used.
+// Note that definition of a field or method must happen, either or both in the parent and child class.
 
 //code
 abstract class MyClass
@@ -330,9 +338,9 @@ Sealing (sealed)
 
 //text
 The __sealed__ keyword is used to make a class sealed.
-When a class is __sealed__, the class cannot be used as a super class.
-The class cannot be inherited by another class.
-A sealed class cannot contain abstract fields or methods.
+To make a class sealed write __sealed__ before your class.
+When a class is __sealed__, the class cannot be inherited/be a super class.
+A sealed class cannot contain abstract members.
 
 //code
 sealed class MyClass
@@ -348,10 +356,10 @@ sealed class MyClass
 Static (static)
 
 //text
-The __static__ keyword is used to make a class or elements static.
-When a class is __static__, the class cannot be used as a super class.
-The class cannot be inherited by another class.
-A static class can only contain static fields or methods.
+The __static__ keyword is used to make a class or its members static.
+To make a class static write __static__ before you class.
+A static class can only contain static members.
+When a class is __static__, the class cannot inherited/be super class.
 A static class cannot be instanciated.
 
 //code
@@ -369,8 +377,8 @@ Super class (super) and This class (this)
 
 //text
 When using the same identifier in the child class as in the parent class, the child class will override the parent identifier.
-Use __super__ to only access the fields and methods of the parent class.
-Use __this__ to only access the fields and methods of the current class.
+Use __super__ to only access the members of the parent class.
+Use __this__ to only access the members of the current class.
 
 //code
 class MyClass
@@ -400,12 +408,12 @@ class MySecondClass extend MyClass
 Class extension (extend)
 
 //text
-The __extend__ keyword can be used to add methods and fields to an already defined class.
-This works almost the same as normal classes and can only be defined in a namespace.
-The constructor and the destructor of the original class can not be overwritten/redefined/overloaded.
+The __extend__ keyword can be used to add members to an already defined class.
 To create a class extension write __extend__ followed by a class name and ending with __{}__.
+This works almost the same as a normal class and can only be defined inside a namespace.
+The constructor and the destructor of the original class can not be overwritten/redefined/overloaded.
 Multiple extensions can be created for the same class.
-Use the __this__ keyword to access fields and methods from the original class or from extensions.
+Use the __this__ keyword to access public members from the original class or from extensions.
 
 //code
 extend string
@@ -420,13 +428,13 @@ string myString = 'Hello World!';
 print(myString.toSet());
 
 //text
-The extended methods can also be used in inheritance.
+The extended members can also be used in inheritance.
 
 //code
 class MyClass
 {
     public int myInt = 0;
-    // Your fields and methods.
+    // Your class members
 }
 
 extend MyClass
@@ -440,48 +448,20 @@ extend MyClass
 class MySecondClass extend MyClass
 {
     MySecondClass(){
+        printMyInt();
         // Your constructor code.
     }
-    // Your fields and methods.
+    // Your class members
 }
 
 MySecondClass mySecondClass = MySecondClass();
 mySecondClass.printMyInt();
 
 //title
-Interfaces (interface)
-
-//text
-The __interface__ keyword is used to create an interface.
-To create an interface write __interface__ followed by the name of the interface, the keyword __implement__ and __{}__.
-You can define any fields or methods in an interface.
-Note that an interfaces can contain only abstract fields and methods.
-Fields cannot be defined and methods cannot have a body.
-Interfaces can be compared to blueprints for classes.
-You can only define an interface in a namespace.
-
-//code
-interface MyInterface
-{
-    abstract int myInt;
-
-    abstract void myMethod();
-}
-
-class MyClass implement MyInterface
-{
-    override int myInt = 0;
-
-    override void myMethod(){
-        // Your implemented method code.
-    }
-}
-
-//title
 Constructor
 
 //text
-To create a constructor write the class name followed by a function body.
+To create a constructor write the class name followed by a method body.
 Named constructors can be created by writing the constructor followed by an access operator and your constructor name.
 The code of a constructor will be run when you create an instance of the class.
 
@@ -603,7 +583,7 @@ Getters (get) and Setters (set)
 Getters and setters are methods that will be run when the specific field is accessed.
 To create a setter or getter write the following structure; __get__ or __set__, the name of any field, __()__ and __{}__.
 Access modifiers can be added to the getter and setter. These access modifiers override the default getter and setter of the field.
-Getters and setters can only be defined with their field in the same class, interface or extension class.
+Getters and setters can only be defined with their field in the same class or extension class.
 When defining the getter you must return a value with the same type as the field.
 When defining the setter you are required to have only one parameter of any type.
 Note that in the example the integer was initialially private, but has become public because of the getter and setter.
@@ -622,7 +602,7 @@ class MyClass
         return myInt + 1;
     }
 
-    protected set myInt(int myInt){
+    public set myInt(int myInt){
         this.myInt = myInt - 1;
         // Your setter code.
     }
@@ -666,6 +646,129 @@ myMap['value'] = 4;
 
 print(myMap['value']);
 // Getting a value via an index
+
+//chapter
+Interfaces (interface)
+
+//text
+The __interface__ keyword is used to create an interface.
+To create an interface write __interface__ followed by the name of the interface and ending with __{}__.
+Interfaces can be compared to abstract classes with only abstract members.
+Interfaces can contain declared fields and body less methods.
+The keyword __abstract__ or access modifiers can not be added to the members of an interface.
+interfaces can ony be declared inside of a namespace.
+
+//code
+interface MyInterface
+{
+    int myInt;
+
+    void myMethod();
+}
+
+//title
+implementation (implement)
+
+//text
+The __implement__ keyword is used to implement the members of an interface inside of a child class.
+To implement the members of an interface write implement after the name of the child class followed by the name of the interface.
+When inplementing an interface all the members of the interface must be overwritten inside of the child class.
+
+//code
+interface MyInterface
+{
+    int myInt;
+
+    void myMethod();
+}
+
+class MyClass implement MyInterface
+{
+    override int myInt = 0;
+
+    override void myMethod(){
+        // Your implemented method code.
+    }
+}
+
+//title
+Inheritance (extend)
+
+//text
+The __extend__ keyword can be used to inherit interface members from other interfaces.
+To inherit members from other interfaces write __extend__ after the child interface followed by comma separated interface names.
+Note no members can have the same name.
+
+//code
+interface MyInterface
+{
+    int myInt;
+}
+
+interface MySecondInterface
+{
+    void myMethod();
+}
+
+interface myThirdInterface extend MyInterface, MySecondInterface
+{
+    // The members of MyInterface and MySecondInterface are inherited in this interface.
+    string myString;
+}
+
+//chapeter
+Enumerations (enum)
+
+//text
+The __enum__ keyword is used to create an __enum__.
+To create an __enum__ write __enum__ followed by the name of the enum ending with __{}__.
+enums can be compared with a static classes that only contain constant fields.
+The fields inside of an enum are comma separated.
+Note that no keywords can be added to the fields inside an enum.
+Enums can only be defined inside of a namepace.
+
+//code
+enum MyEnum
+{
+    FirstEnumField,
+    SecondEnumField,
+    ThirdEnumField
+}
+
+//text
+To access a enum write the enum name followed by the field name.
+
+//code
+MyEnum myEnum = MyEnum.FirstEnumField;
+
+if(myEnum == MyEnum.SecondEnumField){
+
+}
+
+//title
+Inheritance (extend)
+
+//text
+The __extend__ keyword can be used to inherit enum fields from other enums.
+To inherit fields from other enums write __extend__ after the child enum followed by comma separated enum names.
+Note that the enum type must be the same type as the child enum and no fields can have the same name.
+
+//code
+enum MyEnum
+{
+    FirstEnumField,
+}
+
+enum MySecondEnum
+{
+    SecondEnumField,
+}
+
+enum MyThirdEnum extend MyEnum, SecondEnumField
+{
+    // The fields of MyEnum and MySecondEnum are inherited in this enum.
+    ThirdEnumField
+}
 
 //chapter
 Methods
@@ -725,7 +828,10 @@ Primitive`  Meaning
 //table
 string`     Stores any array of characters.
 char`       Stores any singular character.
+short`      Stores any whole number between -32,768 and 32,767    
 int`        Stores any whole number between -2,147,483,648 and 2,147,483,647.
+long`       Stores any whole number between -9,223,372,036,854,775,808 and 9,223,372,036,854,775,807.
+float`      Stores ant floating point number, between           
 double`     Stores any floating point number, between -1.7*10^308 and 1.7*10^308.
 bool`       Stores true or false.
 percent`    Stores a fraction.
