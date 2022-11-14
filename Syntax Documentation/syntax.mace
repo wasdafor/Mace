@@ -816,7 +816,7 @@ int() addTwoNumbers2 = int(int a, int b) {return a + b};
 int() addTwoNumbers3 = int(int a, int b) => a + b;
 
 //chapter
-Variables
+Primitive variables
 
 //text
 Mace has the following primitive data types.
@@ -1370,7 +1370,7 @@ myInt = 12 | 10;
 // myInt becomes: 14
 
 //text
-The __|__ operator can also be used to get the union of two strings, arrays, lists or sets.
+The __|__ operator can also be used to get the union of two strings, arrays, lists, sets or types.
 
 //code
 string myString = '1235' | '245';
@@ -1384,6 +1384,13 @@ List<int> myList = [1,2,3,5] | [2,4,5];
  
 Set<int> mySet = {1,2,3,5} | {2,4,5};
 // mySet becomes: {1,2,3,4,5}
+
+type myType = string | int;
+
+type mySecondType = string | double;
+
+type myThirdType = myType ^ mySecondType;
+//becomes: int | double
 
 //subtitle
 Bitwise XOR (^)
@@ -1640,13 +1647,110 @@ Nullability indicator (?)
 
 //text
 The __?__ operator can be used to indicate that a variable can contain __null__.
+To indicate that a variable can contain __null__ write a __?__ after the variable type.
 Note that you can only use the nullability indicator when declaring variables.
 
 //code
-string? myString = 'Hello World!';
-myString = null;
+string myString = null;
+// Results in an error because myString cannot be null.
 
-int?[] = [1,4,null];
+string? myString = 'Hello World!';
+// Indicating that myString can be null.
+
+//text
+To indicate that an array can not contain null values write any type followed by a __?__ ending with __[]__.
+
+//code
+int[] myArray = null;
+// Results in an error because myArray cannot be null.
+
+int[] myArray = [1,4,null];
+// Results in an error because myArray cannot contain null values.
+
+
+int[]? myArray = null;
+// Indicating that myArray can be null.
+
+int?[] myArray = [1,4,null];
+// Indicating that myArray can contain null values.
+
+//text
+To indicate that the return type of a method variable can be null write any type followed by a __?__ ending with __()__.
+
+//code
+string() myMethod = null;
+// Results in an error because myMethod cannot be null.
+
+string() myMethod = string(){
+    return null;
+}
+// Results in an error because the return type of myMethod cannot be null.
+
+
+string()? myMethod = null;
+// Indicating that myMethod can be null.
+
+string?() myMethod = string?(){
+    return null;
+}
+// Indicating that the return type of myMethod can be null.
+
+//text
+To indicate that the return type of a method can be null write any type followed by a __?__.
+
+//code
+string myMethod(){
+    return null;
+}
+// Results in an error because the return type of myMethod cannot be null.
+
+string? myMethod(){
+    return null;
+}
+// Indicating that the return type of myMethod can be null.
+
+//text
+To indicate that a method parameter can be null write any type followed by a __?__.
+
+//code
+void myMethod(string myString)
+{
+    print(myString);
+}
+myMethod(null);
+
+// Results in an error because the myString parameter of myMethod cannot be null.
+void myMethod(string? myString)
+{
+    print(myString);
+}
+myMethod(null);
+// Indicating that the myString parameter of myMethod can be null.
+
+//text
+To indicate that a generic type can be a nullable type write a generic type name followed by a __?__.
+
+class MyClass<MyGeneric>
+{
+    MyClass(MyGeneric myGeneric)
+    {
+        // Your constructor code.
+    }
+}
+
+MyClass<string> myClass = MyClass<string>(null);
+// Results in an error because the generic type MyGeneric of MyClass is not nullable.
+
+class MyClass<MyGeneric?>
+{
+    MyClass(MyGeneric myGeneric)
+    {
+        // Your constructor code.
+    }
+}
+
+MyClass<string?> myClass = MyClass<string?>(null);
+// Indicating that the generic type MyGeneric of MyClass is nullable.
 
 //subtile
 Optional chaining (?)

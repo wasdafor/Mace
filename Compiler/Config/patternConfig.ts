@@ -1,5 +1,7 @@
 //SEE THE SYNTAX FILE FOR EXPLANATION OF THE SYNTAX
 
+import { Interface } from "readline";
+
 //These are code elements that you can expect in code scope like namespace, class method, variable, Declaration 
 enum CodeScopePartType {
     UsingStatement,
@@ -87,6 +89,14 @@ enum Identifier {
     InterFace,
 }
 
+// type class interface enum type() 
+// type TestType = string | number | CodeScopePart | Function | void | Object | Interface | Enumerator | string;
+// type SecondTestType =  Seperator;
+// type ThirdTestType = (string | number)[] & (string | number);
+// type = string();
+// var test:number | string | (() => number) = '';
+// test = 1;
+// test =  () =>{};
 
 type CodePart = (AccessModifier | TypeQualifier | NameSpaceKeyWord | LiteralValue | Seperator | Identifier)
 type CodeSectionRequired = CodeSectionCodePartRequired | CodeSectionBranchRequired | CodeSectionListRequired | CodeSectionSeparatedListRequired
