@@ -210,6 +210,7 @@ namespace MyNamespace
 //text
 To create an instance of a class use the class name followed by __()__.
 
+//code
 // Your constructors used.
 MyClass myClass = MyClass();
 MySecondClass mySecondClass = MySecondClass();
@@ -288,7 +289,7 @@ When the child class defines the field it overrides the value, if the child clas
 The same applies for methods, the implemented method needs to have the same access modifier, return type, identifier and parameters as the method you want to override.
 If a method is abstract it may have a body.
 When the child class defines the method it overrides the code in the body of the abstract class, if the child class only declares the method, the code of the parent class is used.
-// Note that definition of a field or method must happen, either or both in the parent and child class.
+Note that initialisation of a method must happen, in the parent or child class, or in both.
 
 //code
 abstract class MyClass
@@ -316,7 +317,7 @@ class MySecondClass extend MyClass
 {
     public override int myInt;
 
-    override string myString 'Overwritten value';
+    override string myString = 'Overwritten value';
 
     protected override double myDouble = 3.3;
     
@@ -736,7 +737,7 @@ enum MyEnum
 }
 
 //text
-To access a enum write the enum name followed by the field name.
+To access an enum write the enum name followed by the field name.
 
 //code
 MyEnum myEnum = MyEnum.FirstEnumField;
@@ -831,7 +832,7 @@ char`       Stores any singular character.
 short`      Stores any whole number between -32,768 and 32,767    
 int`        Stores any whole number between -2,147,483,648 and 2,147,483,647.
 long`       Stores any whole number between -9,223,372,036,854,775,808 and 9,223,372,036,854,775,807.
-float`      Stores ant floating point number, between           
+float`      Stores any floating point number, between           
 double`     Stores any floating point number, between -1.7*10^308 and 1.7*10^308.
 bool`       Stores true or false.
 percent`    Stores a fraction.
@@ -938,7 +939,7 @@ You can define a __char__ by using __''__ or __""__.
 char myChar = "H";
 myChar = '!';
 
-//subtile
+//subtitle
 Concatenation
 
 //text
@@ -948,7 +949,7 @@ If you want to concatenate two characters you need to store them in a __string__
 string myTwoChars = 'H' + "!";
 // myTwoChars becomes: 'H!'
 
-//subtile
+//subtitle
 Escape characters (\)
 
 //text
@@ -1088,7 +1089,7 @@ Operator`   Name`                       Example
 //table
 +`          Addition`                   myInt + 5
 ++`         Increment`                  ++myInt    
--`          Negatation or Subtraction`  myInt - 5    
+-`          Negation or Subtraction`    myInt - 5    
 --`         Decrement`                  --myInt    
 *`          Multiplication`             myInt * 5
 /`          Division`                   myInt / 5
@@ -1134,7 +1135,7 @@ myInt = ++myInt;
 // myInt becomes: 1
 
 //subtitle
-Negatation or Subtraction (-)
+Negation or Subtraction (-)
 
 //text
 The __-__ operator is used when a number needs to be negated or two numbers need to be subtracted from each other.
@@ -1282,30 +1283,147 @@ The following table shows all possible operations that can be applied on matrice
 
 //code
 int[] a = [0,1,2];
-int[] b = [2,1,0];
+int[] b = [3,4,5];
+int[][] c = [[6,7,8]];
 int[] myArray;
-int myScalar = 2;
+int myScalar = 9;
 int myInt;
 
 //tablehead
 Operator`   Name`                           Example`                  Same as
 
 //table
-#+`         Matrix addition`                myArray = a #+ b;`        myArray = [a[0]+b[0], a[1]+b[1], a[2]+b[2]];
-#-`         Matrix subtraction`             myArray = a #- b;`        myArray = [a[0]-b[0], a[1]-b[1], a[2]-b[2]];
-#*`         Matrix scalar multiplication`   myArray = a #* myScalar;` myArray = [a[0]*myScalar, a[1]*myScalar, a[2]*myScalar];
-#/`         Matrix scalar division`         myArray = a #/ myScalar;` myArray = [a[0]/myScalar, a[1]/myScalar, a[2]/myScalar];
-#**`        Matrix cross product`           myArray = a #** b;`       myArray = [a[1]*b[2]-a[2]*b[1], a[2]*b[1]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]];
-#.`         Matrix dot product`             myInt = a #. b;`          myInt = a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
-#-`         Matrix negatation`              myArray = #-a;`           myArray = [a[0]*-1, a[1]*-1, a[2]*-1];
-#^`         Matrix norm`                    myInt = #^a;              myInt = sqrt(a[0]**2 + a[1]**2 + a[2]**2);
-#%`         Matrix unit`                    myArray = #%a;            myArray = a #/ #^a;
+#+`         Matrix addition`                myArray = a #+ b;`                          myArray = [a[0]+b[0], a[1]+b[1], a[2]+b[2]];
+#-`         Matrix subtraction`             myArray = a #- b;`                          myArray = [a[0]-b[0], a[1]-b[1], a[2]-b[2]];
+#*`         Matrix scalar multiplication`   myArray = a #* myScalar;`                   myArray = [a[0]*myScalar, a[1]*myScalar, a[2]*myScalar];
+#/`         Matrix scalar division`         myArray = a #/ myScalar;`                   myArray = [a[0]/myScalar, a[1]/myScalar, a[2]/myScalar];
+#**`        Matrix dot product`             myArray = c #** a; or myArray = a #** b;`   myArray = [[c[0]*a[0], c[0]*a[1], c[0]*a[2]],[c[1]*a[0], c[1]*a[1], c[1]*a[2]],[c[2]*a[0], c[2]*a[1], c[2]*a[2]]]; or myArray = [a[0]*b[0]+a[1]*b[1]+a[2]*b[2]];
+##`         Matrix cross product`           myArray = a ## b;`                          myArray = [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]];
+#-`         Matrix negation`                myArray = #-a;`                             myArray = [a[0]*-1, a[1]*-1, a[2]*-1];
+#^`         Matrix norm`                    myInt = #^a;`                               myInt = sqrt(a[0]**2 + a[1]**2 + a[2]**2);
+#%`         Matrix unit`                    myArray = #%a;`                             myArray = a #/ #^a;
 
 //subtitle
 Matrix addition (#+)
 
 //text
-TODO
+The __#+__ operator is used when two matrices need to be added to each other.
+Every number on a position of the first matrix will be added to the number on the same position of the second matrix.
+Note that the size of the two does not matter, but they do need to be the same, both must have the same amount of rows and the same amount of columns.
+
+//code
+myArray = a #+ b;
+myArray = [0+3,1+4,2+5];
+myArray = [3,5,7];
+
+//subtitle
+Matrix subtraction (#-)
+
+//text
+The __#-__ operator is used when one matrix needs to be subtracted from another.
+Every number on a position of the first matrix will be added to the number on the same position of the second matrix.
+Note that the size of the two does not matter, but they do need to be the same, both must have the same amount of rows and the same amount of columns.
+
+//code
+myArray = a #- b;
+myArray = [0-3,1-4,2-5];
+myArray = [-3,-3,-3];
+
+//subtitle
+Matrix scalar multiplication (#*)
+
+//text
+The __#*__ operator is used when a matrix needs to be multiplied with a scalar.
+Every number on a position of the matrix will be multiplied with a number.
+Note that the size of the matrix does not matter.
+
+//code
+myArray = a #* myScalar;
+myArray = [0*6,1*6,2*9];
+myArray = [0,9,18];
+
+//subtitle
+Matrix scalar division (#/)
+
+//text
+The __#/__ operator is used when a matrix needs to be divided by a scalar.
+Every number on a position of the matrix will be divided with a number.
+Note that the size of the matrix does not matter.
+
+//code
+myArray = a #/ myScalar;
+myArray = [0/9,1/9,2/9];
+myArray = [0,0,0];
+
+//subtitle
+Matrix dot product (#**)
+
+//text
+The __#**__ operator is used when two matrices need to be multiplied with each other.
+The resulting matrix will have the number of rows of the first matrix and the number of columns of the second matrix.
+Every position of the resulting matrix will be the sum of 
+each element of the corresponding row in the first matrix multiplied with each element of the corresponding column in the second matrix.
+Note that the size of the two does not matter, but the number of columns of the first matrix need to be the same as the number of rows in the second matrix.
+
+//code
+myArray = c #** a;
+myArray = [[6*0, 6*1, 6*2],[7*0, 7*1, 7*2],[8*0, 8*1, 8*2]];
+myArray = [[0, 6, 12],[0, 7, 14],[0, 8, 16]];
+
+//subtitle
+Matrix cross product (##)
+
+//text
+The __##__ operator is used when the cross product of two matrices needs to be found.
+Note that this operator can only be used on two matrices that both have 3 rows and 1 column.
+
+//code
+myArray = a ## b;
+myArray = [1*5-2*4, 2*3-0*5, 0*4-1*3];
+myArray = [5-8, 6-0, 0-3];
+myArray = [-3, 6, -3];
+
+//subtitle
+Matrix negation (#-)
+
+//text
+The __#-__ operator is also used when the negated matrix needs to be found.
+Every number in the matrix will be multiplied with -1.
+
+//code
+myArray = #-a;
+myArray = [0*-1, 1*-1, 2*-1];
+myArray = [0, -1, -2];
+
+//subtitle
+Matrix norm (#^)
+
+//text
+The __#^__ operator is used when the length of a matrix needs to be found.
+The resulting number will be the square root of the sum of every number in the column squared.
+Note that this operator can only be used on a matrix that has only 1 column.
+
+//code
+myInt = #^a;
+myInt = sqrt(0**2 + 1**2 + 2**2);
+myInt = sqrt(0 + 1 + 4);
+myInt = sqrt(5);
+myInt = 2;
+
+//subtitle
+Matrix unit (#%)
+
+//text
+The __#^__ operator is used when the matrix with the same direction but with a length of 1 needs to be found.
+The resulting matrix will be the same matrix but every number will be divided by the length of the original matrix.
+Note that this operator can only be used on a matrix that has only 1 column.
+
+//code
+myArray = #%a;
+myArray = a #/ #^a;
+myArray = [0/sqrt(0**2 + 1**2 + 2**2),1/sqrt(0**2 + 1**2 + 2**2),2/sqrt(0**2 + 1**2 + 2**2)];
+myArray = [0/sqrt(5), 1/sqrt(5), 2/sqrt(5)];
+myArray = [0,0,0];
 
 //title
 Bitwise depended
@@ -1454,7 +1572,7 @@ int myInt = ~0b00000000000000000000000000001100;
 myInt = ~12;
 // myInt becomes: -13
 
-//subtile
+//subtitle
 Bitwise signed right shift (>>)
 
 //text
@@ -1474,7 +1592,7 @@ myInt = 0b11111111111111111111111111110100 >> 1;
 myInt = -12 >> 2;
 // myInt becomes: -3
 
-//subtile
+//subtitle
 Bitwise signed left shift (<<)
 
 //text
@@ -1494,7 +1612,7 @@ myInt = 0b11111111111111111111111111110100 << 1;
 myInt = -12 << 2;
 // myInt becomes: -48
 
-//subtile
+//subtitle
 Bitwise unsigned right shift (>>>)
 
 //text
@@ -1527,7 +1645,7 @@ int[] myArray = [1,2,3,4,5] >>> 1;
 List<int> myList = [1,2,3,4,5] >>> 1;
 // myList becomes: [1,2,3,4]
 
-//subtile
+//subtitle
 Bitwise unsigned left shift (<<<)
 
 //text
@@ -1560,7 +1678,7 @@ int[] myArray = [1,2,3,4,5] <<< 1;
 List<int> myList = [1,2,3,4,5] <<< 1;
 // myList becomes: [2,3,4,5]
 
-//subtile
+//subtitle
 Bitwise unsigned right shift loop (@>>>)
 
 //text
@@ -1595,7 +1713,7 @@ int[] myArray = [1,2,3,4,5] @>>> 1;
 List<int> myList = [1,2,3,4,5] @>>> 1;
 // myList becomes: [5,1,2,3,4]
 
-//subtile
+//subtitle
 Bitwise unsigned left shift (@<<<)
 
 //text
@@ -1724,7 +1842,7 @@ void myMethod(string? myString)
 myMethod(null);
 // Indicating that the myString parameter of myMethod can be null.
 
-//subtile
+//subtitle
 Optional chaining (?)
 
 //text
@@ -1753,7 +1871,7 @@ char? myChar = myString?[0];
 //code
 string? myString = 'Hello World!';
 char? myChar = myString?[0];
-// myChar becomes: 'h'.
+// myChar becomes: 'H'.
 
 //code
 Map<string,string>? myMap = null;
@@ -1816,7 +1934,7 @@ Operator`   Name`                                       Combined operator`  Exam
 =`          Assignment`                                 None`               myInt = 0;`         None
 +=`         Addition assignment`                        +`                  myInt += 5;`        myInt = myInt + 5; 
 ++`         Increment assignment`                       ++`                 myInt++;`           myInt = ++myInt; or myInt = myInt + 1;
--=`         Negatation or Subtraction assignment`       -`                  myInt -= 5;`        myInt = myInt - 5; 
+-=`         Negation or Subtraction assignment`         -`                  myInt -= 5;`        myInt = myInt - 5; 
 --`         Decrement assignment`                       --`                 myInt--;`           myInt = --myInt; or myInt = myInt - 1;
 *=`         Multiplication assignment`                  *`                  myInt *= 5;`        myInt = myInt * 5; 
 /=`         Division assignment`                        /`                  myInt /= 5;`        myInt = myInt / 5; 
@@ -1948,7 +2066,7 @@ Operator`   Name`           Example
 ^^`         Logical XOR`    false ^^ true
 !`          Logical NOT`    !false
 
-//subtile
+//subtitle
 Logical AND (&&)
 
 //text
@@ -1960,7 +2078,7 @@ if(myBoolean && mySecondBoolean){
     // Code that executes when myBoolean and mySecondBoolean are true.
 }
 
-//subtile
+//subtitle
 Logical OR (||)
 
 //text
@@ -1972,7 +2090,7 @@ if(myBoolean || mySecondBoolean){
     // Code that executes when myBoolean and/or mySecondBoolean is true.
 }
 
-//subtile
+//subtitle
 Logical XOR (^^)
 
 //text
@@ -1985,7 +2103,7 @@ if(myBoolean ^^ mySecondBoolean){
 }
 
 
-//subtile
+//subtitle
 Logical NOT (!)
 
 //text
@@ -2390,7 +2508,7 @@ do{
 }while(myBoolean)
 
 
-//subtile
+//subtitle
 Else after loops (else)
 
 //text
@@ -2517,7 +2635,6 @@ interface`  Any interface type
 enum`       Any enum type
 void`       Return type of method that does not return a value or null 
 
-
 //title
 Type expressions
 
@@ -2537,7 +2654,7 @@ Operator`   Name`               Usage
 &`          Bitwise AND`        Creating intersect of two types                 
 ^`          Bitwise XOR`        Creating symmetric difference of two types
 
-//subtile
+//subtitle
 Array indicator ([])
 
 //text
@@ -2563,9 +2680,9 @@ int[5] myArray = [1,2,3,4,5];
 int[5] myArray = [1,2,3,4,5,6];
 // Results in error.
 
-//subtile
+//subtitle
 Method indicator (())
-The __[]__ operator can be used to indicate that a type is a method type.
+The __()__ operator can be used to indicate that a type is a method type.
 To create a method type write any type followed by __()__.
 
 //code
@@ -2586,7 +2703,7 @@ void() myMethod = void(){
 string? myString = myMethod();
 // myString always becomes null.
 
-//subtile
+//subtitle
 Bitwise OR (|)
 
 //text
@@ -2604,18 +2721,18 @@ Bitwise AND (&)
 Use the __&__ operator to get the intersect of two types.
 
 //code
-int | char | string & double | int | string myIntString = 5;
+(int | char | string) & (double | int | string) myIntString = 5;
 // myIntString can now contain any int or string.
 myIntString = 'Hello World!';
 
 //subtitle
-Bitwise XOR (&)
+Bitwise XOR (^)
 
 //text
 Use the __^__ operator to get the symmetric intersect of two types.
 
 //code
-double | char | string ^ double | int | char myIntString = 5;
+(double | char | string) ^ (double | int | char) myIntString = 5;
 // myIntString can now contain any int or string.
 myIntString = 'Hello World!';
 
@@ -2625,6 +2742,7 @@ Custom types (type)
 //text
 The __type__ keyword is used to create types from currently existing types.
 To create a custom type write the following structure; __type__, unique type name, __=__, type extension.
+Custom types can only be defined inside a namespace.
 
 //code
 type MyType = string | int;
@@ -2634,6 +2752,7 @@ These types can be used at any place where a normal type can be used.
 Note in the example that the variable can contain string values and integer values.
 
 //code
+type MyType = string | int;
 MyType myType = 13135;
 myType = 'Hello World!'
 
@@ -2641,8 +2760,8 @@ myType = 'Hello World!'
 Generics (<>)
 
 //text
-Generic types are types that can be added to classes they act like parameter for methods.
-To add generic types to a class write __<__ followed by comma separated unique types ending with __>__.
+Generic types are types that can be added to classes or methods. They act like parameters for methods.
+To add generic types to a class or method write __<__ followed by comma separated unique types ending with __>__.
 The types can now be used inside of the class.
 
 //code
@@ -2654,13 +2773,13 @@ class MyClass<MyGeneric, MySecondGeneric>
 }
 
 //text
-When instanciating an instance of this class the generic type parameters must be defined.
-To create an instance of a class with generic type parameters write the following structure; the class name, __<__, comma separated types, __<__, __()__.
+When instanciating this class the generic type parameters must be defined.
+To create an instance of a class with generic type parameters write the following structure; the class name, __<__, comma separated types, __>__, __()__.
 
 //code
 class MyClass<MyGeneric>
 {
-   // You class members
+   // Your class members.
 }
 
 MyClass myClass = MyClass<MyGeneric>();
@@ -2669,20 +2788,27 @@ MyClass myClass = MyClass<MyGeneric>();
 Default type
 
 //text
-The __=__ operator can be used to add a default tpye to a generic type.
-To add a default type to a generic ty write your generic type followed by __=__ ending with a type.
+The __=__ operator can be used to add a default type to a generic type.
+To add a default type to a generic type write your generic type followed by __=__ ending with a type.
 
 //code
 class MyClass<MyGeneric = string>
 {
-   // You class members
+   // Your class members.
 }
 
 //text
-Add constains to a generic type by adding a type before your generic type.
+Add constrains to a generic type by adding a type before your generic type.
 
 //code
 class MyClass<class MyGeneric>
 {
-   // You class members
+   // Your class members.
 }
+
+class JsonValue<(string | int) JsonType>
+{
+
+}
+
+JsonValue<string> jsonValue = JsonValue<string>('');

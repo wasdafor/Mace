@@ -96,7 +96,7 @@ void firstBreath(){
 
 //Read file
 
-//Grapics
+//Graphics
 
 //const with if
 
@@ -217,3 +217,12 @@ Map<string, Object>
 string value = object
 //warning typecast is not certain
 int() | int test = int(){}
+
+reference
+ref
+flag / 
+
+void print(...dynamic[] values){
+
+}
+print('',43,'');
