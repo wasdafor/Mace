@@ -2484,7 +2484,7 @@ Try catch (try), (catch)
 The __try catch__ keywords are used to catch and handle errors that can occur at runtime.
 Use the __try__ statement to create a block of code that can pass errors to the catch statement.
 Use the __catch__ statement to bind a block of code to the try statement to catch and handle its errors.
-To use a __try catch__ statement write the following structure: __try__, __{}__, __catch__, __()__, __{}__.
+To use a __try catch__ statement write the following structure; __try__, __{}__, __catch__, __()__, __{}__.
 Note that between the __()__ of the catch statement you must define an exception parameter.
 
 //code
@@ -2496,3 +2496,193 @@ try{
 
 //title
 Null safety handling
+
+//chapter
+Types
+
+//title
+Literal types
+
+//text
+Mace has the following literal types.
+
+//tablehead
+Type`       Meaning
+
+//table
+dynamic`    Any type
+object`     Any class, interface or enum type
+class`      Any class type
+interface`  Any interface type
+enum`       Any enum type
+void`       Return type of method that does not return a value or null 
+
+
+//title
+Type expressions
+
+//text
+Type expressions can be used to create more complex types.
+These expressions can be used at any place where a normal type can be used.
+
+The following operators can be used.
+
+//tablehead
+Operator`   Name`               Usage
+
+//table
+[]`         Array indicator`    Convert type to array type
+()`         Method indicator`   Convert type to method type
+|`          Bitwise OR`         Creating union of two types   
+&`          Bitwise AND`        Creating intersect of two types                 
+^`          Bitwise XOR`        Creating symmetric difference of two types
+
+//subtile
+Array indicator ([])
+
+//text
+The __[]__ operator can be used to indicate that a type is an array type.
+To create an array type write any type followed by __[]__.
+
+//code
+int[] myArray = [1,2,3,4,5];
+
+//text
+You can use the __[]__ operator multiple times to create multidimensional arrays.
+
+//code
+int[][] = myMultidimensionalArray = [[1,2],[3,4]];
+
+//text
+To specify the length of the array write any integer number between the __[]__.
+
+//code
+int[5] myArray = [1,2,3,4,5];
+
+//code
+int[5] myArray = [1,2,3,4,5,6];
+// Results in error.
+
+//subtile
+Method indicator (())
+The __[]__ operator can be used to indicate that a type is a method type.
+To create a method type write any type followed by __()__.
+
+//code
+string() = string(){
+    // Your method code.
+};
+
+//text
+The __void__ keyword can be used to a create void method type.
+To create a void method type write void followed by __()__.
+Void methods can not return any value.
+
+//code
+void() myMethod = void(){
+    // Your method code
+};
+
+string? myString = myMethod();
+// myString always becomes null.
+
+//subtile
+Bitwise OR (|)
+
+//text
+Use the __|__ operator to get the union of two types.
+
+//code
+int | string myIntString = 5;
+// myIntString can now contain any int or string.
+myIntString = 'Hello World!';
+
+//subtitle
+Bitwise AND (&)
+
+//text
+Use the __&__ operator to get the intersect of two types.
+
+//code
+int | char | string & double | int | string myIntString = 5;
+// myIntString can now contain any int or string.
+myIntString = 'Hello World!';
+
+//subtitle
+Bitwise XOR (&)
+
+//text
+Use the __^__ operator to get the symmetric intersect of two types.
+
+//code
+double | char | string ^ double | int | char myIntString = 5;
+// myIntString can now contain any int or string.
+myIntString = 'Hello World!';
+
+//title
+Custom types (type)
+
+//text
+The __type__ keyword is used to create types from currently existing types.
+To create a custom type write the following structure; __type__, unique type name, __=__, type extension.
+
+//code
+type MyType = string | int;
+
+//text
+These types can be used at any place where a normal type can be used.
+Note in the example that the variable can contain string values and integer values.
+
+//code
+MyType myType = 13135;
+myType = 'Hello World!'
+
+//title
+Generics (<>)
+
+//text
+Generic types are types that can be added to classes they act like parameter for methods.
+To add generic types to a class write __<__ followed by comma separated unique types ending with __>__.
+The types can now be used inside of the class.
+
+//code
+class MyClass<MyGeneric, MySecondGeneric>
+{
+    MyClass(MyGeneric myGeneric){
+        // Make use of the myGeneric parameter with a generic type.
+    }
+}
+
+//text
+When instanciating an instance of this class the generic type parameters must be defined.
+To create an instance of a class with generic type parameters write the following structure; the class name, __<__, comma separated types, __<__, __()__.
+
+//code
+class MyClass<MyGeneric>
+{
+   // You class members
+}
+
+MyClass myClass = MyClass<MyGeneric>();
+
+//subtitle
+Default type
+
+//text
+The __=__ operator can be used to add a default tpye to a generic type.
+To add a default type to a generic ty write your generic type followed by __=__ ending with a type.
+
+//code
+class MyClass<MyGeneric = string>
+{
+   // You class members
+}
+
+//text
+Add constains to a generic type by adding a type before your generic type.
+
+//code
+class MyClass<class MyGeneric>
+{
+   // You class members
+}
