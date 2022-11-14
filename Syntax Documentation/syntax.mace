@@ -1653,7 +1653,6 @@ Note that you can only use the nullability indicator when declaring variables.
 //code
 string myString = null;
 // Results in an error because myString cannot be null.
-
 string? myString = 'Hello World!';
 // Indicating that myString can be null.
 
@@ -1663,14 +1662,12 @@ To indicate that an array can not contain null values write any type followed by
 //code
 int[] myArray = null;
 // Results in an error because myArray cannot be null.
-
 int[] myArray = [1,4,null];
 // Results in an error because myArray cannot contain null values.
 
-
+//code
 int[]? myArray = null;
 // Indicating that myArray can be null.
-
 int?[] myArray = [1,4,null];
 // Indicating that myArray can contain null values.
 
@@ -1680,16 +1677,14 @@ To indicate that the return type of a method variable can be null write any type
 //code
 string() myMethod = null;
 // Results in an error because myMethod cannot be null.
-
 string() myMethod = string(){
     return null;
 }
 // Results in an error because the return type of myMethod cannot be null.
 
-
+//code
 string()? myMethod = null;
 // Indicating that myMethod can be null.
-
 string?() myMethod = string?(){
     return null;
 }
@@ -1704,6 +1699,7 @@ string myMethod(){
 }
 // Results in an error because the return type of myMethod cannot be null.
 
+//code
 string? myMethod(){
     return null;
 }
@@ -1718,8 +1714,9 @@ void myMethod(string myString)
     print(myString);
 }
 myMethod(null);
-
 // Results in an error because the myString parameter of myMethod cannot be null.
+
+//code
 void myMethod(string? myString)
 {
     print(myString);
@@ -1727,53 +1724,66 @@ void myMethod(string? myString)
 myMethod(null);
 // Indicating that the myString parameter of myMethod can be null.
 
-//text
-To indicate that a generic type can be a nullable type write a generic type name followed by a __?__.
-
-class MyClass<MyGeneric>
-{
-    MyClass(MyGeneric myGeneric)
-    {
-        // Your constructor code.
-    }
-}
-
-MyClass<string> myClass = MyClass<string>(null);
-// Results in an error because the generic type MyGeneric of MyClass is not nullable.
-
-class MyClass<MyGeneric?>
-{
-    MyClass(MyGeneric myGeneric)
-    {
-        // Your constructor code.
-    }
-}
-
-MyClass<string?> myClass = MyClass<string?>(null);
-// Indicating that the generic type MyGeneric of MyClass is nullable.
-
 //subtile
 Optional chaining (?)
 
 //text
-The __?__ operator can be used on nullable variables to indicate an optional chaining.
+The __?__ operator can be used on nullable variables to indicate optional chaining.
 When using optional chaining in a statement and null occurs, the statement will be exited.
 When using optional chaining in an expression and null occurs the expression will be exited and null will be returned.
 
 //code
-myInt?.toString();
-
+int myInt = null;
 string? myString = myInt?.toString();
+// myString becomes: null.
 
+//code
+int myInt = 13135;
+string? myString = myInt?.toString();
+// myString becomes: '13135'.
+
+//text
+Use optional chaining to optionaly execute an index method or statement.
+
+//code
+string? myString = null;
 char? myChar = myString?[0];
+// myChar becomes: null.
 
-double? myDouble = myMap?['Value'];
+//code
+string? myString = 'Hello World!';
+char? myChar = myString?[0];
+// myChar becomes: 'h'.
+
+//code
+Map<string,string>? myMap = null;
+myMap?['Index'] = 'Value';
+// The preceding statement does not get executed.
+
+//code
+Map<string,string>? myMap = {};
+myMap?['Index'] = 'Value';
+// The preceding statement gets executed.
+
+//text
+Use optional chaining to optionaly execute a method variable.
+
+//code
+string()? myMethod = null;
+myMethod?();
+// myMethod is not called.
+
+string()? myMethod = string(){
+    print('Hello World!')
+};
+myMethod?();
+// myMethod is called.
 
 //subtitle
 Null-coalescing (??)
 
 //text
-The __??__ operator can be used add default values to nullable variables.
+The __??__ operator can be used to add default values to nullable variables.
 
 //code
 string mySecondString = myString ?? 'Default value';
