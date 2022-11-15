@@ -2812,3 +2812,57 @@ class JsonValue<(string | int) JsonType>
 }
 
 JsonValue<string> jsonValue = JsonValue<string>('');
+
+//title
+References and Pointers
+
+//tablehead
+operator`   name
+
+//table
+&`          Reference or Address-of operator
+*`          Pointer or Dereference operator
+
+//title
+References
+
+//text
+The __&__ can be used to create a reference to a variable.
+To create a reference write any datatype followed directly by __&__.
+The reference can be used in the same way as a variable because it points to the value at the same address.
+Note that because the variable and the reference point to the same value, if the value of the variable is changed, the value of the reference is also changed.
+
+//code
+int myInt = 0;
+int& myIntReference = myInt;
+// myIntReference becomes: 0
+myInt = 3;
+// myIntReference becomes: 3
+
+//text
+The reference operator can also be used in methods as a parameter.
+This allowes manipulation of variables without creating new/temporary values.
+
+//code
+int myInt = 0;
+void addTwo(&myIntReference){
+    myIntReference += 2;
+}
+addTwo(myInt);
+// myInt becomes: 2
+
+//title
+Pointers
+
+//text
+The __*__ can be used to create a pointer to an address of a variable.
+To create a pointer write any datatype followed directly by __*__.
+Note that because the pointer points to an address, when assigning a pointer, an address must be given.
+
+//code
+int myInt = 0;
+int* myPointer = &myInt;
+// myPointer becomes: 0x61feb4
+int mySecondInt = *myPointer;
+myInt = 3;
+// mySecondInt becomes: 0
