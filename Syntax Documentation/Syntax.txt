@@ -128,6 +128,7 @@ int? myInt;
 int? mySecondInt;
 int*?[] myThirdInt;
 
+denullify /
 unnullify ({myInt:5},{mySecondInt:5}){
     int mySecondInt = myInt;
 }
@@ -220,7 +221,7 @@ int() | int test = int(){}
 
 reference
 ref
-flag / 
+flag / tag
 
 void print(...dynamic[] values){
 
