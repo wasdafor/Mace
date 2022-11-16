@@ -2650,9 +2650,9 @@ Operator`   Name`               Usage
 //table
 []`         Array indicator`    Convert type to array type
 ()`         Method indicator`   Convert type to method type
-|`          Bitwise OR`         Creating union of two types   
-&`          Bitwise AND`        Creating intersect of two types                 
-^`          Bitwise XOR`        Creating symmetric difference of two types
+|`          Bitwise OR`         Create union of two types   
+&`          Bitwise AND`        Create intersect of two types                 
+^`          Bitwise XOR`        Create symmetric difference of two types
 
 //subtitle
 Array indicator ([])
@@ -2693,7 +2693,7 @@ string() = string(){
 //text
 The __void__ keyword can be used to a create void method type.
 To create a void method type write void followed by __()__.
-Void methods can not return any value.
+Void methods can not return any value but t.
 
 //code
 void() myMethod = void(){
