@@ -2622,6 +2622,7 @@ Types
 Literal types
 
 //text
+Literal types are build in types with a more generic or specific meaning.
 Mace has the following literal types.
 
 //tablehead
@@ -2639,20 +2640,20 @@ void`       Return type of method that does not return a value or null
 Type expressions
 
 //text
-Type expressions can be used to create more complex types.
+Type expressions can be used to create more complex types or change the current type.
 These expressions can be used at any place where a normal type can be used.
-
-The following operators can be used.
+The following operators can be used in type expressions.
 
 //tablehead
-Operator`   Name`               Usage
+Operator`   Name`               Example`                        Usage
 
 //table
-[]`         Array indicator`    Convert type to array type
-()`         Method indicator`   Convert type to method type
-|`          Bitwise OR`         Create union of two types   
-&`          Bitwise AND`        Create intersect of two types                 
-^`          Bitwise XOR`        Create symmetric difference of two types
+[]`         Array indicator`    string[] myArray;`              Convert type to array type
+()`         Method indicator`   string() myMethod;`             Convert type to method type
+*`          Pointer indicator`  string* myPointer;`             Convert type to pointer type    
+|`          Bitwise OR`         int | string` myIntString;`     Create union of two types   
+&`          Bitwise AND`        (int | string) & int myInt;`    Create intersect of two types                 
+^`          Bitwise XOR`        (int | string) ^ int myString;` Create symmetric difference of two types
 
 //subtitle
 Array indicator ([])
@@ -2664,11 +2665,19 @@ To create an array type write any type followed by __[]__.
 //code
 int[] myArray = [1,2,3,4,5];
 
+int myInt = myArray[3];
+// myInt becomes: 4
+
 //text
-You can use the __[]__ operator multiple times to create multidimensional arrays.
+The __[]__ operator can be used multiple times to create multidimensional arrays.
 
 //code
 int[][] = myMultidimensionalArray = [[1,2],[3,4]];
+
+int[] myArray = myMultidimensionalArray[0];
+// myArray becomes: [1,2]
+int myInt = myMultidimensionalArray[0][1];
+// myInt becomes: 2
 
 //text
 To specify the length of the array write any integer number between the __[]__.
@@ -2682,99 +2691,140 @@ int[5] myArray = [1,2,3,4,5,6];
 
 //subtitle
 Method indicator (())
+
+//text
 The __()__ operator can be used to indicate that a type is a method type.
 To create a method type write any type followed by __()__.
 
 //code
-string() = string(){
+string() myMethod = string(){
     // Your method code.
+    return 'Hello World!';
 };
+
+string myString = myMethod();
+// myString becomes: 'Hello World!'
+
+//text
+The __()__ operator can be used multiple times to create higher order functions.
+
+//code
+string()() myHigherOrderFunction = string()(){
+    // Your method code.
+    return string(){
+        // Your higher order function code.
+        return 'Hello World!';
+    };
+};
+
+string() myMethod = myHigherOrderFunction();
+// myMethod becomes: string(){ return 'Hello World!'; }
+string myString = myHigherOrderFunction()();
+// myString becomes: 'Hello World!'.
 
 //text
 The __void__ keyword can be used to a create void method type.
 To create a void method type write void followed by __()__.
-Void methods can not return any value but t.
+Note when using the return statement in a void method no value can be return.
 
 //code
 void() myMethod = void(){
     // Your method code
+    return;
 };
 
 string? myString = myMethod();
-// myString always becomes null.
+// myString becomes: null.
 
 //subtitle
 Bitwise OR (|)
 
 //text
-Use the __|__ operator to get the union of two types.
+The __|__ operator can be used to get the union of two types.
 
 //code
 int | string myIntString = 5;
-// myIntString can now contain any int or string.
+// myIntString can now contain int or string values.
 myIntString = 'Hello World!';
 
 //subtitle
 Bitwise AND (&)
 
 //text
-Use the __&__ operator to get the intersect of two types.
+The __&__ operator can be used to get the intersect of two types.
 
 //code
 (int | char | string) & (double | int | string) myIntString = 5;
-// myIntString can now contain any int or string.
+// myIntString can now contain int or string values.
 myIntString = 'Hello World!';
 
 //subtitle
 Bitwise XOR (^)
 
 //text
-Use the __^__ operator to get the symmetric intersect of two types.
+The __^__ operator can be used to get the symmetric difference of two types.
 
 //code
 (double | char | string) ^ (double | int | char) myIntString = 5;
-// myIntString can now contain any int or string.
+// myIntString can now contain int or string values.
 myIntString = 'Hello World!';
 
 //title
 Custom types (type)
 
 //text
-The __type__ keyword is used to create types from currently existing types.
-To create a custom type write the following structure; __type__, unique type name, __=__, type extension.
+The __type__ keyword is used to create custom types from currently existing types.
+To create a custom type write the following structure; __type__, unique type name, __=__, type expression.
 Custom types can only be defined inside a namespace.
 
 //code
 type MyType = string | int;
 
 //text
-These types can be used at any place where a normal type can be used.
-Note in the example that the variable can contain string values and integer values.
+Custom types can be used at any place where a normal type can be used.
 
 //code
 type MyType = string | int;
 MyType myType = 13135;
+// myType can now contain int or string values.
 myType = 'Hello World!'
 
 //title
 Generics (<>)
 
 //text
-Generic types are types that can be added to classes or methods. They act like parameters for methods.
-To add generic types to a class or method write __<__ followed by comma separated unique types ending with __>__.
-The types can now be used inside of the class.
+Generic types are types parameters that can be added to methods or classes.
+To use generic types write the flowing structure after the method or class name; __<__, comma separated unique types, __>__.
+These types can now be used inside the class or method.
 
 //code
-class MyClass<MyGeneric, MySecondGeneric>
+class MyClass<MyGeneric>
 {
     MyClass(MyGeneric myGeneric){
-        // Make use of the myGeneric parameter with a generic type.
+        // Your constructor code.
+    }
+
+    void myMethod<MySecondGeneric>(){
+        // Your method code.
     }
 }
 
 //text
-When instanciating this class the generic type parameters must be defined.
-To create an instance of a class with generic type parameters write the following structure; the class name, __<__, comma separated types, __>__, __()__.
+When adding generic types to a method the generic types can used as return or parameters type.
+
+//code
+MyGeneric myMethod<MyGeneric>(MyGeneric myGeneric){
+    // Your method code.
+}
+
+//TODO
+
+//subtitle
+Defining generic types
+
+//text
+When creating an instance of a class or calling a method with generic types these types must be defined.
+To define generic types add the following structure after the class or method name, __<__, comma separated types, __>__.
 
 //code
 class MyClass<MyGeneric>
@@ -2782,14 +2832,25 @@ class MyClass<MyGeneric>
    // Your class members.
 }
 
-MyClass myClass = MyClass<MyGeneric>();
+MyClass myClass = MyClass<string>();
+// MyGeneric of myClass becomes: string
+
+//code
+void myMethod<MyGeneric>()
+{
+   // Your method code.
+}
+
+myMethod<string>();
+// MyGeneric of myMethod becomes: string
 
 //subtitle
 Default type
 
 //text
 The __=__ operator can be used to add a default type to a generic type.
-To add a default type to a generic type write your generic type followed by __=__ ending with a type.
+To add a default type to a generic type write your generic type followed by __=__ ending with any type.
+When a generic type has a default type the type can optionaly be omitted.
 
 //code
 class MyClass<MyGeneric = string>
@@ -2797,39 +2858,52 @@ class MyClass<MyGeneric = string>
    // Your class members.
 }
 
+MyClass myClass = MyClass();
+// MyGeneric of myClass becomes: string
+myClass<int> myClassSecond = MyClass<int>()
+// MyGeneric of myClassSecond becomes: int
+
+//subtitle
+Constraint type
+
 //text
-Add constrains to a generic type by adding a type before your generic type.
+Constraint types indicate that the generic type can only contain types of the constraint type.
+To add a constraint type to a generic type write any type before your generic type.
 
 //code
-class MyClass<class MyGeneric>
-{
-   // Your class members.
-}
-
 class JsonValue<(string | int) JsonType>
 {
-
+    initialize JsonType value;
+    JsonType(JsonType value){
+        this.value = value;
+    }
 }
 
-JsonValue<string> jsonValue = JsonValue<string>('');
+JsonValue<string> jsonStringValue = JsonValue<string>('Hello World!');
+// jsonStringValue.value becomes: 'Hello World!'
+JsonValue<int> jsonIntValue = JsonValue<int>(13135);
+// jsonIntValue.value becomes: 13135
+
+JsonValue<bool> jsonIntValue = JsonValue<bool>(true);
+// Results in error.
 
 //title
 References and Pointers
 
 //tablehead
-operator`   name
+Operator`   Name
 
 //table
 &`          Reference or Address-of operator
 *`          Pointer or Dereference operator
 
-//title
+//chapter
 References
 
 //text
 The __&__ can be used to create a reference to a variable.
 To create a reference write any datatype followed directly by __&__.
-The reference can be used in the same way as a variable because it points to the value at the same address.
+The reference can be used in the same way as a variable because it points to the same value at the same address.
 Note that because the variable and the reference point to the same value, if the value of the variable is changed, the value of the reference is also changed.
 
 //code
@@ -2840,18 +2914,24 @@ myInt = 3;
 // myIntReference becomes: 3
 
 //text
-The reference operator can also be used in methods as a parameter.
+A reference can be used in methods as a parameter.
 This allowes manipulation of variables without creating new/temporary values.
 
 //code
 int myInt = 0;
-void addTwo(&myIntReference){
+void addTwo(int& myIntReference){
     myIntReference += 2;
 }
 addTwo(myInt);
 // myInt becomes: 2
 
-//title
+//subtitle
+Address-of operator
+
+//text
+The __&__ can also be used to get the address of a variable.
+
+//chapter
 Pointers
 
 //text
@@ -2863,6 +2943,29 @@ Note that because the pointer points to an address, when assigning a pointer, an
 int myInt = 0;
 int* myPointer = &myInt;
 // myPointer becomes: 0x61feb4
+
+//subtitle
+Dereference operator
+
+//text
+The __*__ can also be used to get the value of a given address.
+The dereference operator makes it possible to work with pointers until the value is needed.
+Note that if the value is a pointer as well, that pointer will be returned.
+
+//code
+int myInt = 0;
+int* myPointer = &myInt;
 int mySecondInt = *myPointer;
 myInt = 3;
+// mySecondInt becomes: 0
+
+//text
+To create a pointer to another pointer use the corresponding amount of __*__.
+
+//code
+int myInt = 0;
+int* myPointer = &myInt;
+int** myDoublePointer = &myPointer;
+int*** myTriplePointer = &myDoublePointer;
+int mySecondInt = ***myTriplePointer;
 // mySecondInt becomes: 0

@@ -227,3 +227,31 @@ void print(...dynamic[] values){
 
 }
 print('',43,'');
+
+
+
+//startnotes
+MyGeneric<MyGeneric>(MyGeneric myGeneric) myMethodVar = myMethod<MyGeneric>;
+type MyType = MyGeneric<MyGeneric>(MyGeneric myGeneric);
+MyType myType = MyGeneric<MyGeneric>(MyGeneric myGeneric)
+Mytype<string> myMethod = myMethod<string>;
+string(string stuff) myMethodVar = myMethod<string>;
+
+type myMethod<T> = myMethod<T>;
+
+type MyType<MyGeneric> = MyGeneric<MyGeneric>(MyGeneric myGeneric);
+MyType myType = myMethod<int>;
+
+class Map<T,S>
+{
+
+}
+
+Map<string,int> myMap = {};
+type MyType = Map<string,int>;
+type MyType<T,S> = Map<T,S>;
+MyType myType<string, int> = {'Index': 5};
+//endnotes
+
+
+int*?[]?*?<T>()?*? myArray = &[null,&3,null]
