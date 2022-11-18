@@ -2631,6 +2631,7 @@ Type`       Can store
 //table
 type`       Any type
 dynamic`    Value of any type
+function`   Value of any void() or object()
 object`     Value of any class, interface or enum type
 class`      Value of any class type
 interface`  Value of any interface type
