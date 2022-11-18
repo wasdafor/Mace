@@ -2636,7 +2636,7 @@ object`     Value of any class, interface or enum type
 class`      Value of any class type
 interface`  Value of any interface type
 enum`       Value of any enum type
-void`       Method that does not return a value 
+void`       Method that does not return a value
 
 //title
 Type expressions
@@ -2654,7 +2654,7 @@ Operator`   Name`               Example`                        Usage
 ()`         Method indicator`   string() myMethod;`             Convert type to method type
 *`          Pointer indicator`  string* myPointer;`             Convert type to pointer type
 &`          Reference indicator`string& myReference`            Convert type to reference type
-|`          Bitwise OR`         int | string` myIntString;`     Create union of two types   
+|`          Bitwise OR`         int | string myIntString;`      Create union of two types   
 &`          Bitwise AND`        (int | string) & int myInt;`    Create intersect of two types                 
 ^`          Bitwise XOR`        (int | string) ^ int myString;` Create symmetric difference of two types
 
@@ -2796,8 +2796,8 @@ myType = 'Hello World!'
 Generics (<>)
 
 //text
-Generic types are types parameters that can be added to classes, interfaces, methods, or types.
-To use generic types write the flowing structure after the method or class name; __<__, comma separated unique types, __>__.
+Generic types are type parameters that can be added to classes, interfaces, methods, or types.
+To use generic types write the flowing structure after the class, interface, method, or type name; __<__, comma separated unique types, __>__.
 These types can now be used inside the class or method.
 Note that when creating types of method fields you can only declare generics on the left hand side of the assignment.
 The declared type can then be used on the right hand side of the assignment.
@@ -2820,14 +2820,34 @@ interface MyInterface<MyGeneric>
 type MyType<MyGeneric> = MyClass<MyGeneric>;
 
 //text
-When adding generic types to a method the generic types can used as return or parameters type.
+When adding generic types to a method the generic types can be used as return or parameters type.
 
 //code
 MyGeneric myMethod<MyGeneric>(MyGeneric myGeneric){
     // Your method code.
 }
 
+//subtitle
+Classes
+
+//subtitle
+Interfaces
+
+//subtitle
+Methods
+
+//subtitle
+Types
+
 //TODO
+
+type MyType = string?() | int?();
+string myString = '';
+MyType? myType = null;
+
+(string)null == (int)null => true
+// MyType? myType = string?(){};
+
 
 //subtitle
 Defining generic types

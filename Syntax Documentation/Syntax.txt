@@ -255,3 +255,67 @@ MyType myType<string, int> = {'Index': 5};
 
 
 int*?[]?*?<T>()?*? myArray = &[null,&3,null]
+
+
+--------------generics with methods:
+
+
+enum MyEnum myEnum = {};  
+class MyClass<T,S> myClass = { string myString;};
+MyClass<string,int> myClassInstance = MyClass<T,S>();
+if(){
+    myClass = {int myInt;};
+}
+else{
+    myClass = {double myInt;};
+}
+
+typeid(clasquestionmark).name();
+// "class"
+
+class MyClass = <T,S>(){};
+
+save method as value in variable
+
+// int i = 0;
+---
+void myMethod<T>(T test){
+    return test;
+}
+function void<T>(T test) myMethod = {return test;};
+
+void display<S>(int dimensions){
+    function double<T>(int i) display = {T?[i] data = T?[i]; for(T value in data with int index){print(index + '\n');}};
+    for (j = 0; j< 5; j++){
+        display<S>(j);
+        if (j>2){
+            display = {T[i][i] data; for(T row in data){for(T value in data with int index){print(index);}print('\n');}};
+        }
+    }
+}
+---
+
+double(int i) recursion = {return i % 2;};
+for (j = 0; j< 500; j++){
+    recursion(j);
+    if (j>200){
+        recursion = {return 1 - (i % 2);};
+    }
+}
+recursion();
+recursion = {if (i == 5){j=1;} i++;};
+
+
+function double<int | double T, int | double S>(T firstValue, S secondValue) addOrMultiply = {return (double)(firstValue + secondValue)};
+addOrMultiply = {return (double)(firstValue * secondValue)};
+
+string(string,int) myMethod = string(string myString,int myInt){};
+
+
+int i = 0;
+function void<T,S>() inceremeter = {i++;};
+myMethod = {i++;};
+
+
+myMethod = 
+string<string,int>() mySecondMethod = myBoolean ? myMethod : mySecondMethod;
