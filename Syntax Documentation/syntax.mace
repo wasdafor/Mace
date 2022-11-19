@@ -2643,11 +2643,14 @@ Void (void)
 
 //text
 The __void__ literal type can be used to to store null.
-Note that the void literal type can never be used by itself.
+A void literal type can never be used by itself.
 
 //code
-void() myMethod = void(){};
+void() myMethod = void(){
+    // Your method code.
+};
 
+//code
 string | void myString = null;
 myString = 'Hello World!';
 
@@ -2663,7 +2666,7 @@ myString = 'Hello World!';
 Class (class)
 
 //text
-The __class__ literal type can be used to store any class object that did not inherit any interfaces.
+The __class__ literal type can be used to store any class object that did not inherit an interface.
 
 //code
 class MyClass
@@ -2677,7 +2680,7 @@ class myClass = MyClass();
 Interface (interface)
 
 //text
-The __interface__ literal type can be used to store an interface inherited class object.
+The __interface__ literal type can be used to store any class object that inherited an interface.
 
 //code
 interface MyInterface
@@ -2726,12 +2729,12 @@ interface MyInterface
     // Your interface members.
 }
 
-class MySecondClass extend MyInterface
+class MyClass extend MyInterface
 {
     // Your class members.
 }
 
-object myObject = MySecondClass();
+object myObject = MyClass();
 
 //code
 enum MyEnum
@@ -2752,17 +2755,21 @@ void myMethod(){
     // Your method code.
 }
 
-function myMethodVar = myMethod;
+function myStoredMethod = myMethod;
 
 //code
-void() mySecondMethod = void(){};
+void() myMethod = void(){
+    // Your method code.
+};
 
-function myMethodVar = mySecondMethod;
+function myStoredMethod = myMethod;
 
 //code
-function void() myThirdMethod = {};
+function void() myMethod = {
+    // Your method code.
+};
 
-function myMethodVar = myThirdMethod;
+function myStoredMethod = myMethod;
 
 //subtitle
 Dynamic (dynamic)
@@ -2782,7 +2789,7 @@ myDynamic = 13135;
 myDynamic = true;
 myDynamic = 'Hello World!'
 
-//subtitle+
+//subtitle
 Type (type)
 
 //text
@@ -2807,18 +2814,18 @@ Type expressions
 
 //text
 Type expressions can be used to create more complex types.
-These expressions can be used at any place where a normal type can be used.
+These expressions can be used to create custom types, or they can be used at any place where a normal type can be used.
 The following operators can be used in type expressions.
 
 //tablehead
-Operator`   Name`                   Example`                        Usage
+Operator`   Name`                   Example`                       Usage
 
 //table
 []`         Array indicator`        string[] myArray`              Convert type to array type
 ()`         Method indicator`       string() myMethod`             Convert type to method type
-?`          Nullability indicator`  string? myString`               Convert type to nullable type
+?`          Nullability indicator`  string? myString`              Convert type to nullable type
 *`          Pointer indicator`      string* myPointer`             Convert type to pointer type
-&`          Reference indicator`    string& myReference`            Convert type to reference type
+&`          Reference indicator`    string& myReference`           Convert type to reference type
 |`          Bitwise OR`             int | string myIntString`      Create union of two types   
 &`          Bitwise AND`            (int | string) & int myInt`    Create intersect of two types                 
 ^`          Bitwise XOR`            (int | string) ^ int myString` Create symmetric difference of two types
@@ -2911,17 +2918,23 @@ To create a pointer type write any type followed by __*__.
 
 //code
 string myString = 'Hello World!';
-
 string* myPointer = &myString;
+
+string mySecondString = *myPointer;
+// mySecondString becomes: 'Hello World!'
 
 //text
 The __*__ operator can be stacked to create chain pointers.
 
 //code
 string myString = 'Hello World!';
-
 string* myPointer = &myString;
-string** mySecondPointer = &myPointer;
+string** myChainPointer = &myPointer;
+
+string* mySecondPointer = *myChainPointer;
+// mySecondPointer becomes: the value of myPointer
+string mySecondString = **myChainPointer;
+// mySecondString becomes: 'Hello World!'
 
 //subtitle
 Reference indicator (&)
@@ -2933,7 +2946,8 @@ To create a reference type write any type followed by __&__.
 //code
 string myString = 'Hello World!';
 
-string& myPointer = myString;
+string& myReference = myString;
+// myReference becomes: 'Hello World!' 
 
 //subtitle
 Bitwise OR (|)
@@ -2980,90 +2994,122 @@ myIntString = 'Hello World!';
 Generics (<>)
 
 //text
-Generic types are type parameters that can be added to classes, interfaces, methods, or types.
-To use generic types write the flowing structure after the class, interface, method, or type name; __<__, comma separated unique types, __>__.
-These types can now be used inside the class or method.
-Note that when creating types of method fields you can only declare generics on the left hand side of the assignment.
-The declared type can then be used on the right hand side of the assignment.
+Generic types are custom types that can be defined as parameters.
+To declare generic types write the flowing structure; __<__, comma separated unique types, __>__.
+To define generic types use the same structure with existing types as parameters.
+When using types that have generic types the generic types must be defined if no default type is declared.
+Generic types can be added to the following data structures.
+
+//table
+class
+interface
+function
+method
+type
+
+//subtitle
+Class (class)
+
+//text
+Generic types can be declared after the created class name.
+Define the generic types after the class name when using the class type or when creating an instance of the class.
+The generic types can be used inside the class or they can be used to define generic types from inherited classes or implemented interfaces.
 
 //code
 class MyClass<MyGeneric>
 {
-    MyClass(MyGeneric myGeneric){
-        // Your constructor code.
-    }
-
-    void<MyGeneric>() myMethod = void(){};
+    MyGeneric? myGeneric;
 }
 
-interface MyInterface<MyGeneric>
-{
-    void myMethod<MySecondGeneric>();
-}
-
-type MyType<MyGeneric> = MyClass<MyGeneric>;
-
-//text
-When adding generic types to a method the generic types can be used as return or parameters type.
+MyClass<string> myClass = MyClass<string>();
 
 //code
-MyGeneric myMethod<MyGeneric>(MyGeneric myGeneric){
+interface MyInterface<MyGeneric>
+{
+    // Your interface members.
+}
+
+class MyClass<MyGeneric> extend MyInterface<MyGeneric>
+{
+    // Your class members.
+}
+
+class MySecondClass extend MyClass<string>
+{
+    // Your class members.
+}
+
+//subtitle
+Interface (interface)
+
+//text
+Generic types can be declared after the created interface name.
+Define the generic types after the interface name when implementing or inheriting the interface.
+The generic types can be used inside the interface or they can be used to define generic types from implemented interfaces.
+
+//code
+interface MyInterface<MyGeneric>
+{
+    MyGeneric? myGeneric;
+}
+
+class MyClass extend MyInterface<string>
+{
+    // Your class members.
+}
+
+interface MySecondInterface<MyGeneric> implement MyInterface<MyGeneric>
+{
+    // Your interface memebers.
+}
+
+//subtitle
+Method or function (function)
+
+//text
+Generic types can be declared before the __()__ when creating a method or function.
+Define the generic types before the __()__ when calling a method or function or when using the method or function type.
+The generic types can be used as return type, parameter type or inside the function or method.
+
+//code
+void myMethod<MyGeneric>(){
     // Your method code.
 }
 
-//subtitle
-Classes
-
-//subtitle
-Interfaces
-
-//subtitle
-Methods
-
-//subtitle
-Types
-
-//TODO
-
-type MyType = string?() | int?();
-string myString = '';
-MyType? myType = null;
-
-(string)null == (int)null => true
-// MyType? myType = string?(){};
-
-
-//subtitle
-Defining generic types
-
-//text
-When creating an instance of a class or calling a method with generic types these types must be defined.
-To define generic types add the following structure after the class or method name, __<__, comma separated types, __>__.
+function void<MyGeneric>() myMethod = {
+    // Your method code.
+};
 
 //code
-class MyClass<MyGeneric>
-{
-   // Your class members.
+MyGeneric myMethod<MyGeneric>(MyGeneric myParameter){
+    MyGeneric myGeneric = myParameter;
+    return myGeneric;
 }
 
-MyClass myClass = MyClass<string>();
-// MyGeneric of myClass becomes: string
-
-//code
-void myMethod<MyGeneric>()
-{
-   // Your method code.
-}
-
-myMethod<string>();
-// MyGeneric of myMethod becomes: string
+function MyGeneric<MyGeneric>(MyGeneric myParameter) myMethod = {
+    MyGeneric myGeneric = myParameter;
+    return myGeneric;
+};
 
 //subtitle
-Default type
+Type (type)
 
 //text
-The __=__ operator can be used to add a default type to a generic type.
-To add a default type to a generic type write your generic type followed by __=__ ending with any type.
+Generic types can be declared after the created type name.
+Define the generic types after the type name when using the type.
+The generic types can be used in the type expression on the right hand side of the assignment.
+
+//code
+type MyType<MyGeneric> = List<MyGeneric> | string;
+
+MyType<string> myType = List<string>();
+
+//subtitle
+Default type (=)
+
+//text
+The __=__ operator can be used to set a default type for a generic type.
+To set a default type for a generic type write your generic type followed by __=__ ending with any type.
 When a generic type has a default type the type can optionaly be omitted.
 
 //code
@@ -3082,7 +3128,7 @@ Constraint type
 
 //text
 Constraint types indicate that the generic type can only contain types of the constraint type.
-To add a constraint type to a generic type write any type before your generic type.
+To set a constraint type for a generic type write any type before your generic type.
 
 //code
 class JsonValue<(string | int) JsonType>
