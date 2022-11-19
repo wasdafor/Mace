@@ -1456,7 +1456,7 @@ myInt = 12 & 10;
 // myInt becomes: 8
 
 //text
-The __&__ operator can also be used to get the intersect of two strings, arrays, lists or sets.
+The __&__ operator can also be used to get the intersect of two strings, arrays, lists, sets or types.
 Note that the order does not matter.
 
 //code
@@ -1471,6 +1471,9 @@ List<int> myList = [1,2,3,5] & [2,4,5];
  
 Set<int> mySet = {1,2,3,5} & {2,4,5};
 // mySet becomes: {2,5}
+
+type MyType =  (string | double) & (int | double)
+// MyType becomes: double
 
 //subtitle
 Bitwise OR (|)
@@ -1503,12 +1506,8 @@ List<int> myList = [1,2,3,5] | [2,4,5];
 Set<int> mySet = {1,2,3,5} | {2,4,5};
 // mySet becomes: {1,2,3,4,5}
 
-type myType = string | int;
-
-type mySecondType = string | double;
-
-type myThirdType = myType ^ mySecondType;
-//becomes: int | double
+type MyType = string | int;
+// MyType becomes: string | int
 
 //subtitle
 Bitwise XOR (^)
@@ -1526,7 +1525,7 @@ myInt = 12 ^ 10;
 // myInt becomes: 6
 
 //text
-The __^__ operator can also be used to get the symmetric difference of two strings, arrays, lists or sets.
+The __^__ operator can also be used to get the symmetric difference of two strings, arrays, lists, sets or types.
 
 //code
 string myString = '1235' ^ '245';
@@ -1540,6 +1539,10 @@ List<int> myList = [1,2,3,5] ^ [2,4,5];
  
 Set<int> mySet = {1,2,3,5} ^ {2,4,5};
 // mySet becomes: {1,3,4}
+
+type MyType = (string | double) ^ (int | double);
+// MyType becomes: string | int
+
 
 //title
 Bitwise independed
@@ -2625,38 +2628,200 @@ Literal types
 Literal types are build in types with a more generic or specific meaning.
 Mace has the following literal types.
 
-//tablehead
-Type`       Can store
-
 //table
-type`       Any type
-dynamic`    Value of any type
-function`   Value of any void() or object()
-object`     Value of any class, interface or enum type
-class`      Value of any class type
-interface`  Value of any interface type
-enum`       Value of any enum type
-void`       Method that does not return a value
+void
+class
+interface
+enum
+object
+function
+dynamic
+type
+
+//subtitle
+Void (void)
+
+//text
+The __void__ literal type can be used to to store null.
+Note that the void literal type can never be used by itself.
+
+//code
+void() myMethod = void(){};
+
+string | void myString = null;
+myString = 'Hello World!';
+
+//text
+The __?__ operator can be used as a shorthand to create nullable types.
+
+//code
+string? myString = null;
+// The type of myString becomes: string | void
+myString = 'Hello World!';
+
+//subtitle
+Class (class)
+
+//text
+The __class__ literal type can be used to store any class object that did not inherit any interfaces.
+
+//code
+class MyClass
+{
+    // Your class members.
+}
+
+class myClass = MyClass();
+
+//subtitle
+Interface (interface)
+
+//text
+The __interface__ literal type can be used to store an interface inherited class object.
+
+//code
+interface MyInterface
+{
+    // Your interface members.
+}
+
+class MyClass extend MyInterface
+{
+    // Your class members.
+}
+
+interface myClass = MyClass();
+
+//subtitle
+Enum (enum)
+
+//text
+The __enum__ literal type can be used to store any enum object.
+
+//code
+enum MyEnum
+{
+    MyEnumValue
+}
+
+enum MyEnum = MyEnum.MyEnumValue;
+
+//subtitle
+Object (object)
+
+//text
+The __object__ literal type is be used to store any class, interface or enum object.
+
+//code
+class MyClass
+{
+    // Your class members.
+}
+
+object myObject = MyClass();
+
+//code
+interface MyInterface
+{
+    // Your interface members.
+}
+
+class MySecondClass extend MyInterface
+{
+    // Your class members.
+}
+
+object myObject = MySecondClass();
+
+//code
+enum MyEnum
+{
+    MyEnumValue
+}
+
+object myObject = MyEnum.MyEnumValue;
+
+//subtitle
+Function (function)
+
+//text
+The __function__ literal type can be used to store any function or method.
+
+//code
+void myMethod(){
+    // Your method code.
+}
+
+function myMethodVar = myMethod;
+
+//code
+void() mySecondMethod = void(){};
+
+function myMethodVar = mySecondMethod;
+
+//code
+function void() myThirdMethod = {};
+
+function myMethodVar = myThirdMethod;
+
+//subtitle
+Dynamic (dynamic)
+
+//text
+The __dynamic__ literal type is be used to store any value except null.
+
+//code
+class MyClass
+{
+    // Your class members.
+}
+
+dynamic myDynamic = MyClass();
+
+myDynamic = 13135;
+myDynamic = true;
+myDynamic = 'Hello World!'
+
+//subtitle+
+Type (type)
+
+//text
+The __type__ literal type is used to create custom types from currently existing types.
+To create a custom type write the following structure; __type__, unique type name, __=__, type expression.
+Custom types can only be defined inside a namespace.
+
+//code
+type MyType = string | int;
+
+//text
+Custom types can be used at any place where a normal type can be used.
+
+//code
+type MyType = string | int;
+MyType myType = 13135;
+// myType can now contain int or string values.
+myType = 'Hello World!'
 
 //title
 Type expressions
 
 //text
-Type expressions can be used to create more complex types or change the current type.
+Type expressions can be used to create more complex types.
 These expressions can be used at any place where a normal type can be used.
 The following operators can be used in type expressions.
 
 //tablehead
-Operator`   Name`               Example`                        Usage
+Operator`   Name`                   Example`                        Usage
 
 //table
-[]`         Array indicator`    string[] myArray;`              Convert type to array type
-()`         Method indicator`   string() myMethod;`             Convert type to method type
-*`          Pointer indicator`  string* myPointer;`             Convert type to pointer type
-&`          Reference indicator`string& myReference`            Convert type to reference type
-|`          Bitwise OR`         int | string myIntString;`      Create union of two types   
-&`          Bitwise AND`        (int | string) & int myInt;`    Create intersect of two types                 
-^`          Bitwise XOR`        (int | string) ^ int myString;` Create symmetric difference of two types
+[]`         Array indicator`        string[] myArray`              Convert type to array type
+()`         Method indicator`       string() myMethod`             Convert type to method type
+?`          Nullability indicator`  string? myString`               Convert type to nullable type
+*`          Pointer indicator`      string* myPointer`             Convert type to pointer type
+&`          Reference indicator`    string& myReference`            Convert type to reference type
+|`          Bitwise OR`             int | string myIntString`      Create union of two types   
+&`          Bitwise AND`            (int | string) & int myInt`    Create intersect of two types                 
+^`          Bitwise XOR`            (int | string) ^ int myString` Create symmetric difference of two types
 
 //subtitle
 Array indicator ([])
@@ -2672,7 +2837,7 @@ int myInt = myArray[3];
 // myInt becomes: 4
 
 //text
-The __[]__ operator can be used multiple times to create multidimensional arrays.
+The __[]__ operator can stacked to create multidimensional arrays.
 
 //code
 int[][] = myMultidimensionalArray = [[1,2],[3,4]];
@@ -2683,7 +2848,7 @@ int myInt = myMultidimensionalArray[0][1];
 // myInt becomes: 2
 
 //text
-To specify the length of the array write any integer number between the __[]__.
+To specify the length of an array write any integer between the __[]__.
 
 //code
 int[5] myArray = [1,2,3,4,5];
@@ -2709,7 +2874,7 @@ string myString = myMethod();
 // myString becomes: 'Hello World!'
 
 //text
-The __()__ operator can be used multiple times to create higher order functions.
+The __()__ operator can be stacked to create higher order functions.
 
 //code
 string()() myHigherOrderFunction = string()(){
@@ -2725,19 +2890,50 @@ string() myMethod = myHigherOrderFunction();
 string myString = myHigherOrderFunction()();
 // myString becomes: 'Hello World!'.
 
+//subtitle
+Nullability indicator (?)
+
 //text
-The __void__ keyword can be used to a create void method type.
-To create a void method type write void followed by __()__.
-Note when using the return statement in a void method no value can be return.
+The __?__ operator can be used to indicate that a type is a nullable type.
+To create a nullable type write any type followed by __?__.
 
 //code
-void() myMethod = void(){
-    // Your method code
-    return;
-};
+string? myString = null;
+// The type of myString becomes: string | void
+myString = 'Hello World!';
 
-string? myString = myMethod();
-// myString becomes: null.
+//subtitle
+Pointer indicator (*)
+
+//text
+The __*__ operator can be used to indicate that a type is a pointer type.
+To create a pointer type write any type followed by __*__.
+
+//code
+string myString = 'Hello World!';
+
+string* myPointer = &myString;
+
+//text
+The __*__ operator can be stacked to create chain pointers.
+
+//code
+string myString = 'Hello World!';
+
+string* myPointer = &myString;
+string** mySecondPointer = &myPointer;
+
+//subtitle
+Reference indicator (&)
+
+//text
+The __&__ operator can be used to indicate that a type is a reference type.
+To create a reference type write any type followed by __&__.
+
+//code
+string myString = 'Hello World!';
+
+string& myPointer = myString;
 
 //subtitle
 Bitwise OR (|)
@@ -2746,7 +2942,9 @@ Bitwise OR (|)
 The __|__ operator can be used to get the union of two types.
 
 //code
-int | string myIntString = 5;
+type MyType = int | string;
+
+MyType myIntString = 5
 // myIntString can now contain int or string values.
 myIntString = 'Hello World!';
 
@@ -2757,7 +2955,10 @@ Bitwise AND (&)
 The __&__ operator can be used to get the intersect of two types.
 
 //code
-(int | char | string) & (double | int | string) myIntString = 5;
+type MyType = (int | char | string) & (double | int | string);
+// MyType becomes: int | string
+
+MyType myIntString = 5;
 // myIntString can now contain int or string values.
 myIntString = 'Hello World!';
 
@@ -2768,29 +2969,12 @@ Bitwise XOR (^)
 The __^__ operator can be used to get the symmetric difference of two types.
 
 //code
-(double | char | string) ^ (double | int | char) myIntString = 5;
+type MyType = (double | char | int) ^ (double | string | char);
+// MyType becomes: int | string
+
+MyType myIntString = 5;
 // myIntString can now contain int or string values.
 myIntString = 'Hello World!';
-
-//title
-Custom types (type)
-
-//text
-The __type__ keyword is used to create custom types from currently existing types.
-To create a custom type write the following structure; __type__, unique type name, __=__, type expression.
-Custom types can only be defined inside a namespace.
-
-//code
-type MyType = string | int;
-
-//text
-Custom types can be used at any place where a normal type can be used.
-
-//code
-type MyType = string | int;
-MyType myType = 13135;
-// myType can now contain int or string values.
-myType = 'Hello World!'
 
 //title
 Generics (<>)
