@@ -1793,7 +1793,19 @@ int?[] myArray = [1,4,null];
 // Indicating that myArray can contain null values.
 
 //text
-To indicate that the return type of a method is nullable write any type followed by a __?__ ending with __()__.
+To indicate that the return type of a method is nullable write any a __?__ after the return type.
+
+//code
+string myMethod(){
+    return null;
+}
+// Results in an error because the return type of myMethod cannot be null.
+
+//code
+string? myMethod(){
+    return null;
+}
+// Indicating that the return type of myMethod can be null.
 
 //code
 string() myMethod = null;
@@ -1811,17 +1823,14 @@ string?() myMethod = string?(){
 }
 // Indicating that the return type of myMethod can be null.
 
-//text
-To indicate that the return type of a method is nullable write any type followed by a __?__.
-
 //code
-string myMethod(){
+function string() myMethod = {
     return null;
 }
 // Results in an error because the return type of myMethod cannot be null.
 
 //code
-string? myMethod(){
+function string?() myMethod = {
     return null;
 }
 // Indicating that the return type of myMethod can be null.
