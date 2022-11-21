@@ -963,7 +963,7 @@ char myDoubleQuoteChar = "\"";
 // myDoubleQuoteChar becomes: '"'
 
 //title
-Integers (int)
+Integers (short), (int), (long)
 
 //text
 An __int__ is a primitive that can store any whole number between -2,147,483,648 and 2,147,483,647.
@@ -1059,7 +1059,7 @@ Datatype`       Empty value
 //table
 int`            0
 double`         0.0
-string`         ''
+string`         '' or ""
 string[]`       []
 Map<string,int>`{}
 Set<string>`    Set.empty
@@ -1767,9 +1767,9 @@ Operator`   Name`                   Example
 Nullability indicator (?)
 
 //text
-The __?__ operator can be used to indicate that a variable can contain __null__.
-To indicate that a variable can contain __null__ write a __?__ after the variable type.
-Note that you can only use the nullability indicator when declaring variables.
+The __?__ operator can be used to indicate that a type is nullable.
+To indicate that a type is nullable write a __?__ after the variable type.
+When a type is nullable it means that when that type is used the variable or parameter can contain null.
 
 //code
 string myString = null;
@@ -1778,7 +1778,7 @@ string? myString = 'Hello World!';
 // Indicating that myString can be null.
 
 //text
-To indicate that an array can not contain null values write any type followed by a __?__ ending with __[]__.
+To indicate that array memebers are nullable write any type followed by a __?__ ending with __[]__.
 
 //code
 int[] myArray = null;
@@ -1793,7 +1793,7 @@ int?[] myArray = [1,4,null];
 // Indicating that myArray can contain null values.
 
 //text
-To indicate that the return type of a method variable can be null write any type followed by a __?__ ending with __()__.
+To indicate that the return type of a method is nullable write any type followed by a __?__ ending with __()__.
 
 //code
 string() myMethod = null;
@@ -1812,7 +1812,7 @@ string?() myMethod = string?(){
 // Indicating that the return type of myMethod can be null.
 
 //text
-To indicate that the return type of a method can be null write any type followed by a __?__.
+To indicate that the return type of a method is nullable write any type followed by a __?__.
 
 //code
 string myMethod(){
@@ -1827,7 +1827,7 @@ string? myMethod(){
 // Indicating that the return type of myMethod can be null.
 
 //text
-To indicate that a method parameter can be null write any type followed by a __?__.
+To indicate that a method parameter is nullable write any type followed by a __?__.
 
 //code
 void myMethod(string myString)
@@ -1912,7 +1912,7 @@ string mySecondString = myString ?? 'Default value';
 // When myString is null mySecondString becomes 'Default value'.
 
 //title
-Ternary
+Ternary (? :)
 
 //text
 The __? :__ operators are used to create an if statement that can ben used inside of expressions.
@@ -2021,6 +2021,17 @@ if(myInt > 5){
     // Code that executes when myInt greater than 5.
 }
 
+//text
+The __>__ operator can also be used on two strings, arrays, lists or sets to check if the left operand is a proper superset of the right operand.
+Note that the order matters when the operator is used on orderd sequences.
+
+//code
+bool myBoolean = '12' > '2';
+
+myBoolean = [1,2] > [2];
+
+myBoolean = {1,2} > {2};
+
 //subtitle
 Greater than or equal to (>=)
 
@@ -2031,6 +2042,20 @@ The __>=__ operator can be used to check if the left operand is greater than or 
 if(myInt >= 5){
     // Code that executes when myInt greater than or equal to 5.
 }
+
+//text
+The __>=__ operator can also be used on two strings, arrays, lists or sets to check if the left operand is a superset of the right operand.
+Note that the order matters when the operator is used on orderd sequences.
+
+//code
+bool myBoolean = '12' >= '2';
+myBoolean = '12' >= '12';
+
+myBoolean = [1,2] >= [2];
+myBoolean = [1,2] >= [1,2];
+
+myBoolean = {1,2} >= {2};
+myBoolean = {1,2} >= {1,2};
 
 //subtitle
 Less than (<)
@@ -2043,6 +2068,17 @@ if(myInt < 5){
     // Code that executes when myInt less than 5.
 }
 
+//text
+The __<__ operator can also be used on two strings, arrays, lists or sets to check if the left operand is a proper subset of the right operand.
+Note that the order matters when the operator is used on orderd sequences.
+
+//code
+bool myBoolean = '2' < '12';
+
+myBoolean = [2] < [1,2];
+
+myBoolean = {2} < {1,2};
+
 //subtitle
 Less than or equal to (<=)
 
@@ -2053,6 +2089,20 @@ The __<=__ operator can be used to check if the left operand is less than or equ
 if(myInt <= 5){
     // Code that executes when myInt less than or equal to 5.
 }
+
+//text
+The __<=__ operator can also be used on two strings, arrays, lists or sets to check if the left operand is a subset of the right operand.
+Note that the order matters when the operator is used on orderd sequences.
+
+//code
+bool myBoolean = '2' <= '12';
+myBoolean = '12' <= '12';
+
+myBoolean = [2] <= [1,2];
+myBoolean = [1,2] <= [1,2];
+
+myBoolean = {2} <= {1,2};
+myBoolean = {1,2} <= {1,2};
 
 //title
 Logical
@@ -2197,10 +2247,10 @@ Left bullet expression (<?)
 
 //text
 The __<?__  operator is used to define a bullet expression with the operator on the left hand side.
-To use this operator, write a valid operator followed by a boolean expression and the bullet operator and ending with a literal value or variable.
+To use a left bullet expression write a valid operator followed by a boolean expression and the bullet operator and ending with a literal value or variable.
 
 When the boolean expression is evaluated to true the value will be included in the expression.
-When the boolean expression is evaluated to false the literal value or variable and the operator before the boolean expression will be ignored.
+When the boolean expression is evaluated to false the operand and the operator before the boolean expression will be ignored.
 
 //code
 int? myInt = myBoolean <? 7;
@@ -2227,10 +2277,10 @@ Right bullet expression (>?)
 
 //text
 The __>?__  operator is used to define a bullet expression with the operator on the right hand side.
-To use this operator write a boolean expression and the bullet operator followed by a literal value or variable and ending with a valid operator.
+To use a right bullet expression write a boolean expression and the bullet operator followed by a literal value or variable and ending with a valid operator.
 
 When the boolean expression is evaluated to true the value will be included in the expression.
-When the boolean expression is evaluated to false the literal value or variable and the operator after the literal value or variable will be ignored.
+When the boolean expression is evaluated to false the operand and the operator after operand will be ignored.
 
 //code
 int myInt = myBoolean >? 7 + 5;
