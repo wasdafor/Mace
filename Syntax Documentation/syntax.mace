@@ -3288,3 +3288,333 @@ int** myDoublePointer = &myPointer;
 int*** myTriplePointer = &myDoublePointer;
 int mySecondInt = ***myTriplePointer;
 // mySecondInt becomes: 0
+
+//chapter
+Unpacking ([]), ({})
+
+//text
+Unpacking is used to unpack the values of an array or anonymous object to seperate variables.
+There are two types of unpacking.
+
+//tablehead
+Type`               Can unpack
+
+//table
+Static unpacking`   literal or variable
+Dynamic unpacking`  Literal value
+
+There are two types that can be unpacked.
+
+//table
+Array
+Anonymous object
+
+//title
+Dynamic
+
+//text
+When dynamicly unpacking an array or anonymous object you can only unpack literal values.
+
+//subtitle
+Array ([])
+
+//text
+The __[]__ operator can be used to dynamic unpack an array.
+To dynamicly unpack an array write the following structure; __[__, one or more fields or field declarations, __]__, __=__, a literal array.
+
+//code
+[int myInt,string myString] = [13135,'Hello World!'];
+// myInt becomes: 13135
+// myString becomes: 'Hello World!'
+
+//subtitle
+Anonymous object ({})
+
+//text
+The __{}__ operator can be used to dynamicly unpack an anonymous object.
+To dynamicly unpack an anonymous object write the following structure; __{__, one or more fields or field declarations, __}__, __=__, an anonymous object.
+
+//code
+int{int myInt,string myString} = {myInt: 13135,myString: 'Hello World!'};
+// myInt becomes: 13135
+// mySecondInt becomes: 53131
+
+//title
+Static
+
+//text
+When staticly unpacking an array or anonymous object you can unpack literal values or variables.
+
+//subtitle
+Array ([])
+
+//text
+The __[]__ operator can be used to staticly unpack an array.
+To staticly unpack an array write the following structure; any type, __[__, one or more fields or field name declarations, __]__, __=__, any array.
+
+//code
+int[myInt, mySecondInt] = [13135,53131];
+// myInt becomes: 13135
+// mySecondInt becomes: 53131
+
+//code
+int[] myArray = [53131,13135];
+int[myInt, mySecondInt] = myArray;
+// myInt becomes: 53131
+// mySecondInt becomes: 13135
+
+//subtitle
+Anonymous object ({})
+
+//text
+The __{}__ operator can be used to staticly unpack an anonymous object.
+To staticly unpack an anonymous object write the following structure; any type, __{__, one or more fields or field name declarations, __}__, __=__, any anonymous object.
+
+//code
+int{myInt, mySecondInt} = {myInt: 13135,mySecondInt: 53131};
+// myInt becomes: 13135
+// mySecondInt becomes: 53131
+
+//code
+object int myObject = {myInt: 53131,mySecondInt: 13135};
+int{myInt, mySecondInt} = myObject;
+// myInt becomes: 53131
+// mySecondInt becomes: 13135
+
+//title
+Declared fields
+
+//text
+Arrays and anonymous object can be unpacked in previously declared fields.
+The type of the variable must be the same type as the unpacking value.
+
+//subtitle
+Dynamic
+
+//code
+int? myInt;
+string? myString;
+
+[myInt,myString] = [13135,'Hello World!'];
+// myInt becomes: 13135
+// myString becomes: 'Hello World!'
+
+//code
+int? myInt;
+string? myString;
+
+{myInt,myString} = [myInt: 13135,myString: 'Hello World!'];
+// myInt becomes: 13135
+// myString becomes: 'Hello World!'
+
+//subtitle
+Static
+
+//code
+int? myInt;
+int? mySecondInt;
+
+int[myInt,mySecondInt] = [13135,53131];
+// myInt becomes: 13135
+// mySecondInt becomes: 53131
+
+//code
+int? myInt;
+int? mySecondInt;
+
+int{myInt,mySecondInt} = {myInt: 13135,mySecondInt: 53131};
+// myInt becomes: 13135
+// mySecondInt becomes: 53131
+
+//title
+Swapping value
+
+//text
+Unpacking can be used to swap two or more values.
+
+//code
+int myInt = 13135;
+int mySecondInt = 53131;
+
+[myInt,mySecondInt] = [mySecondInt,myInt];
+// myInt becomes: 53131
+// mySecondInt becomes: 13135
+
+//code
+int myInt = 13135;
+int mySecondInt = 53131;
+
+{myInt,mySecondInt} = {myInt: mySecondInt,mySecondInt: myInt};
+// myInt becomes: 53131
+// mySecondInt becomes: 13135
+
+//title
+Parameters
+
+//text
+Unpacking arrays or anonymous objects can be added to method parameters.
+
+//subtitle
+Array ([])
+
+//code
+void myMethod([int myInt, string myString])
+{
+    // Your method code.
+}
+
+myMethod([13135,'Hello World!']);
+
+//code
+void myMethod(int[myInt, mySecondInt])
+{
+    // Your method code.
+}
+
+int[] myArray = [53131,13135];
+myMethod(myArray);
+
+//subtitle
+Anonymous object ({})
+
+//text
+Note that Unpacking an anonymous object as method parameter gives the illusion of having names parameters.
+
+//code
+void myMethod({int myInt, string myString})
+{
+    // Your method code.
+}
+
+myMethod({myInt: 13135,myString: 'Hello World!'});
+
+//code
+void myMethod(int{myInt, mySecondInt})
+{
+    // Your method code.
+}
+
+object int myObject = {myInt: 13135,mySecondInt: 53131};
+myMethod(myObject);
+
+//title
+Stacking
+
+//text
+Unpacking can be stacked to access nested arrays or anonymous objects.
+
+//subtitle
+Array ([])
+
+//code
+[int myInt,[int myString]] = [13135,['Hello World!']];
+// myInt becomes: 13135
+// myString becomes: 'Hello World!'
+
+//subtitle
+Anonymous object ({})
+
+//code
+{int myInt,{int myString}} = {myInt: 13135,{myString: 'Hello World!'}};
+// myInt becomes: 13135
+// myString becomes: 'Hello World!'
+
+//subtitle
+Combining
+
+//text
+The unpacking of arrays and anonymous objects can be used interchangeably.
+
+//code
+[int myInt,{int myString}] = [13135,{myString: 'Hello World!'}];
+// myInt becomes: 13135
+// myString becomes: 'Hello World!'
+
+//code
+{int myInt,[int myString]} = {myInt: 13135,[myString: 'Hello World!']};
+// myInt becomes: 13135
+// myString becomes: 'Hello World!'
+
+//title
+Default values (=)
+
+//text
+The __=__ is used to add a default to an unpacking field when unpacking arrays or anonymous object.
+To add a default value to an unpacking field when unpacking write __=__ followed by any default value after the field name.
+
+//subtitle
+Array ([])
+
+//code
+[int myInt, string myString = 'Default value'] = [13135];
+// myInt becomes: 13135
+// myString becomes: 'Default value'
+
+[myInt, myString = 'Default value'] = [13135, 'Hello World!'];
+// myInt becomes: 13135
+// myString becomes: 'Hello World!'
+
+//subtitle
+Anonymous object ({})
+
+//code
+{int myInt, string myString = 'Default value'} = {myInt: 13135};
+// myInt becomes: 13135
+// myString becomes: 'Default value'
+
+{myInt, myString = 'Default value'} = [myInt: 13135,myString: 'Hello World!'];
+// myInt becomes: 13135
+// myString becomes: 'Hello World!'
+
+
+//title
+Skipping values (,)
+
+//text
+The __,__ operator can be on array unpacking to skip values.
+
+//code
+int[myInt,,mySecondInt] = [1,2,3];
+// myInt becomes: 1
+// mySecondInt becomes: 3
+
+//code
+[int myInt,,string myString] = [1,true,'Hello World!'];
+// myInt becomes: 1
+// myString becomes: 'Hello World!'
+
+//title
+Collection spare values
+
+//text
+The __collect__ keyword can be used to keep the left over values.
+
+//chaper
+Anonymous objects
+
+//text
+The __object__ keyword can be used to create anonymous objects.
+
+//title
+Dynamic
+
+//code
+object int{int myInt,string myString} myObject = {myInt: 13135,myString: 'Hello World!'};
+
+print(myObject.myInt);
+print(myObject.myString);
+
+//text
+To create a dynamic anonymous object write the following structure; __object__, __{__, one or more field declarations, __}__, __=__, a literal anonymous object.
+
+//title
+Static
+
+//text
+To create a static anonymous object write the following structure; __object__, any type, __{__, one or more field names, __}__, __=__, a literal anonymous object.
+
+//code
+object int{myInt,mySecondInt} myObject = {myInt:13135,mySecondInt:53131};
+
+print(myObject.myInt);
+print(myObject.myString);
