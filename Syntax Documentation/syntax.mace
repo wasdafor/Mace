@@ -3294,7 +3294,7 @@ Unpacking ([]), ({})
 
 //text
 Unpacking is used to unpack the values from an array or anonymous object to seperate variables.
-When the unpacking variables have the same (sub)type any array or anonymous object with the the same (sub)type can be unpacked.
+When the unpacking variables have the same (sub)type any array or anonymous object with that type can be unpacked.
 When the sub(type) do not match only literal arrays or anonymous objects can ben unpacked.
 There are two variable types that can be unpacked.
 
