@@ -3364,7 +3364,7 @@ Assignment
 
 //text
 The unpacking syntax can also be used to assign the same value to multiple variables.
-All the unpacking variables must have the same type or subtype.
+All the unpacking variables must have the same (sub)type.
 
 //subtitle
 Array ([])
@@ -3695,3 +3695,130 @@ object int{myInt,mySecondInt} myObject = {myInt:13135,mySecondInt:53131};
 
 print(myObject.myInt);
 print(myObject.myString);
+
+//chapter
+Arrays ([])
+
+//text
+Arrays are variables that can contain multiple values.
+To declare a standard array write any type followed by __[]__.
+To define an array write __[__ followed by comma separated values and ending with __]__.
+The defined elements must have the same type as the defined array (sub)type. 
+
+//code
+int[] myArray = [1,3,1];
+
+//code
+(int | double)[] myArray = [1,3.1];
+
+//title
+Indexing
+
+//text
+Array Indexing can be used to read or change elements inside of an array.
+To index a value from an array variable write __[__ followed by an integer value ending with __]__.
+Note that indexing starts at index 0.
+
+//subtitle
+Getting value
+
+//code
+int[] myArray = [1,3,1];
+
+int myInt = myArray[1];
+// myInt becomes: 3
+
+//subtitle
+Setting value
+
+//code
+int[] myArray = [1,3,1];
+
+myArray[1] = 7;
+// myArray becomes: [1,7,1]
+
+//title
+Sized
+
+//text
+Sized arrays can be used to create arrays with a specific numbers of elements.
+To declare a sized array write the following structure; any type, __[__, integer value, __]__.
+
+//code
+int[2] myArray = [1,3];
+
+//code
+int[2] myArray = [1,3,1];
+// Results in error
+
+//title
+Dynamic
+
+//text
+Dynamic arrays can be used to create small arrays with different types.
+To create a dynamic array write __[__ followed by comma separated types ending with __]__.
+
+//code
+[int,string] myArray = [13135, 'Hello World!'];
+// myArray becomes:
+
+//subtitle
+Labels
+
+//text
+Labels can be added to dynamic array types this gives an indicate to what the index will store.
+Labeled array types may look like variables but they are not and can not be accessed via the label name.
+
+//code
+[int myInt,string myString] myArray = [13135, 'Hello World!'];
+
+//subtitle
+Default type
+
+//code
+Default types can be used to indicate that multiple array elements have the same type.
+To declare an array with a default type add the type before the __[]__.
+Use labels or omitted types to indicate where the default type needs to be applied.
+
+//code
+int[,,string myString] myArray = [1,3,'Hello World!'];
+
+//code
+int[myInt,mySecond,string myString] myArray = [1,3,'Hello World!'];
+
+//text
+Combining labels or omitted values is allowed.
+
+int[myInt,,string myString] myArray = [1,3,'Hello World!'];
+
+//text
+When omitting types the default type will applied to the to omitted types around the commas.
+
+//code
+int[,] = [1,3];
+
+//code
+int[,] = [1];
+// Results in error, expected two values.
+
+//title
+Spread assignment
+
+//text
+Spread assignment can be used to populate all elements of an array with the same value.
+To use the spread assigning define the array with the same (sub)type as the array elements.
+
+//code
+int[5] myArray = 5;
+// myArray becomes [5,5,5,5,5]
+
+//code
+[string,string] myArray = 'Hello World!';
+// myArray becomes: ['Hello World!','Hello World!']
+
+//code
+type MyType = int | string;
+type MySecondType = bool | int;
+
+[MyType,MySecondType] myArray = 5;
+// myArray becomes [5,5]
