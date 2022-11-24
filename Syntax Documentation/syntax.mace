@@ -3360,7 +3360,7 @@ int{myInt, string myString, mySecondInt} = {myInt: 13135, myString: 'Hello World
 // mySecondInt becomes: 53131
 
 //title
-Assignment
+Spread assignment
 
 //text
 The unpacking syntax can also be used to assign the same value to multiple variables.
