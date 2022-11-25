@@ -59,9 +59,15 @@ The __namespace__ keyword is used to create a __namespace__.
 To create a __namespace__ write the __namespace__ keyword, followed by the name of the __namespace__ ending with __{}__.
 When defining multiple namespaces with the same name, the members of these namespaces will be merged.
 Use access modifiers to define where the members of the namespace can be used.
-Use __public__ to make the members available for using in any other namepaces.
-Use __private__ to make the members only available inside the namespace itself.
-Use __protected__ to make the members available inside namepaces with the same name.
+
+//table head
+Access modifier`    Can be access where?
+
+//table
+__public__`         Inside any namepace.
+__private__`        Inside the namespace itself.
+__protected__`      Inside namespaces with the same name.
+
 By default the members of a namespace will be private.
 
 The following members can be defined in a __namespace__:
@@ -71,8 +77,8 @@ class
 extension class
 enum
 interface
-method
-field
+functions
+variables
 
 //code
 namespace MyNamespace
@@ -103,9 +109,7 @@ Using Namespaces (using)
 
 //text
 The __using__ keyword is used to use the members of a namespace. 
-To use a namespace write __using__ followed by the path to the location of the namespace ending with a __;__.
-Public members in the namespace can always be accessed while protected members can only be accessed when inside a namespace with the same name.
-Private members can not be accessed when using a __using__ statement.
+To use a namespace write __using__ followed by the path to the location of the namespace.
 
 //code
 using ./MyNamespace;
@@ -113,12 +117,11 @@ using ./MyNamespace;
 print(myMember);
 
 //subtitle
-Using members
+Using members (from)
 
 //text
 The __,__ can be used to use specific members of a namespace.
-To use specific members add your members separated by commas.
-Next, write __from__, followed by the path to your namespace and ending with a __;__.
+To use specific members add your members separated by commas followed by __from__, ending with the path to your namespace.
 To access a member of a namespace, use the name of the member you want to use.
 
 //code
@@ -149,7 +152,7 @@ Rename members (as)
 
 //text
 The __as__ keyword can be used to rename namespace members. 
-To rename your namespace members, write __as__ after the member followed with your new name;
+To rename namespace members, write __as__ after the member followed with a new name;
 To access a renamed member, use the new name of the member.
 
 //code
@@ -166,7 +169,7 @@ print(MySecondNamedNamespace.myFirstRenamedMember);
 Using system namepaces (system)
 
 //text
-The __system__ keyword is used to use any namespace from the mace system namespaces.
+The __system__ keyword is used to use any namespace from the Mace system namespaces.
 To use the system namepaces, write __system__ before your __using__ statement. 
 This wil start your namespace path in the system directory. This means that adding the __./__ prefix in your namespace path is not required.
 
@@ -181,13 +184,18 @@ Classes
 //text
 The __class__ keyword is used to create a class.
 To create a class write __class__ followed by the name of the class and ending with __{}__.
-Classes can contain any field, method, getter or setter, these are called class members.
+Classes can contain any variable, function, getter or setter, these are called class members.
 Classes can only be declared in a namepace and will be private by default.
 
 Use access modifiers to define where the members of a class can be used.
-Use __public__ to make the members available for usage outside of the class.
-Use __private__ to make the members only available inside the class itself.
-Use __protected__ to make the members only available inside the class itself or derived classes.
+
+//tablehead
+Access modifier`    Can be used where?
+
+//table
+__public__`         Outside of the class.
+__private__`        Inside the class itself.
+__protected__`      Inside the class itself or derived classes.
 
 //code
 namespace MyNamespace
@@ -245,8 +253,8 @@ class MySecondClass extend MyClass
 Abstraction (abstract)
 
 //text
-The __abstract__ keyword is used to create abstract classes.
-Write __abstract__ before your class or class member to make it abstract.
+The __abstract__ keyword is used to create abstract classes or class members.
+To create an abstract class or member write __abstract__ before your class or class member.
 When a class or class member is abstract it means that it cannot be used on its own.
 
 //subtitle
@@ -254,7 +262,7 @@ Classes
 
 //text 
 When a class is abstract the class can only be inherited by another class.
-This means that you can not create an instance of an abstract class.
+Abstract classes can not be instanciated.
 
 //code
 abstract class MyClass
@@ -283,12 +291,12 @@ When a member is abstract this means that they need to be implemented in the chi
 To implement an abstract member write __override__ before the member.
 
 It is important that the field you want to implement has the same access modifier, type and identifier as the one you want to override.
-If a field is an abstract field it may have a default value.
-When the child class defines the field it overrides the value, if the child class only declares the field the default value of the parent class will be used.
+Abstract fields may have a default value.
+When the child class defines the field it overrides the default value, if the child class only declares the field the default value of the parent class will be used.
 
 The same applies for methods, the implemented method needs to have the same access modifier, return type, identifier and parameters as the method you want to override.
-If a method is abstract it may have a body.
-When the child class defines the method it overrides the code in the body of the abstract class, if the child class only declares the method, the code of the parent class is used.
+Abstract methodsmay have a body.
+When the child class defines the method it overrides the method body, if the child class only declares the method, the code of the parent class is used.
 Note that initialisation of a method must happen, in the parent or child class, or in both.
 
 //code
@@ -338,8 +346,8 @@ class MySecondClass extend MyClass
 Sealing (sealed)
 
 //text
-The __sealed__ keyword is used to make a class sealed.
-To make a class sealed write __sealed__ before your class.
+The __sealed__ keyword is used to create a sealed class.
+To create a sealed class write __sealed__ before your class.
 When a class is __sealed__, the class cannot be inherited/be a super class.
 A sealed class cannot contain abstract members.
 
@@ -357,11 +365,10 @@ sealed class MyClass
 Static (static)
 
 //text
-The __static__ keyword is used to make a class or its members static.
-To make a class static write __static__ before you class.
-A static class can only contain static members.
-When a class is __static__, the class cannot inherited/be super class.
-A static class cannot be instanciated.
+The __static__ keyword is used to create static classes or class members.
+To create a static class write __static__ before your class.
+static classes can only contain static members.
+When a class is __static__, the class cannot inherited/be super class or instanciated.
 
 //code
 static class MyClass
@@ -377,7 +384,7 @@ static class MyClass
 Super class (super) and This class (this)
 
 //text
-When using the same identifier in the child class as in the parent class, the child class will override the parent identifier.
+When using the same class member identifier in the child class as in the parent class, the child class will override the parent identifier.
 Use __super__ to only access the members of the parent class.
 Use __this__ to only access the members of the current class.
 
@@ -411,10 +418,10 @@ Class extension (extend)
 //text
 The __extend__ keyword can be used to add members to an already defined class.
 To create a class extension write __extend__ followed by a class name and ending with __{}__.
-This works almost the same as a normal class and can only be defined inside a namespace.
+extension classes work almost the same as a normal classes and can only be defined inside a namespace.
 The constructor and the destructor of the original class can not be overwritten/redefined/overloaded.
 Multiple extensions can be created for the same class.
-Use the __this__ keyword to access public members from the original class or from extensions.
+Optional use the __this__ keyword to access public members from the original class or from extensions.
 
 //code
 extend string
@@ -462,9 +469,9 @@ mySecondClass.printMyInt();
 Constructor
 
 //text
-To create a constructor write the class name followed by a method body.
-Named constructors can be created by writing the constructor followed by an access operator and your constructor name.
-The code of a constructor will be run when you create an instance of the class.
+Constructors can be used to run a method when an instance of a class is created.
+To create a constructor write the class name followed by __()__ ending with __{}__.
+To create a named constructor write __.__ followed by the name of the constructor after the class name of a normal constructor.
 
 //code
 class MyClass
@@ -484,8 +491,9 @@ MyClass myClass = MyClass();
 myClass = MyClass.MyNamedConstructor();
 
 //text
-A constructor can call another constructor by using a __:__ after the parameter body followed by __this__.
-If you want to call a named constructor use the access operator and your constructor name after the this keyword.
+Linked constructors can be used to call other constructors via a constructor.
+To call a linked constructor write __:__ followed by __this__ and ending with __()__ after the parameter body of any constructor.
+To call a named linked constructor write __.__ followed by the name of the constructor after the __this__ keyword of a normal linked constructor.
 
 //code
 class MyClass
@@ -507,7 +515,8 @@ class MyClass
 Destructor (~)
 
 //text
-A destructor is optional, but if created it will be run when a instance of a object is deleted.
+The destructor can be used to run a method when an instance of a object is deleted.
+Adding a destructor to a class is not required.
 No parameters can be added to the destructor parameter body.
 
 //code
