@@ -611,31 +611,41 @@ class MyClass
 
 //text
 If only the access modifiers of a field needs to be changed the shorthand can be used.
-For the setter use an access modifier followed by set before the field.
-For the getter use an access modifier followed by get before the field.
+To write the access modifier shorthand hand write any access modifier followed by get or set.
 You are not required to use both the getter and setter on the same field. If one is omitted it becomes private.
 
 //code
 class MyClass
 {
-    private set public get bool myBoolean;
+    private set public get bool? myBoolean;
+}
+
+//text
+The __only__ keyword can be used to create read only or write only fields.
+When using the only keyword the getter or setter can only be used by itself.
+
+//code
+class MyClass
+{
+    public get only string? myString;
+            
+    public set only bool? myBoolean;
 }
 
 //text
 The getter and setter can also be used to access the class with __[]__.
-To create such a getter or setter write the following structure; __get__ or __set_, __this[]__, __()__ and __{}__.
-When defining the getter you are required to have only one parameter of any type.
-When defining the setter you are required to have only two parameters of any type.
+To create such a getter or setter write the following structure; __get__ or __set_, __this__, __[]__ and __{}__.
+The getter can only have one parameter while the setter can have two.
 
 //code
 class MyMap<T,S>
 {
-    get this[](T index){
+    get this[T index]{
         return '';
         // Return a value depending on the index given.
     }
 
-    set this[](T index, S value){
+    set this[T index, S value]{
         // Save a value depending on the given index and value.
     }
 }
@@ -3715,8 +3725,8 @@ int[] myArray = [1,3,1];
 Indexing
 
 //text
-Array Indexing can be used to read or change elements inside of an array.
-To index a value from an array variable write __[__ followed by an integer value ending with __]__.
+Array Indexing can be used to read or update elements inside of an array.
+To index a value from an array variable write __[__ followed by any integer value ending with __]__.
 Note that indexing starts at index 0.
 
 //subtitle
@@ -3742,14 +3752,19 @@ Sized
 
 //text
 Sized arrays can be used to create arrays with a specific numbers of elements.
-To declare a sized array write the following structure; any type, __[__, integer value, __]__.
+To declare a sized array write the following structure; any type, __[__, any integer value, __]__.
+Sized arrays must have at least two members.
 
 //code
 int[2] myArray = [1,3];
 
 //code
+int[1] myArray = [1];
+// Results in error.
+
+//code
 int[2] myArray = [1,3,1];
-// Results in error
+// Results in error.
 
 //title
 Dynamic
@@ -3757,20 +3772,35 @@ Dynamic
 //text
 Dynamic arrays can be used to create small arrays with different types.
 To create a dynamic array write __[__ followed by comma separated types ending with __]__.
+Dynamic arrays must have at least two members.
 
 //code
 [int,string] myArray = [13135, 'Hello World!'];
-// myArray becomes:
+
+//code
+[int] myArray = [13135];
+// Results in error.
+
+//code
+[int,string] myArray = [13135];
+// Results in error.
 
 //subtitle
 Labels
 
 //text
-Labels can be added to dynamic array types this gives an indicate to what the index will store.
-Labeled array types may look like variables but they are not and can not be accessed via the label name.
+Labels can be added to dynamic array types to add an alternative method to index an array element.
+Labels must be unique from one and other.
 
 //code
 [int myInt,string myString] myArray = [13135, 'Hello World!'];
+
+string myString = myArray.myString;
+// myString becomes: 'Hello World!'
+
+myArray.myInt = 53131;
+int myInt = myArray[0]
+// myInt becomes: 13135
 
 //subtitle
 Default type
@@ -3779,6 +3809,7 @@ Default type
 Default types can be used to indicate that multiple array elements have the same type.
 To declare an array with a default type add the type before the __[]__.
 Use labels or omitted types to indicate where the default type needs to be applied.
+When the type is not omitted this will override the default type.
 
 //code
 int[,,string myString] myArray = [1,3,'Hello World!'];
@@ -3787,7 +3818,7 @@ int[,,string myString] myArray = [1,3,'Hello World!'];
 int[myInt,mySecond,string myString] myArray = [1,3,'Hello World!'];
 
 //text
-Combining labels or omitted values is allowed.
+Combining labels and omitted values is allowed.
 
 int[myInt,,string myString] myArray = [1,3,'Hello World!'];
 
@@ -3806,7 +3837,7 @@ Spread assignment
 
 //text
 Spread assignment can be used to populate all elements of an array with the same value.
-To use the spread assigning define the array with the same (sub)type as the array elements.
+To use the spread assigning define the array with a value that has the same (sub)type as the array elements.
 
 //code
 int[5] myArray = 5;
@@ -3822,3 +3853,15 @@ type MySecondType = bool | int;
 
 [MyType,MySecondType] myArray = 5;
 // myArray becomes [5,5]
+
+//title
+Optional elements
+
+//text
+When defining an array with a literal array some array elements may omitted.
+The omitted elements will become null if the element type is nullable else the element will become the default value of the element type.
+If the element type is not nullable or does not have a default value the defined value can not be omitted.
+
+//code
+[int,int?,string] myArray = [13135,,'Hello World!'];
+// myArray becomes: [13135,null,'Hello World!']
