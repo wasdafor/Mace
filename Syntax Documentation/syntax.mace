@@ -385,8 +385,8 @@ Super class (super) and This class (this)
 
 //text
 When using the same class member identifier in the child class as in the parent class, the child class will override the parent identifier.
-Use __super__ to only access the members of the parent class.
-Use __this__ to only access the members of the current class.
+Use the __this__ keyword to access the memebers of class itself and inherited classes.
+Use the __super__ keyword to only access the members of the inherited classes.
 
 //code
 class MyClass
@@ -530,47 +530,8 @@ class MyClass
 //title
 Methods
 
-//subtitle
-Short assignment
-
 //text
-Short assignment of fields in class methods or constructors can be accomplished by using a different syntax in the parameter body.
-When using short assignment the parameters are assigned to the variables in the class automatically.
-Short assignment can also be used with the super class.
-Note that code can still be added to the body of the method as shown below and that the parameters can still be used inside the body.
-
-//code
-class MyClass
-{
-    int myInt = 0;
-    string myString = "Hello World!"
-
-    MyClass(this.myInt, this.myString){
-        // Your constructor code.
-    }
-
-    myMethod(this.myInt, this.myString){
-        myString += " Goodbye!"
-        // Your method code.
-    }
-}
-
-//code
-class MyClass
-{
-    int myInt = 0;
-}
-
-class MySecondClass extend MyClass
-{
-    int mySecondInt;
-    MySecondClass(this.mySecondInt, super.myInt){
-        // Your constructor code.
-    }
-}
-
-//text
-To have a constant or read only variable in your class, but you want to initialize it in the constructor, use the keyword __initialize__.
+To create a constant or read only variable in your class, but you want to initialize it in the constructor, use the keyword __initialize__.
 The variable can also be initialized via short assignment.
 The variable can only be overwritten in the constructor scope. 
 
@@ -593,9 +554,9 @@ Getters (get) and Setters (set)
 Getters and setters are methods that will be run when the specific field is accessed.
 To create a setter or getter write the following structure; __get__ or __set__, the name of any field, __()__ and __{}__.
 Access modifiers can be added to the getter and setter. These access modifiers override the default getter and setter of the field.
-Getters and setters can only be defined with their field in the same class or extension class.
-When defining the getter you must return a value with the same type as the field.
-When defining the setter you are required to have only one parameter of any type.
+Getters and setters can only be defined if their field is declared in the same class or extension class.
+When defining the getter a value with the same type as the field must be returned.
+When defining the setter one parameter of any type is required.
 Note that in the example the integer was initialially private, but has become public because of the getter and setter.
 
 //code
@@ -674,8 +635,8 @@ Interfaces (interface)
 The __interface__ keyword is used to create an interface.
 To create an interface write __interface__ followed by the name of the interface and ending with __{}__.
 Interfaces can be compared to abstract classes with only abstract members.
+The members of an interface are abstract by default so the abstract keyword can omitted. 
 Interfaces can contain declared fields and body less methods.
-The keyword __abstract__ or access modifiers can not be added to the members of an interface.
 interfaces can ony be declared inside of a namespace.
 
 //code
@@ -834,13 +795,15 @@ int addTwoNumbers0(int a, int b){
 int addTwoNumbers1(int a, int b) => a + b;
 int() addTwoNumbers2 = int(int a, int b) {return a + b};
 int() addTwoNumbers3 = int(int a, int b) => a + b;
+function int(int a, int b) addTwoNumbers4 = {return a + b};
 
 //chapter
 Primitive variables
 
 //text
 Mace has the following primitive data types.
-Define variables by writing the following structure; a variable keyword or object type, a unique identifier, an equal sign, your expression and a semicolon.
+To declare a variable write a variable type followed by a unique identifier;
+To define a declared variable write a __=__ followed by a value of the type of the variable after the variable name.
 
 //tablehead
 Primitive`  Meaning
@@ -3874,3 +3837,79 @@ If the element type is not nullable or does not have a default value the defined
 //code
 [int,int?,string] myArray = [13135,,'Hello World!'];
 // myArray becomes: [13135,null,'Hello World!']
+
+//chapter
+Short assignment
+
+//text
+Short assignment can be used to replace variable declaration for an already declared variable.
+When using short assignment the actual parameters or unpacking values are automatically assigned to the variables.
+The keywords __this__ or __super__ may be used when using short assigning in classes.
+Short assignment can be used in the following places:
+
+//table
+Parameter body
+Array unpacking
+Anonymous object unpacking
+
+//title
+Parameter body
+
+//code
+class MyClass
+{
+    string? myString;
+    int? myInt;
+
+    MyClass(this.myString, myInt){
+        // Your constructor code.
+    }
+
+    void myMethod(myString, this.myInt){
+        // Your method code.
+    }
+}
+
+MyClass myClass = MyClass(13135,'Hello World!');
+// myClass.myInt becomes: 13135
+// myClass.myString becomes: 'Hello World!'
+
+myClass.myMethod(53131,'Updated value!');
+// myClass.myInt becomes: 53131
+// myClass.myString becomes: 'Updated value!'
+
+//text
+When only using short assignment in a function or constructor parameter body the body may be omitted.
+
+class MyClass
+{
+    string? myString;
+    int? myInt;
+
+    MyClass(this.myString, myInt);
+
+    void myMethod(myString, this.myInt);
+}
+
+//title
+Array unpacking
+
+//code
+int? myInt;
+string? myString;
+
+[myInt, myString] = [13135,'Hello World!'];
+// myInt becomes: 13135
+// myString becomes: 'Hello World!'
+
+//title
+Anonymous object unpacking
+
+//code
+int? myInt;
+string? myString;
+
+{myInt, myString} = {myInt:13135,myString:'Hello World!'};
+// myInt becomes: 13135
+// myString becomes: 'Hello World!'
+
