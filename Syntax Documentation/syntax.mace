@@ -4014,3 +4014,50 @@ string? myString;
 {myInt, myString} = {myInt:13135,myString:'Hello World!'};
 // myInt becomes: 13135
 // myString becomes: 'Hello World!'
+
+//chaper
+Tuples
+
+//text
+Tuples can be used to create small orderd sequences of objects with a specfied type.
+A tuple must have at least two elements.
+
+//code
+(int,string) myTuple = (13135,'Hello World!');
+
+//title
+Indexing
+
+//text
+The __[]__ operator can be used to index values from a tuple.
+
+//subtile
+Getting value
+
+//code
+(int,string) myTuple = (13135,'Hello World!');
+int myInt = myTuple[0];
+// myInt becomes: 13135
+string myString = myTuple[1];
+// mySecondString becomes: 'Hello World!'
+
+//title
+Default type
+
+//text
+A default type can be added to tuples if multiple elements have the same type,
+an empty element can be used to reference the default type.
+
+//code
+int(,string) myTuple = (13135,'Hello World!');
+
+//text
+Label
+
+//text
+Labels can optionaly be added to tuples element types the element at that index can now be access via the label.
+
+//code
+(int,string myString) myTuple = (13135,'Hello World!');
+string mySecondString = myTuple.myString;
+// mySecondString becomes: 'Hello World!'
