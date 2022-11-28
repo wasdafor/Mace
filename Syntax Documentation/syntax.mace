@@ -4061,3 +4061,97 @@ Labels can optionaly be added to tuples element types the element at that index 
 (int,string myString) myTuple = (13135,'Hello World!');
 string mySecondString = myTuple.myString;
 // mySecondString becomes: 'Hello World!'
+
+//chaper
+Default and empty values
+
+//text
+The __default__ keyword can be used to populate variables or elements of a collection that are not defined.
+To use default write __default__ before any type to indicate that is needs to be populated with the default value when empty.
+
+//code
+default int myInt;
+// myInt becomes: 0
+
+default double myDouble;
+// myDouble becomes: 0.0
+
+default string myString;
+// myString becomes: ''
+
+default bool myBoolean;
+// myBoolean becomes: false
+
+//code
+default string[] myArray = ['Hello World!',];
+// myArray becomes: ['Hello World!','']
+
+default string[] myArray = [,];
+// myArray becomes: ['','']
+
+default (int[]) myArray;
+// myArray becomes: []
+
+default (default int[5]) myArray;
+// myArray becomes: [0,0,0,0,0]
+
+//code
+default string default int{} myMap = {'Hello World!':13135,};
+// myMap becomes: {'Hello World!':13135,'':0}
+
+default string default int{} myMap = {,};
+// myMap becomes: {'':0,'':0}
+
+default (string int{}) myMap;
+// myMap becomes: {}
+
+//code
+(int,default string) myTuple = ('Hello World!',);
+// myTuple becomes: ('Hello World!','')
+
+(default int,default string) myTuple = (,);
+// myTuple becomes: (0,'')
+
+default(default int,default string) myTuple;
+// myTuple becomes: (0,'')
+
+//text
+When the return type of a method is default the method does not need to return a value the default value will be returned
+
+//code
+default string() myMethod = (){};
+string myString = myMethod();
+// myString becomes: ''
+
+default (default string()) myMethod;
+// myMethod becomes: (){}
+string myString = myMethod();
+// myString becomes: ''
+
+//text
+Use default types as values
+
+//code
+int myInt = default int;
+// myInt becomes: 0
+
+double myDouble = default double;
+// myDouble becomes: 0.0
+
+string myString = default string;
+// myString becomes: ''
+
+bool myBoolean = default bool;
+// myBoolean becomes: false
+
+//text 
+Defining default constuctor
+Default constructors work the same way as any other constructor
+
+//code
+class MyClass
+{
+    default(){
+        // You default constructor code
+    }
+}
