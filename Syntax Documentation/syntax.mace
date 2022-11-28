@@ -4129,6 +4129,14 @@ string myString = myMethod();
 // myString becomes: ''
 
 //text
+An empty return can also be used to return the default value;
+default string myMethod(bool myBoolean){
+    if(myBoolean){
+        return;
+    }
+}
+
+//text
 Use default types as values
 
 //code
