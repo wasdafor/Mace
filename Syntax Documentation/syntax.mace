@@ -3038,7 +3038,7 @@ Generics (<>)
 Generic types are custom types that can be defined as parameters.
 To declare generic types write the flowing structure; __<__, comma separated unique types, __>__.
 To define generic types use the same structure with existing types as parameters.
-When using types that have generic types the generic types must be defined if no default type is declared.
+When using a data structure with generic types the types may be omitted to use the type itself.
 Generic types can be added to the following data structures.
 
 //table
@@ -3063,6 +3063,7 @@ class MyClass<MyGeneric>
 }
 
 MyClass<string> myClass = MyClass<string>();
+MyClass mySecondClass = MyClass<int>()
 
 //code
 interface MyInterface<MyGeneric>
@@ -3105,7 +3106,7 @@ interface MySecondInterface<MyGeneric> implement MyInterface<MyGeneric>
 }
 
 //subtitle
-Method or function (function)
+Function (function)
 
 //text
 Generic types can be declared before the __()__ when creating a method or function.
@@ -3187,6 +3188,107 @@ JsonValue<int> jsonIntValue = JsonValue<int>(13135);
 
 JsonValue<bool> jsonIntValue = JsonValue<bool>(true);
 // Results in error.
+
+//title
+Auto (auto)
+
+//text
+The __auto__ keyword can be used to use reference an expected type.
+When defining any value the value is required to have a declared type.
+This type can be referenced with the __auto__ keyword.
+
+//code
+Map<string,int> myMap = auto();
+Map mySecondMap = auto<string,int>();
+
+//code
+void() myMeyhod = auto(){};
+void(string myString) mySecondMethod = auto(string myString){};
+
+//code
+int[] myArray = auto[];
+[int,string] mySecondArray = auto[13135, 'Hello World!']
+
+//Literal value ideas
+
+//Array
+int[][/*values*/]
+int[4][/*values*/]
+[string,int][13135, 'Hello World!']
+int[,string][13135, 'Hello World!']
+
+type MyType = [string,int,bool?] | [string,int,char?];
+MyType myType = [string,int,char?]['Test',121,null];
+
+//Method
+void()(){/*code*/}
+void(string,int)(myString, myInt){/*code*/}
+
+//Set
+int{}{/*values*/}
+int{4}{/*values*/}
+
+//Map
+int string{}{}
+{int myInt, string myString}{myInt:13135,myString,'Hello World!'}
+
+//String
+''
+''''''
+""
+""""""
+
+//Int
+23123
+123e231
+0x2131
+0o1232457
+0b1010011
+
+//Double
+23123.1
+123e231.4
+0x2131.7
+0o1232457.5
+0b1010011.9
+
+//Bool
+true
+false
+
+//Char
+'c'
+"C"
+
+//Void
+null
+//these voids will act different
+[int,]//One void 
+[,]//Two voids
+
+//Future
+async int
+async int[]
+
+//subtitle
+Return
+
+//text
+The auto keyword can also be used to declare variable inside of functions this will referencing the return type of the function.
+
+//code
+Map<string,int> myMethod(){
+    auto myMap = auto();
+
+    return myMap;
+}
+
+//code
+[string myString,int myInt] myMethod(){
+    auto myArray = [13135, 'Hello World!'];
+
+    return myArray;
+}
 
 //title
 References and Pointers
@@ -3912,4 +4014,3 @@ string? myString;
 {myInt, myString} = {myInt:13135,myString:'Hello World!'};
 // myInt becomes: 13135
 // myString becomes: 'Hello World!'
-

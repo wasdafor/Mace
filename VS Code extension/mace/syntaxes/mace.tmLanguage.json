@@ -42,7 +42,7 @@
 				},
 				{
 					"name": "keyword",
-					"match": "\\b(string|void|int|double|class|char|interface|bool|percent|enum|namespace|static|using|const|only|as|from|public|private|protected|this|super|abstract|system|override|sealed|initialize|get|set|extend|implement|type|dynamic|object|function)\\b"
+					"match": "\\b(string|void|int|double|class|char|interface|bool|percent|enum|namespace|static|using|const|only|as|from|public|private|protected|this|super|abstract|system|override|sealed|initialize|get|set|extend|implement|type|dynamic|object|function|auto)\\b"
 				}
 			]
 		},
