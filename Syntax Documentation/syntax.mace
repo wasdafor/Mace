@@ -3209,67 +3209,6 @@ void(string myString) mySecondMethod = auto(string myString){};
 int[] myArray = auto[];
 [int,string] mySecondArray = auto[13135, 'Hello World!']
 
-//Literal value ideas
-
-//Array
-int[][/*values*/]
-int[4][/*values*/]
-[string,int][13135, 'Hello World!']
-int[,string][13135, 'Hello World!']
-
-type MyType = [string,int,bool?] | [string,int,char?];
-MyType myType = [string,int,char?]['Test',121,null];
-
-//Method
-void()(){/*code*/}
-void(string,int)(myString, myInt){/*code*/}
-
-//Set
-int{}{/*values*/}
-int{4}{/*values*/}
-
-//Map
-int string{}{}
-{int myInt, string myString}{myInt:13135,myString,'Hello World!'}
-
-//String
-''
-''''''
-""
-""""""
-
-//Int
-23123
-123e231
-0x2131
-0o1232457
-0b1010011
-
-//Double
-23123.1
-123e231.4
-0x2131.7
-0o1232457.5
-0b1010011.9
-
-//Bool
-true
-false
-
-//Char
-'c'
-"C"
-
-//Void
-null
-//these voids will act different
-[int,]//One void 
-[,]//Two voids
-
-//Future
-async int
-async int[]
-
 //subtitle
 Return
 
@@ -3827,7 +3766,6 @@ Sized
 //text
 Sized arrays can be used to create arrays with a specific numbers of elements.
 To declare a sized array write the following structure; any type, __[__, any integer value, __]__.
-Sized arrays must have at least two members.
 
 //code
 int[2] myArray = [1,3];
@@ -4068,7 +4006,7 @@ Default and empty values
 //text
 The __default__ keyword can be used to populate variables or elements of a collection that are not defined.
 To use default write __default__ before any type to indicate that is needs to be populated with the default value when empty.
-
+//maybe base, def
 //code
 default int myInt;
 // myInt becomes: 0
@@ -4162,4 +4100,121 @@ class MyClass
     default(){
         // You default constructor code
     }
+}
+
+//Literal value ideas
+
+//Array
+int[][/*values*/]
+int[4][/*values*/]
+[string,int][13135, 'Hello World!']
+int[,string][13135, 'Hello World!']
+
+type MyType = [string,int,bool?] | [string,int,char?];
+MyType myType = [string,int,char?]['Test',121,null];
+
+//Method
+void()(){/*code*/}
+void(string,int)(myString, myInt){/*code*/}
+
+//Set
+int{}{/*values*/}
+int{4}{/*values*/}
+
+//Map
+int string{}{}
+{int myInt, string myString}{myInt:13135,myString,'Hello World!'}
+
+
+
+//String
+''
+''''''
+""
+""""""
+
+//Int
+23123
+123e231
+0x2131
+0o1232457
+0b1010011
+
+//Double
+23123.1
+123e231.4
+0x2131.7
+0o1232457.5
+0b1010011.9
+
+//Bool
+true
+false
+
+//Char
+'c'
+"C"
+
+//Void
+null
+//these voids will act different
+[int,]//One void 
+[,]//Two voids
+
+//Future
+async int
+async int[]
+
+Methods test
+
+//code
+void myMethod(){
+
+}
+void() myMethod = void(){}
+myMethod();
+
+//code
+void myMethod[]{
+
+}
+void[] myMethod = void[]{}
+myMethod[];
+
+//code
+void myMethod{string myString}{
+
+}
+void {myString string} myMethod = void{string myString}{}
+myMethod{myString: 'Hello World!'};
+
+use the value keyword for the setters.
+
+//chaper
+Multi use
+
+//text
+The multi use can be use to preform multiple actions on one variable or value.
+
+//code
+class MyClass
+{
+    default public int myInt;
+    default public string myString;
+}
+
+MyClass myClass = MyClass(){
+    myInt = 13135;
+    myString = 'Hello World!'
+};
+
+
+//code
+List<int> myList = List<int>();
+
+myList.add{
+    (1);
+    (2);
+    (3);
+    (6);
 }
