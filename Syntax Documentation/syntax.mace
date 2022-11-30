@@ -4217,3 +4217,47 @@ myList.add{
     (3);
     (6);
 }
+
+//title
+Asynchronous
+
+//chapter
+Asynchronous functions (async)
+
+//text
+The __async__ keyword can be used to make asynchronous functions.
+These are methods with a promise as return value.
+When the promise is resolved, it is returned and the attached code is run.
+Note that the error object is always a enum.
+
+//code
+async string myMethod(){
+	return "Hello World!";
+}
+myMethod()
+.then( function(myReturnValue){ print(myReturnValue); } )
+.catch( function(myError){ print("Error: " + myError.message); } );
+
+//chapter
+Promise (promise)
+
+//text
+The __promise__ keyword can be used in any function to create a promise.
+
+//code
+string myMethod(){
+	return promise.resolve("Hello World!");
+}
+
+//chapter
+Await (await)
+
+//text
+The __await__ keyword can be used to pause code when resolving a promise before continuing other code.
+The __await__ keyword can only be used in a asynchronous function.
+
+//code
+async string myMethod(){
+	return "Hello World!";
+}
+string myString = await myMethod().catch( function(myError){ print("Error: " + myError.message); } );
