@@ -522,7 +522,7 @@ No parameters can be added to the destructor parameter body.
 //code
 class MyClass
 {
-    ~MyClass(){
+    ~MyClass{
          // Your destructor code.
     }
 }
@@ -568,7 +568,7 @@ class MyClass
         // Your constructor code.
     }
 
-    public get myInt(){
+    public get myInt{
         // Your getter code.
         return myInt + 1;
     }
@@ -723,7 +723,7 @@ To access an enum write the enum name followed by the field name.
 MyEnum myEnum = MyEnum.FirstEnumField;
 
 if(myEnum == MyEnum.SecondEnumField){
-
+    // You code
 }
 
 //title
@@ -763,7 +763,7 @@ To store a method in a variable use the method data type.
 //code
 class GoogleMaps
 {
-    void(GoogleMapsController googleMapsController) onInit;
+    void func(GoogleMapsController googleMapsController) onInit;
 
     public GoogleMaps(this.onInit){
         System.sleep(5);
@@ -778,7 +778,7 @@ class GoogleMapsController
     }
 }
 
-GoogleMaps googleMaps = GoogleMaps(void (GoogleMapsController googleMapsController){
+GoogleMaps googleMaps = GoogleMaps((GoogleMapsController googleMapsController){
     googleMapsController.goToXY();
 });
 
@@ -793,9 +793,8 @@ int addTwoNumbers0(int a, int b){
     return a + b;
 }
 int addTwoNumbers1(int a, int b) => a + b;
-int() addTwoNumbers2 = int(int a, int b) {return a + b};
-int() addTwoNumbers3 = int(int a, int b) => a + b;
-function int(int a, int b) addTwoNumbers4 = {return a + b};
+int func(int a, int b) addTwoNumbers2 = (int a, int b) {return a + b};
+int func(int a, int b) addTwoNumbers3 = (int a, int b) => a + b;
 
 //chapter
 Primitive variables
@@ -1790,29 +1789,29 @@ string? myMethod(){
 // Indicating that the return type of myMethod can be null.
 
 //code
-string() myMethod = null;
+string func() myMethod = null;
 // Results in an error because myMethod cannot be null.
-string() myMethod = string(){
+string func() myMethod = (){
     return null;
 }
 // Results in an error because the return type of myMethod cannot be null.
 
 //code
-string()? myMethod = null;
+string func()? myMethod = null;
 // Indicating that myMethod can be null.
-string?() myMethod = string?(){
+string? func() myMethod = (){
     return null;
 }
 // Indicating that the return type of myMethod can be null.
 
 //code
-function string() myMethod = {
+string func() myMethod = {
     return null;
 }
 // Results in an error because the return type of myMethod cannot be null.
 
 //code
-function string?() myMethod = {
+string? func() myMethod = {
     return null;
 }
 // Indicating that the return type of myMethod can be null.
@@ -1881,11 +1880,11 @@ myMap?['Index'] = 'Value';
 Use optional chaining to optionaly execute a method variable.
 
 //code
-string()? myMethod = null;
+string func()? myMethod = null;
 myMethod?();
 // myMethod is not called.
 
-string()? myMethod = string(){
+string func()? myMethod = (){
     print('Hello World!')
 };
 myMethod?();
@@ -2675,7 +2674,7 @@ class
 interface
 enum
 object
-function
+func
 dynamic
 type
 
@@ -2687,7 +2686,7 @@ The __void__ literal type can be used to to store null.
 A void literal type can never be used by itself.
 
 //code
-void() myMethod = void(){
+void func() myMethod = (){
     // Your method code.
 };
 
@@ -2786,31 +2785,31 @@ enum MyEnum
 object myObject = MyEnum.MyEnumValue;
 
 //subtitle
-Function (function)
+Function (func)
 
 //text
-The __function__ literal type can be used to store any function or method.
+The __func__ literal type can be used to store any function or method.
 
 //code
 void myMethod(){
     // Your method code.
 }
 
-function myStoredMethod = myMethod;
+func myStoredMethod = myMethod;
 
 //code
-void() myMethod = void(){
+void func() myMethod = (){
     // Your method code.
 };
 
-function myStoredMethod = myMethod;
+func myStoredMethod = myMethod;
 
 //code
-function void() myMethod = {
+void func() myMethod = {
     // Your method code.
 };
 
-function myStoredMethod = myMethod;
+func myStoredMethod = myMethod;
 
 //subtitle
 Dynamic (dynamic)
@@ -2913,7 +2912,7 @@ The __()__ operator can be used to indicate that a type is a method type.
 To create a method type write any type followed by __()__.
 
 //code
-string() myMethod = string(){
+string func() myMethod = (){
     // Your method code.
     return 'Hello World!';
 };
@@ -2925,15 +2924,15 @@ string myString = myMethod();
 The __()__ operator can be stacked to create higher order functions.
 
 //code
-string()() myHigherOrderFunction = string()(){
+string func()() myHigherOrderFunction = (){
     // Your method code.
-    return string(){
+    return (){
         // Your higher order function code.
         return 'Hello World!';
     };
 };
 
-string() myMethod = myHigherOrderFunction();
+string func() myMethod = myHigherOrderFunction();
 // myMethod becomes: string(){ return 'Hello World!'; }
 string myString = myHigherOrderFunction()();
 // myString becomes: 'Hello World!'.
@@ -3106,7 +3105,7 @@ interface MySecondInterface<MyGeneric> implement MyInterface<MyGeneric>
 }
 
 //subtitle
-Function (function)
+Function (func)
 
 //text
 Generic types can be declared before the __()__ when creating a method or function.
@@ -3118,7 +3117,7 @@ void myMethod<MyGeneric>(){
     // Your method code.
 }
 
-function void<MyGeneric>() myMethod = {
+void func<MyGeneric>() myMethod = {
     // Your method code.
 };
 
@@ -3128,7 +3127,7 @@ MyGeneric myMethod<MyGeneric>(MyGeneric myParameter){
     return myGeneric;
 }
 
-function MyGeneric<MyGeneric>(MyGeneric myParameter) myMethod = {
+MyGeneric func<MyGeneric>(MyGeneric myParameter) myMethod = {
     MyGeneric myGeneric = myParameter;
     return myGeneric;
 };
@@ -3202,8 +3201,8 @@ Map<string,int> myMap = auto();
 Map mySecondMap = auto<string,int>();
 
 //code
-void() myMeyhod = auto(){};
-void(string myString) mySecondMethod = auto(string myString){};
+void func() myMeyhod = auto(){};
+void func(string myString) mySecondMethod = auto(string myString){};
 
 //code
 int[] myArray = auto[];
@@ -3228,6 +3227,55 @@ Map<string,int> myMethod(){
 
     return myArray;
 }
+
+//title
+Type casting
+
+//text
+The __<>__ operator can be used to cast any value to a given type.
+To cast a value write any type between __<>__ followed by any value.
+
+//code
+int myInt = 13135;
+string myString = <string>myInt;
+// myString becomes: '13135'
+
+//code
+string myString = '13135';
+int myInt = <int>myString;
+// myInt becomes: 13135
+
+//subtitle
+Defining
+
+//text
+Type casting methods can be declared in the class that needs to be casted to a different type.
+To declare a type cast method write the following structure; __this__, __<__, type to cast to __>__, __{}__.
+A value of the given type cast type must be returned.
+
+//code
+class MyClass
+{
+    this<string>{
+        // You type casting code
+        return 'Hello World!';
+    }
+}
+
+MyClass myClass = MyClass();
+string myString = <string>myClass;
+// myString becomes: 'Hello World!';
+
+//subtitle
+Default value
+
+//text
+The __default__ keyword can be used to retrive the default value of the type when the typ casting was not successfull.
+
+//code
+string myString = 'Hello World!';
+int myInt = <default int>myString;
+// myInt becomes: 0
 
 //title
 References and Pointers
@@ -3316,36 +3364,46 @@ int mySecondInt = ***myTriplePointer;
 Unpacking ([]), ({})
 
 //text
-Unpacking is used to unpack the values from an array or anonymous object to seperate variables.
-When the unpacking variables have the same (sub)type any array or anonymous object with that type can be unpacked.
+Unpacking is used to unpack the values from an object to seperate variables.
+When the unpacking variables have the same (sub)type any array,tuple or anonymous object with that type can be unpacked.
 When the sub(type) do not match only literal arrays or anonymous objects can ben unpacked.
 There are two variable types that can be unpacked.
 
-//table
-Array
-Anonymous object
+//tablehead
+Type`               Scope brackets`
 
-//title
-Array ([])
+//table
+Array`              []`               
+Tuple`              ()`
+Anonymous object`   {}`
+Classes`            {}`
 
 //text
-The __[]__ operator can be used to unpack an array.
-To unpack an array write the following structure; __[__, one or more variables or variable declarations, __]__, __=__, an array.
+To unpack an object write the following structure; opening bracket, comma separated variable declarations, closing bracket.
 
 //code
 [int myInt, string myString] = [13135, 'Hello World!'];
 // myInt becomes: 13135
 // myString becomes: 'Hello World!'
 
-//title
-Anonymous object ({})
-
-//text
-The __{}__ operator can be used to unpack an anonymous object.
-To unpack an anonymous object write the following structure; __{__, one or more variables or variable declarations, __}__, __=__, an anonymous object.
+//code
+(int myInt, string myString) = (13135, 'Hello World!');
+// myInt becomes: 13135
+// myString becomes: 'Hello World!'
 
 //code
 {int myInt, string myString} = {myInt: 13135, myString: 'Hello World!'};
+// myInt becomes: 13135
+// mySecondInt becomes: 53131
+
+//code
+class MyClass
+{
+    public int myInt = 13135;
+    public string myString = 'Hello World!';
+}
+
+{int myInt, string myString} = MyClass();
 // myInt becomes: 13135
 // mySecondInt becomes: 53131
 
@@ -3353,31 +3411,37 @@ To unpack an anonymous object write the following structure; __{__, one or more 
 Default type
 
 //text
-When unpacking an array or anonymous object a default type can be added to the unpacking variables.
+When unpacking an object a default type can be defined.
+To define a default type add the type before the brackets of the unpacking scope.
 The default type can be overwritten by defining the variable type.
 
-//subtitle
-Array ([])
-
 //code
-int[myInt mySecond] = [13135, 53131];
-// myInt becomes: 13135
-// mySecondInt becomes: 53131
-
 int[myInt, string myString, mySecondInt] = [13135, 'Hello World!', 53131];
 // myInt becomes: 13135
 // myString becomes: 'Hello World!'
 // mySecondInt becomes: 53131
 
-//subtitle
-Anonymous object ({})
-
 //code
-int{myInt, mySecondInt} = {myInt: 13135,  mySecondInt: 53131};
+int(myInt, string myString, mySecondInt) = (13135, 'Hello World!', 53131);
 // myInt becomes: 13135
+// myString becomes: 'Hello World!'
 // mySecondInt becomes: 53131
 
+//code
 int{myInt, string myString, mySecondInt} = {myInt: 13135, myString: 'Hello World!', mySecondInt: 53131};
+// myInt becomes: 13135 
+// myString becomes: 'Hello World!'
+// mySecondInt becomes: 53131
+
+//code
+class MyClass
+{
+    public int myInt = 13135;
+    public int mySecondInt = 53131;
+    public string myString = 'Hello World!';
+}
+
+int{myInt, string myString, mySecondInt} = MyClass();
 // myInt becomes: 13135 
 // myString becomes: 'Hello World!'
 // mySecondInt becomes: 53131
@@ -3389,43 +3453,18 @@ Spread assignment
 The unpacking syntax can also be used to assign the same value to multiple variables.
 All the unpacking variables must have the same (sub)type.
 
-//subtitle
-Array ([])
-
 //code
 [int myInt,int mySecondInt] = 13135;
 // myInt and mySecondInt become: 13135
 
-int[myInt, mySecondInt] = 13135;
+//code
+(int myInt,int mySecondInt) = 13135;
 // myInt and mySecondInt become: 13135
-
-//code
-[int myInt, string myString] = 'Hello World!';
-// Results in error
-
-//text
-Using unpacking with different types but with the same sub types.
-
-//code
-type MyType = string | int;
-type MySecondType = int | bool;
-
-[MyType MyType, mySecondType MySecondType] = 13135;
-// MyType and mySecondType become: 13135
-
-//subtitle
-Anonymous object ({})
 
 //code
 {int myInt,int mySecondInt} = 13135;
 // myInt and mySecondInt become: 13135
 
-int{myInt, mySecondInt} = 13135;
-// myInt and mySecondInt become: 13135
-
-//code
-{int myInt, string myString} = 'Hello World!';
-// Results in error
 
 //subtitle
 Sub types
@@ -3434,50 +3473,22 @@ Sub types
 type MyType = string | int;
 type MySecondType = int | bool;
 
-[MyType MyType, mySecondType MySecondType] = 13135;
-// MyType and mySecondType become: 13135
-
-{MyType MyType, mySecondType MySecondType} = 13135;
-// MyType and mySecondType become: 13135
-
-
-//title
-Declared fields
-
-//text
-Arrays and anonymous objects can be unpacked to previously declared fields.
-The type of the previously declared variable is used.
-
-//subtitle
-Array ([])
+[MyType myType,MySecondType mySecondType] = 13135;
+// myType and mySecondType become: 13135
 
 //code
-int? myInt;
-string? myString;
-
-[myInt,myString] = [13135,'Hello World!'];
-// myInt becomes: 13135
-// myString becomes: 'Hello World!'
-
-//subtitle
-Anonymous object ({})
+(MyType myType,MySecondType mySecondType) = 13135;
+// myInt and mySecondInt become: 53131
 
 //code
-int? myInt;
-string? myString;
-
-{myInt,myString} = [myInt: 13135,myString: 'Hello World!'];
-// myInt becomes: 13135
-// myString becomes: 'Hello World!'
+{MyType myType,MySecondType mySecondType} = 13135;
+// myType and mySecondType become: 13135
 
 //title
 Swapping value
 
 //text
 Unpacking can be used to swap two or more values.
-
-//subtitle
-Array ([])
 
 //code
 int myInt = 13135;
@@ -3487,67 +3498,84 @@ int mySecondInt = 53131;
 // myInt becomes: 53131
 // mySecondInt becomes: 13135
 
-//subtitle
-Anonymous object ({})
+//code
+(myInt,mySecondInt) = (mySecondInt,myInt);
+// myInt becomes: 13135
+// mySecondInt becomes: 53131
 
 //code
-int myInt = 13135;
-int mySecondInt = 53131;
-
 {myInt,mySecondInt} = {myInt: mySecondInt,mySecondInt: myInt};
 // myInt becomes: 53131
 // mySecondInt becomes: 13135
 
 //title
-Parameters
+Functions binding
 
 //text
-Unpacking can be added as method parameter.
-
-//subtitle
-Array ([])
+Unpacking scopes can binded to any function.
 
 //code
-void myMethod([int myInt, string myString])
-{
+void myMethod(int myInt, string myString){
     // Your method code.
 }
 
-myMethod([13135,'Hello World!']);
+void func(int, string) myFunction = myMethod;
 
-//subtitle
-Anonymous object ({})
-
-//text
-Note that Unpacking an anonymous objects as method parameter gives the illusion of having named parameters.
+myMethod(13135, 'Hello World!');
 
 //code
-void myMethod({int myInt, string myString})
-{
+void myMethod[int myInt, string myString]{
     // Your method code.
 }
 
-myMethod({myInt: 13135,myString: 'Hello World!'});
+void func[int, string] myFunction = myMethod;
+
+myMethod[13135, 'Hello World!'];
+
+//code
+void myMethod{int myInt, string myString}{
+    // Your method code.
+}
+
+void func{int, string} myFunction = myMethod;
+
+myMethod{myInt: 13135, myString: 'Hello World!'};
 
 //title
 Stacking
 
 //text
-Unpacking can be stacked to access nested arrays or anonymous objects.
-
-//subtitle
-Array ([])
+Unpacking can be stacked to access nested objects.
+When the object is unorderd a name is required.
 
 //code
-[int myInt,[int myString]] = [13135,['Hello World!']];
+[int myInt,[string myString]] = [13135,['Hello World!']];
 // myInt becomes: 13135
 // myString becomes: 'Hello World!'
 
-//subtitle
-Anonymous object ({})
+//code
+(int myInt,(string myString)) = (13135,('Hello World!'));
+// myInt becomes: 13135
+// myString becomes: 'Hello World!'
 
 //code
-{int myInt,{int myString}} = {myInt: 13135,{myString: 'Hello World!'}};
+{int myInt,myNested{string myString}} = {myInt: 13135,myNested:{myString: 'Hello World!'}};
+// myInt becomes: 13135
+// myString becomes: 'Hello World!'
+
+//code
+class MyClass
+{
+    public int myInt = 13135;
+    MySecondClass myNested = MySecondClass();
+}
+
+class MySecondClass
+{
+    string myString = 'Hello World!';
+}
+
+{int myInt,myNested{string myString}} = MyClass();
 // myInt becomes: 13135
 // myString becomes: 'Hello World!'
 
@@ -3558,114 +3586,85 @@ Combining
 The unpacking of arrays and anonymous objects can be used interchangeably.
 
 //code
-[int myInt,{int myString}] = [13135,{myString: 'Hello World!'}];
+[int myInt,{string myString,tuple(int mySecondInt)}] = [13135,{myString: 'Hello World!', tuple: (53131)}];
 // myInt becomes: 13135
 // myString becomes: 'Hello World!'
-
-//code
-{int myInt,[int myString]} = {myInt: 13135,[myString: 'Hello World!']};
-// myInt becomes: 13135
-// myString becomes: 'Hello World!'
+// mySecondInt becomes: 53131
 
 //title
 Optional
 
 //text
-Optional unpacking can be accomplished in two difference ways.
+Optional unpacking can be accomplished in three difference ways.
+
+//table
+Nullable
+Default value
+Default type value
 
 //subtitle
-Nullable
+Nullable (?)
 
 //text
-When a unpacking variable is nullable the value can optionaly be added.
+When an unpacking variable is nullable the value can optionaly be omitted.
 
 //code
 [int myInt, string? myString] = [13135];
 // myInt becomes: 13135
 // myString becomes: null
 
-[myInt, myString = 'Default value'] = [13135, 'Hello World!'];
+//code
+(int myInt, string? myString) = (13135);
 // myInt becomes: 13135
-// myString becomes: 'Hello World!'
+// myString becomes: null
 
 //code
 {int myInt, string? myString} = {myInt: 13135};
 // myInt becomes: 13135
 // myString becomes: null
 
-{myInt, myString} = [myInt: 13135,myString: 'Hello World!'];
-// myInt becomes: 13135
-// myString becomes: 'Hello World!'
-
-
 //subtile
-Default values (=)
+Default value (=)
 
 //text
-The __=__ is used to add a default to an unpacking field when unpacking arrays or anonymous object.
-To add a default value to an unpacking field when unpacking write __=__ followed by any default value after the field name.
+The __=__ is used to add a default value to an unpacking variable.
+To add a default value write __=__ followed by any default value after the field name.
 
 //code
-[int myInt, string myString = 'Default value'] = [13135];
+[int myInt = 53131, string myString = 'Default value'] = [13135];
 // myInt becomes: 13135
 // myString becomes: 'Default value'
 
-[myInt, myString] = [13135, 'Hello World!'];
-// myInt becomes: 13135
-// myString becomes: 'Hello World!'
-
 //code
-{int myInt, string myString = 'Default value'} = {myInt: 13135};
+(int myInt = 53131, string myString = 'Default value') = (13135);
 // myInt becomes: 13135
 // myString becomes: 'Default value'
 
-{myInt, myString = 'Default value'} = [myInt: 13135,myString: 'Hello World!'];
+//code
+{int myInt = 53131, string myString = 'Default value'} = {myInt: 13135};
 // myInt becomes: 13135
-// myString becomes: 'Hello World!'
+// myString becomes: 'Default value'
 
 //subtitle
-Combining
+Default type value (default)
 
 //text
-Nullable variables and default values can be combined.
+The __default__ keyword can be used to fill the value of an unpacking variable with the class default value.
 
 //code
-[int myInt, string myString = 'Default value', int? mySecondInt] = [13135];
+[int myInt, default string myString] = [13135];
 // myInt becomes: 13135
-// myString becomes: 'Default value'
-// mySecondInt becomes: null
-
-[myInt, myString = 'Default value', mySecondInt] = [13135, 'Hello World!', 53131];
-// myInt becomes: 13135
-// myString becomes: 'Hello World!'
-// mySecondInt becomes: 53131
+// myString becomes: ''
 
 //code
-{int myInt, string myString = 'Default value', int? mySecondInt} = {myInt: 13135};
+(int myInt, default string myString) = (13135);
 // myInt becomes: 13135
-// myString becomes: 'Default value'
-// mySecondInt becomes: null
-
-{myInt, myString = 'Default value',mySecondInt} = [myInt: 13135,myString: 'Hello World!', mySecondInt: 53131];
-// myInt becomes: 13135
-// myString becomes: 'Hello World!'
-// mySecondInt becomes: 53131
-
-//subtitle
-Omitting definition
-
-//text
-When all the unpacking variables are either nullable or have a default value the unpacking value can be omitted.
+// myString becomes: ''
 
 //code
-[int? myInt, string myString = 'Default value'];
-// myInt becomes: null
-// myString becomes: 'Default value'
-
-//code
-{int? myInt, string myString = 'Default value'};
-// myInt becomes: null;
-// myString becomes: 'Default value'
+{int myInt, default string myString} = {myInt: 13135};
+// myInt becomes: 13135
+// myString becomes: ''
 
 //title
 Skipping values (,)
@@ -3674,12 +3673,12 @@ Skipping values (,)
 The __,__ operator can used be on array unpacking to skip values.
 
 //code
-int[myInt,,mySecondInt] = [1,2,3];
+[int myInt,,string myString] = [1,true,'Hello World!'];
 // myInt becomes: 1
-// mySecondInt becomes: 3
+// myString becomes: 'Hello World!'
 
 //code
-[int myInt,,string myString] = [1,true,'Hello World!'];
+(int myInt,,string myString) = (1,true,'Hello World!');
 // myInt becomes: 1
 // myString becomes: 'Hello World!'
 
@@ -4057,11 +4056,11 @@ default(default int,default string) myTuple;
 When the return type of a method is default the method does not need to return a value the default value will be returned
 
 //code
-default string() myMethod = (){};
+default string func() myMethod = (){};
 string myString = myMethod();
 // myString becomes: ''
 
-default (default string()) myMethod;
+default (default string func()) myMethod;
 // myMethod becomes: (){}
 string myString = myMethod();
 // myString becomes: ''
@@ -4114,8 +4113,8 @@ type MyType = [string,int,bool?] | [string,int,char?];
 MyType myType = [string,int,char?]['Test',121,null];
 
 //Method
-void()(){/*code*/}
-void(string,int)(myString, myInt){/*code*/}
+void func()(){/*code*/}
+void func(string,int)(myString, myInt){/*code*/}
 
 //Set
 int{}{/*values*/}
@@ -4171,26 +4170,26 @@ Methods test
 void myMethod(){
 
 }
-void() myMethod = void(){}
+void func() myMethod = (){}
 myMethod();
 
 //code
 void myMethod[]{
 
 }
-void[] myMethod = void[]{}
+void func[] myMethod = []{}
 myMethod[];
 
 //code
 void myMethod{string myString}{
 
 }
-void {myString string} myMethod = void{string myString}{}
+void func{myString string} myMethod = {string myString}{}
 myMethod{myString: 'Hello World!'};
 
 use the value keyword for the setters.
 
-//chaper
+//chapter
 Multi use
 
 //text
