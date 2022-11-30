@@ -4026,10 +4026,10 @@ default string[] myArray = ['Hello World!',];
 default string[] myArray = [,];
 // myArray becomes: ['','']
 
-default (int[]) myArray;
+int default[] myArray;
 // myArray becomes: []
 
-default (default int[5]) myArray;
+default int default[5] myArray;
 // myArray becomes: [0,0,0,0,0]
 
 //code
@@ -4039,7 +4039,7 @@ default string default int{} myMap = {'Hello World!':13135,};
 default string default int{} myMap = {,};
 // myMap becomes: {'':0,'':0}
 
-default (string int{}) myMap;
+string int default{} myMap;
 // myMap becomes: {}
 
 //code
@@ -4060,7 +4060,7 @@ default string func() myMethod = (){};
 string myString = myMethod();
 // myString becomes: ''
 
-default (default string func()) myMethod;
+default string default func() myMethod;
 // myMethod becomes: (){}
 string myString = myMethod();
 // myString becomes: ''
