@@ -1816,79 +1816,125 @@ string? func() myMethod = {
 }
 // Indicating that the return type of myMethod can be null.
 
-//text
-To indicate that a method parameter is nullable write any type followed by a __?__.
-
-//code
-void myMethod(string myString)
-{
-    print(myString);
-}
-myMethod(null);
-// Results in an error because the myString parameter of myMethod cannot be null.
-
-//code
-void myMethod(string? myString)
-{
-    print(myString);
-}
-myMethod(null);
-// Indicating that the myString parameter of myMethod can be null.
-
 //subtitle
 Optional chaining (?)
 
 //text
 The __?__ operator can be used on nullable variables to indicate optional chaining.
-When using optional chaining in a statement and null occurs, the statement will be exited.
-When using optional chaining in an expression and null occurs the expression will be exited and null will be returned.
+When null occurs in a statement the statement will be exited while an expression also returns null.
+
+//subtitle
+Members
+
+//text
+To access an object member write any object variable followed by __?.__ ending with any member.
 
 //code
-int myInt = null;
+int? myInt = null;
 string? myString = myInt?.toString();
 // myString becomes: null.
-
-//code
-int myInt = 13135;
-string? myString = myInt?.toString();
+myInt = 13135;
+myString = myInt?.toString();
 // myString becomes: '13135'.
 
-//text
-Use optional chaining to optionaly execute an index method or statement.
 
 //code
-string? myString = null;
-char? myChar = myString?[0];
-// myChar becomes: null.
+class MyClass
+{
+    int? myInt;
+}
 
-//code
-string? myString = 'Hello World!';
-char? myChar = myString?[0];
-// myChar becomes: 'H'.
+MyClass myClass = null;
+myClass?.myInt = 13135;
+// Statement exits after myClass
+myClass = MyClass();
+myClass?.myInt = 13135;
+// myClass.myInt becomes: 13135
 
-//code
-Map<string,string>? myMap = null;
-myMap?['Index'] = 'Value';
-// The preceding statement does not get executed.
-
-//code
-Map<string,string>? myMap = {};
-myMap?['Index'] = 'Value';
-// The preceding statement gets executed.
+//subtitle
+Functions
 
 //text
-Use optional chaining to optionaly execute a method variable.
+To call a function write any function variable followed by __?__ ending with any parameter scope.
 
 //code
-string func()? myMethod = null;
-myMethod?();
-// myMethod is not called.
-
-string func()? myMethod = (){
-    print('Hello World!')
+string ?func() myMethod = null;
+string? myString = myMethod?();
+// myString becomes: null
+myMethod = () {
+    return 'Hello World!';
 };
-myMethod?();
-// myMethod is called.
+string? myString = myMethod?();
+// myString becomes: 'Hello World!'
+
+//code
+class MyClass
+{
+    void ?func() myMethod;
+}
+
+MyClass myClass = MyClass();
+
+myClass.myMethod?();
+// Statement exits after myClass
+myClass.myMethod = (){
+    print('Hello World!');
+}
+myClass.myMethod?();
+// Statement prints: 'Hello World!'
+
+//subtitle
+Cascading
+
+//text
+To access cascading members write any variable followed by __?__ ending with __{}__.
+
+//code
+class MyClass
+{
+    public int? myInt;
+    public string? myString;
+}
+
+MyClass? myClass = null;
+
+myClass?{
+    myInt = 13135;
+    myString = 'Hello World!';
+    myMethod();
+};
+// Statement exits after myClass
+myClass = MyClass();
+myClass?{
+    myInt = 13135;
+    myString = 'Hello World!';
+    myMethod();
+};
+// myClass.myInt becomes: 13135
+// myClass.myString becomes: 'Hello World!'
+// myClass.myMethod gets called
+
+//subtitle
+Indexing
+
+//text
+To access index members write any variable followed by __?__ ending with __[]__.
+
+//code
+string?[] myArray = null;
+myArray?[0] = 'Hello World!';
+// Statement exits after myArray
+myArray = [];
+myArray?[0] = 'Hello World!';
+// myArray[0] becomes: 'Hello World!'
+
+//code
+string?[] myArray = null;
+string? myString = myArray?[0];
+// myString becomes: null.
+myArray = [];
+myArray?[0] = 'Hello World!';
+// myString becomes: 'Hello World!'
 
 //subtitle
 Null-coalescing (??)
@@ -4190,33 +4236,73 @@ myMethod{myString: 'Hello World!'};
 use the value keyword for the setters.
 
 //chapter
-Multi use
+Cascading scope
 
 //text
-The multi use can be use to preform multiple actions on one variable or value.
+The __{}__ brackets can be used to add cascading scope to any value.
+To add cascading scope write __{}__ after any value.
+Inside the __{}__ of the cascading scope the memebers of the value can accessed.
 
 //code
 class MyClass
 {
-    default public int myInt;
-    default public string myString;
+    public int? myInt;
+    public string? myString;
+
+    void myMethod(){
+        // You method code.
+    }
 }
 
 MyClass myClass = MyClass(){
     myInt = 13135;
-    myString = 'Hello World!'
+    myString = 'Hello World!';
+    myMethod();
 };
 
+//text
+The cascading scope can also be added to functions to call them multiple times.
 
 //code
 List<int> myList = List<int>();
 
 myList.add{
     (1);
-    (2);
     (3);
-    (6);
+    (1);
+    (3);
 }
+
+//subtitle
+Nested
+
+//text
+Cascading scopes can be defined on any value this includes values in cascading scopes.
+This unlocks the possibility to have nested cascading scopes.
+
+//code
+class MyClass
+{
+    public int? myInt;
+    public string? myString;
+    List<int> myList = List<int>();
+
+    void myMethod(){
+        // You method code.
+    }
+}
+
+MyClass myClass = MyClass(){
+    myInt = 13135;
+    myString = 'Hello World!';
+    myList.add{
+        (1);
+        (3);
+        (1);
+        (3);
+    }
+    myMethod();
+};
 
 //title
 Asynchronous
