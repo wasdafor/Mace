@@ -1855,7 +1855,8 @@ myClass?.myInt = 13135;
 Functions
 
 //text
-To call a function write any function variable followed by __?__ ending with any parameter scope.
+To call a function write any function variable followed by __?__ ending with any parameter body.
+Any array, tuple or anonymous object parameter body can be used.
 
 //code
 string ?func() myMethod = null;
