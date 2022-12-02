@@ -1750,7 +1750,7 @@ Nullability indicator (?)
 //text
 The __?__ operator can be used to indicate that a type is nullable.
 To indicate that a type is nullable write a __?__ after the variable type.
-When a type is nullable it means that when that type is used the variable or parameter can contain null.
+When a variable has a nullable type the variable can store null.
 
 //code
 string myString = null;
@@ -1859,7 +1859,7 @@ To call a function write any function variable followed by __?__ ending with any
 Any array, tuple or anonymous object parameter body can be used.
 
 //code
-string ?func() myMethod = null;
+string func()? myMethod = null;
 string? myString = myMethod?();
 // myString becomes: null
 myMethod = () {
@@ -1871,7 +1871,7 @@ string? myString = myMethod?();
 //code
 class MyClass
 {
-    void ?func() myMethod;
+    void func()? myMethod;
 }
 
 MyClass myClass = MyClass();
@@ -1922,7 +1922,7 @@ Indexing
 To access index members write any variable followed by __?__ ending with __[]__.
 
 //code
-string?[] myArray = null;
+string[]? myArray = null;
 myArray?[0] = 'Hello World!';
 // Statement exits after myArray
 myArray = [];
@@ -1930,7 +1930,7 @@ myArray?[0] = 'Hello World!';
 // myArray[0] becomes: 'Hello World!'
 
 //code
-string?[] myArray = null;
+string[]? myArray = null;
 string? myString = myArray?[0];
 // myString becomes: null.
 myArray = [];
@@ -4243,6 +4243,7 @@ Cascading scope
 The __{}__ brackets can be used to add cascading scope to any value.
 To add cascading scope write __{}__ after any value.
 Inside the __{}__ of the cascading scope the memebers of the value can accessed.
+The __.__ operator is not needed to accessed the memebers of an object.
 
 //code
 class MyClass
@@ -4250,7 +4251,7 @@ class MyClass
     public int? myInt;
     public string? myString;
 
-    void myMethod(){
+    public void myMethod(){
         // You method code.
     }
 }
@@ -4260,6 +4261,10 @@ MyClass myClass = MyClass(){
     myString = 'Hello World!';
     myMethod();
 };
+
+myClass.myInt = 13135;
+myClass.myString = 'Hello World!';
+myClass.myMethod();
 
 //text
 The cascading scope can also be added to functions to call them multiple times.
@@ -4272,6 +4277,59 @@ myList.add{
     (3);
     (1);
     (3);
+}
+
+//subtitle
+Continuing
+
+//text
+After the cascading scope the expression can be continued.
+
+//code
+class MyClass
+{
+    public int? myInt;
+    public string? myString;
+
+    public void myMethod(){
+        // You method code.
+    }
+}
+
+string myString = MyClass(){
+    myInt = 13135;
+    myString = 'Hello World!';
+    myMethod();
+}.myString;
+// myString becomes: 'Hello World!'
+
+//subtitle
+Variable declaration
+
+//text
+The cascading scope can be added to any type or keyword that is used to declare variables or function.
+The type or keywords will be added to the statement inside the cascading scope.
+
+//code
+class MyClass
+{
+    public{
+        int? myInt;
+        string? myString;
+
+        void myMethod(){
+            // You method code.
+        }
+
+        int{
+            myInt = 13135;
+            mySecondInt = 53131;
+          
+            myMethod(){
+                // You method code
+            }
+        }
+    }
 }
 
 //subtitle
