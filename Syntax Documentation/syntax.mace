@@ -4035,7 +4035,7 @@ an empty element can be used to reference the default type.
 //code
 int(,string) myTuple = (13135,'Hello World!');
 
-//text
+//title
 Label
 
 //text
@@ -4045,6 +4045,21 @@ Labels can optionaly be added to tuples element types the element at that index 
 (int,string myString) myTuple = (13135,'Hello World!');
 string mySecondString = myTuple.myString;
 // mySecondString becomes: 'Hello World!'
+
+//title
+Sized
+
+//text
+Sized tuples can be created by adding a default type and an integer between the __()__.
+
+//code
+int(5) myTuple = (1,3,1,3,5); 
+
+//text
+Add a literal integer after any type in unpacking to repeat that type;
+
+//code
+(int 5,string 2) myTuple = (1,3,1,3,5,'Hello World!','Hello World!');
 
 //chaper
 Default and empty values
@@ -4243,7 +4258,7 @@ Cascading scope
 The __{}__ brackets can be used to add cascading scope to any value.
 To add cascading scope write __{}__ after any value.
 Inside the __{}__ of the cascading scope the memebers of the value can accessed.
-The __.__ operator is not needed to accessed the memebers of an object.
+The __.__ operator is not needed to accessed the members of an object.
 
 //code
 class MyClass
@@ -4307,19 +4322,16 @@ string myString = MyClass(){
 Variable declaration
 
 //text
-The cascading scope can be added to any type or keyword that is used to declare variables or function.
+The cascading scope can be added to any type or keyword that is used to declare variables or functions.
 The type or keywords will be added to the statement inside the cascading scope.
+//I don't exacly know how this will work (Witch keywords can or can not be used. and can they be combined?).
 
 //code
 class MyClass
 {
     public{
-        int? myInt;
         string? myString;
-
-        void myMethod(){
-            // You method code.
-        }
+        bool? myBoolean;
 
         int{
             myInt = 13135;
