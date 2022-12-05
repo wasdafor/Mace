@@ -4395,16 +4395,34 @@ When the key is a label you you can unpack the key and value pair if the name of
 When this type of unpacking is placed inside of collections the value will be searched.
 
 //code
-['key':string key, 'secondKey':string secondKey] = ['key':'Hello World!', 'secondKey':'Value'];
+['key':string value, 'secondKey':string secondValue] = ['key':'Hello World!', 'secondKey':'Value'];
 
 //text
 When collection key and value pair unpacking and the key is a label the variable name does not have to be declared.
-[key:string key,secondKey:string secondKey] = [secondKey:'Hello World!', key:'Value'];
-[key:[int myInt,int mySecondInt],secondKey:string secondKey] = [secondKey:'Hello World!', key:[1,2]];
+[key:string value,secondKey:string secondValue] = [secondKey:'Hello World!', key:'Value'];
+[key:[int myInt,int mySecondInt],secondKey:string secondValue] = [secondKey:'Hello World!', key:[1,2]];
 //These are the same
 
-
+key:int[] asdf
 //title
+
+void myMethod(int myInt,int mySecondInt){
+
+}
+
+int() mySet = (1,6);
+mySet[0];
+myMethod(...mySet);
+
+
+this [int start:int end:int step]{
+    
+}
+
+int[] myArray = [1,2,3,4,5];
+int[] mySecondArray = myArray[0:5:-1]
+[1,2]
+
 Sets ({})
 
 //text
@@ -4551,7 +4569,35 @@ Variable declaration
 //text
 The cascading scope can be added to any type or keyword that is used to declare variables or functions.
 The type or keywords will be added to the statement inside the cascading scope.
-//I don't exacly know how this will work (Witch keywords can or can not be used. and can they be combined?).
+//I don't exacly know how this will work (Wich keywords can or can not be used. and can they be combined?).
+
+
+int(,string,) myTuple = (1,'',2);
+int(5) mysecondtuple = (1,1,1,1,1);
+(int 2,bool 2,string 3);
+[int 2,bool 2,string 3]
+{int 2,bool 2,string 3}
+int[][][]{}()
+int[] asdf = Arrays.listas(2,2,2);
+int[] array = auto[1,2,3,6];
+MySuperLongClassName[] myArray = [auto(1),auto(5),auto(127)];
+
+
+void myMethod(double myNamedDouble, double mySecondDouble, (search string myString as mynamedString)){
+}
+
+void myMethod(double myNamedDouble, double mySecondDouble map string myString as mynamedString){
+
+}
+
+void myMethod(search string myString){
+
+}
+
+void myMethod(myInt:int, double myDouble, myString:string myNamedString){
+
+}
+myMethod(myInt: 53,myString: 'Hello World!',4.54);
 
 //code
 class MyClass
@@ -4563,6 +4609,10 @@ class MyClass
         int{
             myInt = 13135;
             mySecondInt = 53131;
+
+            | string dwdw = '';
+
+            ? dwdw = null;
           
             myMethod(){
                 // You method code
