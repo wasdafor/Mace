@@ -4252,6 +4252,233 @@ myMethod{myString: 'Hello World!'};
 use the value keyword for the setters.
 
 //chapter
+Labels (label)
+
+//text
+The __label__ keyword is used to store variable names.
+
+//code
+label myLabel = labelValue;
+// myLabel becomes: labelValue
+myLabel = myLabel;
+// myLabel becomes: labelValue
+
+//text
+The __$__ can be used to store the label from an existing variable.
+
+//code
+label myLabel = labelValue;
+// myLabel becomes: labelValue
+myLabel = $myLabel;
+// myLabel becomes: myLabel
+
+//title
+Get values
+
+//text
+The __$__ operator can be used to get the value from a variable with the value of a label.
+Note that type casting is required.
+
+//code
+string myString = 'Hello World!';
+label myLabel = $myString;
+
+string myLabelString = <string>myLabel$;
+// myLabelString becomes: 'Hello World!'
+
+//text
+The memebers of and object can also be access.
+
+//code
+class MyClass
+{
+    string myString = 'Hello World!';
+    int myInt = 13135;
+}
+
+MyClass myClass = MyClass();
+
+label myLabel = myString;
+string myString = <string>myClass.myLabel$;
+// myString becomes: 'Hello World!'
+
+myLabel = myInt;
+int myInt = <int>myClass.myLabel$;
+// myInt becomes: 13135
+
+//title
+Label class methods
+
+//text
+The label class method can be used to catch memeber accessing if the member does not exist in the class.
+
+//code
+class MyClass
+{
+    this label{
+        if(value = $stringMember){
+            return 'Hello World!';
+        }
+        else if(value = $intMember){
+            return 13135;
+        }
+    }
+}
+
+MyClass myClass = MyClass();
+string myString = <string>myClass.stringMember;
+//myString becomes: 'Hello World!'
+int myInt = <int>myClass.intMember;
+// myInt becomes: 13135
+
+//chapter
+Key and value pairs (:)
+
+//text
+The __:__ operator can be used to create a key and value pair.
+To create a key and value pair write any type followed by __:__ and ending with another type.
+The key propery can by access by the key memeber.
+The value can be access trough the value member or index or label method.
+
+//code
+string:string myKeyAndValuePair = 'Key':'Value';
+string myKey = myKeyAndValuePair.key;
+// myKey becomes: 'Key'
+string myValue = myKeyAndValuePair.value;
+// myValue becomes: 'Value'
+
+//code
+string:string myKeyAndValuePair = 'Key':'Value';
+myValue string = myKeyAndValuePair['Key'];
+// myValue becomes: 'Value'
+
+//code
+label:string myKeyAndValuePair = key:'Value';
+myValue string = myKeyAndValuePair.key;
+// myValue becomes: 'Value'
+
+//title
+Converting
+
+//text
+Variables can be converted to key and value pairs the key will be a name of the variable and the value will be the value of the variable.
+Add a __:__ after an existing variable to convert it.
+
+//code
+string myString = 'Hello World!';
+label:string myKeyAndValuePair = myString:;
+
+//title
+Unpacking
+
+//code
+int:string myKeyAndValuePair = 13135:'Hello World!';
+int myInt:string myString = myKeyAndValuePair;
+// myInt becomes: 13135
+// myString becomes: 'Hello World!'
+
+//text
+Only unpacking one value
+
+int:string myKeyAndValuePair = 13135:'Hello World!';
+:string myString = myKeyAndValuePair;
+// myString becomes: 'Hello World!'
+int myInt: = myKeyAndValuePair;
+// myInt becomes: 13135
+
+//title
+Collection
+//Moet beter worden uitgezocht om ook op andere data types te zoeken
+
+//text
+When the key is a label you you can unpack the key and value pair if the name of the variable is equal to the label of the key.
+When this type of unpacking is placed inside of collections the value will be searched.
+
+//code
+['key':string key, 'secondKey':string secondKey] = ['key':'Hello World!', 'secondKey':'Value'];
+
+//text
+When collection key and value pair unpacking and the key is a label the variable name does not have to be declared.
+[key:string key,secondKey:string secondKey] = [secondKey:'Hello World!', key:'Value'];
+[key:[int myInt,int mySecondInt],secondKey:string secondKey] = [secondKey:'Hello World!', key:[1,2]];
+//These are the same
+
+
+//title
+Sets ({})
+
+//text
+When key and value pairs are added to sets the keys must be unique.
+
+//code
+label:string{} mySet = {key:'Value',secondKey:'Second value'};
+
+//code
+label:string{} mySet = {key:'Value',key:'Second value'};
+//Results in error
+
+key and value pairs have a special propery when added to sets.
+A key and value pair is different in sets when the key is difference form the other keys not the key or value.
+
+The new keyword label can be used in these casses to add extra functinallity.
+And when the label is the type of the key in a key and value pair the value can be access trough the label value or via indexing with string
+label:string myKeyAndValuePair = myString:'Hello World!';
+string myString = myKeyAndValuePair.myString;
+myString = myKeyAndValuePair['myString'];
+myString = myKeyAndValuePair[myString];
+
+When a key and value pair is added to sets and the key is of type label the value can be access by calling the label.
+The reason why this functinallity can only be applied to sets is because key only in sets the key is always unique while in any other collection it is not.
+Values of key and value pairs in sets can always be access like accessing a value form a key and value pair.
+
+label:string mySet = {myString:'Hello World!'};
+string myString = mySet.myString;
+myString['']
+
+//chapter
+Collections
+
+//title
+Sized
+
+string:int{} obj
+
+//text
+Any collection can be used to create small objects with pre defined types and size.
+
+//code
+[int,string] myArray = [13135, 'Hello World!'];
+(int,string) myTyple = (13135, 'Hello World!');
+{int,string} mySet = {13135, 'Hello World!'};
+{label:int,label:string} myMap = {myInt: 13135,myString: 'Hello World!'};
+
+//title
+Labels
+
+//text
+Labels can be added to any collection type.
+Labels do not add any functinallity to the the collection object they serve the perpose to indicate what the value means.
+
+//code
+[int myInt,string myString] myArray = [13135, 'Hello World!'];
+(int myInt,string myString) myTyple = (13135, 'Hello World!');
+{int myInt,string myString} mySet = {13135, 'Hello World!'};
+{label:int myInt,label:string myString} myMap = {myInt: 13135,myString: 'Hello World!'};
+
+
+//
+
+//default value
+int[] myArray
+int() myTuple  
+int{} mySet
+label int{} myMap  
+
+
+
+
+
+//chapter
 Cascading scope
 
 //text
@@ -4418,3 +4645,5 @@ async string myMethod(){
 	return "Hello World!";
 }
 string myString = await myMethod().catch( function(myError){ print("Error: " + myError.message); } );
+
+
