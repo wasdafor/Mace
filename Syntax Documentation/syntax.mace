@@ -4435,6 +4435,16 @@ void myMethod(int myInt,int mySecondInt){
 
 }
 
+//labeld for loop for continue and break statements
+
+myLoop for(int i = 0; i < 10 i++,){
+    mySecondLoop for(int i = 0; i < 10 i++,){
+        break myLoop;
+        break mySecondLoop;
+    }
+}
+
+
 int() mySet = (1,6);
 mySet[0];
 myMethod(...mySet);
