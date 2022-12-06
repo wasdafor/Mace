@@ -4361,8 +4361,9 @@ myValue string = myKeyAndValuePair.key;
 Converting
 
 //text
-Variables can be converted to key and value pairs the key will be a name of the variable and the value will be the value of the variable.
-Add a __:__ after an existing variable to convert it.
+The __:__ operator can also be used to to convert variables to key and value pairs. 
+To convert an existing variable write __:__ after any variable.
+The key will be a name of the variable and the value will be the value of the variable.
 
 //code
 string myString = 'Hello World!';
@@ -4371,6 +4372,10 @@ label:string myKeyAndValuePair = myString:;
 //title
 Unpacking
 
+//text
+Unpacking key an value pairs can be used to map the key and value to in individual variables.
+To unpack a key and value pair write any variable declaration followed by a __:__ and ending with another variable declaration.
+
 //code
 int:string myKeyAndValuePair = 13135:'Hello World!';
 int myInt:string myString = myKeyAndValuePair;
@@ -4378,7 +4383,7 @@ int myInt:string myString = myKeyAndValuePair;
 // myString becomes: 'Hello World!'
 
 //text
-Only unpacking one value
+Unpacking both the key and value is not required the key or value can be unpacked individually.
 
 int:string myKeyAndValuePair = 13135:'Hello World!';
 :string myString = myKeyAndValuePair;
@@ -4386,25 +4391,45 @@ int:string myKeyAndValuePair = 13135:'Hello World!';
 int myInt: = myKeyAndValuePair;
 // myInt becomes: 13135
 
-//title
-Collection
-//Moet beter worden uitgezocht om ook op andere data types te zoeken
+
+//subtitle
+Key matching
 
 //text
-When the key is a label you you can unpack the key and value pair if the name of the variable is equal to the label of the key.
-When this type of unpacking is placed inside of collections the value will be searched.
+Key matching can be used to only unpack a key and value pair when the match key matches the key from the key and value pair.
+To key match write any key value followed by a __:__ and ending with a variable declaration.
 
 //code
-['key':string value, 'secondKey':string secondValue] = ['key':'Hello World!', 'secondKey':'Value'];
+int:string myKeyAndValuePair = 13135:'Hello World!';
+53131:string? myString = myKeyAndValuePair;
+// myString becomes: null
+13135:myString = myKeyAndValuePair;
+// myString becomes: 'Hello World!'
 
 //text
-When collection key and value pair unpacking and the key is a label the variable name does not have to be declared.
-[key:string value,secondKey:string secondValue] = [secondKey:'Hello World!', key:'Value'];
-[key:[int myInt,int mySecondInt],secondKey:string secondValue] = [secondKey:'Hello World!', key:[1,2]];
-//These are the same
+When the search key is a label the variable name is not required to be declared.
 
-key:int[] asdf
-//title
+//code
+label:string myKeyAndValuePair = key:'Hello World!';
+key:string = myKeyAndValuePair;
+// key becomes: 'Hello World!'
+
+//text
+When key matching is applied to collection unpacking the collection will be searched for a matching key and value pair.
+Because the collection is searched the key matching unpacking member is not counted as a positional unpacking variable.
+
+//code
+['key':string value, int myInt, 'secondKey':string secondValue] = ['key':'Hello World!', 'secondKey':'Value', 13135];
+
+//code
+[key:string,secondKey:string] = [secondKey:'Hello World!', key:'Value'];
+
+//code
+[key:[int myInt,int mySecondInt],secondKey:string secondValue] = [secondKey:'Hello World!', key:[1,2]];
+
+type MyType = [myString:string,myInt:int];
+
+MyType myType = [myString: '',myInt:2];
 
 void myMethod(int myInt,int mySecondInt){
 
@@ -4438,7 +4463,6 @@ label:string{} mySet = {key:'Value',key:'Second value'};
 key and value pairs have a special propery when added to sets.
 A key and value pair is different in sets when the key is difference form the other keys not the key or value.
 
-The new keyword label can be used in these casses to add extra functinallity.
 And when the label is the type of the key in a key and value pair the value can be access trough the label value or via indexing with string
 label:string myKeyAndValuePair = myString:'Hello World!';
 string myString = myKeyAndValuePair.myString;
@@ -4459,8 +4483,6 @@ Collections
 //title
 Sized
 
-string:int{} obj
-
 //text
 Any collection can be used to create small objects with pre defined types and size.
 
@@ -4469,6 +4491,36 @@ Any collection can be used to create small objects with pre defined types and si
 (int,string) myTyple = (13135, 'Hello World!');
 {int,string} mySet = {13135, 'Hello World!'};
 {label:int,label:string} myMap = {myInt: 13135,myString: 'Hello World!'};
+
+//title
+Default value
+
+//code
+int[,string] myArray = [13135, 'Hello World!'];
+int(,string) myTyple = (13135, 'Hello World!');
+int{,string} mySet = {13135, 'Hello World!'};
+label:int{,label:string} myMap = {myInt: 13135,myString: 'Hello World!'};
+
+//title
+Repeated types
+
+//text
+Use integer values to indicate that a value occurs multiple times.
+
+//code
+[int 2,string] myArray = [13135,13135, 'Hello World!'];
+(int 2,string) myTyple = (13135,13135, 'Hello World!');
+{int 2,string} mySet = {13135,13135, 'Hello World!'};
+{label:int 2,label:string} myMap = {myInt: 13135,mySecondInt: 13135,myString: 'Hello World!'};
+
+//text
+Use ellips to indicate an infinate amount of repetitions.
+
+//code
+[string,int...] myArray = ['Hello World!',13135,13135]
+(string,int...) myTuple = ('Hello World!',13135,13135)
+{string,int...} mySet = {'Hello World!',13135,13135}
+{label:string,label:int...} myMap = {myString: 'Hello World!',myInt: 13135,mySecondInt: 13135};
 
 //title
 Labels
@@ -4482,19 +4534,6 @@ Labels do not add any functinallity to the the collection object they serve the 
 (int myInt,string myString) myTyple = (13135, 'Hello World!');
 {int myInt,string myString} mySet = {13135, 'Hello World!'};
 {label:int myInt,label:string myString} myMap = {myInt: 13135,myString: 'Hello World!'};
-
-
-//
-
-//default value
-int[] myArray
-int() myTuple  
-int{} mySet
-label int{} myMap  
-
-
-
-
 
 //chapter
 Cascading scope
