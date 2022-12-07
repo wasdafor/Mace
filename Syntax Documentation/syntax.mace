@@ -4524,7 +4524,105 @@ Use integer values to indicate that a value occurs multiple times.
 {label:int 2,label:string} myMap = {myInt: 13135,mySecondInt: 13135,myString: 'Hello World!'};
 
 //text
-Use ellips to indicate an infinate amount of repetitions.
+Use ellips to indicate an infinite amount of repetitions.
+
+void myMethod(int[] 3 myIntArray, string[]... myStringArray){
+
+}
+
+class MyClass
+{
+    this(label myLabel){
+        return '';
+    }
+
+    this{label myLabel}{
+        return '';
+    }
+
+    this[label myLabel]{
+        return '';
+    }
+
+    this label{
+        //value
+        return;
+    }
+}
+
+MyClass myClass = auto();
+myClass[];
+
+string myString = '23';
+int mySecondInt = <!int>myString;
+
+!int myInt;
+int myInt = int!;
+
+
+(string myString:, :int iest)  = ('dwdw':true)
+(string myString, , int myInt) = ('',true,2121);
+
+string myString:string dwwdw = myString:'dwdwd';
+// dwwdw becomes: 'dwdwd';
+int:?string var = null;
+int?:?string? var = null;
+null:'dwdwd'
+// dwwdw becomes: 'dwdwd';
+myString:?string dwwdw = myString:'dwdwd';
+// dwwdw becomes: myString:'dwdwd'
+
+int: myKeyAndValuePair string = 23:'';
+int:string myKeyAndValuePair = 23:'';
+int : string myValue = 23:'';
+int::string{} sfesfe = 23:"";
+//instanciate / define
+<int?:string> wdwd = :'test';
+232:null;
+//unpack
+<myString:?string dwwdw> = myString:'dwdwd';
+
+(int? myInt,string? myString)? = null;
+cant get stuff from null
+
+
+void myMethod(){
+
+}
+
+myMethod;
+
+int?:?string? test = null:null | null;
+
+void myMethod(myInt:?int myInt, mySecondInt, string myString, myBoolean:bool myBoolean){
+    // Your method code
+}
+
+void myMethod(myInt:int|int myInt, string myString, myBoolean:bool myBoolean){
+    // Your method code
+}
+
+void myMethod(!{string myString}){
+    // Your method code
+}
+
+string myString = 'Hello Wo';
+string[5 Hello,char 1, 6 World,...] = myString;
+
+[int 5,int 1,int 6] myArray = [1,2,3,4,5,0,1,2,3,4,5,6];
+[int[] 5 first,int 1,int[] 6 second] = myArray;
+
+~ ! @ # $ % * - + \ <> . /
+` ^ & ( ) _ = { } [ ] | "" '' , ? \ ;
+
+(int | string)() myTuple = (1212,'Hello World!',12);
+int | string(myInt,myString,...) = myTuple;
+(int myInt,string myString,...) = myTuple;
+
+type User = (string name,int age)
+User user = ('',322);
+user.name;
+user.age;
 
 //code
 [string,int...] myArray = ['Hello World!',13135,13135]
