@@ -4251,7 +4251,64 @@ int[] myIntegers = myIntegers.myInt;
 string myString myArray.myString;
 // myString becomes: 'Hello World!'
 
-[[...]int[] myIntegers,string myString] = myArray;
+[[...]int myIntegers,string myString] = myArray;
+
+//title
+Defualting
+
+//text
+Defaulting can be used when some values might be null.
+The followed methods can be used to indicate null values.
+
+//table
+?
+!
+= //value
+
+//subtitle
+Nullability indicator (?)
+
+//code
+[int?,string] myArray = ['Hello World!'];
+// myArray becomes: [null,'Hello World!']
+
+//code
+(int?,string) myTuple = ('Hello World!');
+// myTuple becomes: [null,'Hello World!']
+
+//code
+{int?,string} mySet = {'Hello World!'};
+// mySet becomes: [null,'Hello World!']
+
+//subtitle
+Defualt fallback (!)
+
+//code
+[int!,string] myArray = ['Hello World!'];
+// myArray becomes: [0,'Hello World!']
+
+//code
+(int!,string) myTuple = ('Hello World!');
+// myTuple becomes: [0,'Hello World!']
+
+//code
+{int!,string} mySet = {'Hello World!'};
+// mySet becomes: [0,'Hello World!']
+
+//subtitle
+Defualt value (=)
+
+//code
+[int = 13135,string] myArray = ['Hello World!'];
+// myArray becomes: [13135,'Hello World!']
+
+//code
+(int = 13135,string) myTuple = ('Hello World!');
+// myTuple becomes: [13135,'Hello World!']
+
+//code
+{int = 13135,string} mySet = {'Hello World!'};
+// mySet becomes: [13135,'Hello World!']
 
 //chapter
 Labels (label)
