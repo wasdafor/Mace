@@ -3766,165 +3766,6 @@ print(myObject.myInt);
 print(myObject.myString);
 
 //chapter
-Arrays ([])
-
-//text
-Arrays are variables that can contain multiple values.
-To declare a standard array write any type followed by __[]__.
-To define an array write __[__ followed by comma separated values and ending with __]__.
-The defined elements must have the same type as the defined array (sub)type. 
-
-//code
-int[] myArray = [1,3,1];
-
-//code
-(int | double)[] myArray = [1,3.1];
-
-//title
-Indexing
-
-//text
-Array Indexing can be used to read or update elements inside of an array.
-To index a value from an array variable write __[__ followed by any integer value ending with __]__.
-Note that indexing starts at index 0.
-
-//subtitle
-Getting value
-
-//code
-int[] myArray = [1,3,1];
-
-int myInt = myArray[1];
-// myInt becomes: 3
-
-//subtitle
-Setting value
-
-//code
-int[] myArray = [1,3,1];
-
-myArray[1] = 7;
-// myArray becomes: [1,7,1]
-
-//title
-Sized
-
-//text
-Sized arrays can be used to create arrays with a specific numbers of elements.
-To declare a sized array write the following structure; any type, __[__, any integer value, __]__.
-
-//code
-int[2] myArray = [1,3];
-
-//code
-int[1] myArray = [1];
-// Results in error.
-
-//code
-int[2] myArray = [1,3,1];
-// Results in error.
-
-//title
-Dynamic
-
-//text
-Dynamic arrays can be used to create small arrays with different types.
-To create a dynamic array write __[__ followed by comma separated types ending with __]__.
-Dynamic arrays must have at least two members.
-
-//code
-[int,string] myArray = [13135, 'Hello World!'];
-
-//code
-[int] myArray = [13135];
-// Results in error.
-
-//code
-[int,string] myArray = [13135];
-// Results in error.
-
-//subtitle
-Labels
-
-//text
-Labels can be added to dynamic array types to add an alternative method to index an array element.
-Labels must be unique from one and other.
-
-//code
-[int myInt,string myString] myArray = [13135, 'Hello World!'];
-
-string myString = myArray.myString;
-// myString becomes: 'Hello World!'
-
-myArray.myInt = 53131;
-int myInt = myArray[0]
-// myInt becomes: 13135
-
-//subtitle
-Default type
-
-//code
-Default types can be used to indicate that multiple array elements have the same type.
-To declare an array with a default type add the type before the __[]__.
-Use labels or omitted types to indicate where the default type needs to be applied.
-When the type is not omitted this will override the default type.
-
-//code
-int[,,string myString] myArray = [1,3,'Hello World!'];
-
-//code
-int[myInt,mySecond,string myString] myArray = [1,3,'Hello World!'];
-
-//text
-Combining labels and omitted values is allowed.
-
-int[myInt,,string myString] myArray = [1,3,'Hello World!'];
-
-//text
-When omitting types the default type will applied to the to omitted types around the commas.
-
-//code
-int[,] = [1,3];
-
-//code
-int[,] = [1];
-// Results in error, expected two values.
-
-//title
-Spread assignment
-
-//text
-Spread assignment can be used to populate all elements of an array with the same value.
-To use the spread assigning define the array with a value that has the same (sub)type as the array elements.
-
-//code
-int[5] myArray = 5;
-// myArray becomes [5,5,5,5,5]
-
-//code
-[string,string] myArray = 'Hello World!';
-// myArray becomes: ['Hello World!','Hello World!']
-
-//code
-type MyType = int | string;
-type MySecondType = bool | int;
-
-[MyType,MySecondType] myArray = 5;
-// myArray becomes [5,5]
-
-//title
-Optional elements
-
-//text
-When defining an array with a literal array some array elements may omitted.
-The omitted elements will become null if the element type is nullable else the element will become the default value of the element type.
-If the element type is not nullable or does not have a default value the defined value can not be omitted.
-
-//code
-[int,int?,string] myArray = [13135,,'Hello World!'];
-// myArray becomes: [13135,null,'Hello World!']
-
-//chapter
 Short assignment
 
 //text
@@ -3978,7 +3819,7 @@ class MyClass
 }
 
 //title
-Array unpacking
+Collection unpacking
 
 //code
 int? myInt;
@@ -3989,7 +3830,7 @@ string? myString;
 // myString becomes: 'Hello World!'
 
 //title
-Anonymous object unpacking
+Set unpacking
 
 //code
 int? myInt;
@@ -3999,137 +3840,75 @@ string? myString;
 // myInt becomes: 13135
 // myString becomes: 'Hello World!'
 
-//chaper
-Tuples
+//chapter
+Defualting
 
 //text
-Tuples can be used to create small orderd sequences of objects with a specfied type.
-A tuple must have at least two elements.
+The __!__ keyword can be used to populate variables with their default type on declaration.
+To use default write __!__ before any type to indicate that is needs to be populated with the default value when empty.
 
 //code
-(int,string) myTuple = (13135,'Hello World!');
-
-//title
-Indexing
-
-//text
-The __[]__ operator can be used to index values from a tuple.
-
-//subtile
-Getting value
-
-//code
-(int,string) myTuple = (13135,'Hello World!');
-int myInt = myTuple[0];
-// myInt becomes: 13135
-string myString = myTuple[1];
-// mySecondString becomes: 'Hello World!'
-
-//title
-Default type
-
-//text
-A default type can be added to tuples if multiple elements have the same type,
-an empty element can be used to reference the default type.
-
-//code
-int(,string) myTuple = (13135,'Hello World!');
-
-//title
-Label
-
-//text
-Labels can optionaly be added to tuples element types the element at that index can now be access via the label.
-
-//code
-(int,string myString) myTuple = (13135,'Hello World!');
-string mySecondString = myTuple.myString;
-// mySecondString becomes: 'Hello World!'
-
-//title
-Sized
-
-//text
-Sized tuples can be created by adding a default type and an integer between the __()__.
-
-//code
-int(5) myTuple = (1,3,1,3,5); 
-
-//text
-Add a literal integer after any type in unpacking to repeat that type;
-
-//code
-(int 5,string 2) myTuple = (1,3,1,3,5,'Hello World!','Hello World!');
-
-//chaper
-Default and empty values
-
-//text
-The __default__ keyword can be used to populate variables or elements of a collection that are not defined.
-To use default write __default__ before any type to indicate that is needs to be populated with the default value when empty.
-//maybe base, def
-//code
-default int myInt;
+!int myInt;
 // myInt becomes: 0
 
-default double myDouble;
+!double myDouble;
 // myDouble becomes: 0.0
 
-default string myString;
+!string myString;
 // myString becomes: ''
 
-default bool myBoolean;
+!bool myBoolean;
 // myBoolean becomes: false
 
 //code
-default string[] myArray = ['Hello World!',];
+!string[] myArray = ['Hello World!',];
 // myArray becomes: ['Hello World!','']
 
-default string[] myArray = [,];
+!string[] myArray = [,];
 // myArray becomes: ['','']
 
-int default[] myArray;
+int![] myArray;
 // myArray becomes: []
 
-default int default[5] myArray;
+!int![5] myArray;
 // myArray becomes: [0,0,0,0,0]
 
 //code
-default string default int{} myMap = {'Hello World!':13135,};
+<!string:!int>{} myMap = {'Hello World!':13135,};
 // myMap becomes: {'Hello World!':13135,'':0}
 
-default string default int{} myMap = {,};
+<!string:!int>{} myMap = {,};
 // myMap becomes: {'':0,'':0}
 
-string int default{} myMap;
+<string:int>!{} myMap;
 // myMap becomes: {}
 
 //code
-(int,default string) myTuple = ('Hello World!',);
+(int,!string) myTuple = ('Hello World!',);
 // myTuple becomes: ('Hello World!','')
 
-(default int,default string) myTuple = (,);
+(!int,!string) myTuple = (,);
 // myTuple becomes: (0,'')
 
-default(default int,default string) myTuple;
+!(!int,!string) myTuple;
 // myTuple becomes: (0,'')
 
 //text
 When the return type of a method is default the method does not need to return a value the default value will be returned
 
 //code
-default string func() myMethod = (){};
+!string func() myMethod = (){};
 string myString = myMethod();
 // myString becomes: ''
 
-default string default func() myMethod;
+!string !func() myMethod;
 // myMethod becomes: (){}
 string myString = myMethod();
 // myString becomes: ''
 
 //text
 An empty return can also be used to return the default value;
-default string myMethod(bool myBoolean){
+!string myMethod(bool myBoolean){
     if(myBoolean){
         return;
     }
@@ -4139,16 +3918,16 @@ default string myMethod(bool myBoolean){
 Use default types as values
 
 //code
-int myInt = default int;
+int myInt = !int;
 // myInt becomes: 0
 
-double myDouble = default double;
+double myDouble = !double;
 // myDouble becomes: 0.0
 
-string myString = default string;
+string myString = !string;
 // myString becomes: ''
 
-bool myBoolean = default bool;
+bool myBoolean = !bool;
 // myBoolean becomes: false
 
 //text 
@@ -4158,10 +3937,26 @@ Default constructors work the same way as any other constructor
 //code
 class MyClass
 {
-    default(){
+    !(){
         // You default constructor code
     }
 }
+
+//text
+Other constructors can also be marked as default.
+When the an other constuctor is marked as default the constructor can only have default or nullable types.
+
+class MyClass
+{
+    !MyClass(){
+        // You default constructor code
+    }
+
+    !MyClass.named(){
+        // You default constructor code
+    }
+}
+
 
 //Literal value ideas
 
@@ -4182,11 +3977,9 @@ void func(string,int)(myString, myInt){/*code*/}
 int{}{/*values*/}
 int{4}{/*values*/}
 
-//Map
-int string{}{}
+//Map Set
+<int:string>{}{}
 {int myInt, string myString}{myInt:13135,myString,'Hello World!'}
-
-
 
 //String
 ''
@@ -4250,6 +4043,215 @@ void func{myString string} myMethod = {string myString}{}
 myMethod{myString: 'Hello World!'};
 
 use the value keyword for the setters.
+
+//chaper
+Collections
+
+//text
+Collections can be used to store more than one value inside of one variable.
+Mace has the following collection types.
+
+//tablehead
+Name`               Type`           Literal value
+
+//table
+Array`              int[]`  	    int[][] or []
+Tuple`              int()`          int()() or ()
+Set`                int{}`          int{}{} or {}
+
+//title
+Array ([])
+
+//text
+The __[]__ operator can be used to store a mutable orderd sequence of values.
+Array elements can be added, updated or removed.
+
+//code
+int[] myArray = [1,3,1,3,5];
+
+myArray[1] = 6;
+// myArray becomes: [1,6,1,3,5]
+
+myArray.remove[3];
+// myArray becomes: [1,6,1,5]
+
+myArray.add(9);
+// myArray becomes: [1,6,1,5,9]
+
+//title
+Tuple (())
+
+//text
+The __()__ operator can be used to store an immutable orderd sequence of values.
+Tuple elements cannot be added, updated or removed.
+
+//code
+int() myTuple = (1,3,1,3,5)
+
+//title
+Set ({})
+
+//text
+The __{}__ operator can be used to store a mutable unorderd sequence of unique values.
+Set elements can be added, updated or removed.
+
+//code
+int{} mySet = {1,3,1,3,5};
+// mySet becomes: {1,3,5}
+
+mySet.remove(3);
+// mySet becomes: {1,5}
+
+mySet.add(9);
+// mySet becomes: {1,5,9}
+
+mySet.replace(9,2);
+// mySet becomes: {1,5,2}
+
+//title
+Type element
+
+//text
+Collection types can contain type elements.
+To define type elements write comma seperated types inside of the collection type brackets.
+The type elements indicate that the collection value can only contain elements of those types at the specfied position.
+The specfied position is only required for arrays and tuples not for sets.
+
+//code
+[int,string] myArray = [13135,'Hello World!'];
+
+//code
+(int,string) myTuple = (13135,'Hello World!');
+
+//code
+{int,string} mySet = {13135,'Hello World!'};
+
+//subtitle
+Repeated indicator
+
+//text
+The repeated indicator can be used to indicate that the type element must be repeated a specfied amount of times
+To create a repeated type element write any number or __...__ before the type element.
+
+//code
+[2 int,string] myArray = [13135,53131,'Hello World!'];
+
+//code
+(2 int,string) myTuple = (13135,53131,'Hello World!');
+
+//code
+{2 int,string} mySet = {13135,53131,'Hello World!'};
+
+//text
+The ellips operator __...__ can be used to indicate an infinite amount of repeated type elements. 
+Any amount of ellips type elements can be added but the (sub)types must be different.
+No type elements of the same (sub)type can be added after an ellips type element.
+
+//code
+[...bool,...int,string] myArray = [true,false,13135,53131,1,3,'Hello World!'];
+
+//code
+(...bool,...int,string) myTuple = (true,false,13135,53131,1,3,'Hello World!');
+
+//code
+{bool,...int,string} mySet = {true,false,13135,53131,1,3,'Hello World!'};
+
+//text
+Use bracket when the type element is labeled or when you want the repeated values to be unpacked in one collection.
+The type of brackets will indicate wich type the collection will becomes when unpacked or access via the label.
+
+//tablehead
+Type`       Brackets
+
+//table
+Array`      []
+Tuple`      ()
+Set`        {}
+
+//code
+[[2]int,string] myArray = [13135,53131,'Hello World!'];
+
+//code
+((2)int,string) myTuple = (13135,53131,'Hello World!');
+
+//code
+{{2}int,string} mySet = {13135,53131,'Hello World!'};
+
+//title
+Defualt types
+
+//text
+Default types can be added before the brackets or any collection.
+The default type can be applied to the following type declaration elements.
+
+//tablehead
+Element`            example
+
+//table
+Empty`              [,int] 
+Labeled`            [myString,int]    
+Repeated`           [5,int]
+Repeated labeled`   [5 myStrings,int]
+
+//text
+In the following examples the second variable declaration indicates how the variable would be defined without the default type.
+
+//code
+int[,myInt,3,7 mySecondInt] myArray = [];
+[int,int myInt,3 int,7 int mySecondInt] mySecondArray = [];
+
+//code
+int(,myInt,3,7 mySecondInt) myTuple = ();
+(int,int myInt,3 int,7 int mySecondInt) mySecondTuple = ();
+
+//code
+int{,myInt,3,7 mySecondInt} mySet = {};
+{int,int myInt,3 int,7 int mySecondInt} mySecondSet = {};
+
+//text
+When no type elements are declared the default type will be added with ellips repetition.
+
+//code
+int[] myArray = [];
+[...int] mySecondArray = [];
+
+//code
+int() myTuple = ();
+(...int) mySecondTuple = ();
+
+//code
+int{} mySet = {};
+{...int} mySecondSet = {};
+
+//title
+Labels
+
+//text
+labels can be added to collection type elements.
+When a label is added you can access the values by using their label or index.
+
+//code
+[int myInt,string myString] myArray = [13135,'Hello World!'];
+(int myInt,string myString) myTuple = (13135,'Hello World!');
+{int myInt,string myString} mySet = {13135,'Hello World!'};
+int myInt = myArray.myInt;
+// myInt becomes: 13135
+string myString myArray.myString;
+// myString becomes: 'Hello World!'
+
+//text
+If the type element is repeated the label will return the specfied collection.
+
+//code
+[[...]int myIntegers,string myString] myArray = [13135,53131,'Hello World!'];
+([...]int myIntegers,string myString) myTuple = (13135,53131,'Hello World!');
+{[...]int myIntegers,string myString} mySet = {13135,53131,'Hello World!'};
+int[] myIntegers = myIntegers.myInt;
+// myIntegers becomes: [13135,53131]
+string myString myArray.myString;
+// myString becomes: 'Hello World!'
+
+[[...]int[] myIntegers,string myString] = myArray;
 
 //chapter
 Labels (label)
@@ -4332,23 +4334,24 @@ int myInt = <int>myClass.intMember;
 // myInt becomes: 13135
 
 //chapter
-Key and value pairs (:)
+Key and value pairs (<:>)
 
 //text
-The __:__ operator can be used to create a key and value pair.
-To create a key and value pair write any type followed by __:__ and ending with another type.
+The __<:>__ operator can be used to create a key and value pair.
+To create a key and value pair write the following structure __<__, any type, __:__, __>__.
+The __<>__ are optional and are only used to avoid incorrect syntax.
 The key propery can by access by the key memeber.
 The value can be access trough the value member or index or label method.
 
 //code
-string:string myKeyAndValuePair = 'Key':'Value';
+<string:string> myKeyAndValuePair = 'Key':'Value';
 string myKey = myKeyAndValuePair.key;
 // myKey becomes: 'Key'
 string myValue = myKeyAndValuePair.value;
 // myValue becomes: 'Value'
 
 //code
-string:string myKeyAndValuePair = 'Key':'Value';
+<string:string> myKeyAndValuePair = 'Key':'Value';
 myValue string = myKeyAndValuePair['Key'];
 // myValue becomes: 'Value'
 
@@ -4487,49 +4490,6 @@ label:string mySet = {myString:'Hello World!'};
 string myString = mySet.myString;
 myString['']
 
-//chapter
-Collections
-
-//title
-Sized
-
-//text
-Any collection can be used to create small objects with pre defined types and size.
-
-//code
-[int,string] myArray = [13135, 'Hello World!'];
-(int,string) myTyple = (13135, 'Hello World!');
-{int,string} mySet = {13135, 'Hello World!'};
-{label:int,label:string} myMap = {myInt: 13135,myString: 'Hello World!'};
-
-//title
-Default value
-
-//code
-int[,string] myArray = [13135, 'Hello World!'];
-int(,string) myTyple = (13135, 'Hello World!');
-int{,string} mySet = {13135, 'Hello World!'};
-label:int{,label:string} myMap = {myInt: 13135,myString: 'Hello World!'};
-
-//title
-Repeated types
-
-//text
-Use integer values to indicate that a value occurs multiple times.
-
-//code
-[int 2,string] myArray = [13135,13135, 'Hello World!'];
-(int 2,string) myTyple = (13135,13135, 'Hello World!');
-{int 2,string} mySet = {13135,13135, 'Hello World!'};
-{label:int 2,label:string} myMap = {myInt: 13135,mySecondInt: 13135,myString: 'Hello World!'};
-
-//text
-Use ellips to indicate an infinite amount of repetitions.
-
-void myMethod(int[] 3 myIntArray, string[]... myStringArray){
-
-}
-
 class MyClass
 {
     this(label myLabel){
@@ -4615,6 +4575,7 @@ string[5 Hello,char 1, 6 World,...] = myString;
 ~ ! @ # $ % * - + \ <> . /
 ` ^ & ( ) _ = { } [ ] | "" '' , ? \ ;
 
+
 (int | string)() myTuple = (1212,'Hello World!',12);
 int | string(myInt,myString,...) = myTuple;
 (int myInt,string myString,...) = myTuple;
@@ -4624,11 +4585,6 @@ User user = ('',322);
 user.name;
 user.age;
 
-//code
-[string,int...] myArray = ['Hello World!',13135,13135]
-(string,int...) myTuple = ('Hello World!',13135,13135)
-{string,int...} mySet = {'Hello World!',13135,13135}
-{label:string,label:int...} myMap = {myString: 'Hello World!',myInt: 13135,mySecondInt: 13135};
 
 //title
 Labels
@@ -4717,34 +4673,6 @@ Variable declaration
 The cascading scope can be added to any type or keyword that is used to declare variables or functions.
 The type or keywords will be added to the statement inside the cascading scope.
 //I don't exacly know how this will work (Wich keywords can or can not be used. and can they be combined?).
-
-
-int(,string,) myTuple = (1,'',2);
-int(5) mysecondtuple = (1,1,1,1,1);
-(int 2,bool 2,string 3);
-[int 2,bool 2,string 3]
-{int 2,bool 2,string 3}
-int[][][]{}()
-int[] asdf = Arrays.listas(2,2,2);
-int[] array = auto[1,2,3,6];
-MySuperLongClassName[] myArray = [auto(1),auto(5),auto(127)];
-
-
-void myMethod(double myNamedDouble, double mySecondDouble, (search string myString as mynamedString)){
-}
-
-void myMethod(double myNamedDouble, double mySecondDouble map string myString as mynamedString){
-
-}
-
-void myMethod(search string myString){
-
-}
-
-void myMethod(myInt:int, double myDouble, myString:string myNamedString){
-
-}
-myMethod(myInt: 53,myString: 'Hello World!',4.54);
 
 //code
 class MyClass
