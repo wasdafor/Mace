@@ -4148,21 +4148,28 @@ The specfied position is only required for arrays and tuples not for sets.
 {int,string} mySet = {'Hello World!',13135};
 
 //subtitle
-Repeated indicator
+Element repeater
 
 //text
-The repeated indicator can be used to indicate that the type element must be repeated a specfied amount of times
-To create a repeated type element write __<__ followed by any number before and ending with __>__ the type element.
+The element repeater can be used to indicate that a collection element must be repeated a specfied amount of times
+To create a repeated collection element write the following structure before the element; __<__, any integer or __...__, __>__.
+The element repeater can not be used inside set values because sets can not contain duplicate values.
 
 //code
 [<2>int,string] myArray = [13135,53131,'Hello World!'];
+[<2>int,string] mySecondArray = [<2>13135,'Hello World!'];
+// mySecondArray becomes: [13135,13135,'Hello World!']
 
 (<2>int,string) myTuple = (13135,53131,'Hello World!');
+(<2>int,string) mySecondTuple = (<2>13135,'Hello World!');
+// mySecondTuple becomes: (13135,13135,'Hello World!')
 
 {<2>int,string} mySet = {13135,'Hello World!',53131};
+{<2>int,string} mySecondSet = {'Hello World!',<2>13135};
+// Results in error a set can not contain duplicate values.
 
 //text
-The ellips operator __...__ can used to indicate an infinite amount of repeated type elements. 
+The ellips operator __...__ can be used to indicate a dynamic repeater size between one and the array size limit.
 Any amount of ellips type elements can be added but the (sub)types must be different.
 No type elements of the same (sub)type can be added after an ellips type element.
 
@@ -4174,20 +4181,11 @@ No type elements of the same (sub)type can be added after an ellips type element
 {<...>bool,<...>int,string} mySet = {true,13135,false,53131,'Hello World!',1,3};
 
 //text
-The repeated indicator can also be added to values when defining a collection.
-These values will be repeated the amount of times given.
-When the ellips operator is used it will repeat the amount specfied in the type.
+When the __...__ operator is used inside of a collection value the element will be repeated the minimal amount of times the type is declared for.
 
 //code
-[<2>int,string] myArray = [<2>13135,'Hello World!'];
-
-(<2>int,string) myTuple = (<2>13135,'Hello World!');
-
-{<2>int,string} mySet = {'Hello World!',<2>13135};
-
-
-//code
-[<...>int,string] myArray = [<...>13135,'Hello World!'];
+[<...>int,<2>bool,string] myArray = [<...>13135,<2>true,'Hello World!'];
+// myArray becomes: [13135,'Hello World!']
 
 (<...>int,string) myTuple = (<...>13135,'Hello World!');
 
