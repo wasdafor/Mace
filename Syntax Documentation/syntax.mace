@@ -610,15 +610,37 @@ The getter can only have one parameter while the setter can have two.
 //code
 class MyMap<T,S>
 {
-    get this[T index]{
+    get string this[T index]{
         return '';
         // Return a value depending on the index given.
     }
 
-    set this[T index, S value]{
+    set this[T index] S value {
         // Save a value depending on the given index and value.
     }
 }
+
+//code
+class MyMap<T,S>
+{
+    get string this(T index){
+        return '';
+        // Return a value depending on the index given.
+    }
+
+    get string this{T index}{
+        // Save a value depending on the given index and value.
+    }
+
+    get string label.labelName this{
+
+    }
+
+    set label.labelName this string value{
+        
+    }
+}
+
 
 MyMap<string,int> myMap = MyMap<string,int>();
 
@@ -4048,7 +4070,7 @@ use the value keyword for the setters.
 Collections
 
 //text
-Collections can be used to store more than one value inside of one variable.
+Collections can be used to a sequence of values inside of one variable.
 Mace has the following collection types.
 
 //tablehead
@@ -4069,14 +4091,15 @@ Array elements can be added, updated or removed.
 //code
 int[] myArray = [1,3,1,3,5];
 
+myArray.add(9);
+// myArray becomes: [1,3,1,3,5,9]
+
 myArray[1] = 6;
-// myArray becomes: [1,6,1,3,5]
+// myArray becomes: [1,6,1,3,5,9]
 
 myArray.remove[3];
-// myArray becomes: [1,6,1,5]
-
-myArray.add(9);
 // myArray becomes: [1,6,1,5,9]
+
 
 //title
 Tuple (())
@@ -4099,10 +4122,10 @@ Set elements can be added, updated or removed.
 int{} mySet = {1,3,1,3,5};
 // mySet becomes: {1,3,5}
 
-mySet.remove(3);
-// mySet becomes: {1,5}
-
 mySet.add(9);
+// mySet becomes: {1,5,3,9}
+
+mySet.remove(3);
 // mySet becomes: {1,5,9}
 
 mySet.replace(9,2);
@@ -4114,75 +4137,68 @@ Type element
 //text
 Collection types can contain type elements.
 To define type elements write comma seperated types inside of the collection type brackets.
-The type elements indicate that the collection value can only contain elements of those types at the specfied position.
+The type elements indicate that the collection can only contain elements of those types at the specfied position.
 The specfied position is only required for arrays and tuples not for sets.
 
 //code
 [int,string] myArray = [13135,'Hello World!'];
 
-//code
 (int,string) myTuple = (13135,'Hello World!');
 
-//code
-{int,string} mySet = {13135,'Hello World!'};
+{int,string} mySet = {'Hello World!',13135};
 
 //subtitle
 Repeated indicator
 
 //text
 The repeated indicator can be used to indicate that the type element must be repeated a specfied amount of times
-To create a repeated type element write any number or __...__ before the type element.
+To create a repeated type element write __<__ followed by any number before and ending with __>__ the type element.
 
 //code
-[2 int,string] myArray = [13135,53131,'Hello World!'];
+[<2>int,string] myArray = [13135,53131,'Hello World!'];
 
-//code
-(2 int,string) myTuple = (13135,53131,'Hello World!');
+(<2>int,string) myTuple = (13135,53131,'Hello World!');
 
-//code
-{2 int,string} mySet = {13135,53131,'Hello World!'};
+{<2>int,string} mySet = {13135,'Hello World!',53131};
 
 //text
-The ellips operator __...__ can be used to indicate an infinite amount of repeated type elements. 
+The ellips operator __...__ can used to indicate an infinite amount of repeated type elements. 
 Any amount of ellips type elements can be added but the (sub)types must be different.
 No type elements of the same (sub)type can be added after an ellips type element.
 
 //code
-[...bool,...int,string] myArray = [true,false,13135,53131,1,3,'Hello World!'];
+[<...>bool,<...>int,string] myArray = [true,false,13135,53131,1,3,'Hello World!'];
 
-//code
-(...bool,...int,string) myTuple = (true,false,13135,53131,1,3,'Hello World!');
+(<...>bool,<...>int,string) myTuple = (true,false,13135,53131,1,3,'Hello World!');
 
-//code
-{bool,...int,string} mySet = {true,false,13135,53131,1,3,'Hello World!'};
+{<...>bool,<...>int,string} mySet = {true,13135,false,53131,'Hello World!',1,3};
 
 //text
-Use bracket when the type element is labeled or when you want the repeated values to be unpacked in one collection.
-The type of brackets will indicate wich type the collection will becomes when unpacked or access via the label.
-
-//tablehead
-Type`       Brackets
-
-//table
-Array`      []
-Tuple`      ()
-Set`        {}
+The repeated indicator can also be added to values when defining a collection.
+These values will be repeated the amount of times given.
+When the ellips operator is used it will repeat the amount specfied in the type.
 
 //code
-[[2]int,string] myArray = [13135,53131,'Hello World!'];
+[<2>int,string] myArray = [<2>13135,'Hello World!'];
+
+(<2>int,string) myTuple = (<2>13135,'Hello World!');
+
+{<2>int,string} mySet = {'Hello World!',<2>13135};
+
 
 //code
-((2)int,string) myTuple = (13135,53131,'Hello World!');
+[<...>int,string] myArray = [<...>13135,'Hello World!'];
 
-//code
-{{2}int,string} mySet = {13135,53131,'Hello World!'};
+(<...>int,string) myTuple = (<...>13135,'Hello World!');
+
+{<...>int,string} mySet = {'Hello World!',<...>13135};
 
 //title
 Defualt types
 
 //text
-Default types can be added before the brackets or any collection.
-The default type can be applied to the following type declaration elements.
+Default types can be added before the collection brackets.
+The default type can be applied to the following type elements.
 
 //tablehead
 Element`            example
@@ -4190,38 +4206,36 @@ Element`            example
 //table
 Empty`              [,int] 
 Labeled`            [myString,int]    
-Repeated`           [5,int]
-Repeated labeled`   [5 myStrings,int]
+Repeated`           [<5>,int]
+Repeated labeled`   [<5> myStrings,int]
 
 //text
 In the following examples the second variable declaration indicates how the variable would be defined without the default type.
 
 //code
-int[,myInt,3,7 mySecondInt] myArray = [];
-[int,int myInt,3 int,7 int mySecondInt] mySecondArray = [];
+int[,myInt,<3>,<7> mySecondInt] myArray = [];
+[int,int myInt,<3> int,<7> int mySecondInt] mySecondArray = [];
 
-//code
-int(,myInt,3,7 mySecondInt) myTuple = ();
+int(,myInt,<3>,<7> mySecondInt) myTuple = ();
 (int,int myInt,3 int,7 int mySecondInt) mySecondTuple = ();
 
-//code
-int{,myInt,3,7 mySecondInt} mySet = {};
-{int,int myInt,3 int,7 int mySecondInt} mySecondSet = {};
+int{,myInt,<3>,<7> mySecondInt} mySet = {};
+{int,int myInt,<3> int,<7> int mySecondInt} mySecondSet = {};
 
 //text
 When no type elements are declared the default type will be added with ellips repetition.
 
 //code
 int[] myArray = [];
-[...int] mySecondArray = [];
+[<...>int] mySecondArray = [];
 
 //code
 int() myTuple = ();
-(...int) mySecondTuple = ();
+(<...>int) mySecondTuple = ();
 
 //code
 int{} mySet = {};
-{...int} mySecondSet = {};
+{<...>int} mySecondSet = {};
 
 //title
 Labels
@@ -4232,8 +4246,11 @@ When a label is added you can access the values by using their label or index.
 
 //code
 [int myInt,string myString] myArray = [13135,'Hello World!'];
+
 (int myInt,string myString) myTuple = (13135,'Hello World!');
-{int myInt,string myString} mySet = {13135,'Hello World!'};
+
+{int myInt,string myString} mySet = {'Hello World!',13135};
+
 int myInt = myArray.myInt;
 // myInt becomes: 13135
 string myString myArray.myString;
@@ -4243,72 +4260,89 @@ string myString myArray.myString;
 If the type element is repeated the label will return the specfied collection.
 
 //code
-[[...]int myIntegers,string myString] myArray = [13135,53131,'Hello World!'];
-([...]int myIntegers,string myString) myTuple = (13135,53131,'Hello World!');
-{[...]int myIntegers,string myString} mySet = {13135,53131,'Hello World!'};
+[<...>int myIntegers,string myString] myArray = [13135,53131,'Hello World!'];
+
+(<...>int myIntegers,string myString) myTuple = (13135,53131,'Hello World!');
+
+{<...>int myIntegers,string myString} mySet = {13135,'Hello World!',53131};
+
 int[] myIntegers = myIntegers.myInt;
 // myIntegers becomes: [13135,53131]
 string myString myArray.myString;
 // myString becomes: 'Hello World!'
 
-[[...]int myIntegers,string myString] = myArray;
+[<...>int[] myIntegers,string myString] = myArray;
 
 //title
-Defualting
+Empty values
 
 //text
-Defaulting can be used when some values might be null.
-The followed methods can be used to indicate null values.
+When assigning a collection some elements can be left empty or omitted.
+For orderd collections the position of the empty element matters also elements can only be omitted at the end of the collection.
+For unorderd collections elements can only be empty if a type or type and label are given.
+The following type members can be used.
+
+//tablehead
+Name`                   example
 
 //table
-?
-!
-= //value
+Nullability indicator`  int?
+Defualt fallback`       int!
+Defualt value`          int = 5
 
 //subtitle
 Nullability indicator (?)
 
 //code
-[int?,string] myArray = ['Hello World!'];
-// myArray becomes: [null,'Hello World!']
+[bool,int?,string] myArray = [true,,'Hello World!'];
+// myArray becomes: [true,null,'Hello World!']
 
-//code
-(int?,string) myTuple = ('Hello World!');
-// myTuple becomes: [null,'Hello World!']
+(bool,int?,string) myTuple = (true,,'Hello World!');
+// myTuple becomes: (true,null,'Hello World!')
 
-//code
-{int?,string} mySet = {'Hello World!'};
-// mySet becomes: [null,'Hello World!']
+{bool,int?,string} mySet = {'Hello World!',int?,true};
+// mySet becomes: {'Hello World!',null,true}
 
 //subtitle
 Defualt fallback (!)
 
 //code
-[int!,string] myArray = ['Hello World!'];
-// myArray becomes: [0,'Hello World!']
+[bool,int!,string] myArray = [true,,'Hello World!'];
+// myArray becomes: [true,0,'Hello World!']
 
-//code
-(int!,string) myTuple = ('Hello World!');
-// myTuple becomes: [0,'Hello World!']
+(bool,int!,string) myTuple = (true,,'Hello World!');
+// myTuple becomes: (true,0,'Hello World!')
 
-//code
-{int!,string} mySet = {'Hello World!'};
-// mySet becomes: [0,'Hello World!']
+{bool,int!,string} mySet = {'Hello World!',int!,true};
+// mySet becomes: {'Hello World!',0,true}
 
 //subtitle
 Defualt value (=)
 
 //code
-[int = 13135,string] myArray = ['Hello World!'];
+[bool,int = 13135,string] myArray = [true,,'Hello World!'];
 // myArray becomes: [13135,'Hello World!']
 
-//code
-(int = 13135,string) myTuple = ('Hello World!');
-// myTuple becomes: [13135,'Hello World!']
+(bool,int = 13135,string) myTuple = (true,,'Hello World!');
+// myTuple becomes: (true,13135,'Hello World!')
+
+{bool,int = 13135,string} mySet = {'Hello World!',int,true};
+// mySet becomes: {'Hello World!',13135,true}
+
+//text
+When a defualt type is added to a repeated type element the defualt type must be of the collection type given.
+When no collection type is given the type will of of the collection itself.
+
 
 //code
-{int = 13135,string} mySet = {'Hello World!'};
-// mySet becomes: [13135,'Hello World!']
+[bool,int = 13135,string] myArray = [true,,'Hello World!'];
+// myArray becomes: [13135,'Hello World!']
+
+(bool,int = 13135,string) myTuple = (true,,'Hello World!');
+// myTuple becomes: (true,13135,'Hello World!')
+
+{bool,int = 13135,string} mySet = {'Hello World!',int,true};
+// mySet becomes: {'Hello World!',13135,true}
 
 //chapter
 Labels (label)
@@ -4394,61 +4428,60 @@ int myInt = <int>myClass.intMember;
 Key and value pairs (<:>)
 
 //text
-The __<:>__ operator can be used to create a key and value pair.
-To create a key and value pair write the following structure __<__, any type, __:__, __>__.
-The __<>__ are optional and are only used to avoid incorrect syntax.
-The key propery can by access by the key memeber.
-The value can be access trough the value member or index or label method.
+The __<:>__ operator can be used to create a key value pair.
+To create a key value pair write the following structure __<__, any type, __:__, __>__.
+The key can be accessed by the key memeber.
+The value can be access trough the value member, index method or label method.
 
 //code
-<string:string> myKeyAndValuePair = 'Key':'Value';
-string myKey = myKeyAndValuePair.key;
+<string:string> myKeyValuePair = 'Key':'Value';
+string myKey = myKeyValuePair.key;
 // myKey becomes: 'Key'
-string myValue = myKeyAndValuePair.value;
+string myValue = myKeyValuePair.value;
 // myValue becomes: 'Value'
 
 //code
-<string:string> myKeyAndValuePair = 'Key':'Value';
-myValue string = myKeyAndValuePair['Key'];
+<string:string> myKeyValuePair = 'Key':'Value';
+myValue string = myKeyValuePair['Key'];
 // myValue becomes: 'Value'
 
 //code
-label:string myKeyAndValuePair = key:'Value';
-myValue string = myKeyAndValuePair.key;
+<label:string> myKeyValuePair = key:'Value';
+myValue string = myKeyValuePair.key;
 // myValue becomes: 'Value'
 
 //title
 Converting
 
 //text
-The __:__ operator can also be used to to convert variables to key and value pairs. 
+The __:__ operator can be used to to convert variables to key value pairs. 
 To convert an existing variable write __:__ after any variable.
 The key will be a name of the variable and the value will be the value of the variable.
 
 //code
 string myString = 'Hello World!';
-label:string myKeyAndValuePair = myString:;
+<label:string> myKeyValuePair = myString:;
 
 //title
 Unpacking
 
 //text
-Unpacking key an value pairs can be used to map the key and value to in individual variables.
-To unpack a key and value pair write any variable declaration followed by a __:__ and ending with another variable declaration.
+Unpacking key value pairs can be used to map the key and value to in individual variables.
+To unpack a key value pair write any variable declaration followed by a __:__ and ending with another variable declaration.
 
 //code
-int:string myKeyAndValuePair = 13135:'Hello World!';
-int myInt:string myString = myKeyAndValuePair;
+<int:string> myKeyValuePair = 13135:'Hello World!';
+<int myInt:string myString> = myKeyValuePair;
 // myInt becomes: 13135
 // myString becomes: 'Hello World!'
 
 //text
 Unpacking both the key and value is not required the key or value can be unpacked individually.
 
-int:string myKeyAndValuePair = 13135:'Hello World!';
-:string myString = myKeyAndValuePair;
+<int:string> myKeyValuePair = 13135:'Hello World!';
+<:string myString> = myKeyValuePair;
 // myString becomes: 'Hello World!'
-int myInt: = myKeyAndValuePair;
+<int myInt:> = myKeyValuePair;
 // myInt becomes: 13135
 
 
@@ -4456,23 +4489,16 @@ int myInt: = myKeyAndValuePair;
 Key matching
 
 //text
-Key matching can be used to only unpack a key and value pair when the match key matches the key from the key and value pair.
+Key matching can be used to only unpack a key and value pair when the key matches the key from the key value pair.
 To key match write any key value followed by a __:__ and ending with a variable declaration.
+When the unpacking a non literal key value pair the value unpacking variable must be nullable.
 
 //code
-int:string myKeyAndValuePair = 13135:'Hello World!';
-53131:string? myString = myKeyAndValuePair;
+<int:string> myKeyValuePair = 13135:'Hello World!';
+<53131:string? myString> = myKeyValuePair;
 // myString becomes: null
-13135:myString = myKeyAndValuePair;
+<13135:myString> = myKeyValuePair;
 // myString becomes: 'Hello World!'
-
-//text
-When the search key is a label the variable name is not required to be declared.
-
-//code
-label:string myKeyAndValuePair = key:'Hello World!';
-key:string = myKeyAndValuePair;
-// key becomes: 'Hello World!'
 
 //text
 When key matching is applied to collection unpacking the collection will be searched for a matching key and value pair.
@@ -4504,24 +4530,18 @@ myLoop for(int i = 0; i < 10 i++,){
     }
 }
 
-
-int() mySet = (1,6);
-mySet[0];
-myMethod(...mySet);
-
-
-this [int start:int end:int step]{
+this <[int start:<int end:int step>>]{
     
 }
 
 int[] myArray = [1,2,3,4,5];
 int[] mySecondArray = myArray[0:5:-1]
-[1,2]
+// mySecondArray becomes: [1,2]
 
 Sets ({})
 
 //text
-When key and value pairs are added to sets the keys must be unique.
+When key value pairs are added to sets the keys must be unique.
 
 //code
 label:string{} mySet = {key:'Value',secondKey:'Second value'};
@@ -4534,38 +4554,18 @@ key and value pairs have a special propery when added to sets.
 A key and value pair is different in sets when the key is difference form the other keys not the key or value.
 
 And when the label is the type of the key in a key and value pair the value can be access trough the label value or via indexing with string
-label:string myKeyAndValuePair = myString:'Hello World!';
-string myString = myKeyAndValuePair.myString;
-myString = myKeyAndValuePair['myString'];
-myString = myKeyAndValuePair[myString];
+label:string myKeyValuePair = myString:'Hello World!';
+string myString = myKeyValuePair.myString;
+myString = myKeyValuePair['myString'];
+myString = myKeyValuePair[myString];
 
 When a key and value pair is added to sets and the key is of type label the value can be access by calling the label.
-The reason why this functinallity can only be applied to sets is because key only in sets the key is always unique while in any other collection it is not.
+The reason why this functinallity can only be applied to sets is because key only in sets the key is always unique while in any other collections it is not.
 Values of key and value pairs in sets can always be access like accessing a value form a key and value pair.
 
 label:string mySet = {myString:'Hello World!'};
 string myString = mySet.myString;
 myString['']
-
-class MyClass
-{
-    this(label myLabel){
-        return '';
-    }
-
-    this{label myLabel}{
-        return '';
-    }
-
-    this[label myLabel]{
-        return '';
-    }
-
-    this label{
-        //value
-        return;
-    }
-}
 
 MyClass myClass = auto();
 myClass[];
@@ -4589,8 +4589,8 @@ null:'dwdwd'
 myString:?string dwwdw = myString:'dwdwd';
 // dwwdw becomes: myString:'dwdwd'
 
-int: myKeyAndValuePair string = 23:'';
-int:string myKeyAndValuePair = 23:'';
+int: myKeyValuePair string = 23:'';
+int:string myKeyValuePair = 23:'';
 int : string myValue = 23:'';
 int::string{} sfesfe = 23:"";
 //instanciate / define
@@ -4636,25 +4636,6 @@ string[5 Hello,char 1, 6 World,...] = myString;
 (int | string)() myTuple = (1212,'Hello World!',12);
 int | string(myInt,myString,...) = myTuple;
 (int myInt,string myString,...) = myTuple;
-
-type User = (string name,int age)
-User user = ('',322);
-user.name;
-user.age;
-
-
-//title
-Labels
-
-//text
-Labels can be added to any collection type.
-Labels do not add any functinallity to the the collection object they serve the perpose to indicate what the value means.
-
-//code
-[int myInt,string myString] myArray = [13135, 'Hello World!'];
-(int myInt,string myString) myTyple = (13135, 'Hello World!');
-{int myInt,string myString} mySet = {13135, 'Hello World!'};
-{label:int myInt,label:string myString} myMap = {myInt: 13135,myString: 'Hello World!'};
 
 //chapter
 Cascading scope
