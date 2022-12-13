@@ -4181,15 +4181,14 @@ No type elements of the same (sub)type can be added after an ellips type element
 {<...>bool,<...>int,string} mySet = {true,13135,false,53131,'Hello World!',1,3};
 
 //text
-When the __...__ operator is used inside of a collection value the element will be repeated the minimal amount of times the type is declared for.
+When the __...__ operator is used inside of a collection value the element will be repeated the minimal amount of times the type element is declared for.
 
 //code
-[<...>int,<2>bool,string] myArray = [<...>13135,<2>true,'Hello World!'];
+[<...>int,string] myArray = [<...>13135,'Hello World!'];
 // myArray becomes: [13135,'Hello World!']
 
 (<...>int,string) myTuple = (<...>13135,'Hello World!');
-
-{<...>int,string} mySet = {'Hello World!',<...>13135};
+// myArray becomes: (13135,'Hello World!')
 
 //title
 Defualt types
