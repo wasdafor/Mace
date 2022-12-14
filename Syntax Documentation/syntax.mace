@@ -3430,364 +3430,6 @@ int mySecondInt = ***myTriplePointer;
 // mySecondInt becomes: 0
 
 //chapter
-Unpacking ([]), ({})
-
-//text
-Unpacking is used to unpack the values from an object to seperate variables.
-When the unpacking variables have the same (sub)type any array,tuple or anonymous object with that type can be unpacked.
-When the sub(type) do not match only literal arrays or anonymous objects can ben unpacked.
-There are two variable types that can be unpacked.
-
-//tablehead
-Type`               Scope brackets`
-
-//table
-Array`              []`               
-Tuple`              ()`
-Anonymous object`   {}`
-Classes`            {}`
-
-//text
-To unpack an object write the following structure; opening bracket, comma separated variable declarations, closing bracket.
-
-//code
-[int myInt, string myString] = [13135, 'Hello World!'];
-// myInt becomes: 13135
-// myString becomes: 'Hello World!'
-
-//code
-(int myInt, string myString) = (13135, 'Hello World!');
-// myInt becomes: 13135
-// myString becomes: 'Hello World!'
-
-//code
-{int myInt, string myString} = {myInt: 13135, myString: 'Hello World!'};
-// myInt becomes: 13135
-// mySecondInt becomes: 53131
-
-//code
-class MyClass
-{
-    public int myInt = 13135;
-    public string myString = 'Hello World!';
-}
-
-{int myInt, string myString} = MyClass();
-// myInt becomes: 13135
-// mySecondInt becomes: 53131
-
-//title
-Default type
-
-//text
-When unpacking an object a default type can be defined.
-To define a default type add the type before the brackets of the unpacking scope.
-The default type can be overwritten by defining the variable type.
-
-//code
-int[myInt, string myString, mySecondInt] = [13135, 'Hello World!', 53131];
-// myInt becomes: 13135
-// myString becomes: 'Hello World!'
-// mySecondInt becomes: 53131
-
-//code
-int(myInt, string myString, mySecondInt) = (13135, 'Hello World!', 53131);
-// myInt becomes: 13135
-// myString becomes: 'Hello World!'
-// mySecondInt becomes: 53131
-
-//code
-int{myInt, string myString, mySecondInt} = {myInt: 13135, myString: 'Hello World!', mySecondInt: 53131};
-// myInt becomes: 13135 
-// myString becomes: 'Hello World!'
-// mySecondInt becomes: 53131
-
-//code
-class MyClass
-{
-    public int myInt = 13135;
-    public int mySecondInt = 53131;
-    public string myString = 'Hello World!';
-}
-
-int{myInt, string myString, mySecondInt} = MyClass();
-// myInt becomes: 13135 
-// myString becomes: 'Hello World!'
-// mySecondInt becomes: 53131
-
-//title
-Spread assignment
-
-//text
-The unpacking syntax can also be used to assign the same value to multiple variables.
-All the unpacking variables must have the same (sub)type.
-
-//code
-[int myInt,int mySecondInt] = 13135;
-// myInt and mySecondInt become: 13135
-
-//code
-(int myInt,int mySecondInt) = 13135;
-// myInt and mySecondInt become: 13135
-
-//code
-{int myInt,int mySecondInt} = 13135;
-// myInt and mySecondInt become: 13135
-
-
-//subtitle
-Sub types
-
-//code
-type MyType = string | int;
-type MySecondType = int | bool;
-
-[MyType myType,MySecondType mySecondType] = 13135;
-// myType and mySecondType become: 13135
-
-//code
-(MyType myType,MySecondType mySecondType) = 13135;
-// myInt and mySecondInt become: 53131
-
-//code
-{MyType myType,MySecondType mySecondType} = 13135;
-// myType and mySecondType become: 13135
-
-//title
-Swapping value
-
-//text
-Unpacking can be used to swap two or more values.
-
-//code
-int myInt = 13135;
-int mySecondInt = 53131;
-
-[myInt,mySecondInt] = [mySecondInt,myInt];
-// myInt becomes: 53131
-// mySecondInt becomes: 13135
-
-//code
-(myInt,mySecondInt) = (mySecondInt,myInt);
-// myInt becomes: 13135
-// mySecondInt becomes: 53131
-
-//code
-{myInt,mySecondInt} = {myInt: mySecondInt,mySecondInt: myInt};
-// myInt becomes: 53131
-// mySecondInt becomes: 13135
-
-//title
-Functions binding
-
-//text
-Unpacking scopes can binded to any function.
-
-//code
-void myMethod(int myInt, string myString){
-    // Your method code.
-}
-
-void func(int, string) myFunction = myMethod;
-
-myMethod(13135, 'Hello World!');
-
-//code
-void myMethod[int myInt, string myString]{
-    // Your method code.
-}
-
-void func[int, string] myFunction = myMethod;
-
-myMethod[13135, 'Hello World!'];
-
-//code
-void myMethod{int myInt, string myString}{
-    // Your method code.
-}
-
-void func{int, string} myFunction = myMethod;
-
-myMethod{myInt: 13135, myString: 'Hello World!'};
-
-//title
-Stacking
-
-//text
-Unpacking can be stacked to access nested objects.
-When the object is unorderd a name is required.
-
-//code
-[int myInt,[string myString]] = [13135,['Hello World!']];
-// myInt becomes: 13135
-// myString becomes: 'Hello World!'
-
-//code
-(int myInt,(string myString)) = (13135,('Hello World!'));
-// myInt becomes: 13135
-// myString becomes: 'Hello World!'
-
-//code
-{int myInt,myNested{string myString}} = {myInt: 13135,myNested:{myString: 'Hello World!'}};
-// myInt becomes: 13135
-// myString becomes: 'Hello World!'
-
-//code
-class MyClass
-{
-    public int myInt = 13135;
-    MySecondClass myNested = MySecondClass();
-}
-
-class MySecondClass
-{
-    string myString = 'Hello World!';
-}
-
-{int myInt,myNested{string myString}} = MyClass();
-// myInt becomes: 13135
-// myString becomes: 'Hello World!'
-
-//subtitle
-Combining
-
-//text
-The unpacking of arrays and anonymous objects can be used interchangeably.
-
-//code
-[int myInt,{string myString,tuple(int mySecondInt)}] = [13135,{myString: 'Hello World!', tuple: (53131)}];
-// myInt becomes: 13135
-// myString becomes: 'Hello World!'
-// mySecondInt becomes: 53131
-
-//title
-Optional
-
-//text
-Optional unpacking can be accomplished in three difference ways.
-
-//table
-Nullable
-Default value
-Default type value
-
-//subtitle
-Nullable (?)
-
-//text
-When an unpacking variable is nullable the value can optionaly be omitted.
-
-//code
-[int myInt, string? myString] = [13135];
-// myInt becomes: 13135
-// myString becomes: null
-
-//code
-(int myInt, string? myString) = (13135);
-// myInt becomes: 13135
-// myString becomes: null
-
-//code
-{int myInt, string? myString} = {myInt: 13135};
-// myInt becomes: 13135
-// myString becomes: null
-
-//subtile
-Default value (=)
-
-//text
-The __=__ is used to add a default value to an unpacking variable.
-To add a default value write __=__ followed by any default value after the field name.
-
-//code
-[int myInt = 53131, string myString = 'Default value'] = [13135];
-// myInt becomes: 13135
-// myString becomes: 'Default value'
-
-//code
-(int myInt = 53131, string myString = 'Default value') = (13135);
-// myInt becomes: 13135
-// myString becomes: 'Default value'
-
-//code
-{int myInt = 53131, string myString = 'Default value'} = {myInt: 13135};
-// myInt becomes: 13135
-// myString becomes: 'Default value'
-
-//subtitle
-Default type value (default)
-
-//text
-The __default__ keyword can be used to fill the value of an unpacking variable with the class default value.
-
-//code
-[int myInt, default string myString] = [13135];
-// myInt becomes: 13135
-// myString becomes: ''
-
-//code
-(int myInt, default string myString) = (13135);
-// myInt becomes: 13135
-// myString becomes: ''
-
-//code
-{int myInt, default string myString} = {myInt: 13135};
-// myInt becomes: 13135
-// myString becomes: ''
-
-//title
-Skipping values (,)
-
-//text
-The __,__ operator can used be on array unpacking to skip values.
-
-//code
-[int myInt,,string myString] = [1,true,'Hello World!'];
-// myInt becomes: 1
-// myString becomes: 'Hello World!'
-
-//code
-(int myInt,,string myString) = (1,true,'Hello World!');
-// myInt becomes: 1
-// myString becomes: 'Hello World!'
-
-//title
-Collection spare values
-
-//text
-The __collect__ keyword can be used to keep the left over values.
-
-//chaper
-Anonymous objects
-
-//text
-The __object__ keyword can be used to create anonymous objects.
-
-//title
-Dynamic
-
-//code
-object int{int myInt,string myString} myObject = {myInt: 13135,myString: 'Hello World!'};
-
-print(myObject.myInt);
-print(myObject.myString);
-
-//text
-To create a dynamic anonymous object write the following structure; __object__, __{__, one or more field declarations, __}__, __=__, a literal anonymous object.
-
-//title
-Static
-
-//text
-To create a static anonymous object write the following structure; __object__, any type, __{__, one or more field names, __}__, __=__, a literal anonymous object.
-
-//code
-object int{myInt,mySecondInt} myObject = {myInt:13135,mySecondInt:53131};
-
-print(myObject.myInt);
-print(myObject.myString);
-
-//chapter
 Short assignment
 
 //text
@@ -4518,6 +4160,235 @@ void myMethod(int myInt,int mySecondInt){
 
 }
 
+//chapter
+Unpacking
+
+//text
+Unpacking can be used to unpack an object its memebers or elements in seperate variables.
+The following objects can be unpacked.
+
+//tablehead
+Type`           Brackets
+
+//table
+Array`          []
+Tuple`          ()
+Set`            {}
+Key value pair` <:>
+Class`          {}          
+
+//text
+To unpack an object write the following structure; opening bracket, comma or colon seperated variable declarations, closing bracket.
+When unpacking a key value pair the colon is required.
+When unpacking a class object the unpacking variable names must match the class memeber names.
+
+//code
+[int myInt,string myString] = [13135,'Hello World!'];
+
+(int myInt,string myString) = (13135,'Hello World!');
+
+{int myInt,string myString} = {'Hello World!',13135};
+
+<int myInt:string myString> = 13135:'Hello World!';
+
+class MyClass
+{
+    int myInt = 13135;
+    string myString = 'Hello World!';
+}
+
+{int myInt,string myString} = MyClass();
+
+//title
+Element repeater
+
+//text
+The item repeater can be used to unpack multiple memebers or elements of the same type in a collection.
+To define an item repeated write the following structure; __<__, any integer or __...__, __>__.
+
+//code
+[<2>int[] myArray,string myString] = [13135,53131,'Hello World!'];
+
+(<2>int() myTuple,string myString) = (13135,53131,'Hello World!');
+
+{<2>int{} mySet,string myString} = {13135,'Hello World!',53131};
+
+
+class MyClass
+{
+    int myInt = 13135;
+    int mySecondInt = 53131;
+    string myString = 'Hello World!';
+}
+
+{<2>int() myTuple,string myString} = MyClass();
+
+//text
+The item repeater can also be used to skip values of positional collections.
+
+//code
+[<2>,string myString] = [13135,53131,'Hello World!'];
+
+(<2>,string myString) = (13135,53131,'Hello World!');
+
+//text
+The ellips operator __...__ can be used to collection any number of elements.
+
+//code
+[<...>int[] myArray,string myString] = [13135,53131,'Hello World!'];
+
+(<...>int() myTuple,string myString) = (13135,53131,'Hello World!');
+
+{<...>int{} mySet,string myString} = {13135,'Hello World!',53131};
+
+class MyClass
+{
+    int myInt = 13135;
+    int mySecondInt = 53131;
+    string myString = 'Hello World!';
+}
+
+{<...>int() myTuple,string myString} = MyClass();
+
+
+//title
+Default type
+
+//text
+The default type can be used to apply a predefined type to unpacking elements that do not have a type defined.
+The defualt type is defined before the unpacking brackets
+
+//code
+int[myInt,mySecondInt,string myString] = [13135,53131,'Hello World!'];
+
+int(myInt,mySecondInt,string myString) = (13135,53131,'Hello World!');
+
+int{myInt,mySecondInt,string myString} = {13135,'Hello World!',53131};
+
+int<myInt:mySecondInt> = 13135:53131;
+
+class MyClass
+{
+    int myInt = 13135;
+    int mySecondInt = 53131;
+    string myString = 'Hello World!';
+}
+
+int{myInt,mySecondInt,string myString} = MyClass();
+
+//title
+Skipping values
+
+//text
+Skipping values can be used to skip un wanted values.
+To skip a value just keep an unpacking element empty or define the type you want to skip.
+Values can only be skiped in order collections or key value pairs.
+
+//code
+[int,,string myString] = [13135,53131,'Hello World!'];
+
+(int,,string myString) = (13135,53131,'Hello World!');
+
+<:string myString> =  13135:'Hello World!';
+<int:string myString> =  13135:'Hello World!';
+
+//text
+The item repeater can be used to skip multiple values.
+Only orderd collection unpacking can make use of the item repeater.
+
+//code
+[<2>,string myString] = [13135,53131,'Hello World!'];
+
+(<2>,string myString) = (13135,53131,'Hello World!');
+
+//title
+Defined key
+
+//text
+When the key is defined in the unpacking scope the variable will only be unpacked when the key matches.
+
+//code
+<int:string> myKeyValuePair = 13135:'Hello World!';
+<53131:string? myString> = myKeyValuePair;
+// myString becomes: null
+<13135:string? myString> = myKeyValuePair;
+// myString becomes: 'Hello World!'
+
+
+//text
+This patern can also be used in collections.
+
+<13135:string myString> = [13135:'Hello World!'];
+
+<13135:string myString> = (13135:'Hello World!');
+
+<13135:string myString> = {13135:'Hello World!'};
+
+//title
+Default values
+
+//text
+Defualt values can be used to indicate that a certain element does not have to be populated with a value.
+
+//code
+[int? myInt,string! myString,bool myBoolean = false] = [];
+
+(int? myInt,string! myString,bool myBoolean = false) = ();
+
+{int? myInt,string! myString,bool myBoolean = false} = {};
+
+<int? myInt:string myString> = :;
+
+class MyClass
+{
+    int? myInt;
+    bool? myBoolean;
+    string? myString;
+}
+
+{int? myInt,string! myString,bool myBoolean = false} = MyClass();
+
+//title
+Stacking
+
+//text
+The unpacking scopes can be stacked any level of depth.
+
+[int myInt,({bool myBoolean,<:double myDouble>},string myString)] = [13135,({true, :53131.0},'Hello World!')];
+
+//title
+Functions binding
+
+//text
+Collection unpacking scopes can binded to any function.
+
+//code
+void myMethod(int myInt, string myString){
+    // Your method code.
+}
+
+void func(int, string) myFunction = myMethod;
+
+myMethod(13135, 'Hello World!');
+
+//code
+void myMethod[int myInt, string myString]{
+    // Your method code.
+}
+
+void func[int, string] myFunction = myMethod;
+
+myMethod[13135, 'Hello World!'];
+
+//code
+void myMethod{int myInt, string myString}{
+    // Your method code.
+}
+
+void func{int, string} myFunction = myMethod;
+
+myMethod{13135, 'Hello World!'};
+
 //labeld for loop for continue and break statements
 
 myLoop for(int i = 0; i < 10 i++,){
@@ -4527,7 +4398,7 @@ myLoop for(int i = 0; i < 10 i++,){
     }
 }
 
-this <[int start:<int end:int step>>]{
+this [int start:<int end:int step>>]{
     
 }
 
