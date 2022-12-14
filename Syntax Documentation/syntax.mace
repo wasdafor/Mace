@@ -4314,7 +4314,6 @@ When the key is defined in the unpacking scope the variable will only be unpacke
 <13135:string? myString> = myKeyValuePair;
 // myString becomes: 'Hello World!'
 
-
 //text
 This patern can also be used in collections.
 
