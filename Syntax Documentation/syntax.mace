@@ -1097,7 +1097,6 @@ Operator`   Name`                       Example
 *`          Multiplication`             myInt * 5
 /`          Division`                   myInt / 5
 **`         Exponentiation`             myInt ** 5
-!`          Factorization`              myInt!
 %`          Modulation`                 myInt % 5          
 
 //subtitle
@@ -1242,16 +1241,6 @@ The __**__ operator is used when a number needs to be exponented by an other num
 //code
 int myInt = 3 ** 2;
 // myInt becomes: 9
-
-//subtitle
-Factorization (!)
-
-//text
-The __!__ operator is used when the factorial needs te be found of a number.
-
-//code
-int myInt = 5!;
-// myInt becomes: 120
 
 //subtitle
 Modulation (%)
@@ -2001,7 +1990,6 @@ Operator`   Name`                                       Combined operator`  Exam
 *=`         Multiplication assignment`                  *`                  myInt *= 5;`        myInt = myInt * 5; 
 /=`         Division assignment`                        /`                  myInt /= 5;`        myInt = myInt / 5; 
 **=`        Exponentiation assignment`                  **`                 myInt **= 5;`       myInt = myInt ** 5; 
-!!!`        Factorization`                              !`                  myInt!!!;`          myInt = myInt!; 
 %=`         Modulation assignment`                      %`                  myInt %= 5;`        myInt = myInt % 5;
 &=`         Bitwise AND assignment`                     &`                  myInt &= 5;`        myInt = myInt & 5; 
 |=`         Bitwise OR assignment`                      |`                  myInt |= 5;`        myInt = myInt | 5; 
@@ -3508,21 +3496,38 @@ string? myString;
 Defualting
 
 //text
-The __!__ keyword can be used to populate variables with their default type on declaration.
-To use default write __!__ before any type to indicate that is needs to be populated with the default value when empty.
+Defualting can be used to assign a declared default value to a variable in various situations.
+
+//title
+Defualt declaration
+
+//text
+The __!__ operator can be used to populate variables with their default type on declaration.
+To use default write __!__ after any variable name to indicate that is needs to be populated with the default value when unassigned.
+This operator can only be used when the variable or object has a set defualt value/constructor.
 
 //code
-!int myInt;
+int myInt!;
 // myInt becomes: 0
 
-!double myDouble;
+double myDouble!;
 // myDouble becomes: 0.0
 
-!string myString;
+string myString!;
 // myString becomes: ''
 
-!bool myBoolean;
+bool myBoolean!;
 // myBoolean becomes: false
+
+int![<5>]! myArray;
+// myArray becomes: [0,0,0,0,0]
+
+//title
+Defualt replacement
+
+//text
+The __!__ operator can be used to on nullable variables to replace the possible null value with the default value of the variable.
+This operator can only be used when the variable or object has a set defualt value/constructor.
 
 //code
 !string[] myArray = ['Hello World!',];
@@ -4499,6 +4504,10 @@ string[5 Hello,char 1, 6 World,...] = myString;
 ~ ! @ # $ % * - + \ <> . /
 ` ^ & ( ) _ = { } [ ] | "" '' , ? \ ;
 
+
+string myString!;
+string? myString = null;
+string mySecondString = myString!;
 
 (int | string)() myTuple = (1212,'Hello World!',12);
 int | string(myInt,myString,...) = myTuple;
