@@ -552,9 +552,9 @@ Getters (get) and Setters (set)
 
 //text
 Getters and setters are methods that will be run when the specific field is accessed.
-To create a setter or getter write the following structure; __get__ or __set__, the name of any field, __()__ and __{}__.
+To create a setter or getter write the following structure; __get__ or __set__, A variable declaration for the setter and __{}__.
 Access modifiers can be added to the getter and setter. These access modifiers override the default getter and setter of the field.
-Getters and setters can only be defined if their field is declared in the same class or extension class.
+Getters and setters can only be defined directly beneath their field and if their field is declared in the same class or extension class.
 When defining the getter a value with the same type as the field must be returned.
 When defining the setter one parameter of any type is required.
 Note that in the example the integer was initialially private, but has become public because of the getter and setter.
@@ -564,18 +564,18 @@ class MyClass
 {
     private int myInt;
 
-    MyClass(this.myInt){
-        // Your constructor code.
-    }
-
-    public get myInt{
+    public get{
         // Your getter code.
         return myInt + 1;
     }
 
-    public set myInt(int myInt){
-        this.myInt = myInt - 1;
+    public set int value{
+        this.myInt = value - 1;
         // Your setter code.
+    }
+
+    MyClass(this.myInt){
+        // Your constructor code.
     }
 }
 
@@ -602,53 +602,52 @@ class MyClass
     public set only bool? myBoolean;
 }
 
+//subtitle
+Class methods
+
 //text
-The getter and setter can also be used to access the class with __[]__.
-To create such a getter or setter write the following structure; __get__ or __set_, __this__, __[]__ and __{}__.
-The getter can only have one parameter while the setter can have two.
+Classes have a couple of custom method that can be used to achieve more custom functinallity.
+To declare a class method write the following structure; any type followed, __this__, Any parameters and assignment parameter, __{}__.
+Mace has the followed class methods.
+
+//tablehead
+Name`           parameters`             example
+
+//table
+Call`           Tuple`                  void this(){}
+Index read`     Array`                  void this[]{} 
+Index write`    Array and assignment`   this[]string value{}
+Set`            Set`                    void this{}{}
+Access read`    Label`                  void this label value{}
+Access write`   Label and assigning`    this label value string secondValue{}      
 
 //code
-class MyMap<T,S>
+class MyClass
 {
-    get string this[T index]{
-        return '';
-        // Return a value depending on the index given.
+    void this(string myParameter){
+        // Your object call code
     }
 
-    set this[T index] S value {
-        // Save a value depending on the given index and value.
+    void this[string myParameter]{
+        // Your object index method code
+    }
+
+    this[string myParameter] string value{
+        // Your object index write method code
+    }
+
+    void this{string myParameter}{
+        // Your object set method code
+    }
+
+    void this label.accessor{
+        // Your object access read method code
+    }
+
+    this label.accessor string value{
+        // Your object access write method code
     }
 }
-
-//code
-class MyMap<T,S>
-{
-    get string this(T index){
-        return '';
-        // Return a value depending on the index given.
-    }
-
-    get string this{T index}{
-        // Save a value depending on the given index and value.
-    }
-
-    get string label.labelName this{
-
-    }
-
-    set label.labelName this string value{
-        
-    }
-}
-
-
-MyMap<string,int> myMap = MyMap<string,int>();
-
-myMap['value'] = 4;
-// Setting a value via an index
-
-print(myMap['value']);
-// Getting a value via an index
 
 //chapter
 Interfaces (interface)
@@ -3503,20 +3502,20 @@ Defualt declaration
 
 //text
 The __!__ operator can be used to populate variables with their default type on declaration.
-To use default write __!__ after any variable name to indicate that is needs to be populated with the default value when unassigned.
-This operator can only be used when the variable or object has a set defualt value/constructor.
+To use default declaration write __!__ after any type to indicate that is needs to be populated with the default value when unassigned.
+This operator can only be used when the variable or object has a set defualt value or constructor.
 
 //code
-int myInt!;
+int! myInt;
 // myInt becomes: 0
 
-double myDouble!;
+double! myDouble;
 // myDouble becomes: 0.0
 
-string myString!;
+string! myString;
 // myString becomes: ''
 
-bool myBoolean!;
+bool! myBoolean;
 // myBoolean becomes: false
 
 int![<5>]! myArray;
@@ -3526,78 +3525,48 @@ int![<5>]! myArray;
 Defualt replacement
 
 //text
-The __!__ operator can be used to on nullable variables to replace the possible null value with the default value of the variable.
+The __!__ operator can be used on nullable variables to replace the possible null value with the default value of the variable.
 This operator can only be used when the variable or object has a set defualt value/constructor.
 
 //code
-!string[] myArray = ['Hello World!',];
-// myArray becomes: ['Hello World!','']
+string? myString = null;
 
-!string[] myArray = [,];
-// myArray becomes: ['','']
+string mySecondString = myString!;
+// mySecondString becomes: ''
 
-int![] myArray;
-// myArray becomes: []
+myString = 'Hello World!';
 
-!int![5] myArray;
-// myArray becomes: [0,0,0,0,0]
+mySecondString = myString!;
+// mySecondString becomes: 'Hello World!'
 
-//code
-<!string:!int>{} myMap = {'Hello World!':13135,};
-// myMap becomes: {'Hello World!':13135,'':0}
+//title
+Defualt fallback
 
-<!string:!int>{} myMap = {,};
-// myMap becomes: {'':0,'':0}
-
-<string:int>!{} myMap;
-// myMap becomes: {}
+//text
+The __!!__ operator can be used to indicate that a variable will never be null.
+When the default value get assign with null the defualt value will be saved.
+To declare a defualt fallback variable write a __!__ after any type.
 
 //code
-(int,!string) myTuple = ('Hello World!',);
-// myTuple becomes: ('Hello World!','')
+int!! myInt;
+// myInt becomes: 0
 
-(!int,!string) myTuple = (,);
-// myTuple becomes: (0,'')
+myInt = 13135;
+// myInt becomes: 13135
 
-!(!int,!string) myTuple;
-// myTuple becomes: (0,'')
+myInt = null;
+// myInt becomes: 0
 
 //text
 When the return type of a method is default the method does not need to return a value the default value will be returned
 
 //code
-!string func() myMethod = (){};
+string! func() myMethod = (){};
 string myString = myMethod();
 // myString becomes: ''
 
-!string !func() myMethod;
-// myMethod becomes: (){}
-string myString = myMethod();
-// myString becomes: ''
-
-//text
-An empty return can also be used to return the default value;
-!string myMethod(bool myBoolean){
-    if(myBoolean){
-        return;
-    }
-}
-
-//text
-Use default types as values
-
-//code
-int myInt = !int;
-// myInt becomes: 0
-
-double myDouble = !double;
-// myDouble becomes: 0.0
-
-string myString = !string;
-// myString becomes: ''
-
-bool myBoolean = !bool;
-// myBoolean becomes: false
+//title
+Defualt constructors
 
 //text 
 Defining default constuctor
@@ -3625,7 +3594,6 @@ class MyClass
         // You default constructor code
     }
 }
-
 
 //Literal value ideas
 
@@ -4512,6 +4480,37 @@ string mySecondString = myString!;
 (int | string)() myTuple = (1212,'Hello World!',12);
 int | string(myInt,myString,...) = myTuple;
 (int myInt,string myString,...) = myTuple;
+
+//text
+Other class assignment.
+
+class MyClass
+{
+    string myString;
+    int myInt;
+}
+
+MyClass myClass = MyClass{myString = 'Hello World!',myInt = 13135};
+MyClass myClass = auto{myString = 'Hello World!',myInt = 13135};
+MyClass myClass = {myString = 'Hello World!',myInt = 13135};
+MyClass myClass = {'Hello World!',13135};
+
+//text
+Return as variable
+
+string myMethod(){
+    return = 'Hello World!';
+    print(return);
+    return;
+}
+
+string myString = myMethod();
+// myString becomes: 'Hello World!'
+
+(string! myString,int! myInt)! myMethod(){
+    return.myString = 'Hello World!';
+    return.myInt = 13135;
+}
 
 //chapter
 Cascading scope
