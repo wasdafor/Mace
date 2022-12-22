@@ -4518,8 +4518,7 @@ Cascading scope
 //text
 The __{}__ brackets can be used to add cascading scope to any value.
 To add cascading scope write __{}__ after any value.
-Inside the __{}__ of the cascading scope the memebers of the value can accessed.
-The __.__ operator is not needed to accessed the members of an object.
+Inside the __{}__ of the cascading scope the members of the value can accessed with the __.__ operator.
 
 //code
 class MyClass
@@ -4528,32 +4527,93 @@ class MyClass
     public string? myString;
 
     public void myMethod(){
-        // You method code.
+        // Your method code.
     }
 }
 
-MyClass myClass = MyClass(){
-    myInt = 13135;
-    myString = 'Hello World!';
-    myMethod();
-};
+MyClass myClass = MyClass();
 
+// Without cascading scope.
 myClass.myInt = 13135;
 myClass.myString = 'Hello World!';
 myClass.myMethod();
 
+// With cascading scope
+myClass{
+    .myInt = 13135;
+    .myString = 'Hello World!';
+    .myMethod();
+};
+
 //text
-The cascading scope can also be added to functions to call them multiple times.
+The cascading scope can also be added to functions, to call them multiple times.
+When the cascading scope is added to a function (variable) the __.__ is not required.
 
 //code
 List<int> myList = List<int>();
 
+// Without cascading scope.
+myList.add(1);
+myList.add(3);
+myList.add(1);
+myList.add(3);
+
+// With cascading scope
 myList.add{
     (1);
     (3);
     (1);
     (3);
 }
+
+//text
+Inside the cascading scope any other code statements can be defined.
+
+//code
+class MyClass
+{
+    public int? myInt;
+    public string? myString;
+
+    public void myMethod(){
+        // Your method code.
+    }
+}
+
+MyClass myClass = MyClass(){
+    if(myBoolean){
+        .myInt = 13135;
+    }
+    else{
+        .myInt = 53131;
+    }
+    
+    string myString = 'Hello World!';
+    .myString = myString;
+    .myMethod();
+};
+
+//text
+When dealing with a nullable variable the __?__ optional chaining operator must be added before the cascading scope.
+
+//code
+class MyClass
+{
+    public int? myInt;
+    public string? myString;
+
+    public void myMethod(){
+        // Your method code.
+    }
+}
+
+MyClass? myClass = MyClass();
+
+myClass?{
+    .myInt = 13135;
+    .myString = 'Hello World!';
+    .myMethod();
+};
 
 //subtitle
 Continuing
@@ -4568,14 +4628,14 @@ class MyClass
     public string? myString;
 
     public void myMethod(){
-        // You method code.
+        // Your method code.
     }
 }
 
 string myString = MyClass(){
-    myInt = 13135;
-    myString = 'Hello World!';
-    myMethod();
+    .myInt = 13135;
+    .myString = 'Hello World!';
+    .myMethod();
 }.myString;
 // myString becomes: 'Hello World!'
 
@@ -4624,20 +4684,20 @@ class MyClass
     List<int> myList = List<int>();
 
     void myMethod(){
-        // You method code.
+        // Your method code.
     }
 }
 
 MyClass myClass = MyClass(){
-    myInt = 13135;
-    myString = 'Hello World!';
-    myList.add{
+    .myInt = 13135;
+    .myString = 'Hello World!';
+    .myList.add{
         (1);
         (3);
         (1);
         (3);
     }
-    myMethod();
+    .myMethod();
 };
 
 //title
