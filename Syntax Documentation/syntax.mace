@@ -56,7 +56,7 @@ Creating Namespaces (namespace)
 
 //text
 The __namespace__ keyword is used to create a __namespace__.
-To create a __namespace__ write the __namespace__ keyword, followed by the name of the __namespace__ ending with __{}__.
+To create a __namespace__ write __namespace__, followed by the name of the __namespace__ ending with __{}__.
 When defining multiple namespaces with the same name, the members of these namespaces will be merged.
 Use access modifiers to define where the members of the namespace can be used.
 
@@ -92,7 +92,7 @@ Namespace with members
 //code
 namespace MyNamespace
 {
-    int myInt = 0;
+    int myInt = 13135;
 
     void myMethod(){
         // Your method code.
@@ -110,14 +110,15 @@ Using Namespaces (using)
 //text
 The __using__ keyword is used to use the members of a namespace. 
 To use a namespace write __using__ followed by the path to the location of the namespace.
+The __.mace__ file extension is not required to be added.
 
 //code
 using ./MyNamespace;
-// Print public or protected member from MyNamespace.
+// Printing member from MyNamespace.
 print(myMember);
 
 //subtitle
-Using members (from)
+Members (from)
 
 //text
 The __,__ can be used to use specific members of a namespace.
@@ -126,9 +127,8 @@ To access a member of a namespace, use the name of the member you want to use.
 
 //code
 using myFirstMember, mySecondMember from ./MyNamespace;
-// Print public or protected members from MyNamespace.
-print(myFirstMember);
-print(mySecondMember);
+// Printing members from MyNamespace.
+print(myFirstMember,mySecondMember);
 
 //subtitle
 Namespace name (as)
@@ -136,15 +136,16 @@ Namespace name (as)
 //text
 The __as__ keyword can be used to add a name to a namespace. 
 To add a name to your namespace write __as__ after your namespace path followed by a given namespace name.
-To access a member of a namespace with a name, write the given name followed by a member.
+To access a member from a namespace with a name, write the given name followed by a member.
 
 //code
 using ./MyNamespace as MyNamedNamespace;
-// Print public or protected member from MyNamespace named MyNamedNamespace.
+// Printing member from MyNamespace named MyNamedNamespace.
 print(MyNamedNamespace.myFirstMember);
 
+//code
 using myFirstMember, mySecondMember from ./MySecondNamespace as MySecondNamedNamespace;
-// Print public or protected member from MyNamespace named MySecondNamedNamespace.
+// Printing member from MyNamespace named MySecondNamedNamespace.
 print(MySecondNamedNamespace.mySecondMember);
 
 //subtitle
@@ -157,12 +158,12 @@ To access a renamed member, use the new name of the member.
 
 //code
 using myFirstMember as myFirstRenamedMember, mySecondMember as mySecondRenamedMember from ./MyNamespace;
-// Print renamed public or protected members from MyNamespace 
-print(myFirstRenamedMember);
-print(mySecondRenamedMember);
+// Printing renamed members from MyNamespace 
+print(myFirstRenamedMember,mySecondRenamedMember);
 
+//code
 using myFirstMember as myFirstRenamedMember from ./MySecondNamespace as MySecondNamedNamespace;
-// Print renamed public or protected members from MySecondNamespace named MySecondNamedNamespace.
+// Printing renamed member from MySecondNamespace named MySecondNamedNamespace.
 print(MySecondNamedNamespace.myFirstRenamedMember);
 
 //title
@@ -182,10 +183,17 @@ print(getURL("https://google.com"));
 Classes
 
 //text
-The __class__ keyword is used to create a class.
+The __class__ keyword is used to create a blueprint for a data container.
 To create a class write __class__ followed by the name of the class and ending with __{}__.
-Classes can contain any variable, function, getter or setter, these are called class members.
 Classes can only be declared in a namepace and will be private by default.
+Classes can contain the following members.
+
+//table
+Variables
+Functions
+Getters
+Setters
+Class methods
 
 Use access modifiers to define where the members of a class can be used.
 
@@ -207,7 +215,7 @@ namespace MyNamespace
 
     class MySecondClass
     {
-        int myInt = 0;
+        int myInt = 13135;
 
         void myMethod(){
             // Your method code.
@@ -219,7 +227,6 @@ namespace MyNamespace
 To create an instance of a class use the class name followed by __()__.
 
 //code
-// Your constructors used.
 MyClass myClass = MyClass();
 MySecondClass mySecondClass = MySecondClass();
 
@@ -234,7 +241,7 @@ When a class inherits from another class you can access the public or protected 
 //code
 class MyClass
 {
-    public int myInt = 0;
+    public int myInt = 13135;
 
     public void myMethod(int value){
         // Your method code.
@@ -245,7 +252,6 @@ class MySecondClass extend MyClass
 {
     MySecondClass(){
         myMethod(myInt);
-        // Your constructor code.
     }
 }
 
@@ -267,7 +273,7 @@ Abstract classes can not be instanciated.
 //code
 abstract class MyClass
 {
-    public int myInt = 0;
+    public int myInt = 13135;
 
     public void myMethod(int value){
         // Your method code.
@@ -346,15 +352,14 @@ class MySecondClass extend MyClass
 Sealing (sealed)
 
 //text
-The __sealed__ keyword is used to create a sealed class.
+The __sealed__ keyword is used to create a class that can not be inherited/be a super class.
 To create a sealed class write __sealed__ before your class.
-When a class is __sealed__, the class cannot be inherited/be a super class.
 A sealed class cannot contain abstract members.
 
 //code
 sealed class MyClass
 {
-    int myInt;
+    int myInt = 13135;
 
     void myMethod(int value){
         // Your method code.
@@ -366,32 +371,39 @@ Static (static)
 
 //text
 The __static__ keyword is used to create static classes or class members.
-To create a static class write __static__ before your class.
-static classes can only contain static members.
-When a class is __static__, the class cannot inherited/be super class or instanciated.
+To create a static class or class member write __static__ before your class or class member.
+Static members can be added to any class and are part of the class itself and not of an individual object instance.
+When a value of a static variable changes the change will happen in every instance of this class.
+Static classes can only contain static members and cannot be inherited/be super class or instanciated.
 
 //code
 static class MyClass
 {
-    static int myInt;
+    public static int myInt = 13135;
 
-    static void myMethod(int value){
-        // Your method code.
+    public static void myMethod(int value){
+        print(myInt,value);
     }
 }
 
+//text
+When these members are public they can be access by using thier class name followed by a __.__ and ending with the name of the member.
+
+//code
+MyClass.myMethod(MyClass.myInt);
+
 //title
-Super class (super) and This class (this)
+Super class (super) and this class (this)
 
 //text
 When using the same class member identifier in the child class as in the parent class, the child class will override the parent identifier.
-Use the __this__ keyword to access the memebers of class itself and inherited classes.
+Use the __this__ keyword to access the members of class itself and inherited classes.
 Use the __super__ keyword to only access the members of the inherited classes.
 
 //code
 class MyClass
 {
-    public int myInt = 0;
+    public int myInt = 13135;
 
     public void myMethod(int value){
         // Your method code.
@@ -401,10 +413,14 @@ class MyClass
 class MySecondClass extend MyClass
 {
     MySecondClass(){
+        // Calling myMethod in MySecondClass.
         myMethod();
+
+        // Calling myMethod in MyClass.
         super.myMethod(myInt);
+
+        // Calling myMethod in MySecondClass.
         this.myMethod(myInt);
-        // Your constructor code.
     }
 
     public void myMethod(int value){
@@ -421,19 +437,19 @@ To create a class extension write __extend__ followed by a class name and ending
 extension classes work almost the same as a normal classes and can only be defined inside a namespace.
 The constructor and the destructor of the original class can not be overwritten/redefined/overloaded.
 Multiple extensions can be created for the same class.
-Optional use the __this__ keyword to access public members from the original class or from extensions.
+Optionally use the __this__ keyword to access public members from the original class or from extensions.
 
 //code
 extend string
 {
-    public char[] myString = "";
-    public set<string> toSet(){
-        // Code that converts a string to a set.
+    public char[] myString = "Hello World!";
+    public string{} toSet(){
+        // Your code to convert a string to a set.
     }
 }
 
 string myString = 'Hello World!';
-print(myString.toSet());
+print(myString.toSet(),myString.myString);
 
 //text
 The extended members can also be used in inheritance.
@@ -441,27 +457,25 @@ The extended members can also be used in inheritance.
 //code
 class MyClass
 {
-    public int myInt = 0;
-    // Your class members
+    public int myInt = 13135;
 }
 
 extend MyClass
 {
     public void printMyInt(){
         print(this.myInt);
-        // Your method code.
     }
 }
 
 class MySecondClass extend MyClass
 {
     MySecondClass(){
+        // Calling inherited extension method inside the class.
         printMyInt();
-        // Your constructor code.
     }
-    // Your class members
 }
 
+// Calling inherited extension method via a class instance.
 MySecondClass mySecondClass = MySecondClass();
 mySecondClass.printMyInt();
 
@@ -490,10 +504,13 @@ MyClass myClass = MyClass();
 // Your named constructor used.
 myClass = MyClass.MyNamedConstructor();
 
+//subtitle
+Linked (:)
+
 //text
 Linked constructors can be used to call other constructors via a constructor.
-To call a linked constructor write __:__ followed by __this__ and ending with __()__ after the parameter body of any constructor.
-To call a named linked constructor write __.__ followed by the name of the constructor after the __this__ keyword of a normal linked constructor.
+To call a linked constructor write __:__ after the parameter body of any constructor followed by __this__ and ending with __()__.
+For a named constructor write __.__ followed by the name of the constructor after the __this__ keyword of a normal linked constructor.
 
 //code
 class MyClass
@@ -530,6 +547,9 @@ class MyClass
 //title
 Methods
 
+//subtitle
+Initialize (initialize) //Still in progress not improving yet
+
 //text
 To create a constant or read only variable in your class, but you want to initialize it in the constructor, use the keyword __initialize__.
 The variable can also be initialized via short assignment.
@@ -552,9 +572,9 @@ Getters (get) and Setters (set)
 
 //text
 Getters and setters are methods that will be run when the specific field is accessed.
-To create a setter or getter write the following structure; __get__ or __set__, A variable declaration for the setter and __{}__.
-Access modifiers can be added to the getter and setter. These access modifiers override the default getter and setter of the field.
-Getters and setters can only be defined directly beneath their field and if their field is declared in the same class or extension class.
+To create a setter or getter write the following structure; __get__ or __set__, a variable declaration for the setter, __{}__.
+Access modifiers can be added to the getter and setter. These access modifiers override the (default) access modifiers of the field.
+Getters and setters can only be defined directly beneath their field in the same (extension) class.
 When defining the getter a value with the same type as the field must be returned.
 When defining the setter one parameter of any type is required.
 Note that in the example the integer was initialially private, but has become public because of the getter and setter.
@@ -562,20 +582,14 @@ Note that in the example the integer was initialially private, but has become pu
 //code
 class MyClass
 {
-    private int myInt;
+    private int myInt = 13135;
 
     public get{
-        // Your getter code.
         return myInt + 1;
     }
 
     public set int value{
         this.myInt = value - 1;
-        // Your setter code.
-    }
-
-    MyClass(this.myInt){
-        // Your constructor code.
     }
 }
 
@@ -607,7 +621,7 @@ Class methods
 
 //text
 Classes have a couple of custom method that can be used to achieve more custom functinallity.
-To declare a class method write the following structure; any type followed, __this__, Any parameters and assignment parameter, __{}__.
+To declare a class method write the following structure; any type, __this__, Any parameters and assignment parameter, __{}__.
 Mace has the followed class methods.
 
 //tablehead
@@ -625,27 +639,27 @@ Access write`   Label and assigning`    this label value string secondValue{}
 class MyClass
 {
     void this(string myParameter){
-        // Your object call code
+        // Your object call code.
     }
 
     void this[string myParameter]{
-        // Your object index method code
+        // Your object index method code.
     }
 
     this[string myParameter] string value{
-        // Your object index write method code
+        // Your object index write method code.
     }
 
     void this{string myParameter}{
-        // Your object set method code
+        // Your object set method code.
     }
 
     void this label.accessor{
-        // Your object access read method code
+        // Your object access read method code.
     }
 
-    this label.accessor string value{
-        // Your object access write method code
+    this label.accessor string value{//Still needs syntax work
+        // Your object access write method code.
     }
 }
 
@@ -657,13 +671,13 @@ The __interface__ keyword is used to create an interface.
 To create an interface write __interface__ followed by the name of the interface and ending with __{}__.
 Interfaces can be compared to abstract classes with only abstract members.
 The members of an interface are abstract by default so the abstract keyword can omitted. 
-Interfaces can contain declared fields and body less methods.
+Interfaces can only contain declared fields and body less methods.
 interfaces can ony be declared inside of a namespace.
 
 //code
 interface MyInterface
 {
-    int myInt;
+    abstract int myInt;
 
     void myMethod();
 }
@@ -674,7 +688,7 @@ implementation (implement)
 //text
 The __implement__ keyword is used to implement the members of an interface inside of a child class.
 To implement the members of an interface write implement after the name of the child class followed by the name of the interface.
-When inplementing an interface all the members of the interface must be overwritten inside of the child class.
+When implementing an interface all the members of the interface must be overwritten inside of the child class.
 
 //code
 interface MyInterface
@@ -699,7 +713,7 @@ Inheritance (extend)
 //text
 The __extend__ keyword can be used to inherit interface members from other interfaces.
 To inherit members from other interfaces write __extend__ after the child interface followed by comma separated interface names.
-Note no members can have the same name.
+Note that no members can have the same identifier.
 
 //code
 interface MyInterface
@@ -744,7 +758,7 @@ To access an enum write the enum name followed by the field name.
 MyEnum myEnum = MyEnum.FirstEnumField;
 
 if(myEnum == MyEnum.SecondEnumField){
-    // You code
+    // Your code.
 }
 
 //title
@@ -753,7 +767,7 @@ Inheritance (extend)
 //text
 The __extend__ keyword can be used to inherit enum fields from other enums.
 To inherit fields from other enums write __extend__ after the child enum followed by comma separated enum names.
-Note that the enum type must be the same type as the child enum and no fields can have the same name.
+Note that the enum type must be the same type as the child enum and no fields can have the same identifier.
 
 //code
 enum MyEnum
@@ -923,7 +937,7 @@ Indexing
 
 //text
 Read a character from a string by using __[]__.
-Indexing starts at index 0.
+Indexing starts at index zero.
 
 //code
 string myString = 'Hello World!';
@@ -1001,8 +1015,6 @@ Indexing
 //text
 To get a digit from an __int__, access the __int__ in the same way as how you would get a __char__ from a string.
 Indexing starts at index 0.
-// https://www.geeksforgeeks.org/find-first-last-digits-number/#:~:text=To%20find%20first%20digit%20of%20a%20number%20we%20divide%20the,left%20with%20the%20first%20digit.
-// ^aproach 2
 
 //code
 int myInt = 13135;
@@ -1063,8 +1075,9 @@ int`            0
 double`         0.0
 string`         '' or ""
 string[]`       []
-Map<string,int>`{}
-Set<string>`    Set.empty
+string()`       ()
+string{}`       {}
+<string:int>{}` {}
 List<string>`   []
 
 //code
@@ -1083,7 +1096,7 @@ Arithmetic
 
 //text
 Arithmetic operators are mostly used so to apply mathematical equations to values.
-Some of these operators can be used on strings, arrays, maps, sets and lists.
+Some of these operators can be used on other objects like string, arrays and tuples.
 
 //tablehead
 Operator`   Name`                       Example
@@ -1150,11 +1163,7 @@ myInt = 3 -4;
 
 //text
 The __-__ operator can also be used to subtract strings, arrays, maps, sets or lists.
-When subtracting a string from another string, the order of the characters is important.
-Note here that only one substring that is equal to the right hand string will be removed.
-When subtracting an array from another array, the order of the elements is important. The same applies for lists.
-Note here that all the elements in the right hand array will be removed from the left hand array if they exist.
-When subtracting a map from another map, the order of the elements is not important. The same applies for sets.
+The order of the elements matter when the object is orderd else the order does not matter.
 Searching and removing will start at the end.
 
 //code
@@ -1192,9 +1201,9 @@ int myInt = 3 * 4;
 
 //text
 The __*__ operator can also be used to multiply strings, sets or arrays.
-Multiplying a string, set or array will repeat the values inside and return a new string, set or array.
+Multiplying a string, list or array will repeat the values inside and return a new string, list or array.
 Note you must use an integer value when multiplying with a number.
-When multiplying an array or a set with another array or set, the result will be a cartesian product.
+When multiplying a set with another set, the result will be a cartesian product.
 
 //code
 string myString = 'Hello World!' * 2;
@@ -1204,7 +1213,7 @@ int[] myArray = [1,2,3,4] * 2;
 List<int> myList = [1,2,3,4] * 2;
 // myList becomes: [1,2,3,4,1,2,3,4]
 Set<int[]> mySet = {1,2,3,4} * {5,6,7,8};
-// mySet becomes: {[1,5],[1,6],[1,7],[1,8],[2,5],[2,6],[2,7],[2,8],[3,5],[3,6],[3,7],[3,8],[4,5],[4,6],[4,7],[4,8]}
+// mySet becomes: {(1,5),(1,6),(1,7),(1,8),(2,5),(2,6),(2,7),(2,8),(3,5),(3,6),(3,7),(3,8),(4,5),(4,6),(4,7),(4,8)}
 
 //subtitle
 Division (/)
@@ -1217,8 +1226,8 @@ int myInt = 4 / 2;
 // myInt becomes: 2
 
 //text
-The __/__ operator can also be used to divide strings, arrays or lists.
-Dividing a string, array or list by a value will count the occurrences of the given value and returns an int.
+The __/__ operator can also be used to any orderd object.
+Dividing an orderd object by a value the count of the occurrences of the given value will be returned.
 Note that the order matters.
 
 //code
@@ -1272,14 +1281,6 @@ Matrix arithmetic
 //text
 The following table shows all possible operations that can be applied on matrices or vertices.
 
-//code
-int[] a = [0,1,2];
-int[] b = [3,4,5];
-int[][] c = [[6,7,8]];
-int[] myArray;
-int myScalar = 9;
-int myInt;
-
 //tablehead
 Operator`   Name`                           Example`                  Same as
 
@@ -1293,6 +1294,14 @@ Operator`   Name`                           Example`                  Same as
 #-`         Matrix negation`                myArray = #-a;`                             myArray = [a[0]*-1, a[1]*-1, a[2]*-1];
 #^`         Matrix norm`                    myInt = #^a;`                               myInt = sqrt(a[0]**2 + a[1]**2 + a[2]**2);
 #%`         Matrix unit`                    myArray = #%a;`                             myArray = a #/ #^a;
+
+//code
+int[] a = [0,1,2];
+int[] b = [3,4,5];
+int[][] c = [[6,7,8]];
+int[] myArray;
+int myScalar = 9;
+int myInt;
 
 //subtitle
 Matrix addition (#+)
@@ -1769,7 +1778,7 @@ string? myString = 'Hello World!';
 // Indicating that myString can be null.
 
 //text
-To indicate that array memebers are nullable write any type followed by a __?__ ending with __[]__.
+To indicate that array members are nullable write any type followed by a __?__ ending with __[]__.
 
 //code
 int[] myArray = null;
@@ -3157,7 +3166,7 @@ class MyClass extend MyInterface<string>
 
 interface MySecondInterface<MyGeneric> implement MyInterface<MyGeneric>
 {
-    // Your interface memebers.
+    // Your interface members.
 }
 
 //subtitle
@@ -3992,7 +4001,7 @@ string myLabelString = <string>myLabel$;
 // myLabelString becomes: 'Hello World!'
 
 //text
-The memebers of and object can also be access.
+The members of and object can also be access.
 
 //code
 class MyClass
@@ -4137,7 +4146,7 @@ void myMethod(int myInt,int mySecondInt){
 Unpacking
 
 //text
-Unpacking can be used to unpack an object its memebers or elements in seperate variables.
+Unpacking can be used to unpack an object its members or elements in seperate variables.
 The following objects can be unpacked.
 
 //tablehead
@@ -4176,7 +4185,7 @@ class MyClass
 Element repeater
 
 //text
-The item repeater can be used to unpack multiple memebers or elements of the same type in a collection.
+The item repeater can be used to unpack multiple members or elements of the same type in a collection.
 To define an item repeated write the following structure; __<__, any integer or __...__, __>__.
 
 //code
