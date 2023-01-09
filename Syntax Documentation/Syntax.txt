@@ -319,3 +319,388 @@ myMethod = {i++;};
 
 myMethod = 
 string<string,int>() mySecondMethod = myBoolean ? myMethod : mySecondMethod;
+
+
+matrix operator
+
+//title
+Matrix arithmetic
+
+//text
+The following table shows all possible operations that can be applied on matrices or vertices.
+
+//tablehead
+Operator`   Name`                           Example`                  Same as
+
+//table
+#+`         Matrix addition`                myArray = a #+ b;`                          myArray = [a[0]+b[0], a[1]+b[1], a[2]+b[2]];
+#-`         Matrix subtraction`             myArray = a #- b;`                          myArray = [a[0]-b[0], a[1]-b[1], a[2]-b[2]];
+#*`         Matrix scalar multiplication`   myArray = a #* myScalar;`                   myArray = [a[0]*myScalar, a[1]*myScalar, a[2]*myScalar];
+#/`         Matrix scalar division`         myArray = a #/ myScalar;`                   myArray = [a[0]/myScalar, a[1]/myScalar, a[2]/myScalar];
+#**`        Matrix dot product`             myArray = c #** a; or myArray = a #** b;`   myArray = [[c[0]*a[0], c[0]*a[1], c[0]*a[2]],[c[1]*a[0], c[1]*a[1], c[1]*a[2]],[c[2]*a[0], c[2]*a[1], c[2]*a[2]]]; or myArray = [a[0]*b[0]+a[1]*b[1]+a[2]*b[2]];
+##`         Matrix cross product`           myArray = a ## b;`                          myArray = [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]];
+#-`         Matrix negation`                myArray = #-a;`                             myArray = [a[0]*-1, a[1]*-1, a[2]*-1];
+#^`         Matrix norm`                    myInt = #^a;`                               myInt = sqrt(a[0]**2 + a[1]**2 + a[2]**2);
+#%`         Matrix unit`                    myArray = #%a;`                             myArray = a #/ #^a;
+
+//subtitle
+Matrix addition (#+)
+
+//text
+The __#+__ operator is used when two matrices need to be added to each other.
+Every number on a position of the first matrix will be added to the number on the same position of the second matrix.
+Note that the size of the two does not matter, but they do need to be the same, both must have the same amount of rows and the same amount of columns.
+
+//code
+myArray = a #+ b;
+myArray = [0+3,1+4,2+5];
+myArray = [3,5,7];
+
+//subtitle
+Matrix subtraction (#-)
+
+//text
+The __#-__ operator is used when one matrix needs to be subtracted from another.
+Every number on a position of the first matrix will be added to the number on the same position of the second matrix.
+Note that the size of the two does not matter, but they do need to be the same, both must have the same amount of rows and the same amount of columns.
+
+//code
+myArray = a #- b;
+myArray = [0-3,1-4,2-5];
+myArray = [-3,-3,-3];
+
+//subtitle
+Matrix scalar multiplication (#*)
+
+//text
+The __#*__ operator is used when a matrix needs to be multiplied with a scalar.
+Every number on a position of the matrix will be multiplied with a number.
+Note that the size of the matrix does not matter.
+
+//code
+myArray = a #* myScalar;
+myArray = [0*6,1*6,2*9];
+myArray = [0,9,18];
+
+//subtitle
+Matrix scalar division (#/)
+
+//text
+The __#/__ operator is used when a matrix needs to be divided by a scalar.
+Every number on a position of the matrix will be divided with a number.
+Note that the size of the matrix does not matter.
+
+//code
+myArray = a #/ myScalar;
+myArray = [0/9,1/9,2/9];
+myArray = [0,0,0];
+
+//subtitle
+Matrix dot product (#**)
+
+//text
+The __#**__ operator is used when two matrices need to be multiplied with each other.
+The resulting matrix will have the number of rows of the first matrix and the number of columns of the second matrix.
+Every position of the resulting matrix will be the sum of 
+each element of the corresponding row in the first matrix multiplied with each element of the corresponding column in the second matrix.
+Note that the size of the two does not matter, but the number of columns of the first matrix need to be the same as the number of rows in the second matrix.
+
+//code
+myArray = c #** a;
+myArray = [[6*0, 6*1, 6*2],[7*0, 7*1, 7*2],[8*0, 8*1, 8*2]];
+myArray = [[0, 6, 12],[0, 7, 14],[0, 8, 16]];
+
+//subtitle
+Matrix cross product (##)
+
+//text
+The __##__ operator is used when the cross product of two matrices needs to be found.
+Note that this operator can only be used on two matrices that both have 3 rows and 1 column.
+
+//code
+myArray = a ## b;
+myArray = [1*5-2*4, 2*3-0*5, 0*4-1*3];
+myArray = [5-8, 6-0, 0-3];
+myArray = [-3, 6, -3];
+
+//subtitle
+Matrix negation (#-)
+
+//text
+The __#-__ operator is also used when the negated matrix needs to be found.
+Every number in the matrix will be multiplied with -1.
+
+//code
+myArray = #-a;
+myArray = [0*-1, 1*-1, 2*-1];
+myArray = [0, -1, -2];
+
+//subtitle
+Matrix norm (#^)
+
+//text
+The __#^__ operator is used when the length of a matrix needs to be found.
+The resulting number will be the square root of the sum of every number in the column squared.
+Note that this operator can only be used on a matrix that has only 1 column.
+
+//code
+myInt = #^a;
+myInt = sqrt(0**2 + 1**2 + 2**2);
+myInt = sqrt(0 + 1 + 4);
+myInt = sqrt(5);
+myInt = 2;
+
+//subtitle
+Matrix unit (#%)
+
+//text
+The __#^__ operator is used when the matrix with the same direction but with a length of 1 needs to be found.
+The resulting matrix will be the same matrix but every number will be divided by the length of the original matrix.
+Note that this operator can only be used on a matrix that has only 1 column.
+
+//code
+myArray = #%a;
+myArray = a #/ #^a;
+myArray = [0/sqrt(0**2 + 1**2 + 2**2),1/sqrt(0**2 + 1**2 + 2**2),2/sqrt(0**2 + 1**2 + 2**2)];
+myArray = [0/sqrt(5), 1/sqrt(5), 2/sqrt(5)];
+myArray = [0,0,0];
+
+
+
+
+//labeld for loop for continue and break statements
+
+myLoop for(int i = 0; i < 10 i++,){
+    mySecondLoop for(int i = 0; i < 10 i++,){
+        break myLoop;
+        break mySecondLoop;
+    }
+}
+
+this [int start:<int end:int step>>]{
+    
+}
+
+int[] myArray = [1,2,3,4,5];
+int[] mySecondArray = myArray[0:5:-1]
+// mySecondArray becomes: [1,2]
+
+Sets ({})
+
+//text
+When key value pairs are added to sets the keys must be unique.
+
+//code
+label:string{} mySet = {key:'Value',secondKey:'Second value'};
+
+//code
+label:string{} mySet = {key:'Value',key:'Second value'};
+//Results in error
+
+key and value pairs have a special propery when added to sets.
+A key and value pair is different in sets when the key is difference form the other keys not the key or value.
+
+And when the label is the type of the key in a key and value pair the value can be access trough the label value or via indexing with string
+label:string myKeyValuePair = myString:'Hello World!';
+string myString = myKeyValuePair.myString;
+myString = myKeyValuePair['myString'];
+myString = myKeyValuePair[myString];
+
+When a key and value pair is added to sets and the key is of type label the value can be access by calling the label.
+The reason why this functinallity can only be applied to sets is because key only in sets the key is always unique while in any other collections it is not.
+Values of key and value pairs in sets can always be access like accessing a value form a key and value pair.
+
+label:string mySet = {myString:'Hello World!'};
+string myString = mySet.myString;
+myString['']
+
+MyClass myClass = auto();
+myClass[];
+
+string myString = '23';
+int mySecondInt = <!int>myString;
+
+!int myInt;
+int myInt = int!;
+
+
+(string myString:, :int iest)  = ('dwdw':true)
+(string myString, , int myInt) = ('',true,2121);
+
+string myString:string dwwdw = myString:'dwdwd';
+// dwwdw becomes: 'dwdwd';
+int:?string var = null;
+int?:?string? var = null;
+null:'dwdwd'
+// dwwdw becomes: 'dwdwd';
+myString:?string dwwdw = myString:'dwdwd';
+// dwwdw becomes: myString:'dwdwd'
+
+int: myKeyValuePair string = 23:'';
+int:string myKeyValuePair = 23:'';
+int : string myValue = 23:'';
+int::string{} sfesfe = 23:"";
+//instanciate / define
+<int?:string> wdwd = :'test';
+232:null;
+//unpack
+<myString:?string dwwdw> = myString:'dwdwd';
+
+(int? myInt,string? myString)? = null;
+cant get stuff from null
+
+
+void myMethod(){
+
+}
+
+myMethod;
+
+int?:?string? test = null:null | null;
+
+void myMethod(myInt:?int myInt, mySecondInt, string myString, myBoolean:bool myBoolean){
+    // Your method code
+}
+
+void myMethod(myInt:int|int myInt, string myString, myBoolean:bool myBoolean){
+    // Your method code
+}
+
+void myMethod(!{string myString}){
+    // Your method code
+}
+
+string myString = 'Hello Wo';
+string[5 Hello,char 1, 6 World,...] = myString;
+
+[int 5,int 1,int 6] myArray = [1,2,3,4,5,0,1,2,3,4,5,6];
+[int[] 5 first,int 1,int[] 6 second] = myArray;
+
+~ ! @ # $ % * - + \ <> . /
+` ^ & ( ) _ = { } [ ] | "" '' , ? \ ;
+
+
+string myString!;
+string? myString = null;
+string mySecondString = myString!;
+
+(int | string)() myTuple = (1212,'Hello World!',12);
+int | string(myInt,myString,...) = myTuple;
+(int myInt,string myString,...) = myTuple;
+
+//text
+Other class assignment.
+
+class MyClass
+{
+    string myString;
+    int myInt;
+}
+
+MyClass myClass = MyClass{myString = 'Hello World!',myInt = 13135};
+MyClass myClass = auto{myString = 'Hello World!',myInt = 13135};
+MyClass myClass = {myString = 'Hello World!',myInt = 13135};
+MyClass myClass = {'Hello World!',13135};
+
+//text
+Return as variable
+
+string myMethod(){
+    return = 'Hello World!';
+    print(return);
+    return;
+}
+
+string myString = myMethod();
+// myString becomes: 'Hello World!'
+
+(string! myString,int! myInt)! myMethod(){
+    return.myString = 'Hello World!';
+    return.myInt = 13135;
+}
+
+//Literal value ideas
+
+//Array
+int[][/*values*/]
+int[4][/*values*/]
+[string,int][13135, 'Hello World!']
+int[,string][13135, 'Hello World!']
+
+type MyType = [string,int,bool?] | [string,int,char?];
+MyType myType = [string,int,char?]['Test',121,null];
+
+//Method
+void func()(){/*code*/}
+void func(string,int)(myString, myInt){/*code*/}
+
+//Set
+int{}{/*values*/}
+int{4}{/*values*/}
+
+//Map Set
+<int:string>{}{}
+{int myInt, string myString}{myInt:13135,myString,'Hello World!'}
+
+//String
+''
+''''''
+""
+""""""
+
+//Int
+23123
+123e231
+0x2131
+0o1232457
+0b1010011
+
+//Double
+23123.1
+123e231.4
+0x2131.7
+0o1232457.5
+0b1010011.9
+
+//Bool
+true
+false
+
+//Char
+'c'
+"C"
+
+//Void
+null
+//these voids will act different
+[int,]//One void 
+[,]//Two voids
+
+//Future
+async int
+async int[]
+
+Methods test
+
+//code
+void myMethod(){
+
+}
+void func() myMethod = (){}
+myMethod();
+
+//code
+void myMethod[]{
+
+}
+void func[] myMethod = []{}
+myMethod[];
+
+//code
+void myMethod{string myString}{
+
+}
+void func{myString string} myMethod = {string myString}{}
+myMethod{myString: 'Hello World!'};
+
+use the value keyword for the setters.
