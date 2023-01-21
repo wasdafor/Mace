@@ -40,6 +40,7 @@ vscode.languages.registerHoverProvider('mace', {
 	}
 });
 
+var test: [string,number,null];
 
 // This method is called when your extension is deactivated
 export function deactivate() { }
