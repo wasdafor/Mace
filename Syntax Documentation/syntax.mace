@@ -55,41 +55,36 @@ Namespaces
 Creating Namespaces (namespace)
 
 //text
-The __namespace__ keyword is used to create a __namespace__.
-To create a __namespace__ write __namespace__, followed by the name of the __namespace__ ending with __{}__.
-When defining multiple namespaces with the same name, the members of these namespaces will be merged.
-Use access modifiers to define where the members of the namespace can be used.
-
-//table head
-Access modifier`    Can be access where?
-
-//table
-__public__`         Inside any namepace.
-__private__`        Inside the namespace itself.
-__protected__`      Inside namespaces with the same name.
-
-By default the members of a namespace will be private.
-
+A __namespace__ is a labeled block of code used to organize your program into smaller pieces.
 The following members can be defined in a __namespace__:
 
 //table
 class
 extension class
 enum
-interface
 functions
 variables
 
+When defining multiple namespaces with the same identifier, the members of these namespaces will be merged.
+Use access modifiers to define where the members of the namespace can be accessed, members will be private by default.
+
+//table head
+Access modifier`    Can be access where?
+
+//table
+__public__`         Inside any namespace.
+__private__`        Inside the namespace itself.
+__protected__`      Inside namespaces with the same name.
+
+A __namespace__ can be defined by using the following syntax.
+
 //code
-namespace MyNamespace
+namespace YourPathLiteral
 {
     // Your namespace members.
 }
 
-//text
-Namespace with members
-
-//code
+// Namespace with members.
 namespace MyNamespace
 {
     Int myInt = 13135;
@@ -105,153 +100,160 @@ namespace MyNamespace
 }
 
 //title
-Using Namespaces (use)
+Import namespaces (use)
 
 //text
-The __use__ keyword is used to use the members of a namespace. 
-To use a namespace write __use__ followed by the path to the location of the namespace.
-The __.mace__ file extension is not required to be added.
+The __use__ keyword is used to import members from a namespace with a different identifier.
+This can be achieved by writing the __use__ keyword followed by the path of your namespace. 
+The members of the imported namespace can now be directly access using their identifier.
 
 //code
-use ./MyNamespace;
-// Printing member from MyNamespace.
+use MyNamespace;
 print(myMember);
 
-//subtitle
-Members (from)
-
 //text
-The __,__ can be used to use specific members of a namespace.
-To use specific members add your members separated by commas followed by __from__, ending with the path to your namespace.
-To access a member of a namespace, use the name of the member you want to use.
+The __as__ keyword can be used to store the members of an imported namespace into a custom constant variable.
+This can be achieved by writing the __as__ keyword after the namespace path followed by the variable identifier.
+The members of the imported namespace can now be accessed via the variable.
 
 //code
-use myFirstMember, mySecondMember from ./MyNamespace;
-// Printing members from MyNamespace.
+use MyNamespace as MyNamespaceVariable;
+print(MyNamespaceVariable.myFirstMember);
+
+//subtitle
+Specific members (from)
+
+//text
+The __from__ keyword can be used to import only specific members from a namespace, if not all the members need to be imported.
+These members can specfied with commas separated between the __use__ and from keywords and after the namespace path.
+The specificly imported memebers can now be directly accessed using their identifier.
+
+//code
+use myFirstMember, mySecondMember from MyNamespace;
 print(myFirstMember,mySecondMember);
 
-//subtitle
-Namespace name (as)
-
 //text
-The __as__ keyword can be used to add a name to a namespace. 
-To add a name to your namespace write __as__ after your namespace path followed by a given namespace name.
-To access a member from a namespace with a name, write the given name followed by a member.
+The __!__ not operator can be used to import all the namespace members, except the specificly specfied members.
+This can be achieved by writing the __!__ operator before the __use__ statement. 
 
 //code
-use ./MyNamespace as MyNamedNamespace;
-// Printing member from MyNamespace named MyNamedNamespace.
-print(MyNamedNamespace.myFirstMember);
+!use myFirstMember, mySecondMember from MyNamespace;
+print(myThirdMember);
+
+//test
+The __as__ keyword can be used to store the specificly imported member into a custom constant variable.
+This can be achieved by writing the __as__ keyword after any member followed by the variable identifier.
+The specificly imported member can now be accessed using its variable.
 
 //code
-use myFirstMember, mySecondMember from ./MySecondNamespace as MySecondNamedNamespace;
-// Printing member from MyNamespace named MySecondNamedNamespace.
-print(MySecondNamedNamespace.mySecondMember);
-
-//subtitle
-Rename members (as)
-
-//text
-The __as__ keyword can be used to rename namespace members. 
-To rename namespace members, write __as__ after the member followed with a new name;
-To access a renamed member, use the new name of the member.
-
-//code
-use myFirstMember as myFirstRenamedMember, mySecondMember as mySecondRenamedMember from ./MyNamespace;
-// Printing renamed members from MyNamespace 
+use myFirstMember as myFirstRenamedMember, mySecondMember as mySecondRenamedMember from MyNamespace;
 print(myFirstRenamedMember,mySecondRenamedMember);
-
-//code
-use myFirstMember as myFirstRenamedMember from ./MySecondNamespace as MySecondNamedNamespace;
-// Printing renamed member from MySecondNamespace named MySecondNamedNamespace.
-print(MySecondNamedNamespace.myFirstRenamedMember);
-
-//title
-Using system namepaces (system)
-
-//text
-The __system__ keyword is used to use any namespace from the Mace system namespaces.
-To use the system namepaces, write __system__ before your __use__ statement. 
-This wil start your namespace path in the system directory. This means that adding the __./__ prefix in your namespace path is not required.
-
-//code
-system use Networking/RequestManager;
-// Print return value from the getURL method from RequestManager.
-print(getURL("https://google.com"));
 
 //chapter
 Classes
 
 //text
-The __class__ keyword is used to create a blueprint for a data container.
-To create a class write __class__ followed by the name of the class and ending with __{}__.
-Classes can only be declared in a namepace and will be private by default.
-Classes can contain the following members.
+A __class__ is a labeled block of code that is a blueprint for a data and function object.
+The following members can be contained by a __class__:
 
 //table
 Variables
-Functions
+Methods
 Getters
 Setters
 Class methods
 
-Use access modifiers to define where the members of a class can be used.
+Use access modifiers to define where the class members can be accessed, members will be public by default.
 
 //tablehead
-Access modifier`    Can be used where?
+Access modifier`    Can be accessed where?
 
 //table
 __public__`         Outside of the class.
 __private__`        Inside the class itself.
 __protected__`      Inside the class itself or derived classes.
 
+A class can only be defined in a namespace, by using the followed syntax.
+
 //code
-namespace MyNamespace
+class MyClassName
 {
-    class MyClass
-    {
-       // Your class members.
-    }
+    // Your class members
+}
 
-    class MySecondClass
-    {
-        Int myInt = 13135;
+// Class with members
+class MySecondClass
+{
+    Int myInt = 13135;
 
-        void myMethod(){
-            // Your method code.
-        }
+    void myMethod(){
+        // Your method code.
     }
 }
 
 //text
-To create an instance of a class use the class name followed by __()__.
+To create the the data and function object also called an object instance write the class name followed by __()__ brackets.
+The members of the object can now be accessed by using the the access operator (__.__).
 
 //code
+class MyClass
+{
+    Int myInt = 13135;
+    String myString = 'Hello World!';
+}
+
+// Directly accessing the myInt variable.
+Int myInt = MyClass().myInt;
+
+// Indirectly accessing the myString variable via the myClass variable.
 MyClass myClass = MyClass();
-MySecondClass mySecondClass = MySecondClass();
+String myString = myClass.myString;
 
 //title
 Inheritance (extend)
 
 //text
-The __extend__ keyword is used to inherit a class from another class.
+The __extend__ keyword is used to inherit a class its members from another class.
 To inherit a class from another class write __extend__ after the name of the child class followed by the name of the class you want to inherit from.
 When a class inherits from another class you can access the public or protected members of the parent class.
 
 //code
 class MyClass
 {
-    public Int myInt = 13135;
+    protected Int myInt = 13135;
 
     public void myMethod(Int value){
-        // Your method code.
+        print(value);
     }
 }
 
 class MySecondClass extend MyClass
 {
     MySecondClass(){
+        // Calling the inherited method myMethod with inherited variable myInt.
         myMethod(myInt);
+    }
+}
+
+//text
+To inherit from multiple classes write your parent classes with comas separated after the __extend__ keyword.
+
+//code
+class MyClass
+{
+    Int myInt = 13135;
+}
+
+class MySecondClass
+{
+    String myString = 'Hello World!';
+}
+
+class MyThirdClass extend MyClass, MySecondClass
+{
+    MyThirdClass(){
+        // Printing the myInt variable from MyClass and myString from mySecondClass.
+        print(myInt, myString)
     }
 }
 
@@ -261,14 +263,13 @@ Abstraction (abstract)
 //text
 The __abstract__ keyword is used to create abstract classes or class members.
 To create an abstract class or member write __abstract__ before your class or class member.
-When a class or class member is abstract it means that it cannot be used on its own.
 
 //subtitle
 Classes
 
 //text 
 When a class is abstract the class can only be inherited by another class.
-Abstract classes can not be instanciated.
+Abstract classes can contain abstract body less methods and uninitialized variables.
 
 //code
 abstract class MyClass
@@ -276,7 +277,7 @@ abstract class MyClass
     public Int myInt = 13135;
 
     public void myMethod(Int value){
-        // Your method code.
+        print(value);
     }
 }
 
@@ -284,26 +285,27 @@ class MySecondClass extend MyClass
 {
     MySecondClass(){
         myMethod(myInt);
-        // Your constructor code.
     }
 }
+
+MyClass myClass = MyClass();
+// Results in an error.
 
 //subtitle
 Class members (implement)
 
 //text
-Only abstract classes and interfaces can contain abstract members. 
-When a member is abstract this means that they need to be implemented in the child class.
-To implement an abstract member write __implement__ before the member.
+Any class or abstract class can contain abstract members.
+These abstract members can be implemented in the child class by writing the __implement__ keyword before the members
+When a member is abstract it can overwrite the initialized value or method code body of the super class abstract member.
+When the abstract member is not initialized or does not have a method code body the implemented member must initialize the variable or provide a method code body.
+To implement an abstract member write __implement__ before the member this will override the function body or variable value.
 
-It is important that the field you want to implement has the same access modifier, type and identifier as the one you want to implement.
-Abstract fields may have a default value.
-When the child class defines the field it implements the default value, if the child class only declares the field the default value of the parent class will be used.
+When implementing a variable it must have the same access modifier, type and identifier as member you want to implement.
+The variable must be initialized when the abstract member was not initialized when else the initialized value of the abstract member.
 
-The same applies for methods, the implemented method needs to have the same access modifier, return type, identifier and parameters as the method you want to implement.
-Abstract methodsmay have a body.
-When the child class defines the method it implements the method body, if the child class only declares the method, the code of the parent class is used.
-Note that initialisation of a method must happen, in the parent or child class, or in both.
+When implementing a method it must have the same access modifier, type, identifier and parameter body as member you want to implement.
+The method must have a code body when the abstract member does not have a code body when else the code body of the abstract member.
 
 //code
 abstract class MyClass
@@ -437,7 +439,7 @@ To create a class extension write __extend__ followed by a class name and ending
 extension classes work almost the same as a normal classes and can only be defined inside a namespace.
 The constructor and the destructor of the original class can not be overwritten/redefined/overloaded.
 Multiple extensions can be created for the same class.
-Optionally use the __this__ keyword to access public members from the original class or from extensions.
+Optionally use the __super__ keyword to access public members from the original class or from extensions.
 
 //code
 extend String
@@ -450,6 +452,33 @@ extend String
 
 String myString = 'Hello World!';
 print(myString.toSet(),myString.myString);
+
+//text
+The __as__ keyword can be used to a new class to a class extension.
+To bind a new class to a class extension write as after the extension type followed by a class definition without the class keyword.
+
+//code
+class MyClass
+{
+    Int myInt = 13135;
+    String myString = 'Hello World!';
+}
+
+extend MyClass as MySecondClass
+{
+    void myMethod(){
+        print(myInt);
+    }
+}
+
+// Accessing the extended method myMethod from the original class
+MyClass myClass = MyClass();
+myClass.myMethod();
+
+// Accessing the method myMethod from the binded class MySecondClass
+MySecondClass mySecondClass = MySecondClass();
+mySecondClass.myMethod();
+
 
 //text
 The extended members can also be used in inheritance.
@@ -741,7 +770,7 @@ To create an __enum__ write __enum__ followed by the name of the enum ending wit
 enums can be compared with a static classes that only contain constant fields.
 The fields inside of an enum are comma separated.
 Note that no keywords can be added to the fields inside an enum.
-Enums can only be defined inside of a namepace.
+Enums can only be defined inside of a namespace.
 
 //code
 enum MyEnum
@@ -855,6 +884,29 @@ myMethod();
     Hello World!
     Extended code
 */
+
+//text
+The __as__ keyword can be used to bind a method definition to a method extension.
+To add a method definition to a method extension write __as__ after the extended method identifier followed by a new method identifier.
+
+//code
+void myMethod(Int myInt){
+    print('Hello World!');
+}
+
+extend myMethod as mySecondMethod(){
+    print('Extended code');
+}
+
+myMethod();
+/*
+    myMethod prints:
+    Hello World!
+    Extended code
+*/
+
+mySecondMethod();
+// Prints: 'Extended code'
 
 //text
 Nested functions or function variables can also be extended by referencing their object.
@@ -4740,3 +4792,23 @@ async String myMethod(){
 	return "Hello World!";
 }
 String myString = await myMethod().catch( function(myError){ print("Error: " + myError.message); } );
+
+abstract class MyClass{
+    Int myInt = 13135;
+
+    String toString(){
+        return '13135';
+
+    }
+}
+
+class MyClass{
+    abstract Int = 13135;
+}
+
+class MyClass{
+    abstract only Int = 13135;
+}
+
+abstract with defualt value does not need implementation.
+The variable or method can be used directly without the implementation.

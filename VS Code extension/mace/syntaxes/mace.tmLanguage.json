@@ -46,7 +46,7 @@
 				},
 				{
 					"name": "entity.name.class.mace",
-					"match": "\\b(String|Int|Double|Char|Bool|Dynamic|Float|Long|Short|MyClass|Label)\\b"
+					"match": "\\b(String|Int|Double|Char|Bool|Dynamic|Float|Long|Short|MyClass|Label|MySecondClass)\\b"
 				}
 			]
 		},
