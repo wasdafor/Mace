@@ -56,7 +56,7 @@ Creating Namespaces (namespace)
 
 //text
 A __namespace__ is a labeled block of code used to organize your program into smaller pieces.
-The following members can be defined in a __namespace__:
+The following members can be defined inside a __namespace__:
 
 //table
 class
@@ -104,8 +104,9 @@ Import namespaces (use)
 
 //text
 The __use__ keyword is used to import members from a namespace with a different identifier.
-This can be achieved by writing the __use__ keyword followed by the path of your namespace. 
-The members of the imported namespace can now be directly access using their identifier.
+This can be achieved by writing the __use__ keyword followed by the path to your namespace. 
+The members of the imported namespace can now be directly access by using their identifier.
+Note that use statements can only be specfied at the top of any Mace file.
 
 //code
 use MyNamespace;
@@ -125,7 +126,7 @@ Specific members (from)
 
 //text
 The __from__ keyword can be used to import only specific members from a namespace, if not all the members need to be imported.
-These members can specfied with commas separated between the __use__ and from keywords and after the namespace path.
+These members can be specfied with commas separated between, the __use__ and from keywords and after the namespace path.
 The specificly imported memebers can now be directly accessed using their identifier.
 
 //code
@@ -143,7 +144,7 @@ print(myThirdMember);
 //test
 The __as__ keyword can be used to store the specificly imported member into a custom constant variable.
 This can be achieved by writing the __as__ keyword after any member followed by the variable identifier.
-The specificly imported member can now be accessed using its variable.
+The specificly imported member can now be accessed via its variable.
 
 //code
 use myFirstMember as myFirstRenamedMember, mySecondMember as mySecondRenamedMember from MyNamespace;
@@ -154,7 +155,7 @@ Classes
 
 //text
 A __class__ is a labeled block of code that is a blueprint for a data and function object.
-The following members can be contained by a __class__:
+The following members can be defined inside a __class__:
 
 //table
 Variables
@@ -173,27 +174,30 @@ __public__`         Outside of the class.
 __private__`        Inside the class itself.
 __protected__`      Inside the class itself or derived classes.
 
+When accessing class members in the class itself the members can be access directly or via the __this__ keyword.
 A class can only be defined in a namespace, by using the followed syntax.
 
 //code
-class MyClassName
+class MyClassIdentifier
 {
-    // Your class members
+    // Your class members.
 }
 
-// Class with members
+// Class with members.
 class MySecondClass
 {
     Int myInt = 13135;
+    String myString = 'Hello World!';
 
     void myMethod(){
-        // Your method code.
+        print(myInt, this.myString)
     }
 }
 
 //text
-To create the the data and function object also called an object instance write the class name followed by __()__ brackets.
+To create the the data and function object also called an object instance write the class identifier followed by __()__ brackets.
 The members of the object can now be accessed by using the the access operator (__.__).
+Note that only normal and sealed classes can be instanciated.
 
 //code
 class MyClass
@@ -210,33 +214,12 @@ MyClass myClass = MyClass();
 String myString = myClass.myString;
 
 //title
-Inheritance (extend)
+Inheritance (extend, super)
 
 //text
-The __extend__ keyword is used to inherit a class its members from another class.
-To inherit a class from another class write __extend__ after the name of the child class followed by the name of the class you want to inherit from.
-When a class inherits from another class you can access the public or protected members of the parent class.
-
-//code
-class MyClass
-{
-    protected Int myInt = 13135;
-
-    public void myMethod(Int value){
-        print(value);
-    }
-}
-
-class MySecondClass extend MyClass
-{
-    MySecondClass(){
-        // Calling the inherited method myMethod with inherited variable myInt.
-        myMethod(myInt);
-    }
-}
-
-//text
-To inherit from multiple classes write your parent classes with comas separated after the __extend__ keyword.
+The __extend__ keyword is used to inherit any class its members into a new class.
+This can be achieved by writing extend after the child class identifier, followed by comma seperated class identifiers that you want to inherit.
+The public and protected members of the inherited(__super__) class(es) can now be accessed directly or via the __super__ keyword, in the child class.
 
 //code
 class MyClass
@@ -253,9 +236,11 @@ class MyThirdClass extend MyClass, MySecondClass
 {
     MyThirdClass(){
         // Printing the myInt variable from MyClass and myString from mySecondClass.
-        print(myInt, myString)
+        print(myInt, super.myString)
     }
 }
+
+MyThirdClass MyThirdClass = MyThirdClass();
 
 //title
 Abstraction (abstract)
@@ -374,9 +359,10 @@ Static (static)
 //text
 The __static__ keyword is used to create static classes or class members.
 To create a static class or class member write __static__ before your class or class member.
-Static members can be added to any class and are part of the class itself and not of an individual object instance.
+Static members can be added to any class and are a part of the class itself and not of an individual object instance.
 When a value of a static variable changes the change will happen in every instance of this class.
-Static classes can only contain static members and cannot be inherited/be super class or instanciated.
+Static classes can only contain static members and cannot instanciated, and can only inherit other static classes.
+Note that a static function cannot modify non static memebers.
 
 //code
 static class MyClass
@@ -690,75 +676,6 @@ class MyClass
     this Label.accessor String value{//Still needs syntax work
         // Your object access write method code.
     }
-}
-
-//chapter
-Interfaces (interface)
-
-//text
-The __interface__ keyword is used to create an interface.
-To create an interface write __interface__ followed by the name of the interface and ending with __{}__.
-Interfaces can be compared to abstract classes with only abstract members.
-The members of an interface are abstract by default so the abstract keyword can omitted. 
-Interfaces can only contain declared fields and body less methods.
-interfaces can ony be declared inside of a namespace.
-
-//code
-interface MyInterface
-{
-    abstract Int myInt;
-
-    void myMethod();
-}
-
-//title
-implementation (implement)
-
-//text
-The __implement__ keyword is used to implement the members of an interface inside of a child class.
-To implement the members of an interface write implement after the name of the child class followed by the name of the interface.
-When implementing an interface all the members of the interface must be overwritten inside of the child class.
-
-//code
-interface MyInterface
-{
-    Int myInt;
-
-    void myMethod();
-}
-
-class MyClass implement MyInterface
-{
-    override Int myInt = 0;
-
-    override void myMethod(){
-        // Your implemented method code.
-    }
-}
-
-//title
-Inheritance (extend)
-
-//text
-The __extend__ keyword can be used to inherit interface members from other interfaces.
-To inherit members from other interfaces write __extend__ after the child interface followed by comma separated interface names.
-Note that no members can have the same identifier.
-
-//code
-interface MyInterface
-{
-    Int myInt;
-}
-
-interface MySecondInterface
-{
-    void myMethod();
-}
-
-interface myThirdInterface extend MyInterface, MySecondInterface
-{
-    // The members of MyInterface and MySecondInterface are inherited in this interface.
-    String myString;
 }
 
 //chapeter
@@ -2731,25 +2648,6 @@ class MyClass
 }
 
 class myClass = MyClass();
-
-//subtitle
-Interface (interface)
-
-//text
-The __interface__ literal type can be used to store any class object that inherited an interface.
-
-//code
-interface MyInterface
-{
-    // Your interface members.
-}
-
-class MyClass extend MyInterface
-{
-    // Your class members.
-}
-
-interface myClass = MyClass();
 
 //subtitle
 Enum (enum)
