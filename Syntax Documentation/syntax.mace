@@ -339,9 +339,8 @@ class MySecondClass extend MyClass
 Sealing (sealed)
 
 //text
-The __sealed__ keyword is used to create a class that can not be inherited/be a super class.
-To create a sealed class write __sealed__ before your class.
-A sealed class cannot contain abstract members.
+The __sealed__ keyword is used to create a class that can not be inherited.
+This can be achieved by writing the __sealed__ keyword before the class definition.
 
 //code
 sealed class MyClass
@@ -357,12 +356,10 @@ sealed class MyClass
 Static (static)
 
 //text
-The __static__ keyword is used to create static classes or class members.
-To create a static class or class member write __static__ before your class or class member.
-Static members can be added to any class and are a part of the class itself and not of an individual object instance.
+A __static__ class is a class that can only contain static members, can not be instanciated and can only inherit other static classes.
+Static members are members that are a part of the class itself and not of an individual object instance, these members can be added to any class.
 When a value of a static variable changes the change will happen in every instance of this class.
-Static classes can only contain static members and cannot instanciated, and can only inherit other static classes.
-Note that a static function cannot modify non static memebers.
+Note that a static function cannot modify non static members.
 
 //code
 static class MyClass
@@ -375,7 +372,7 @@ static class MyClass
 }
 
 //text
-When these members are public they can be access by using thier class name followed by a __.__ and ending with the name of the member.
+When static members are public thet can be accessed using a period (__.__).
 
 //code
 MyClass.myMethod(MyClass.myInt);
@@ -939,15 +936,32 @@ String myDoubleQuote = "this escapes the use of the \" for creating a string or 
 Interpolation
 
 //text
-To use string interpolation use a __$__ or use __$()__.
-When only using the __$__ you need to have a whitespace between the variable and the next part of the String 
+String interpolation can be used to add values to a string literal.
+Mace has the following methods to interpolate values into a string:
+
+//tablehead
+Syntax`     Functionallity
+
+//table
+__$__`      Interpolate a single value
+__$()__`    Interpolate an expression
+__${}__`    Interpolate the return of an anonymous function
+
+When only interpolating one value a whitespace must be added between the value and the next part of the String.
 
 //code
 String myName = 'Jack';
 
-String myString = 'Hello $myName how are you doing?'
+//Intoperlatating a single value
+String myString = 'Hello $myName how are you doing?';
 // myString becomes: 'Hello Jack how are you doing?'
-myString = 'Hello $(myName + " how") are you doing?'
+
+//Intoperlatating an expression
+myString = 'Hello $(myName + " how") are you doing?';
+// myString becomes: 'Hello Jack how are you doing?'
+
+//Intoperlatating the return of an anonymous function
+myString = 'Hello ${String how = ' how'; return myName + how} are you doing?';
 // myString becomes: 'Hello Jack how are you doing?'
 
 //subtitle
@@ -2237,93 +2251,102 @@ Branching statements are used when you want to branch your code in a well define
 If (if)
 
 //text
-The __if__ keyword is used when a specific block of code can only be executed under a specfied conditition.
-To create an __if__ statement write __if__ followed by __()__ and ending with __{}__.
-The body of an if statement only gets executed when the expression inside the __()__ is evaluated to __true__.
+The __if__ keyword is used to create a block of code that can only be executed under a specfied condition.
+The code body of an if statement only gets executed when the input boolean expression is evaluated to __true__.
 
 //code
 if(myBoolean){
-    // Code that executes when myBoolean is true.
+    // Your code when the expression is evaluated true.
 }
 
-if(myInt > 5){
-    // Code that executes when myInt is greater than 5.
+if(myInt > 13135){
+    // Code that executes when myInt is greater than 13135.
 }
 
 //subtitle
 Else (else)
 
 //text
-The __else__ keyword can be used when a specfied block of code can only be executed when the parent if expression is evaluated to false.
-To create an __else__ statement write __else__ followed by a __{}__.
-Note that any __else__ statement must be bounded to an if, else if, while or for statement.
+The __else__ keyword is used to bind a block of code to one of the followed statements:
+
+//table     
+if
+else if
+switch
+for
+while
+do while
+
+//text
+An else statement binded to an if or else if statement only gets executed when the if or else if statement is evaluated to __false__.
 
 //code
 if(myBoolean){
-    // Code that executes when myBoolean is true.
-}else{
-    // Code that executes when myBoolean is false.
+    // Code that executes if myBoolean is true.
+}
+else{
+    // Code that executes if myBoolean is false.
 }
 
-//text
-The __else__ statement can also be bounded to any else if statement.
-Note that the else statement only gets executed when the if and all the else if expressions are evaluated to false. 
-
-//code
 if(myBoolean){
-    // Code that executes when myBoolean is true.
-}else if(mySecondBoolean){
-    // Code that executes when myBoolean is false and mySecondBoolean is true.
-}else{
-    // Code that executes when myBoolean is false and mySecondBoolean is false.
+    // Code that executes if myBoolean is true
+} 
+else if(mySecondBoolean){
+    // Code that executes if myBoolean is false and mySecondBoolean is true.
+}
+else{
+    // Code that executes if both myBoolean and mySecondBoolean are false.
 }
 
 //text
-The __else__ statement can also be bounded to any for or while loop or switch.
-Note that the else statement only gets executed when the loop or switch finishes without executing a break.
+An else statement binded to a switch, for, while, or do while statement will only be executed when the statement finishes execution without having used a break statement.
 
 //code
-for(Int value in values){
-    // Code that executes for every value of values.
-}else{
-    // Code that executes when the loop ended.
-}
-
-while(myBoolean){
-    // Code that executes for as long as myBoolean is true.
-}else{
-    // Code that executes when the loop ended.
-}
-
-switch (myInt)
-{
-    case(5){
-        // Code that executes when myInt is 5.
+switch(myInt){
+    on(13135){
         break;
     }
-    case(6){
-        // Code that executes when myInt is not 5 and is 6.
-        break;
-    }
-}else{
-    // Code that executes when the switch finishes.
+}
+else{
+    // Code that executes if myInt is not 13135.
 }
 
+for(Int myInt in myArray){
+    if(myInt == 13135){
+        break;
+    }
+}
+else{
+    // Code that executes when myArray does not contain 13135.
+}
+
+Int i = 0;
+while(i < myArray.length){
+    if(myArray[i] == 13135){
+        break;
+    }
+    i++;
+}
+else{
+    // Code that executes when myArray does not contain 13135.
+}
+
+do{
+    if(myInt == 1){
+        break;
+    }
+    myInt /= 2;
+}while(myInt > 1)
+else{
+    // Code that executes when myInt does not perfectly divide to 1.
+}
 
 //subtitle
 Else if (else if)
-The __else if__ keywords are used when a specfied block of code can only be executed when the parent if expression is returned to false and another expression is evaluated to true.
-To create an __else if__ statement write __else if__ followed by __()__ and ending with __{}__.
-Note that any __else if__ statement must be bounded to an if or else if statement.
-
-//code
-if(myBoolean){
-    // Code that executes when myBoolean is true.
-}else if(mySecondBoolean){
-    // Code that executes when myBoolean is false and mySecondBoolean is true.
-}
 
 //text
+The __else if__ keywords are used to create a block of code that only gets executed when the previous if and else if statements are evaluated to __false__ and if the current else if statement is evaluated to __true__.
+Note that an __else if__ statement can only be bounded to an if or else if statement.
 The __else if__ statements can be stacked as many times as needed.
 
 //code
@@ -2331,78 +2354,80 @@ if(myBoolean){
     // Code that executes when myBoolean is true.
 }else if(mySecondBoolean){
     // Code that executes when myBoolean is false and mySecondBoolean is true.
+}
+
+// Stacked else if statements
+if(myBoolean){
+    // Code that executes when myBoolean is true.
+}else if(mySecondBoolean){
+    // Code that executes when myBoolean is false and mySecondBoolean is true.
 }else if(myThirdBoolean){
-    // Code that executes when myBoolean is false and mySecondBoolean is false and myThirdBoolean is true.
+    // Code that executes when both myBoolean and mySecondBoolean are false and myThirdBoolean is true.
 }
 
 //subtitle
-Switch (switch), (case), (default), (break)
+Switch (switch), (on), (break), (continue)
 
 //text
-The __switch__ keyword is used to check a certain value for many cases.
-To create a __switch__ statement write __switch__ followed by __()__ and ending with __{}__.
-Inside the __()__ enter any value.
-
-The __case__ keyword is used to define a block of code that gets executed when the value from the switch is equal to the value(s) in the switch statement.
-To create a case write __case__ followed by __()__ and ending with __{}__ inside the __{}__.
-Inside the __()__ enter any value with the same type as the value from the switch statement.
-Any number of case statements is allowed.
+The __switch__ keyword is to create a block of code that can contain any number of on statements.
+These on statements are used to check if the input value from __switch__ statement matches the input value from the __on__ statement.
+The __on__ keyword is used to create a block of code that gets executed when the input value is equal to the input value from the __switch__ statement.
+After the execution of the code body of an __on__ statement the switch will stop further execution except when the continue statement is used.
+When an on statement has no input body the statement acts like a default case and will always be executed, when the switch statement reaches this statement.
+A switch can be declared using the following syntax.
 
 //code
 switch(myInt)
 {
-    case(5){
+    on(5){
         // Code that executes when myInt is 5.
     }
-    case(6){
+    on(6){
         // Code that executes when myInt is 6.
+    }
+    on{
+        // Code that ececutes when myInt is not 5 or 6.
     }
 }
 
 //text
-The __,__ can be used to define multiple values in one switch statement.
-These comma separated values work like a logical or operator.
+When an on statement needs to be executed under a more complex condition, comparison, logical and logical comparison operators can be used.
+The in operator can also be used to check if a collection contains the input value from the switch statement.
+This can be achieved by extending the expression with logical (comparison) operators or by starting the expression with an in or comparison operator.
 
 //code
 switch(myInt)
 {
-    case(5,6){
+    on(5 |== 6){
         // Code that executes when myInt is 5 or 6.
     }
+    on(> 6){
+        // Code that executes when myInt is greater than 6.
+    }
+    on(in [1, 2, 3]){
+        // Code that executes when myInt is 1, 2 or 3.
+    }
 }
 
 //text
-The __break__ keyword can be used to break out of the switch statement and stops checking any other cases.
+The __break__ and __continue__ keyword can used to control the flow of the switch statement.
+A break statement is used to exit out of the switch statement, this will ensure that the optionaly binded else statement will not be executed.
+A continue statement can be used to continue checking on statements when an on statement has found a match. 
 
 //code
 switch(myInt)
 {
-    case (5){
-        // Code that executes when myInt is 5.
-        break;
+    on(5 |== 6){
+        // Code that executes when myInt is 5 or 6.
+        continue;
     }
-    case (6){
+    on(6){
         // Code that executes when myInt is 6.
         break;
     }
 }
-
-//text
-The __else__ statement can be used to define a block of code that only gets executed when the switch finishes without encountering a __break__ statement.
-
-//code
-switch (myInt)
-{
-    case(5){
-        // Code that executes when myInt is 5.
-        break;
-    }
-    case(6){
-        // Code that executes when myInt is not 5 and is 6.
-        break;
-    }
-}else{
-    // Code that executes when myInt is not 5 and is not 6.
+else{
+    // Code that executes when myInt is not 6.
 }
 
 //title
@@ -2412,7 +2437,7 @@ Looping
 Loops are used to iterate over sequences of code that need to run for a specified amount of times.
 
 //subtitle
-For (for), (in), (use)
+For (for), (in), (break), (continue) (use)
 
 //text
 The __for__ keyword is used to define a block of code that can be executed multiple times.
@@ -2526,7 +2551,7 @@ Break (break)
 //text
 The __break__ keyword is used to exit/break out of any loop.
 To use a __break__ statement write __break__ and ending with a __;__.
-Note that code after a break statement does not get executed.
+Note that the code after a break statement does not get executed.
 
 //code
 for(Int i = 0; i < 10; i++){
@@ -2555,7 +2580,7 @@ Continue (continue)
 //text
 The continue keyword is used to stop/break out of the current iteration of the loop, and continue to the next iteration of said loop.
 To use a continue statement write __continue__ followed by a __;__.
-Note that code after a continue statement does not get executed.
+Note that the code after a continue statement does not get executed.
 
 //code
 for(Int i = 0; i < 10; i++){
@@ -2576,15 +2601,22 @@ Try catch (try), (catch)
 
 //text
 The __try catch__ keywords are used to catch and handle errors that can occur at runtime.
-Use the __try__ statement to create a block of code that can pass errors to the catch statement.
-Use the __catch__ statement to bind a block of code to the try statement to catch and handle its errors.
-To use a __try catch__ statement write the following structure; __try__, __{}__, __catch__, __()__, __{}__.
-Note that between the __()__ of the catch statement you must define an exception parameter.
+Use the __try__ keyword to create a block of code that can pass a trown error to the catch statement.
+Use the __catch__ keyword to bind a block of code to the try statement to catch and handle its errors.
+An exception object can be access in the catch statement to check what exacly went wrong, if the exception object is not used it may be omitted.
+A try catch statement can be declared using the following syntax.
 
 //code
 try{
     // Code that gets checked for errors at runtime to pass them to the catch statement.
 }catch(Exception e){
+    // Code that executes when an error has occurred in the try statement.
+}
+
+// Omitted exception object.
+try{
+    // Code that gets checked for errors at runtime to pass them to the catch statement.
+}catch{
     // Code that executes when an error has occurred in the try statement.
 }
 
@@ -4700,13 +4732,44 @@ abstract class MyClass{
     }
 }
 
-class MyClass{
-    abstract Int = 13135;
-}
-
-class MyClass{
-    abstract only Int = 13135;
-}
-
 abstract with defualt value does not need implementation.
 The variable or method can be used directly without the implementation.
+
+//If expressions
+String myString = if(myBoolean) 'First' else if(mySecondBoolean) 'Second' else 'Third';
+//For expression
+Int[] myArray = [for(3) 5];
+// [5,5,5]
+Int[] myArray = [for(i in 2..5) i];
+// [2,3,4,5]
+
+//While expression
+Int[] myArray = [while(myBoolean) 'Hello World!'];
+//Do while expression
+Int[] myArray = [do 'Hello World!' while(myBoolean)];
+
+//Switch expression
+String myString = switch(myInt){
+    on(1) 'First';
+    on(2) 'Second';
+    on() 'Default';
+};
+
+//Switch expression if the switch only contains on statements
+String myString = switch(myInt) on(1) 'First' on(2) 'Second' on() 'Default';   
+
+//Try catch expression
+
+Int myInt = try <Int>myString catch 'Error value';
+
+//Possible to have no arrow on expression body functions
+Int func() = () => 13135 * 53131;
+Int func() = () 13135 * 53131;
+
+Int myMethod() => 13135 * 53131;
+Int myMethod() 13135 * 53131;
+
+Bool myBoolean = myInt => . > 5 &< 40;
+Bool myBoolean = myInt . > 5 &< 40;
+
+
