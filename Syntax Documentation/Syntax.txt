@@ -704,3 +704,103 @@ void func{myString string} myMethod = {string myString}{}
 myMethod{myString: 'Hello World!'};
 
 use the value keyword for the setters.
+
+//title
+Bullet expression
+
+//text
+Bullet expressions can be used to define short logic inside another expression.
+Bullet expressions are only evaluated when the given boolean is true.
+The following operators can be used with bullet expressions to define short logic.
+
+//tablehead
+Operator`   bullet expression operator(s)
+
+//table
+=`          <?                                              
++=`         <? 
+-=`         <? 
+*=`         <? 
+/=`         <? 
+**=`        <? 
+%=`         <?
+&=`         <? 
+|=`         <? 
+^=`         <?
+>>=`        <?
+<<=`        <?
+>>>=`       <? 
+<<<=`       <?
+@>>>=`      <? 
+@<<<=`      <?
++`          <? or >? 
+-`          <? or >? 
+*`          <? or >? 
+/`          <? or >? 
+**`         <? or >? 
+%`          <? or >? 
+|`          <? or >? 
+^`          <? or >? 
+>>`         <? or >?
+<<`         <? or >? 
+>>>`        <? or >?
+<<<`        <? or >? 
+@>>>`       <? or >?  
+@<<<`       <? or >? 
+,`          <? or >? 
+
+//subtitle
+Left bullet expression (<?)
+
+//text
+The __<?__  operator is used to define a bullet expression with the operator on the left hand side.
+To use a left bullet expression write a valid operator followed by a boolean expression and the bullet operator and ending with a literal value or variable.
+
+When the boolean expression is evaluated to true the value will be included in the expression.
+When the boolean expression is evaluated to false the operand and the operator before the boolean expression will be ignored.
+
+//code
+Int? myInt = myBoolean <? 7;
+// myInt becomes: 7 when myBoolean is true
+// myInt becomes: null when myBoolean is false
+
+myInt = 5 + myBoolean <? 7;
+// myInt becomes: 12 when myBoolean is true
+// myInt becomes: 5 when myBoolean is false
+
+myString = myBoolean <? 'Hello World!';
+// myString becomes: "Hello World!" when myBoolean is true
+// myString keeps the current value when myBoolean is false
+
+//text
+The __<?__ operator can also be used on a __,__ to optionaly add values to collections.
+
+Int[] myArray = [1,2,myBoolean <? 3]
+// myArray becomes: [1,2,3] when myBoolean is true
+// myArray becomes: [1,2] when myBoolean is false
+
+//subtitle
+Right bullet expression (>?)
+
+//text
+The __>?__  operator is used to define a bullet expression with the operator on the right hand side.
+To use a right bullet expression write a boolean expression and the bullet operator followed by a literal value or variable and ending with a valid operator.
+
+When the boolean expression is evaluated to true the value will be included in the expression.
+When the boolean expression is evaluated to false the operand and the operator after operand will be ignored.
+
+//code
+Int myInt = myBoolean >? 7 + 5;
+// myInt becomes: 12 when myBoolean is true
+// myInt becomes: 5 when myBoolean is false
+
+myString = myBoolean >? 'Hello ' + 'World!';
+// myString becomes: "Hello World!" when myBoolean is true
+// myString becomes: "World!" when myBoolean is false
+
+//text
+The __>?__ operator can also be used on a __,__ to optionaly add values to collections.
+
+Int[] myArray = [myBoolean >? 1,2,3]
+// myArray becomes: [1,2,3] when myBoolean is true
+// myArray becomes: [2,3] when myBoolean is false
