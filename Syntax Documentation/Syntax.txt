@@ -779,6 +779,9 @@ Int[] myArray = [1,2,myBoolean <? 3]
 // myArray becomes: [1,2,3] when myBoolean is true
 // myArray becomes: [1,2] when myBoolean is false
 
+@>>>`       Bitwise unsigned right shift loop         
+@<<<`       Bitwise unsigned left shift loop
+
 //subtitle
 Right bullet expression (>?)
 
@@ -804,3 +807,71 @@ The __>?__ operator can also be used on a __,__ to optionaly add values to colle
 Int[] myArray = [myBoolean >? 1,2,3]
 // myArray becomes: [1,2,3] when myBoolean is true
 // myArray becomes: [2,3] when myBoolean is false
+
+//subtitle
+Bitwise unsigned right shift loop (@>>>)
+
+//text
+The __@>>>__ operator is used to loop every bit in a bit sequence a given amount of places to the right.
+The most right bits will be moved to the left.
+Note that the MSB will be moved.
+
+//code
+Int myInt = 0b00000000000000000000000000001100 @>>> 1;
+// myInt becomes: 0b00000000000000000000000000000110 which is 6
+
+myInt = 12 @>>> 2;
+// myInt becomes: 3
+
+myInt = 0b11111111111111111111111111110100 @>>> 1;
+// myInt becomes: 0b1011111111111111111111111111010 which is 1610612730
+
+myInt = -12 @>>> 2;
+// myInt becomes: 1342177277
+
+//text
+The __@>>>__ operator can also be used to loop every character or item in a __String__, array or list a given amount of places to the right.
+The most right items or characters will be moved to the left.
+
+//code
+String myString = '12345' @>>> 1;
+// myString becomes: '51234'
+
+Int[] myArray = [1,2,3,4,5] @>>> 1;
+// myArray becomes: [5,1,2,3,4]
+
+List<Int> myList = [1,2,3,4,5] @>>> 1;
+// myList becomes: [5,1,2,3,4]
+
+//subtitle
+Bitwise unsigned left shift (@<<<)
+
+//text
+The __@<<<__ operator is used to loop every bit in a bit sequence a given amount of places to the left.
+The most left bits will be moved to the right.
+
+//code
+Int myInt = 0b00000000000000000000000000001100 @<<< 1;
+// myInt becomes: 0b00000000000000000000000000011000 which is 24
+
+myInt = 12 @<<< 2;
+// myInt becomes: 48
+
+myInt = 0b11111111111111111111111111110100 @<<< 1;
+// myInt becomes: 0b11111111111111111111111111101001 which is -23
+
+myInt = -12 @<<< 2;
+// myInt becomes: -45
+
+The __@<<<__ operator can also be used to loop every character or item in a __String__, array or list a given amount of places to the left.
+The most left items or characters will be moved to the right.
+
+//code
+String myString = '12345' @<<< 1;
+// myString becomes: '23451'
+
+Int[] myArray = [1,2,3,4,5] @<<< 1;
+// myArray becomes: [2,3,4,5,1]
+
+List<Int> myList = [1,2,3,4,5] @<<< 1;
+// myList becomes: [2,3,4,5,1]

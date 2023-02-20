@@ -127,7 +127,7 @@ Specific members (from)
 //text
 The __from__ keyword can be used to import only specific members from a namespace, if not all the members need to be imported.
 These members can be specfied with commas separated between, the __use__ and from keywords and after the namespace path.
-The specificly imported memebers can now be directly accessed using their identifier.
+The specificly imported members can now be directly accessed using their identifier.
 
 //code
 use myFirstMember, mySecondMember from MyNamespace;
@@ -240,34 +240,43 @@ class MyThirdClass extend MyClass, MySecondClass
     }
 }
 
-MyThirdClass MyThirdClass = MyThirdClass();
+MyThirdClass myThirdClass = MyThirdClass();
 
 //title
 Abstraction (abstract)
-
-//text
-The __abstract__ keyword is used to create abstract classes or class members.
-To create an abstract class or member write __abstract__ before your class or class member.
 
 //subtitle
 Classes
 
 //text 
-When a class is abstract the class can only be inherited by another class.
-Abstract classes can contain abstract body less methods and uninitialized variables.
+An abstract class is a class that can only be inherited (can not be instanciated) and can only contain abstract members.
+To create an abstract class write the __abstract__ keyword before your class definition.
+The members of an abstract class are automatically static so the __abstract__ keyword may be omitted.
+An abstract class can optionaly contain body less methods and uninitialized variables.
+A body less method must be implemented in the child class and the body must be defined if not marked as abstract.
+An uninitialized variable that is not nullable must be implemented in the child class and must initialized if not marked as abstract.
 
 //code
 abstract class MyClass
 {
     public Int myInt = 13135;
+    public String myString;
 
-    public void myMethod(Int value){
-        print(value);
+    public void myMethod(Int myValue){
+        print(myValue);
     }
+
+    public void mySecondMethod(String myValue);
 }
 
 class MySecondClass extend MyClass
 {
+    implement String myString = 'Hello World!';
+
+    implement void mySecondMethod(String myValue){
+        print(myValue);
+    }
+
     MySecondClass(){
         myMethod(myInt);
     }
@@ -280,17 +289,29 @@ MyClass myClass = MyClass();
 Class members (implement)
 
 //text
-Any class or abstract class can contain abstract members.
-These abstract members can be implemented in the child class by writing the __implement__ keyword before the members
-When a member is abstract it can overwrite the initialized value or method code body of the super class abstract member.
-When the abstract member is not initialized or does not have a method code body the implemented member must initialize the variable or provide a method code body.
-To implement an abstract member write __implement__ before the member this will override the function body or variable value.
+An abstract member is a class member that can be overwritten or must be implemented in the child class.
+Any class can contain abstract members but only abstract classes can optionaly contain body less methods and uninitialized variables.
+An abstract member is created by writing the __abstract__ keyword before the class member and after the access modifier.
 
-When implementing a variable it must have the same access modifier, type and identifier as member you want to implement.
-The variable must be initialized when the abstract member was not initialized when else the initialized value of the abstract member.
+//code
+class MyClass
+{
+    public abstract String myString;
 
-When implementing a method it must have the same access modifier, type, identifier and parameter body as member you want to implement.
-The method must have a code body when the abstract member does not have a code body when else the code body of the abstract member.
+    public abstract void myMethod(){
+        // Your abstract method code.
+    }
+}
+
+The __implement__ keyword is used to implement or overwrite the abstract member of the super class in the child class.
+
+When implementing a variable it must have the same access modifier, type and identifier as the variable you want to implement.
+Abstract variables must be implemented in the child class if the parent variable is uninitialized and not nullable else the initialized value can optionaly be overwritten in the child class.
+
+When implementing a method it must have the same access modifier, type, identifier and parameter body as the method you want to implement.
+Abstract methods must be implemented in the child class if the parent method has no body else the body can optionaly be overwritten in the child class.
+
+Note that implemented members can still be uninitialized or have no method body when the implemented member is abstract and implemented in an abstract class.
 
 //code
 abstract class MyClass
@@ -1441,8 +1462,6 @@ Operator`   Name
 <<`	        Bitwise signed left shift
 >>>`        Bitwise unsigned right shift
 <<<`        Bitwise unsigned left shift
-@>>>`       Bitwise unsigned right shift loop         
-@<<<`       Bitwise unsigned left shift loop
 
 //subtitle
 Bitwise NOT (~)
@@ -1562,74 +1581,6 @@ Int[] myArray = [1,2,3,4,5] <<< 1;
 
 List<Int> myList = [1,2,3,4,5] <<< 1;
 // myList becomes: [2,3,4,5]
-
-//subtitle
-Bitwise unsigned right shift loop (@>>>)
-
-//text
-The __@>>>__ operator is used to loop every bit in a bit sequence a given amount of places to the right.
-The most right bits will be moved to the left.
-Note that the MSB will be moved.
-
-//code
-Int myInt = 0b00000000000000000000000000001100 @>>> 1;
-// myInt becomes: 0b00000000000000000000000000000110 which is 6
-
-myInt = 12 @>>> 2;
-// myInt becomes: 3
-
-myInt = 0b11111111111111111111111111110100 @>>> 1;
-// myInt becomes: 0b1011111111111111111111111111010 which is 1610612730
-
-myInt = -12 @>>> 2;
-// myInt becomes: 1342177277
-
-//text
-The __@>>>__ operator can also be used to loop every character or item in a __String__, array or list a given amount of places to the right.
-The most right items or characters will be moved to the left.
-
-//code
-String myString = '12345' @>>> 1;
-// myString becomes: '51234'
-
-Int[] myArray = [1,2,3,4,5] @>>> 1;
-// myArray becomes: [5,1,2,3,4]
-
-List<Int> myList = [1,2,3,4,5] @>>> 1;
-// myList becomes: [5,1,2,3,4]
-
-//subtitle
-Bitwise unsigned left shift (@<<<)
-
-//text
-The __@<<<__ operator is used to loop every bit in a bit sequence a given amount of places to the left.
-The most left bits will be moved to the right.
-
-//code
-Int myInt = 0b00000000000000000000000000001100 @<<< 1;
-// myInt becomes: 0b00000000000000000000000000011000 which is 24
-
-myInt = 12 @<<< 2;
-// myInt becomes: 48
-
-myInt = 0b11111111111111111111111111110100 @<<< 1;
-// myInt becomes: 0b11111111111111111111111111101001 which is -23
-
-myInt = -12 @<<< 2;
-// myInt becomes: -45
-
-The __@<<<__ operator can also be used to loop every character or item in a __String__, array or list a given amount of places to the left.
-The most left items or characters will be moved to the right.
-
-//code
-String myString = '12345' @<<< 1;
-// myString becomes: '23451'
-
-Int[] myArray = [1,2,3,4,5] @<<< 1;
-// myArray becomes: [2,3,4,5,1]
-
-List<Int> myList = [1,2,3,4,5] @<<< 1;
-// myList becomes: [2,3,4,5,1]
 
 //title
 Null safety
@@ -1889,8 +1840,6 @@ Operator`   Name`                                       Combined operator`  Exam
 <<=`        Bitwise signed left shift assignment`       <<`                 myInt <<= 5;`       myInt = myInt << 5; 
 >>>=        Bitwise signed right shift assignment`      >>>`                myInt >>>= 5;`      myInt = myInt >>> 5;  
 <<<=`       Bitwise unsigned left shift assignment`     <<<`                myInt <<<= 5;`      myInt = myInt <<< 5; 
-@>>>=       Bitwise signed right shift loop assignment` @>>>`               myInt @>>>= 5;`     myInt = myInt @>>> 5;  
-@<<<=`      Bitwise unsigned left shift loop assignment`@<<<`               myInt @<<<= 5;`     myInt = myInt @<<< 5; 
 ??=`        Null-coalescing assignment`                 ??`                 myInt ??= 5;`       myInt = myInt ?? 5; or myInt = myInt == null ? 5 : myInt;
 &&=`        Logical AND assignment`                     &&`                 myBoolean &&= true;`myBoolean = myBoolean && true;
 ||=`        Logical OR assignment`                      ||`                 myBoolean ||= true;`myBoolean = myBoolean || true;
@@ -2178,7 +2127,7 @@ while
 do while
 
 //text
-An else statement binded to an if or else if statement only gets executed when the if or else if statement is evaluated to __false__.
+An else statement binded to an (else) if statement only gets executed when the (else) if statement is evaluated to __false__.
 
 //code
 if(myBoolean){
@@ -2189,7 +2138,7 @@ else{
 }
 
 if(myBoolean){
-    // Code that executes if myBoolean is true
+    // Code that executes if myBoolean is true.
 } 
 else if(mySecondBoolean){
     // Code that executes if myBoolean is false and mySecondBoolean is true.
@@ -2199,7 +2148,7 @@ else{
 }
 
 //text
-An else statement binded to a switch, for, while, or do while statement will only be executed when the statement finishes execution without having used a break statement.
+An else statement binded to a switch, for or (do) while statement will only be executed when the statement finishes execution without having encountered a break statement.
 
 //code
 switch(myInt){
@@ -2217,7 +2166,7 @@ for(Int myInt in myArray){
     }
 }
 else{
-    // Code that executes when myArray does not contain 13135.
+    // Code that executes if myArray does not contain 13135.
 }
 
 Int i = 0;
@@ -2228,7 +2177,7 @@ while(i < myArray.length){
     i++;
 }
 else{
-    // Code that executes when myArray does not contain 13135.
+    // Code that executes if myArray does not contain 13135.
 }
 
 do{
@@ -2238,14 +2187,14 @@ do{
     myInt /= 2;
 }while(myInt > 1)
 else{
-    // Code that executes when myInt does not perfectly divide to 1.
+    // Code that executes if myInt does not perfectly divide to 1.
 }
 
 //subtitle
 Else if (else if)
 
 //text
-The __else if__ keywords are used to create a block of code that only gets executed when the previous if and else if statements are evaluated to __false__ and if the current else if statement is evaluated to __true__.
+The __else if__ keywords are used to create a block of code that only gets executed when the previous (else) if statements are evaluated to __false__ and if the current else if statement is evaluated to __true__.
 Note that an __else if__ statement can only be bounded to an if or else if statement.
 The __else if__ statements can be stacked as many times as needed.
 
@@ -2270,11 +2219,10 @@ Switch (switch), (on), (break), (continue)
 
 //text
 The __switch__ keyword is to create a block of code that can contain any number of on statements.
-These on statements are used to check if the input value from __switch__ statement matches the input value from the __on__ statement.
 The __on__ keyword is used to create a block of code that gets executed when the input value is equal to the input value from the __switch__ statement.
-After the execution of the code body of an __on__ statement the switch will stop further execution except when the continue statement is used.
-When an on statement has no input body the statement acts like a default case and will always be executed, when the switch statement reaches this statement.
-A switch can be declared using the following syntax.
+After the execution of the code body of an __on__ statement the switch will stop further execution unless the continue statement is used.
+When an on statement has no input body the statement acts like a default case and will always be executed if the switch statement reaches this statement.
+A switch can be created using the following syntax.
 
 //code
 switch(myInt)
@@ -2291,9 +2239,9 @@ switch(myInt)
 }
 
 //text
-When an on statement needs to be executed under a more complex condition, comparison, logical and logical comparison operators can be used.
+When an on statement needs to be executed under a more complex condition the comparison, logical and logical comparison operators can be used.
 The in operator can also be used to check if a collection contains the input value from the switch statement.
-This can be achieved by extending the expression with logical (comparison) operators or by starting the expression with an in or comparison operator.
+These more complex expressions can created by extending the expression with logical (comparison) operators or by starting the expression with an in or comparison operator.
 
 //code
 switch(myInt)
@@ -2310,9 +2258,10 @@ switch(myInt)
 }
 
 //text
-The __break__ and __continue__ keyword can used to control the flow of the switch statement.
-A break statement is used to exit out of the switch statement, this will ensure that the optionaly binded else statement will not be executed.
-A continue statement can be used to continue checking on statements when an on statement has found a match. 
+The __break__ and __continue__ keywords can be used to control the flow of the switch statement.
+The break statement is used to exit out of the switch statement, this will ensure that the optionaly binded else statement will not be executed.
+The continue statement can be used to continue checking on statements when an on statement already has found a match. 
+Note that the code after a break or continue statement does not get executed.
 
 //code
 switch(myInt)
@@ -2337,47 +2286,54 @@ Looping
 Loops are used to iterate over sequences of code that need to run for a specified amount of times.
 
 //subtitle
-For (for), (in), (break), (continue) (use)
+For (for), (in)
 
 //text
 The __for__ keyword is used to define a block of code that can be executed multiple times.
-To create a for loop write __for__ followed by __()__ and ending with __{}__.
-
-The __in__ keyword is used to bind variable(s) to a given collection of items.
-To create an in statement write one or two comma separated variable declarations followed by __in__ ending with a collection.
-
-Note that in statements can only be defined between the __()__ of a __for loop__.
+Inside of the input of the for loop you need to define how many times or over which collection or iterable you want to loop.
+The __in__ keyword is used to bind a variable to a given collection of items you want to loop over.
+For every iteration of the loop the next element in the iterable or collection will be stored in the binded variable.
 
 //code
-for(String value in myArray){
+Int[] myArray = [1, 3, 1, 3, 5];
+for(Int value in myArray){
     print(value);
     // Code that executes for every value of the myArray array.
 }
 
-Map<String,Int> myMap = {'FirstValue':4,'SecondValue':9};
-for(String key, Int value in myMap){
+//Using unpacking
+(String:Int) myMap = {'FirstValue':4, 'SecondValue':9};
+for(String myKey:Int myValue in myMap){
     print(index);
     print(value);
     // Code that executes for every value of the myArray array.
 }
 
 //text
-The __use__ keyword is used to bind an integer variable to the index of a __for in loop__.
-To use the __use__ statement, write after the content in the __()__ __use__ followed by an integer variable declaration.
+If you want to loop over multiple collections or iterables in the same loop write your in statements with commas seperated.
+The for loop will execute its body the amount of iterations the form smallest collection or iterable.
 
 //code
-for(String value in myArray use Int index){
+for(String myString in myArray, Int myIndex in ..){
     print(value);
     print(index);
     // Code that executes for every value of the myArray array.
 }
 
 //text
-The __for loop__ can also be used to loop a defined amount of times by defining two code statements and one boolean expression.
-To create such a __for loop__ write inside the __()__ of the for loop a code statement followed by a boolean expression and ending with another code statement.
-The first code statement wil only be executed once when the loop gets executed.
-The boolean expression will be executed before each iteration. When evaluated to true the code block of the __for loop__ wil be executed.
-The second code statement will be executed at the end of every iteration.
+In some cases you want a loop to execute its body a precise amount of times with using a binded variable.
+This can be achieve by writing a for loop with any integer has input value.
+
+//code
+for(13135){
+    // Code that executes exactly 13135.
+}
+
+//text
+The __for loop__ can also be used to loop a specificly specfied amount of times by defining two code statements and one boolean expression.
+The first code statement will be executed once before the first iteration of the loop and is used to declare a variable.
+The boolean expression will be executed before each iteration. When evaluated to true the code block of the __for loop__ will be executed.
+The second code statement will be executed at the end of every iteration and is used to modify the declared variable.
 
 //code
 for(Int i = 0; i < 10; i++){
@@ -2389,8 +2345,7 @@ While (while), (do)
 
 //text
 The __while__ keyword is used to define a block of code that gets executed while a boolean expression is evaluated to __true__.
-To create a __while loop__ write __while__ followed by __()__ and ending with __{}__.
-Note that when myBoolean is __false__ before the __while loop__ is executed, the codeblock of the __while loop__ never gets executed.
+The boolean expression gets evaluated before every iteration, this means that when the expression is evaluated to __false__ on the first iteration the code never gets executed.
 
 //code
 while(myBoolean){
@@ -2398,10 +2353,8 @@ while(myBoolean){
 }
 
 //text
-The __do__ keyword is used to move the code block from the while loop to above the while loop so the code block always gets executed at least once.
-To create a __do while loop__ write __do__ then __{}__ followed by __while__ and ending with __()__.
-Between the __()__ a boolean expression is required.
-Note that when myBoolean is __false__ before the __do while loop__ is executed, the code block of the __do while loop__ gets executed once.
+The __do__ keyword is used to move the code block from the while loop above the while loop so the code block always gets executed at least once.
+The boolean expression gets evaluated after every iteration, this means that when the expression is evaluated to __false__ on the first iteration the code gets executed once.
 
 //code
 do{
@@ -2410,86 +2363,25 @@ do{
 
 
 //subtitle
-Else after loops (else)
+Break and continue (break), (continue)
 
 //text
-The __else__ keyword can be used to bind a block of code to any loop. This code gets executed when the loop finishes without encountering a __break__ statement.
-To bind the __else__ statement write __else__ followed by __{}__.
-
-//code
-for(String value in myArray){
-    // Code that executes for every value of the myArray array.
-}else{
-    // Code that executes when the for loop finishes.
-}
-
-for(Int i = 0; i < 10; i++){
-    // Code that executes for as long as i is less than 10.
-}else{
-    // Code that executes when the for loop finishes.
-}
-
-do{
-    // Code that executes at least once, after which it executes as long as myBoolean is true.
-}while(myBoolean)else{
-    // Code that executes when the do while loop finishes.
-}
-
-//text
-When using the __break__ statement inside a loop the else statement wil not be executed.
-
-//code
-for(String value in myArray){
-    break;    
-}else{
-    // Code gets never executed because the break statement is used.
-}
-
-//subtitle
-Break (break)
-
-//text
-The __break__ keyword is used to exit/break out of any loop.
-To use a __break__ statement write __break__ and ending with a __;__.
-Note that the code after a break statement does not get executed.
+The __break__ and __continue__ keywords can be used to control the flow of a for or (do) while loop.
+The break statement is used to exit out of a loop, this will ensure that the optionaly binded else statement will not be executed.
+The continue statement can be used to stop the current iteration of the loop and continue on to the next iteration.
+Note that the code after a break or continue statement does not get executed.
 
 //code
 for(Int i = 0; i < 10; i++){
-    // Code that executes for as long as i is less than or equal to 5.
-    if(i == 5){
-        break;
-        // Code that never gets executed.
-    }
-    // Code that executes for as long as i is less than 5.
-}
-
-//text
-When using the __break__ statement the else statement of any loop wil not be executed.
-
-//code
-for(String value in myArray){
-    break;    
-}else{
-    // Code that never gets executed because the break statement is used.
-}
-
-
-//subtitle
-Continue (continue)
-
-//text
-The continue keyword is used to stop/break out of the current iteration of the loop, and continue to the next iteration of said loop.
-To use a continue statement write __continue__ followed by a __;__.
-Note that the code after a continue statement does not get executed.
-
-//code
-for(Int i = 0; i < 10; i++){
-    // Code that executes for as long as i is less than or equal to 5.
+    // Code that executes for as long as i is less than or equal to 7.
     if(i == 5){
         continue;
-        // Code that never gets executed.
     }
-    // Code that executes for every iteration except when i is equal to 5.
+    else if(i == 7)
+    {
+        break;
+    }
+    // Code that executes for as long as i is less than 7 and not is 5.
 }
 
 //title
@@ -2504,7 +2396,7 @@ The __try catch__ keywords are used to catch and handle errors that can occur at
 Use the __try__ keyword to create a block of code that can pass a trown error to the catch statement.
 Use the __catch__ keyword to bind a block of code to the try statement to catch and handle its errors.
 An exception object can be access in the catch statement to check what exacly went wrong, if the exception object is not used it may be omitted.
-A try catch statement can be declared using the following syntax.
+A try catch statement can be created using the following syntax.
 
 //code
 try{
@@ -4673,3 +4565,122 @@ Bool myBoolean = myInt => . > 5 &< 40;
 Bool myBoolean = myInt . > 5 &< 40;
 
 
+void if(myBoolean){
+    return test;
+}
+
+//title
+Control statement expression
+
+//text
+Any control statement can also act like a function in this case the return an yield keyword can be used to control the flow of the control statement.
+The expession body can be used when only execution one expression in this case the __=>__ operator can be omitted.
+The return type of the control statement expression can be defined before the control statement expression.
+Note that when the return statement is called inside of a on statement in a switch expression the switch expression will return the value and stops execution.
+
+//code
+Int myInt = if(myBoolean){
+    return 13135;
+}
+else if(mySecondBoolean){
+    return 53131;
+}
+else{
+    return 13135 * 53131;
+}
+
+myInt = if(myBoolean) 13135 else if(mySecondBoolean) 53131 else 13135 * 53131;
+
+//text
+Multiple values can be returned by writing them with commas separated.
+
+//code
+Int[] myArray = [
+    for(5){
+        return 13135, 53131;
+    }
+];
+
+myArray = [for(5) 13135, 53131]
+
+//code
+Int[] myArray = [
+    while(myBoolean)
+    {
+        return 13135;
+    }
+]
+
+myArray = [while(myBoolean) 13135, 53131];
+
+//code
+Int[] myArray = [
+    do{
+        return 13135, 53131;
+    }
+    while(myBoolean)
+]
+
+myArray = [do 13135, 53131 while(myBoolean)];
+
+//text
+Use the __continue return__ keywords to return one value and continue running the code after the statement.
+// maybe the yield keyword can be used?
+
+//code
+Int[] myArray [for(5){
+    yield 13135;
+    return 13135;
+}]
+
+//text
+Use the __continue break__ keywords to return one value and break out of the loop to only return one value.
+
+MyClass myClass for(myElement in myArray){
+    if(myElement.myInt == 13135){
+        break return myElement;
+    }
+}
+
+//code
+Int myInt = switch(myString){
+    on('1'){
+        return 13135;
+    }
+    on('2'){
+        return 53131;
+    }
+    on{
+        return 13135 * 53131;
+    }
+};
+
+myInt = switch(myString){
+    on('1') 13135;
+    on('2') 53131;
+    on 13135 * 53131;
+};
+
+myInt = switch(myString)
+    on('1') 13135
+    on('2') 53131
+    on 13135 * 53131;
+
+//code
+Int myInt = try{ 
+    return <Int>myString;
+}catch{
+    return 13135;
+};
+
+myInt = try <Int>myString catch 13135;
+
+//text
+The return keyword can also be use to exit any control statement if it is not used as an expression the void keyword must be added before the control.
+
+//code
+void if(myBoolean){
+    if(mySecondBoolean){
+        return;
+    }
+}
