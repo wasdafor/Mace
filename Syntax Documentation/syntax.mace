@@ -4573,8 +4573,8 @@ void if(myBoolean){
 Control statement expression
 
 //text
-Any control statement can also act like a function in this case the return an yield keyword can be used to control the flow of the control statement.
-The expession body can be used when only execution one expression in this case the __=>__ operator can be omitted.
+Any control statement can also act like a function in this case the return an yield keywords can be used to control the flow of the control statement.
+The expession body can be used when only execution one expression in this case the __=>__ operator may be omitted.
 The return type of the control statement expression can be defined before the control statement expression.
 Note that when the return statement is called inside of a on statement in a switch expression the switch expression will return the value and stops execution.
 
@@ -4592,7 +4592,7 @@ else{
 myInt = if(myBoolean) 13135 else if(mySecondBoolean) 53131 else 13135 * 53131;
 
 //text
-Multiple values can be returned by writing them with commas separated.
+The return keyword can be used in loop statements to return one or more value by writing them with commas separated.
 
 //code
 Int[] myArray = [
@@ -4624,19 +4624,23 @@ Int[] myArray = [
 myArray = [do 13135, 53131 while(myBoolean)];
 
 //text
-Use the __continue return__ keywords to return one value and continue running the code after the statement.
-// maybe the yield keyword can be used?
+The __yied__ keyword can be used to return one value and continue executing the loop code.
+This unlocks the possibility to return values at different places in the for loop.
 
 //code
 Int[] myArray [for(5){
-    yield 13135;
-    return 13135;
+    if(myBoolean){
+        // If myBoolean is true 13135 will be retuned but the loops continues to execute.
+        yield 13135;
+    }
+    // The value 53131 will allways be executed at the end of the loop.
+    return 53131;
 }]
 
 //text
-Use the __continue break__ keywords to return one value and break out of the loop to only return one value.
+Use the __break return__ keywords to return one value and break out of the loop to only return one value.
 
-MyClass myClass for(myElement in myArray){
+MyClass? myClass = for(myElement in myArray){
     if(myElement.myInt == 13135){
         break return myElement;
     }
