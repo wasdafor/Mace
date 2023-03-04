@@ -4570,13 +4570,54 @@ void if(myBoolean){
 }
 
 //title
-Control statement expression
+Control statement expressions
 
 //text
-Any control statement can also act like a function in this case the return an yield keywords can be used to control the flow of the control statement.
-The expession body can be used when only execution one expression in this case the __=>__ operator may be omitted.
-The return type of the control statement expression can be defined before the control statement expression.
-Note that when the return statement is called inside of a on statement in a switch expression the switch expression will return the value and stops execution.
+Any control statement can also act like a function that gets called immediately also called a control statement expression.
+These control statement expressions work exactly the same as a normal function that gets called immediately.
+This means that the return type and __async__ and __stash__ keywords can be defined before the expression. 
+The __return__ and __yield__ keywords can also be used to control the flow of the expression.
+One exception for these expressions is that in case of the expression body syntax the __=>__ operator may be omitted.
+
+A control statement expression can be created in a couple of different ways:
+- Writing the __async__ or __stash__ keyword before the control statement.
+
+//code
+async if(myBoolean){
+    if(mySecondBoolean)
+        return; // Returning out of the if statement.
+
+    await; // Await the if statement.
+    // Code if myBoolean is true and mySecondBoolean is false. 
+}
+else{
+    if(myThirdBoolean)    
+        return; // Returning out of the else statement.
+    // Code if both myBoolean and myThirdBoolean are false.    
+}
+
+- Writing the return type of the expression before the control statement.
+void if(){
+    if(mySecondBoolean)
+        return; // Returning out of the if statement.
+
+    // Code if myBoolean is true and mySecondBoolean is false. 
+}
+else{
+    if(myThirdBoolean)    
+        return; // Returning out of the else statement.
+    // Code if both myBoolean and myThirdBoolean are false.    
+}
+
+- Writing the control statement at a place where an expression is expected.
+In this case the type does not have to be defined and can be inferred.
+Int myString = if(myBoolean) 13135 else 53131;
+
+//subtitle
+(if), (else if), (else)
+
+//text
+When stacking __if__, __else if__, and __else__ expression all of the expressions need to return a non nullable value for the return type to be non nullable.
 
 //code
 Int myInt = if(myBoolean){
@@ -4589,10 +4630,16 @@ else{
     return 13135 * 53131;
 }
 
+// Using expression body.
 myInt = if(myBoolean) 13135 else if(mySecondBoolean) 53131 else 13135 * 53131;
 
+//subtitle
+(for), (while), (do while)
+
 //text
-The return keyword can be used in loop statements to return one or more value by writing them with commas separated.
+The return statement in a loop expression will act slightly different, the return statement only returns one value and continues to the next iteration of the loop.
+The return value of a loop expression will be comma separated values of the type that is defined or inferred. 
+This unlocks the possibility to return multiple values by writing them with commas separated. 
 
 //code
 Int[] myArray = [
@@ -4601,6 +4648,7 @@ Int[] myArray = [
     }
 ];
 
+// Using expression body.
 myArray = [for(5) 13135, 53131]
 
 //code
@@ -4611,6 +4659,7 @@ Int[] myArray = [
     }
 ]
 
+// Using expression body.
 myArray = [while(myBoolean) 13135, 53131];
 
 //code
@@ -4621,16 +4670,17 @@ Int[] myArray = [
     while(myBoolean)
 ]
 
+// Using expression body.
 myArray = [do 13135, 53131 while(myBoolean)];
 
 //text
-The __yied__ keyword can be used to return one value and continue executing the loop code.
+The __yied__ keyword can be used to return one value and continue executing the current iteration of the loop.
 This unlocks the possibility to return values at different places in the for loop.
 
 //code
 Int[] myArray [for(5){
     if(myBoolean){
-        // If myBoolean is true 13135 will be retuned but the loops continues to execute.
+        // If myBoolean is true 13135 will be returned but the loops continues to execute.
         yield 13135;
     }
     // The value 53131 will allways be executed at the end of the loop.
@@ -4638,13 +4688,21 @@ Int[] myArray [for(5){
 }]
 
 //text
-Use the __break return__ keywords to return one value and break out of the loop to only return one value.
+The __break return__ keywords can be used to return one value and break out of the loop to only return one value.
+Note that when the __break return__ statement is used that you are not able to use the __return__ or __yield__ statements.
 
 MyClass? myClass = for(myElement in myArray){
     if(myElement.myInt == 13135){
         break return myElement;
     }
 }
+
+//subtitle
+(switch), (on)
+
+//text
+The __switch__ expression can only have a non nullable return type if an empty(default) on statement is present that returns a non nullable value.
+When the return statement is called inside of an on statement in a switch function the switch will return the value and stops execution.
 
 //code
 Int myInt = switch(myString){
@@ -4659,16 +4717,26 @@ Int myInt = switch(myString){
     }
 };
 
+// Using expression body.
 myInt = switch(myString){
     on('1') 13135;
     on('2') 53131;
     on 13135 * 53131;
 };
 
-myInt = switch(myString)
+//text
+The switch can only be written in expression body form if only on functions are present.
+
+Int myInt = switch(myString)
     on('1') 13135
     on('2') 53131
     on 13135 * 53131;
+
+//subtitle
+(try catch)
+
+//text
+The __try catch__ expression can only have a non nullable return type if both the try and the catch statements return a non nullable value.
 
 //code
 Int myInt = try{ 
@@ -4677,14 +4745,108 @@ Int myInt = try{
     return 13135;
 };
 
+// Using expression body.
 myInt = try <Int>myString catch 13135;
 
-//text
-The return keyword can also be use to exit any control statement if it is not used as an expression the void keyword must be added before the control.
 
-//code
-void if(myBoolean){
-    if(mySecondBoolean){
-        return;
+//EXPERIMENT with iterators, streams and futures
+//Sync
+String myMethod(){
+    if(myBoolean){
+        return 'Hello World!';
+    }
+    else{
+        return 'Else';
     }
 }
+String myString = myMethod();
+
+//Shorthand
+String myString = if(myBoolean){
+    return 'Hello World!';
+}
+else{
+    return 'Else';
+}
+
+//Async
+async Future<String> myFuture(){
+    if(myBoolean){
+        await // Code that takes a while
+        return await // Future string
+    }
+    else{
+        await // Code that takes a while
+        return await // Future string
+    }
+}
+Future<String> myFuture = myFuture();
+
+//Shorthand
+Future<String> myFuture = async if(myBoolean){
+    await // Code that takes a while
+    return await // Future string
+}
+else{
+    await // Code that takes a while
+    return await // Future string
+}
+
+//Use the stash keyword to return an Iterator or a (Steam when the async keyword is used)
+//If the yield statement is used or comma seperated values are returned witout using the stash keyword the values will be retuned with comma's seperated and can only be placed in collection types like arrays, tuples and sets.
+//When the return keyword is used in an iterator or stream instead of the yield keword the fucking will stop execution after returing this value.
+//When the yield keyword is used the methods returns the value and continues execution.
+
+//USING STASH
+
+//Iterator
+stash Iterator<Int> myIterator(){
+    for(i in 1..10)
+        yield i;
+}
+Iterator<Int> myIterator = myIterator();
+
+//Shorthand
+Iterator<Int> myIterator = stash for(i in 1..10) i;
+
+//Stream
+async stash Stream<Int> myStream(){
+    for(i in 1..10){
+        await // Code that takes a while
+        yield await i;
+    }
+}
+Stream<Int> myStream = myStream();
+
+//Shorthand
+Stream<Int> myStream = async stash for(i in 1..10){
+      await // Code that takes a while
+      yield await i;
+};
+
+//WITHOUT USING STASH
+
+//Iterator
+Int[] myMethod(){
+    for(i in 1..10)
+        yield i;
+}
+Int[] myArray = [myMethod()];
+
+//Shorthand
+Int[] myArray = [for(i in 1..10) i];
+
+//Stream
+async Int myMethod(){
+    for(i in 1..10){
+        await // Code that takes a while
+        yield await i;
+    }
+}
+Int[] myArray = [await myMethod()];
+
+//Shorthand
+Int[] myArray = [async for(i in 1..10){
+      await // Code that takes a while
+      yield await i;
+}];

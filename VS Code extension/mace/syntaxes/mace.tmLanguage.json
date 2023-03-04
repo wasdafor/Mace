@@ -38,7 +38,7 @@
 			"patterns": [
 				{
 					"name": "keyword.control.mace",
-					"match": "\\b(if|else|while|for|return|in|on|switch|break|continue|do|try|catch|yield)\\b"
+					"match": "\\b(if|else|while|for|return|in|on|switch|break|continue|do|try|catch|yield|async|await|stash)\\b"
 				},
 				{
 					"name": "keyword",
@@ -46,7 +46,7 @@
 				},
 				{
 					"name": "entity.name.class.mace",
-					"match": "\\b(String|Int|Double|Char|Bool|Dynamic|Float|Long|Short|MyClass|Label|MySecondClass|MyThirdClass)\\b"
+					"match": "\\b(String|Int|Double|Char|Bool|Dynamic|Float|Long|Short|Future|Iterator|Stream|MyClass|Label|MySecondClass|MyThirdClass)\\b"
 				}
 			]
 		},
