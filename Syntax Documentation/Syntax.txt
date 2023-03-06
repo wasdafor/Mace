@@ -875,3 +875,110 @@ Int[] myArray = [1,2,3,4,5] @<<< 1;
 
 List<Int> myList = [1,2,3,4,5] @<<< 1;
 // myList becomes: [2,3,4,5,1]
+
+
+abstract with defualt value does not need implementation.
+The variable or method can be used directly without the implementation.
+
+
+//EXPERIMENT with iterators, streams and futures
+//Sync
+String myMethod(){
+    if(myBoolean){
+        return 'Hello World!';
+    }
+    else{
+        return 'Else';
+    }
+}
+String myString = myMethod();
+
+//Shorthand
+String myString = if(myBoolean){
+    return 'Hello World!';
+}
+else{
+    return 'Else';
+}
+
+//Async
+async Future<String> myFuture(){
+    if(myBoolean){
+        await // Code that takes a while
+        return await // Future string
+    }
+    else{
+        await // Code that takes a while
+        return await // Future string
+    }
+}
+Future<String> myFuture = myFuture();
+
+//Shorthand
+Future<String> myFuture = async if(myBoolean){
+    await // Code that takes a while
+    return await // Future string
+}
+else{
+    await // Code that takes a while
+    return await // Future string
+}
+
+//Use the stash keyword to return an Iterator or a (Steam when the async keyword is used)
+//If the yield statement is used or comma seperated values are returned witout using the stash keyword the values will be retuned with comma's seperated and can only be placed in collection types like arrays, tuples and sets.
+//When the return keyword is used in an iterator or stream instead of the yield keword the fucking will stop execution after returing this value.
+//When the yield keyword is used the methods returns the value and continues execution.
+
+//USING STASH
+
+//Iterator
+stash Iterator<Int> myIterator(){
+    for(i in 1..10)
+        yield i;
+}
+Iterator<Int> myIterator = myIterator();
+
+//Shorthand
+Iterator<Int> myIterator = stash for(i in 1..10) i;
+
+//Stream
+async stash Stream<Int> myStream(){
+    for(i in 1..10){
+        await // Code that takes a while
+        yield await i;
+    }
+}
+Stream<Int> myStream = myStream();
+
+//Shorthand
+Stream<Int> myStream = async stash for(i in 1..10){
+      await // Code that takes a while
+      yield await i;
+};
+
+//WITHOUT USING STASH
+
+//Iterator
+stash Iterator<Int> myMethod(){
+    for(i in 1..10)
+        yield i;
+}
+Int[] myArray = [...myMethod()];
+
+//Shorthand
+Int[] myArray = [for(i in 1..10) i];
+
+//Stream
+async Int myMethod(){
+    for(i in 1..10){
+        await // Code that takes a while
+        yield await i;
+    }
+}
+Int[] myArray = [await myMethod()];
+
+//Shorthand
+Int[] myArray = [async for(i in 1..10){
+      await // Code that takes a while
+      yield await i;
+}];

@@ -251,10 +251,10 @@ Classes
 //text 
 An abstract class is a class that can only be inherited (can not be instanciated) and can only contain abstract members.
 To create an abstract class write the __abstract__ keyword before your class definition.
-The members of an abstract class are automatically static so the __abstract__ keyword may be omitted.
+The members of an abstract class are automatically __abstract__ so the __abstract__ keyword may be omitted.
 An abstract class can optionaly contain body less methods and uninitialized variables.
-A body less method must be implemented in the child class and the body must be defined if not marked as abstract.
-An uninitialized variable that is not nullable must be implemented in the child class and must initialized if not marked as abstract.
+A body less method must be implemented in the child class and the body must be defined (if not marked as abstract in the child class).
+An uninitialized variable that is non nullable must be implemented in the child class and must be initialized (if not marked as abstract in the child class).
 
 //code
 abstract class MyClass
@@ -306,7 +306,7 @@ class MyClass
 The __implement__ keyword is used to implement or overwrite the abstract member of the super class in the child class.
 
 When implementing a variable it must have the same access modifier, type and identifier as the variable you want to implement.
-Abstract variables must be implemented in the child class if the parent variable is uninitialized and not nullable else the initialized value can optionaly be overwritten in the child class.
+Abstract variables must be implemented in the child class if the parent variable is uninitialized and non nullable else the initialized value can optionaly be overwritten in the child class.
 
 When implementing a method it must have the same access modifier, type, identifier and parameter body as the method you want to implement.
 Abstract methods must be implemented in the child class if the parent method has no body else the body can optionaly be overwritten in the child class.
@@ -393,7 +393,7 @@ static class MyClass
 }
 
 //text
-When static members are public thet can be accessed using a period (__.__).
+When static members can be accessed using their class type and a period (__.__).
 
 //code
 MyClass.myMethod(MyClass.myInt);
@@ -402,9 +402,9 @@ MyClass.myMethod(MyClass.myInt);
 Super class (super) and this class (this)
 
 //text
-When using the same class member identifier in the child class as in the parent class, the child class will override the parent identifier.
-Use the __this__ keyword to access the members of class itself and inherited classes.
-Use the __super__ keyword to only access the members of the inherited classes.
+When having defined a class member with the same identifier in the child class as in the parent class, the child class will override the parent identifier.
+Use the __this__ keyword to access the members from the current instance of the class itself and inherited classes.
+Use the __super__ keyword to only access the members from the inherited class.
 
 //code
 class MyClass
@@ -458,8 +458,9 @@ String myString = 'Hello World!';
 print(myString.toSet(),myString.myString);
 
 //text
-The __as__ keyword can be used to a new class to a class extension.
-To bind a new class to a class extension write as after the extension type followed by a class definition without the class keyword.
+The __as__ keyword can be used to bind new class to a class extension.
+This can be achieved by writing __as__ after the extension type followed by a class definition without the class keyword.
+When creating an instance of the binded class it will not contain the members from the extended class.
 
 //code
 class MyClass
@@ -800,9 +801,10 @@ Function extension (extend)
 
 //text
 The __extend__ keyword can be used to bind any number of functions to an already existing function.
-To bind a function write __extend__ followed by the function object and ending with a parameter and code body.
+This can be achieved by writing __extend__ followed by the function identifier and ending with a parameter and code body.
 The binded function must have the same parameter body as the original function.
 When the function gets called the original function will be called first then the binded functions will be called.
+Note that function extensions can not have a return type.
 
 //code
 void myMethod(Int myInt){
@@ -822,7 +824,8 @@ myMethod();
 
 //text
 The __as__ keyword can be used to bind a method definition to a method extension.
-To add a method definition to a method extension write __as__ after the extended method identifier followed by a new method identifier.
+This can be achieved by writing __as__ after the extended method identifier followed by a new method identifier.
+When calling the bined method the code from the extend method will not be called.
 
 //code
 void myMethod(Int myInt){
@@ -864,7 +867,7 @@ void func() myMethod = (){
     // Your method code.
 };
 
-extend myClass.mySecondMethod(){
+extend myMethod(){
     // Your extended method code.
 }
 
@@ -2071,18 +2074,21 @@ Operator`   Name`                           Example`            Same as
 &>=`        And greater than or equal to`   myInt < 7 &>= 5`    myInt < 5 && myInt >= 7 
 &<`         And less than`                  myInt > 5 &< 7`     myInt > 5 && myInt < 7 
 &<=`        And less than or equal to`      myInt > 5 &<= 7`    myInt > 5 && myInt <= 7
+&in`        And in collection or iterable`  myInt > 5 &in [5,6]`myIny > 5 && myInt in [5,6] 
 |==`        Or equal to`                    myInt > 5 |== 3`    myInt > 5 || myInt == 3
 |!=`        Or not equal to`                myInt > 5 |!= 3`    myInt > 5 || myInt != 3
 |>`         Or greater than`                myInt < 7 |> 5`     myInt < 5 || myInt > 7
 |>=`        Or greater than or equal to`    myInt < 7 |>= 5`    myInt < 5 || myInt >= 7
 |<`         Or less than`                   myInt > 5 |< 3`     myInt > 5 || myInt < 3
 |<=`        Or less than or equal to`       myInt > 5 |<= 3`    myInt > 5 || myInt < 3
+|in         Or in collection or iterable`   myInt > 5 |in [1,2]`myInt > 5 || myInt in [1,2]
 ^==`        Xor equal to`                   myInt > 5 ^== 3`    myInt > 5 ^^ myInt == 3
 ^!=`        Xor not equal to`               myInt > 5 ^!= 3`    myInt > 5 ^^ myInt != 3
 ^>`         Xor greater than`               myInt < 7 ^> 5`     myInt < 5 ^^ myInt > 7
 ^>=`        Xor greater than or equal to`   myInt < 7 ^>= 5`    myInt < 5 ^^ myInt >= 7
 ^<`         Xor less than`                  myInt > 5 ^< 3`     myInt > 5 ^^ myInt < 3
-^<=`        Xor less than or equal to`      myInt > 5 ^<= 3`    myInt > 5 ^^ myInt < 3                 
+^<=`        Xor less than or equal to`      myInt > 5 ^<= 3`    myInt > 5 ^^ myInt < 3   
+^in         Xor in collection or iterable`  myInt > 5 ^in [5,6]`myInt > 5 ^^ myInt in [5,6]              
 
 //chapter
 Control statements
@@ -2105,7 +2111,7 @@ The code body of an if statement only gets executed when the input boolean expre
 
 //code
 if(myBoolean){
-    // Your code when the expression is evaluated true.
+    // Your code when myBoolean is true.
 }
 
 if(myInt > 13135){
@@ -2121,13 +2127,12 @@ The __else__ keyword is used to bind a block of code to one of the followed stat
 //table     
 if
 else if
-switch
 for
 while
 do while
 
 //text
-An else statement binded to an (else) if statement only gets executed when the (else) if statement is evaluated to __false__.
+An else statement binded to an __(else) if__ statement only gets executed when the previous __(else) if__ statement is evaluated to __false__.
 
 //code
 if(myBoolean){
@@ -2148,18 +2153,9 @@ else{
 }
 
 //text
-An else statement binded to a switch, for or (do) while statement will only be executed when the statement finishes execution without having encountered a break statement.
+An else statement binded to a __for__ or __(do) while__ statement will only be executed when the statement finishes execution without having encountered a __break__ statement.
 
 //code
-switch(myInt){
-    on(13135){
-        break;
-    }
-}
-else{
-    // Code that executes if myInt is not 13135.
-}
-
 for(Int myInt in myArray){
     if(myInt == 13135){
         break;
@@ -2194,8 +2190,8 @@ else{
 Else if (else if)
 
 //text
-The __else if__ keywords are used to create a block of code that only gets executed when the previous (else) if statements are evaluated to __false__ and if the current else if statement is evaluated to __true__.
-Note that an __else if__ statement can only be bounded to an if or else if statement.
+The __else if__ keywords are used to create a block of code that only gets executed when the previous __(else) if__ statement is evaluated to __false__ and if the current __else if__ statement is evaluated to __true__.
+Note that an __else if__ statement can only be bounded to an __if__ or __else if__ statement.
 The __else if__ statements can be stacked as many times as needed.
 
 //code
@@ -2218,11 +2214,12 @@ if(myBoolean){
 Switch (switch), (on), (break), (continue)
 
 //text
-The __switch__ keyword is to create a block of code that can contain any number of on statements.
+The __switch__ keyword is to create a block of code that can contain any number of __on__ statements.
 The __on__ keyword is used to create a block of code that gets executed when the input value is equal to the input value from the __switch__ statement.
-After the execution of the code body of an __on__ statement the switch will stop further execution unless the continue statement is used.
-When an on statement has no input body the statement acts like a default case and will always be executed if the switch statement reaches this statement.
-A switch can be created using the following syntax.
+After the execution of the code body of an __on__ statement the __switch__ will stop further execution unless the __continue__ statement is used.
+When an __on__ statement has no input body the statement acts like a default case and will always be executed if the __switch__ statement reaches this statement.
+Note that this __on__ statement can only be defined once and can only be defined at the end of the __switch__ statement after the other __on__ statements.
+A __switch__ statement can be created using the following syntax.
 
 //code
 switch(myInt)
@@ -2239,9 +2236,9 @@ switch(myInt)
 }
 
 //text
-When an on statement needs to be executed under a more complex condition the comparison, logical and logical comparison operators can be used.
-The in operator can also be used to check if a collection contains the input value from the switch statement.
-These more complex expressions can created by extending the expression with logical (comparison) operators or by starting the expression with an in or comparison operator.
+When an __on__ statement needs to be executed under a more complex condition the comparison and logical comparison operators can be used.
+The __in__ operator can also be used to check if a collection contains the input value from the __switch__ statement.
+These more complex expressions can created by extending the expression with logical comparison operators or by starting the expression with an __in__ or comparison operator.
 
 //code
 switch(myInt)
@@ -2258,10 +2255,10 @@ switch(myInt)
 }
 
 //text
-The __break__ and __continue__ keywords can be used to control the flow of the switch statement.
-The break statement is used to exit out of the switch statement, this will ensure that the optionaly binded else statement will not be executed.
-The continue statement can be used to continue checking on statements when an on statement already has found a match. 
-Note that the code after a break or continue statement does not get executed.
+The __break__ and __continue__ keywords can be used to control the flow of the __switch__ statement.
+The __break__ statement is used to exit out of the __switch__ statement, this will ensure that the optionaly binded __else__ statement will not be executed.
+The __continue__ statement can be used to continue checking __on__ statements when an __on__ statement already has found a match. 
+Note that the code after a __break__ or __continue__ statement does not get executed.
 
 //code
 switch(myInt)
@@ -2290,49 +2287,47 @@ For (for), (in)
 
 //text
 The __for__ keyword is used to define a block of code that can be executed multiple times.
-Inside of the input of the for loop you need to define how many times or over which collection or iterable you want to loop.
+Inside of the input of the __for__ loop you need to define how many times or over which collection or iterable you want to loop.
 The __in__ keyword is used to bind a variable to a given collection of items you want to loop over.
 For every iteration of the loop the next element in the iterable or collection will be stored in the binded variable.
 
 //code
 Int[] myArray = [1, 3, 1, 3, 5];
-for(Int value in myArray){
-    print(value);
-    // Code that executes for every value of the myArray array.
+for(Int myInt in myArray){
+    print(myInt);
+    // Code that executes for every value in myArray.
 }
 
-//Using unpacking
-(String:Int) myMap = {'FirstValue':4, 'SecondValue':9};
+// Using unpacking.
+(String:Int){} myMap = {'FirstValue':4, 'SecondValue':9};
 for(String myKey:Int myValue in myMap){
-    print(index);
-    print(value);
-    // Code that executes for every value of the myArray array.
+    print(myKey, myValue);
+    // Code that executes for every key value pair in myMap.
 }
 
 //text
 If you want to loop over multiple collections or iterables in the same loop write your in statements with commas seperated.
-The for loop will execute its body the amount of iterations the form smallest collection or iterable.
+The for loop will execute its body the amount of iterations the smallest collection or iterable has.
 
 //code
 for(String myString in myArray, Int myIndex in ..){
-    print(value);
-    print(index);
-    // Code that executes for every value of the myArray array.
+    print(myString, myIndex);
+    // Code that executes for every value in myArray and in the range from 0 to max int size.
 }
 
 //text
-In some cases you want a loop to execute its body a precise amount of times with using a binded variable.
+In some cases you want a loop to execute its body a precise amount of times without using a binded variable.
 This can be achieve by writing a for loop with any integer has input value.
 
 //code
 for(13135){
-    // Code that executes exactly 13135.
+    // Code that executes exactly 13135 times.
 }
 
 //text
 The __for loop__ can also be used to loop a specificly specfied amount of times by defining two code statements and one boolean expression.
 The first code statement will be executed once before the first iteration of the loop and is used to declare a variable.
-The boolean expression will be executed before each iteration. When evaluated to true the code block of the __for loop__ will be executed.
+The boolean expression will be executed before each iteration. When evaluated to __true__ the code block of the __for__ loop will be executed.
 The second code statement will be executed at the end of every iteration and is used to modify the declared variable.
 
 //code
@@ -2366,10 +2361,10 @@ do{
 Break and continue (break), (continue)
 
 //text
-The __break__ and __continue__ keywords can be used to control the flow of a for or (do) while loop.
-The break statement is used to exit out of a loop, this will ensure that the optionaly binded else statement will not be executed.
-The continue statement can be used to stop the current iteration of the loop and continue on to the next iteration.
-Note that the code after a break or continue statement does not get executed.
+The __break__ and __continue__ keywords can be used to control the flow of a __for__ or __(do) while__ loop.
+The __break__ statement is used to exit out of a loop, this will ensure that the optionaly binded else statement will not be executed.
+The __continue__ statement can be used to stop the current iteration of the loop and continue on to the next iteration.
+Note that the code after a __break__ or __continue__ statement does not get executed.
 
 //code
 for(Int i = 0; i < 10; i++){
@@ -2392,11 +2387,11 @@ Try catch (try), (catch)
 //Misschien then toevoegen?
 
 //text
-The __try catch__ keywords are used to catch and handle errors that can occur at runtime.
+The __try__ and __catch__ keywords are used to catch and handle errors that can occur at runtime.
 Use the __try__ keyword to create a block of code that can pass a trown error to the catch statement.
 Use the __catch__ keyword to bind a block of code to the try statement to catch and handle its errors.
 An exception object can be access in the catch statement to check what exacly went wrong, if the exception object is not used it may be omitted.
-A try catch statement can be created using the following syntax.
+A __try catch__ statement can be created using the following syntax.
 
 //code
 try{
@@ -2413,7 +2408,191 @@ try{
 }
 
 //title
-Null safety handling
+Single line statements
+
+//text
+When a statement only has to execute a single lin of code the __{}__ brackets mey be omitted.
+
+//code
+if(myBoolean)
+    print('true');
+else
+    print('false');    
+
+//title
+Control statement expressions
+
+//text
+Any control statement can also act like a function that gets called immediately, also called a control statement expression.
+These expressions work exactly the same as a normal function that gets called immediately.
+This means that the return type and the keywords __async__ and __stash__ can be defined before the expression. 
+The __return__ and __yield__ statements can also be used to control the flow of the expression.
+One exception for these expressions is that in case of the expression body syntax the __=>__ operator may be omitted.
+
+A control statement expression can be created in a couple of different ways:
+- Writing the __async__ or __stash__ keyword before the control statement.
+
+//code
+async if(myBoolean){
+    if(mySecondBoolean)
+        return; // Returning out of the if statement.
+
+    await; // Await the if statement.
+    // Code if myBoolean is true and mySecondBoolean is false. 
+}
+else{
+    if(myThirdBoolean)    
+        return; // Returning out of the else statement.
+    // Code if both myBoolean and myThirdBoolean are false.    
+}
+
+- Writing the return type of the expression before the control statement.
+void if(){
+    if(mySecondBoolean)
+        return; // Returning out of the if statement.
+
+    // Code if myBoolean is true and mySecondBoolean is false. 
+}
+else{
+    if(myThirdBoolean)    
+        return; // Returning out of the else statement.
+    // Code if both myBoolean and myThirdBoolean are false.    
+}
+
+- Writing the control statement at a place where an expression is expected.
+In this case the type does not have to be defined and can be inferred.
+Int myString = if(myBoolean) 13135 else 53131;
+
+//subtitle
+(if), (else if), (else)
+
+//text
+Stacked __if__, __else if__, and __else__ expressions can only return a non nullable type if all the expressions return a non nullable value and the else expression is present.
+Note that the return type or the keywords  __async__ and __stash__ can only be defined before the if expression and not the __else if__or __else__ expressions.
+
+//code
+Int myInt = if(myBoolean){
+}
+else if(mySecondBoolean){
+    return 53131;
+}
+else{
+    return 13135 * 53131;
+}
+
+// Using expression body.
+myInt = if(myBoolean) 13135 else if(mySecondBoolean) 53131 else 13135 * 53131;
+
+//subtitle
+(for), (while), (do while)
+
+//text
+The return statement in a loop expression will act slightly different, the return statement only returns one value and continues to the next iteration of the loop.
+Because of this feature the loop will return its values with commas separated and can only be defined in a collection definition.
+
+//code
+Int[] myArray = [
+    for(5)
+        return 13135;
+];
+
+// Using expression body.
+myArray = [for(5) 13135]
+
+//code
+Int[] myArray = [
+    while(myBoolean)
+        return 13135;
+]
+
+// Using expression body.
+myArray = [while(myBoolean) 13135];
+
+//code
+Int[] myArray = [
+    do
+        return 13135;
+    while(myBoolean)
+]
+
+// Using expression body.
+myArray = [do 13135 while(myBoolean)];
+
+//text
+The __yied__ keyword can be used to return one value and continue executing the current iteration of the loop.
+This unlocks the possibility to return values multiple values and at different places in the for loop.
+
+//code
+Int[] myArray [for(5){
+    if(myBoolean){
+        // If myBoolean is true 13135 will be returned but the loops continues to execute.
+        yield 13135;
+    }
+    // The value 53131 will allways be executed at the end of the loop.
+    return 53131;
+}]
+
+//text
+The __break return__ keywords can be used to return one value and break out of the loop to only return one value.
+Note that when the __break return__ statement is used that you are not able to use the __return__ or __yield__ statements.
+
+MyClass? myClass = for(myElement in myArray){
+    if(myElement.myInt == 13135){
+        break return myElement;
+    }
+}
+
+//subtitle
+(switch), (on)
+
+//text
+The __switch__ expression can only return a non nullable type if an empty(default) __on__ expression is present that returns a non nullable value.
+When the return statement is called inside of an __on__ expression in a switch expression the switch will return the value and stops execution.
+
+//code
+Int myInt = switch(myString){
+    on('1'){
+        return 13135;
+    }
+    on('2'){
+        return 53131;
+    }
+    on{
+        return 13135 * 53131;
+    }
+};
+
+// Using expression body.
+myInt = switch(myString){
+    on('1') 13135;
+    on('2') 53131;
+    on 13135 * 53131;
+};
+
+//text
+The switch can only be written in expression body form if only on expressions are present.
+
+Int myInt = switch(myString)
+    on('1') 13135
+    on('2') 53131
+    on 13135 * 53131;
+
+//subtitle
+(try catch)
+
+//text
+The __try catch__ expression can only have a non nullable return type if both the __try__ and the __catch__ statements return a non nullable value.
+
+//code
+Int myInt = try{ 
+    return <Int>myString;
+}catch{
+    return 13135;
+};
+
+// Using expression body.
+myInt = try <Int>myString catch 13135;
+
 
 //chapter
 Types
@@ -2819,30 +2998,6 @@ class MySecondClass extend MyClass<String>
 }
 
 //subtitle
-Interface (interface)
-
-//text
-Generic types can be declared after the created interface name.
-Define the generic types after the interface name when implementing or inheriting the interface.
-The generic types can be used inside the interface or they can be used to define generic types from implemented interfaces.
-
-//code
-interface MyInterface<MyGeneric>
-{
-    MyGeneric? myGeneric;
-}
-
-class MyClass extend MyInterface<String>
-{
-    // Your class members.
-}
-
-interface MySecondInterface<MyGeneric> implement MyInterface<MyGeneric>
-{
-    // Your interface members.
-}
-
-//subtitle
 Function (func)
 
 //text
@@ -2899,7 +3054,7 @@ class MyClass<MyGeneric = String>
 
 MyClass myClass = MyClass();
 // MyGeneric of myClass becomes: String
-myClass<Int> myClassSecond = MyClass<Int>()
+MyClass<Int> myClassSecond = MyClass<Int>()
 // MyGeneric of myClassSecond becomes: Int
 
 //subtitle
@@ -2910,7 +3065,7 @@ Constraint types indicate that the generic type can only contain types of the co
 To set a constraint type for a generic type write any type before your generic type.
 
 //code
-class JsonValue<(String | Int) JsonType>
+class JsonValue<String | Int JsonType>
 {
     initialize JsonType value;
     JsonType(JsonType value){
@@ -2950,7 +3105,7 @@ Int[] myArray = auto[];
 Return
 
 //text
-The auto keyword can also be used to declare variable inside of functions this will referencing the return type of the function.
+The auto keyword can also be used to declare variables inside of functions this will referencing the return type of the function.
 
 //code
 Map<String,Int> myMethod(){
@@ -3200,7 +3355,7 @@ String! myString;
 Bool! myBoolean;
 // myBoolean becomes: false
 
-Int![<5>]! myArray;
+Int![5]! myArray;
 // myArray becomes: [0,0,0,0,0]
 
 //title
@@ -4523,330 +4678,3 @@ abstract class MyClass{
 
     }
 }
-
-abstract with defualt value does not need implementation.
-The variable or method can be used directly without the implementation.
-
-//If expressions
-String myString = if(myBoolean) 'First' else if(mySecondBoolean) 'Second' else 'Third';
-//For expression
-Int[] myArray = [for(3) 5];
-// [5,5,5]
-Int[] myArray = [for(i in 2..5) i];
-// [2,3,4,5]
-
-//While expression
-Int[] myArray = [while(myBoolean) 'Hello World!'];
-//Do while expression
-Int[] myArray = [do 'Hello World!' while(myBoolean)];
-
-//Switch expression
-String myString = switch(myInt){
-    on(1) 'First';
-    on(2) 'Second';
-    on() 'Default';
-};
-
-//Switch expression if the switch only contains on statements
-String myString = switch(myInt) on(1) 'First' on(2) 'Second' on() 'Default';   
-
-//Try catch expression
-
-Int myInt = try <Int>myString catch 'Error value';
-
-//Possible to have no arrow on expression body functions
-Int func() = () => 13135 * 53131;
-Int func() = () 13135 * 53131;
-
-Int myMethod() => 13135 * 53131;
-Int myMethod() 13135 * 53131;
-
-Bool myBoolean = myInt => . > 5 &< 40;
-Bool myBoolean = myInt . > 5 &< 40;
-
-
-void if(myBoolean){
-    return test;
-}
-
-//title
-Control statement expressions
-
-//text
-Any control statement can also act like a function that gets called immediately also called a control statement expression.
-These control statement expressions work exactly the same as a normal function that gets called immediately.
-This means that the return type and __async__ and __stash__ keywords can be defined before the expression. 
-The __return__ and __yield__ keywords can also be used to control the flow of the expression.
-One exception for these expressions is that in case of the expression body syntax the __=>__ operator may be omitted.
-
-A control statement expression can be created in a couple of different ways:
-- Writing the __async__ or __stash__ keyword before the control statement.
-
-//code
-async if(myBoolean){
-    if(mySecondBoolean)
-        return; // Returning out of the if statement.
-
-    await; // Await the if statement.
-    // Code if myBoolean is true and mySecondBoolean is false. 
-}
-else{
-    if(myThirdBoolean)    
-        return; // Returning out of the else statement.
-    // Code if both myBoolean and myThirdBoolean are false.    
-}
-
-- Writing the return type of the expression before the control statement.
-void if(){
-    if(mySecondBoolean)
-        return; // Returning out of the if statement.
-
-    // Code if myBoolean is true and mySecondBoolean is false. 
-}
-else{
-    if(myThirdBoolean)    
-        return; // Returning out of the else statement.
-    // Code if both myBoolean and myThirdBoolean are false.    
-}
-
-- Writing the control statement at a place where an expression is expected.
-In this case the type does not have to be defined and can be inferred.
-Int myString = if(myBoolean) 13135 else 53131;
-
-//subtitle
-(if), (else if), (else)
-
-//text
-When stacking __if__, __else if__, and __else__ expression all of the expressions need to return a non nullable value for the return type to be non nullable.
-
-//code
-Int myInt = if(myBoolean){
-    return 13135;
-}
-else if(mySecondBoolean){
-    return 53131;
-}
-else{
-    return 13135 * 53131;
-}
-
-// Using expression body.
-myInt = if(myBoolean) 13135 else if(mySecondBoolean) 53131 else 13135 * 53131;
-
-//subtitle
-(for), (while), (do while)
-
-//text
-The return statement in a loop expression will act slightly different, the return statement only returns one value and continues to the next iteration of the loop.
-The return value of a loop expression will be comma separated values of the type that is defined or inferred. 
-This unlocks the possibility to return multiple values by writing them with commas separated. 
-
-//code
-Int[] myArray = [
-    for(5){
-        return 13135, 53131;
-    }
-];
-
-// Using expression body.
-myArray = [for(5) 13135, 53131]
-
-//code
-Int[] myArray = [
-    while(myBoolean)
-    {
-        return 13135;
-    }
-]
-
-// Using expression body.
-myArray = [while(myBoolean) 13135, 53131];
-
-//code
-Int[] myArray = [
-    do{
-        return 13135, 53131;
-    }
-    while(myBoolean)
-]
-
-// Using expression body.
-myArray = [do 13135, 53131 while(myBoolean)];
-
-//text
-The __yied__ keyword can be used to return one value and continue executing the current iteration of the loop.
-This unlocks the possibility to return values at different places in the for loop.
-
-//code
-Int[] myArray [for(5){
-    if(myBoolean){
-        // If myBoolean is true 13135 will be returned but the loops continues to execute.
-        yield 13135;
-    }
-    // The value 53131 will allways be executed at the end of the loop.
-    return 53131;
-}]
-
-//text
-The __break return__ keywords can be used to return one value and break out of the loop to only return one value.
-Note that when the __break return__ statement is used that you are not able to use the __return__ or __yield__ statements.
-
-MyClass? myClass = for(myElement in myArray){
-    if(myElement.myInt == 13135){
-        break return myElement;
-    }
-}
-
-//subtitle
-(switch), (on)
-
-//text
-The __switch__ expression can only have a non nullable return type if an empty(default) on statement is present that returns a non nullable value.
-When the return statement is called inside of an on statement in a switch function the switch will return the value and stops execution.
-
-//code
-Int myInt = switch(myString){
-    on('1'){
-        return 13135;
-    }
-    on('2'){
-        return 53131;
-    }
-    on{
-        return 13135 * 53131;
-    }
-};
-
-// Using expression body.
-myInt = switch(myString){
-    on('1') 13135;
-    on('2') 53131;
-    on 13135 * 53131;
-};
-
-//text
-The switch can only be written in expression body form if only on functions are present.
-
-Int myInt = switch(myString)
-    on('1') 13135
-    on('2') 53131
-    on 13135 * 53131;
-
-//subtitle
-(try catch)
-
-//text
-The __try catch__ expression can only have a non nullable return type if both the try and the catch statements return a non nullable value.
-
-//code
-Int myInt = try{ 
-    return <Int>myString;
-}catch{
-    return 13135;
-};
-
-// Using expression body.
-myInt = try <Int>myString catch 13135;
-
-
-//EXPERIMENT with iterators, streams and futures
-//Sync
-String myMethod(){
-    if(myBoolean){
-        return 'Hello World!';
-    }
-    else{
-        return 'Else';
-    }
-}
-String myString = myMethod();
-
-//Shorthand
-String myString = if(myBoolean){
-    return 'Hello World!';
-}
-else{
-    return 'Else';
-}
-
-//Async
-async Future<String> myFuture(){
-    if(myBoolean){
-        await // Code that takes a while
-        return await // Future string
-    }
-    else{
-        await // Code that takes a while
-        return await // Future string
-    }
-}
-Future<String> myFuture = myFuture();
-
-//Shorthand
-Future<String> myFuture = async if(myBoolean){
-    await // Code that takes a while
-    return await // Future string
-}
-else{
-    await // Code that takes a while
-    return await // Future string
-}
-
-//Use the stash keyword to return an Iterator or a (Steam when the async keyword is used)
-//If the yield statement is used or comma seperated values are returned witout using the stash keyword the values will be retuned with comma's seperated and can only be placed in collection types like arrays, tuples and sets.
-//When the return keyword is used in an iterator or stream instead of the yield keword the fucking will stop execution after returing this value.
-//When the yield keyword is used the methods returns the value and continues execution.
-
-//USING STASH
-
-//Iterator
-stash Iterator<Int> myIterator(){
-    for(i in 1..10)
-        yield i;
-}
-Iterator<Int> myIterator = myIterator();
-
-//Shorthand
-Iterator<Int> myIterator = stash for(i in 1..10) i;
-
-//Stream
-async stash Stream<Int> myStream(){
-    for(i in 1..10){
-        await // Code that takes a while
-        yield await i;
-    }
-}
-Stream<Int> myStream = myStream();
-
-//Shorthand
-Stream<Int> myStream = async stash for(i in 1..10){
-      await // Code that takes a while
-      yield await i;
-};
-
-//WITHOUT USING STASH
-
-//Iterator
-Int[] myMethod(){
-    for(i in 1..10)
-        yield i;
-}
-Int[] myArray = [myMethod()];
-
-//Shorthand
-Int[] myArray = [for(i in 1..10) i];
-
-//Stream
-async Int myMethod(){
-    for(i in 1..10){
-        await // Code that takes a while
-        yield await i;
-    }
-}
-Int[] myArray = [await myMethod()];
-
-//Shorthand
-Int[] myArray = [async for(i in 1..10){
-      await // Code that takes a while
-      yield await i;
-}];
