@@ -1133,8 +1133,7 @@ String`         '' or ""
 String[]`       []
 String()`       ()
 String{}`       {}
-<String:Int>{}` {}
-List<String>`   []
+(String:Int){}` {}
 
 //code
 Bool myBoolean = true;
@@ -2111,7 +2110,7 @@ The code body of an if statement only gets executed when the input boolean expre
 
 //code
 if(myBoolean){
-    // Your code when myBoolean is true.
+    // Code that executes when myBoolean is true.
 }
 
 if(myInt > 13135){
@@ -2190,9 +2189,8 @@ else{
 Else if (else if)
 
 //text
-The __else if__ keywords are used to create a block of code that only gets executed when the previous __(else) if__ statement is evaluated to __false__ and if the current __else if__ statement is evaluated to __true__.
-Note that an __else if__ statement can only be bounded to an __if__ or __else if__ statement.
-The __else if__ statements can be stacked as many times as needed.
+The __else if__ keywords are used to create a block of code that only gets executed when the previous __(else) if__ statement is evaluated to __false__ and the current __else if__ statement is evaluated to __true__.
+The __else if__ statement can only be bounded to an __if__ or __else if__ statement and can be stacked as many times as needed.
 
 //code
 if(myBoolean){
@@ -2201,7 +2199,7 @@ if(myBoolean){
     // Code that executes when myBoolean is false and mySecondBoolean is true.
 }
 
-// Stacked else if statements
+// Stacked else if statements.
 if(myBoolean){
     // Code that executes when myBoolean is true.
 }else if(mySecondBoolean){
@@ -2255,10 +2253,8 @@ switch(myInt)
 }
 
 //text
-The __break__ and __continue__ keywords can be used to control the flow of the __switch__ statement.
-The __break__ statement is used to exit out of the __switch__ statement, this will ensure that the optionaly binded __else__ statement will not be executed.
-The __continue__ statement can be used to continue checking __on__ statements when an __on__ statement already has found a match. 
-Note that the code after a __break__ or __continue__ statement does not get executed.
+The __continue__ keyword can be used to continue checking __on__ statements when an __on__ statement already has found a match. 
+Note that the code after the __continue__ statement does not get executed.
 
 //code
 switch(myInt)
@@ -2269,11 +2265,24 @@ switch(myInt)
     }
     on(6){
         // Code that executes when myInt is 6.
-        break;
     }
 }
-else{
-    // Code that executes when myInt is not 6.
+
+//text
+Switch statement can also besides on statements contain any other code statement.
+Note that the __on__ statements must stay in the top level of the __switch__ statement.
+
+//code
+switch(myInt)
+{
+    String myString = 'Hello World!';
+    on(5){
+        print(myString);
+    }
+    Double myDouble = 13135;
+    on(6){
+        print(myDouble);
+    }
 }
 
 //title
@@ -2290,6 +2299,7 @@ The __for__ keyword is used to define a block of code that can be executed multi
 Inside of the input of the __for__ loop you need to define how many times or over which collection or iterable you want to loop.
 The __in__ keyword is used to bind a variable to a given collection of items you want to loop over.
 For every iteration of the loop the next element in the iterable or collection will be stored in the binded variable.
+This variable can now be accessed in the code body of the __for__ loop.
 
 //code
 Int[] myArray = [1, 3, 1, 3, 5];
@@ -2298,7 +2308,10 @@ for(Int myInt in myArray){
     // Code that executes for every value in myArray.
 }
 
-// Using unpacking.
+//text
+Unpacking capabilities can be used on any of the collection or iterable values.
+
+//code
 (String:Int){} myMap = {'FirstValue':4, 'SecondValue':9};
 for(String myKey:Int myValue in myMap){
     print(myKey, myValue);
@@ -2306,7 +2319,7 @@ for(String myKey:Int myValue in myMap){
 }
 
 //text
-If you want to loop over multiple collections or iterables in the same loop write your in statements with commas seperated.
+If you want to loop over multiple collections or iterables in the same loop write your __in__ statements with commas seperated.
 The for loop will execute its body the amount of iterations the smallest collection or iterable has.
 
 //code
@@ -2317,7 +2330,7 @@ for(String myString in myArray, Int myIndex in ..){
 
 //text
 In some cases you want a loop to execute its body a precise amount of times without using a binded variable.
-This can be achieve by writing a for loop with any integer has input value.
+This can be achieve by writing a __for__ loop with any integer has input value.
 
 //code
 for(13135){
@@ -2325,7 +2338,8 @@ for(13135){
 }
 
 //text
-The __for loop__ can also be used to loop a specificly specfied amount of times by defining two code statements and one boolean expression.
+//Might remove because its functionality can be achieved with a while or for in loop.
+The __for__ loop can also be used to loop a specificly specfied amount of times by defining two code statements and one boolean expression.
 The first code statement will be executed once before the first iteration of the loop and is used to declare a variable.
 The boolean expression will be executed before each iteration. When evaluated to __true__ the code block of the __for__ loop will be executed.
 The second code statement will be executed at the end of every iteration and is used to modify the declared variable.
@@ -2348,7 +2362,7 @@ while(myBoolean){
 }
 
 //text
-The __do__ keyword is used to move the code block from the while loop above the while loop so the code block always gets executed at least once.
+The __do__ keyword is used to move the code block from the __while__ loop above the __while__ loop so the code block always gets executed at least once.
 The boolean expression gets evaluated after every iteration, this means that when the expression is evaluated to __false__ on the first iteration the code gets executed once.
 
 //code
@@ -2384,13 +2398,12 @@ Error handling
 
 //subtitle
 Try catch (try), (catch)
-//Misschien then toevoegen?
 
 //text
 The __try__ and __catch__ keywords are used to catch and handle errors that can occur at runtime.
-Use the __try__ keyword to create a block of code that can pass a trown error to the catch statement.
-Use the __catch__ keyword to bind a block of code to the try statement to catch and handle its errors.
-An exception object can be access in the catch statement to check what exacly went wrong, if the exception object is not used it may be omitted.
+Use the __try__ keyword to create a block of code that can pass a trown error to the __catch__ statement.
+Use the __catch__ keyword to bind a block of code to the __try__ statement to catch and handle its errors.
+An __Exception__ object can be access in the catch statement to check what exacly went wrong, if the exception object is not used it may be omitted.
 A __try catch__ statement can be created using the following syntax.
 
 //code
@@ -2411,7 +2424,7 @@ try{
 Single line statements
 
 //text
-When a statement only has to execute a single lin of code the __{}__ brackets mey be omitted.
+When a statement only has to execute a single line of code the __{}__ brackets may be omitted.
 
 //code
 if(myBoolean)
@@ -2435,28 +2448,25 @@ A control statement expression can be created in a couple of different ways:
 //code
 async if(myBoolean){
     if(mySecondBoolean)
-        return; // Returning out of the if statement.
-
-    await; // Await the if statement.
-    // Code if myBoolean is true and mySecondBoolean is false. 
+        return;
+    // Code that executes if myBoolean is true and mySecondBoolean is false. 
 }
 else{
     if(myThirdBoolean)    
-        return; // Returning out of the else statement.
-    // Code if both myBoolean and myThirdBoolean are false.    
+        return;
+    // Code that executes if both myBoolean and myThirdBoolean are false.    
 }
 
 - Writing the return type of the expression before the control statement.
-void if(){
+void if(myBoolean){
     if(mySecondBoolean)
         return; // Returning out of the if statement.
-
-    // Code if myBoolean is true and mySecondBoolean is false. 
+    // Code that executes if myBoolean is true and mySecondBoolean is false. 
 }
 else{
     if(myThirdBoolean)    
         return; // Returning out of the else statement.
-    // Code if both myBoolean and myThirdBoolean are false.    
+    // Code that executes if both myBoolean and myThirdBoolean are false. 
 }
 
 - Writing the control statement at a place where an expression is expected.
@@ -2489,6 +2499,7 @@ myInt = if(myBoolean) 13135 else if(mySecondBoolean) 53131 else 13135 * 53131;
 //text
 The return statement in a loop expression will act slightly different, the return statement only returns one value and continues to the next iteration of the loop.
 Because of this feature the loop will return its values with commas separated and can only be defined in a collection definition.
+When the __else__ expression is binded to a loop t he value will return and added to the comma separated values.
 
 //code
 Int[] myArray = [
@@ -2520,7 +2531,7 @@ myArray = [do 13135 while(myBoolean)];
 
 //text
 The __yied__ keyword can be used to return one value and continue executing the current iteration of the loop.
-This unlocks the possibility to return values multiple values and at different places in the for loop.
+This unlocks the possibility to return values multiple values and at different places in the __for__ loop or the binded else expression.
 
 //code
 Int[] myArray [for(5){
@@ -2535,7 +2546,9 @@ Int[] myArray [for(5){
 //text
 The __break return__ keywords can be used to return one value and break out of the loop to only return one value.
 Note that when the __break return__ statement is used that you are not able to use the __return__ or __yield__ statements.
+When using the __break return__ statement, the loop can only return a non nullable value if the binded __else__ expression returns a non nullable value.
 
+//code
 MyClass? myClass = for(myElement in myArray){
     if(myElement.myInt == 13135){
         break return myElement;
@@ -2547,7 +2560,7 @@ MyClass? myClass = for(myElement in myArray){
 
 //text
 The __switch__ expression can only return a non nullable type if an empty(default) __on__ expression is present that returns a non nullable value.
-When the return statement is called inside of an __on__ expression in a switch expression the switch will return the value and stops execution.
+When the return statement is called inside of an __on__ expression in a __switch__ expression the __switch__ will return the value and stops execution.
 
 //code
 Int myInt = switch(myString){
