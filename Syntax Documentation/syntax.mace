@@ -2269,7 +2269,7 @@ switch(myInt)
 }
 
 //text
-Switch statement can also besides on statements contain any other code statement.
+__switch__ statements can also besides __on__ statements contain any other code statement.
 Note that the __on__ statements must stay in the top level of the __switch__ statement.
 
 //code
@@ -2531,7 +2531,7 @@ myArray = [do 13135 while(myBoolean)];
 
 //text
 The __yied__ keyword can be used to return one value and continue executing the current iteration of the loop.
-This unlocks the possibility to return values multiple values and at different places in the __for__ loop or the binded else expression.
+This unlocks the possibility to return values multiple values and at different places in the __for__ loop or the optionaly binded __else__ expression.
 
 //code
 Int[] myArray [for(5){
@@ -2545,8 +2545,8 @@ Int[] myArray [for(5){
 
 //text
 The __break return__ keywords can be used to return one value and break out of the loop to only return one value.
-Note that when the __break return__ statement is used that you are not able to use the __return__ or __yield__ statements.
-When using the __break return__ statement, the loop can only return a non nullable value if the binded __else__ expression returns a non nullable value.
+Note that when the __break return__ statement is used in the loop that you are not able to use the __return__ or __yield__ statements.
+Except the return statement may be used in the optionaly binded __else__ expression and when returning a non nullable value this will ensure the return type of the loop expression to be non nullable.
 
 //code
 MyClass? myClass = for(myElement in myArray){
