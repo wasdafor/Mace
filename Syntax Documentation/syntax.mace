@@ -89,7 +89,7 @@ namespace MyNamespace
 {
     Int myInt = 13135;
 
-    void myMethod(){
+    Void myMethod(){
         // Your method code.
     }
 
@@ -189,7 +189,7 @@ class MySecondClass
     Int myInt = 13135;
     String myString = 'Hello World!';
 
-    void myMethod(){
+    Void myMethod(){
         print(myInt, this.myString)
     }
 }
@@ -262,18 +262,18 @@ abstract class MyClass
     public Int myInt = 13135;
     public String myString;
 
-    public void myMethod(Int myValue){
+    public Void myMethod(Int myValue){
         print(myValue);
     }
 
-    public void mySecondMethod(String myValue);
+    public Void mySecondMethod(String myValue);
 }
 
 class MySecondClass extend MyClass
 {
     implement String myString = 'Hello World!';
 
-    implement void mySecondMethod(String myValue){
+    implement Void mySecondMethod(String myValue){
         print(myValue);
     }
 
@@ -298,7 +298,7 @@ class MyClass
 {
     public abstract String myString;
 
-    public abstract void myMethod(){
+    public abstract Void myMethod(){
         // Your abstract method code.
     }
 }
@@ -322,17 +322,17 @@ abstract class MyClass
 
     protected abstract Double myDouble;
 
-    public abstract void myMethod(Int value){
+    public abstract Void myMethod(Int value){
         print(value);
         // Your abstract method code.
     }
 
-    abstract void mySecondMethod(String value){
+    abstract Void mySecondMethod(String value){
         print(value);
         // Your abstract method code.
     }
 
-    protected abstract void myThirdMethod(Double value);
+    protected abstract Void myThirdMethod(Double value);
 }
 
 class MySecondClass extend MyClass
@@ -343,14 +343,14 @@ class MySecondClass extend MyClass
 
     protected implement Double myDouble = 3.3;
     
-    public implement void myMethod(Int value);
+    public implement Void myMethod(Int value);
     
-    implement void mySecondMethod(String value){
+    implement Void mySecondMethod(String value){
         print(value + "Overwritten");
         // Your overwritten method code.
     }
 
-    protected implement void myThirdMethod(Double value){
+    protected implement Void myThirdMethod(Double value){
         print(value);
         // Your overwritten method code.
     }
@@ -368,7 +368,7 @@ sealed class MyClass
 {
     Int myInt = 13135;
 
-    void myMethod(Int value){
+    Void myMethod(Int value){
         // Your method code.
     }
 }
@@ -387,8 +387,8 @@ static class MyClass
 {
     public static Int myInt = 13135;
 
-    public static void myMethod(Int value){
-        print(myInt,value);
+    public static Void myMethod(Int value){
+        print(myInt, value);
     }
 }
 
@@ -403,15 +403,15 @@ Super class (super) and this class (this)
 
 //text
 When having defined a class member with the same identifier in the child class as in the parent class, the child class will override the parent identifier.
-Use the __this__ keyword to access the members from the current instance of the class itself and inherited classes.
-Use the __super__ keyword to only access the members from the inherited class.
+Use the __this__ keyword to access the current instance of the class.
+Use the __super__ keyword to access the current instance of the class its the inherited classes.
 
 //code
 class MyClass
 {
     public Int myInt = 13135;
 
-    public void myMethod(Int value){
+    public Void myMethod(Int value){
         // Your method code.
     }
 }
@@ -429,7 +429,7 @@ class MySecondClass extend MyClass
         this.myMethod(myInt);
     }
 
-    public void myMethod(Int value){
+    public Void myMethod(Int value){
         // Your method code.
     }
 }
@@ -455,7 +455,7 @@ extend String
 }
 
 String myString = 'Hello World!';
-print(myString.toSet(),myString.myString);
+print(myString.toSet(), myString.myString);
 
 //text
 The __as__ keyword can be used to bind new class to a class extension.
@@ -471,7 +471,7 @@ class MyClass
 
 extend MyClass as MySecondClass
 {
-    void myMethod(){
+    Void myMethod(){
         print(myInt);
     }
 }
@@ -496,7 +496,7 @@ class MyClass
 
 extend MyClass
 {
-    public void printMyInt(){
+    public Void printMyInt(){
         print(this.myInt);
     }
 }
@@ -543,17 +543,17 @@ Linked (:)
 
 //text
 Linked constructors can be used to call other constructors via a constructor.
-To call a linked constructor write __:__ after the parameter body of any constructor followed by __this__ and ending with __()__.
-For a named constructor write __.__ followed by the name of the constructor after the __this__ keyword of a normal linked constructor.
+To call a linked constructor write __:__ after the parameter body of any constructor followed by the name of the class and ending with __()__.
+For a named constructor write __.__ followed by the name of the constructor after the name of the class of a normal linked constructor.
 
 //code
 class MyClass
 {
-    MyClass() : this.MySecondNamedConstructor(){
+    MyClass() : MyClass.MySecondNamedConstructor(){
         // Your constructor code.
     }
 
-    MyClass.MyNamedConstructor() : this(){
+    MyClass.MyNamedConstructor() : MyClass(){
         // Your named constructor code.
     }
 
@@ -612,6 +612,7 @@ Getters and setters can only be defined directly beneath their field in the same
 When defining the getter a value with the same type as the field must be returned.
 When defining the setter one parameter of any type is required.
 Note that in the example the integer was initialially private, but has become public because of the getter and setter.
+//This will not work because of recursion maybe i can do something with the get and set keywords.
 
 //code
 class MyClass
@@ -662,33 +663,33 @@ Mace has the followed class methods.
 Name`           parameters`             example
 
 //table
-Call`           Tuple`                  void this(){}
-Index read`     Array`                  void this[]{} 
-Index write`    Array and assignment`   this[]String value{}
-Set`            Set`                    void this{}{}
-Access read`    Label`                  void this Label value{}
+Call`           Tuple`                  Void this(){}
+Index read`     Array`                  Void this[]{} 
+Set`            Set`                    Void this{}{}
+Index write`    Array and assignment`   Void[]String value{}
+Access read`    Label`                  Void this Label value{}
 Access write`   Label and assigning`    this Label value String secondValue{}      
 
 //code
 class MyClass
 {
-    void this(String myParameter){
+    Void this(String myParameter){
         // Your object call code.
     }
 
-    void this[String myParameter]{
+    Void this[String myParameter]{
         // Your object index method code.
+    }
+
+    Void this{String myParameter}{
+        // Your object set method code.
     }
 
     this[String myParameter] String value{
         // Your object index write method code.
     }
 
-    void this{String myParameter}{
-        // Your object set method code.
-    }
-
-    void this Label.accessor{
+    Void this Label.accessor{
         // Your object access read method code.
     }
 
@@ -763,7 +764,7 @@ To store a method in a variable use the method data type.
 //code
 class GoogleMaps
 {
-    void func(GoogleMapsController googleMapsController) onInit;
+    Void Func(GoogleMapsController googleMapsController) onInit;
 
     public GoogleMaps(this.onInit){
         System.sleep(5);
@@ -773,7 +774,7 @@ class GoogleMaps
 
 class GoogleMapsController
 {
-    void goToXY(){
+    Void goToXY(){
 
     }
 }
@@ -793,8 +794,8 @@ Int addTwoNumbers0(Int a, Int b){
     return a + b;
 }
 Int addTwoNumbers1(Int a, Int b) => a + b;
-Int func(Int a, Int b) addTwoNumbers2 = (Int a, Int b) {return a + b};
-Int func(Int a, Int b) addTwoNumbers3 = (Int a, Int b) => a + b;
+Int Func(Int a, Int b) addTwoNumbers2 = (Int a, Int b) {return a + b};
+Int Func(Int a, Int b) addTwoNumbers3 = (Int a, Int b) => a + b;
 
 //title
 Function extension (extend)
@@ -807,7 +808,7 @@ When the function gets called the original function will be called first then th
 Note that function extensions can not have a return type.
 
 //code
-void myMethod(Int myInt){
+Void myMethod(Int myInt){
     print('Hello World!');
 }
 
@@ -828,7 +829,7 @@ This can be achieved by writing __as__ after the extended method identifier foll
 When calling the bined method the code from the extend method will not be called.
 
 //code
-void myMethod(Int myInt){
+Void myMethod(Int myInt){
     print('Hello World!');
 }
 
@@ -852,7 +853,7 @@ Nested functions or function variables can also be extended by referencing their
 //code
 class MyClass
 {
-    void myMethod(){
+    Void myMethod(){
         // Your method code.
     }
 }
@@ -863,7 +864,7 @@ extend myClass.myMethod(){
 }
 
 //code
-void func() myMethod = (){
+Void Func() myMethod = (){
     // Your method code.
 };
 
@@ -1177,20 +1178,20 @@ Int myInt = 1 + 3;
 // myInt becomes: 4
 
 //text
-The __+__ can also be used to concatenate strings, arrays, sets, maps or lists.
-Concatenating strings, arrays, sets, maps or lists will add the values together and return a new __String__, array, sets, maps or lists.
+The __+__ can also be used to concatenate strings, arrays, sets, maps or tuples.
+Concatenating strings, arrays, sets, maps or tuples will add the values together and return a new __String__, array, set, map or tuple.
 
 //code
 String myString = 'Hello ' + 'World!';
 // myString becomes: 'Hello World!'
 Int[] myArray = [1,3] + [2,4];
 // myArray becomes: [1,3,2,4]
+Int() myTuple = (1,3) + (2,4);
+// myTuple becomes: (1,3,2,4)
+Int{} mySet = {1,4,2} + {2,3,8};
+// mySet becomes: {1,4,2,3,8}
 Map<String,Int> myMap = {'firstValue': 1} + {'secondValue': 2};
 // myMap becomes: {'firstValue': 1, 'secondValue': 2}
-Set<Int> mySet = {1,4,2} + {2,3,8};
-// mySet becomes: {1,4,2,3,8}
-List<Int> myList = [1,3] + [2,4];
-// myList becomes: [1,3,2,4]
 
 //subtitle
 Increment (++)
@@ -1217,7 +1218,7 @@ myInt = 3 -4;
 // myInt becomes: -1
 
 //text
-The __-__ operator can also be used to subtract strings, arrays, maps, sets or lists.
+The __-__ operator can also be used to subtract strings, arrays, maps, sets or tuples.
 The order of the elements matter when the object is orderd else the order does not matter.
 Searching and removing will start at the end.
 
@@ -1226,12 +1227,12 @@ String myString = 'Hello World!' - ' World!';
 // myString becomes: 'Hello'
 Int[] myArray = [1,2,4,3] - [2,4];
 // myArray becomes: [1,3]
+Int() myTuple = (1,2,4,3) - (2,4);
+// myTuple becomes: (1,3)
+Int{} mySet = {1,4,2} - {2,3,8};
+// mySet becomes: {1,4}
 Map<String,Int> myMap = {'firstValue': 1, 'secondValue': 2} - {'firstValue': 1};
 // myMap becomes: {'secondValue': 2}
-Set<Int> mySet = {1,4,2} - {2,3,8};
-// mySet becomes: {1,4}
-List<Int> myList = [1,2,4,3] - [2,4];
-// myList becomes: [1,3]
 
 //subtitle
 Decrement (--)
@@ -1256,7 +1257,7 @@ Int myInt = 3 * 4;
 
 //text
 The __*__ operator can also be used to multiply strings, sets or arrays.
-Multiplying a __String__, list or array will repeat the values inside and return a new __String__, list or array.
+Multiplying a __String__, tuple or array will repeat the values inside and return a new __String__, tuple or array.
 Note you must use an integer value when multiplying with a number.
 When multiplying a set with another set, the result will be a cartesian product.
 
@@ -1265,9 +1266,9 @@ String myString = 'Hello World!' * 2;
 // myString becomes: 'Hello World!Hello World!'
 Int[] myArray = [1,2,3,4] * 2;
 // myArray becomes: [1,2,3,4,1,2,3,4]
-List<Int> myList = [1,2,3,4] * 2;
-// myList becomes: [1,2,3,4,1,2,3,4]
-Set<Int[]> mySet = {1,2,3,4} * {5,6,7,8};
+Int() myTuple = (1,2,3,4) * 2;
+// myTuple becomes: (1,2,3,4,1,2,3,4)
+Int[]{} mySet = {1,2,3,4} * {5,6,7,8};
 // mySet becomes: {(1,5),(1,6),(1,7),(1,8),(2,5),(2,6),(2,7),(2,8),(3,5),(3,6),(3,7),(3,8),(4,5),(4,6),(4,7),(4,8)}
 
 //subtitle
@@ -1292,8 +1293,8 @@ Int countArray = [1,2,3,4,2,3] / [2,3];
 // countArray becomes: 2
 countArray = [3,3,3] / [3,3];
 // countArray becomes: 1
-Int countList = [1,2,3,4,2,3] / [2,3];
-// countList becomes: 2
+Int countTuple = (1,2,3,4,2,3) / (2,3);
+// countTuple becomes: 2
 
 //subtitle
 Exponentiation (**)
@@ -1327,8 +1328,8 @@ Int[] myArray = [1,2,3,4,2,3] % [2,3];
 // myArray becomes: [1,4]
 myArray = [3,3,3] & [3,3];
 // myArray becomes: [3]
-List<Int> myList = [1,2,3,4,2,3] % [2,3];
-// myList becomes: [1,4]
+Int() myTuple = (1,2,3,4,2,3) % (2,3);
+// myTuple becomes: (1,4)
 
 //title
 Bitwise depended
@@ -1361,7 +1362,7 @@ myInt = 12 & 10;
 // myInt becomes: 8
 
 //text
-The __&__ operator can also be used to get the intersect of two strings, arrays, lists, sets or types.
+The __&__ operator can also be used to get the intersect of two strings, arrays, tuples, sets or types.
 Note that the order does not matter.
 
 //code
@@ -1371,10 +1372,10 @@ String myString = '1235' & '245';
 Int[] myArray = [1,2,3,5] & [2,4,5];
 // myArray becomes: [2,5]
 
-List<Int> myList = [1,2,3,5] & [2,4,5];
-// myList becomes: [2,5]
+Int() myTuple = (1,2,3,5) & (2,4,5);
+// myTuple becomes: (2,5)
  
-Set<Int> mySet = {1,2,3,5} & {2,4,5};
+Int{} mySet = {1,2,3,5} & {2,4,5};
 // mySet becomes: {2,5}
 
 type MyType =  (String | Double) & (Int | Double)
@@ -1396,7 +1397,7 @@ myInt = 12 | 10;
 // myInt becomes: 14
 
 //text
-The __|__ operator can also be used to get the union of two strings, arrays, lists, sets or types.
+The __|__ operator can also be used to get the union of two strings, arrays, tuples, sets or types.
 
 //code
 String myString = '1235' | '245';
@@ -1405,10 +1406,10 @@ String myString = '1235' | '245';
 Int[] myArray = [1,2,3,5] | [2,4,5];
 // myArray becomes: [1,2,3,4,5]
 
-List<Int> myList = [1,2,3,5] | [2,4,5];
-// myList becomes: [1,2,3,4,5]
+Int() myTuple = (1,2,3,5) | (2,4,5);
+// myTuple becomes: (1,2,3,4,5)
  
-Set<Int> mySet = {1,2,3,5} | {2,4,5};
+Int{} mySet = {1,2,3,5} | {2,4,5};
 // mySet becomes: {1,2,3,4,5}
 
 type MyType = String | Int;
@@ -1430,7 +1431,7 @@ myInt = 12 ^ 10;
 // myInt becomes: 6
 
 //text
-The __^__ operator can also be used to get the symmetric difference of two strings, arrays, lists, sets or types.
+The __^__ operator can also be used to get the symmetric difference of two strings, arrays, tuples, sets or types.
 
 //code
 String myString = '1235' ^ '245';
@@ -1439,8 +1440,8 @@ String myString = '1235' ^ '245';
 Int[] myArray = [1,2,3,5] ^ [2,4,5];
 // myArray becomes: [1,3,4]
 
-List<Int> myList = [1,2,3,5] ^ [2,4,5];
-// myList becomes: [1,3,4]
+Int() myTuple = (1,2,3,5) ^ (2,4,5);
+// myTuple becomes: (1,3,4)
  
 Set<Int> mySet = {1,2,3,5} ^ {2,4,5};
 // mySet becomes: {1,3,4}
@@ -1539,7 +1540,7 @@ myInt = -12 >>> 2;
 // myInt becomes: 1073741821
 
 //text
-The __>>>__ operator can also be used to remove characters from the end of strings or items from the end of arrays or lists.
+The __>>>__ operator can also be used to remove characters from the end of strings or items from the end of arrays or tuples.
 
 //code
 String myString = '12345' >>> 1;
@@ -1548,8 +1549,8 @@ String myString = '12345' >>> 1;
 Int[] myArray = [1,2,3,4,5] >>> 1;
 // myArray becomes: [1,2,3,4]
 
-List<Int> myList = [1,2,3,4,5] >>> 1;
-// myList becomes: [1,2,3,4]
+Int() myTuple = (1,2,3,4,5) >>> 1;
+// myTuple becomes: (1,2,3,4)
 
 //subtitle
 Bitwise unsigned left shift (<<<)
@@ -1572,7 +1573,7 @@ myInt = -12 <<< 2;
 // myInt becomes: -48
 
 //text
-The __<<<__ operator can also be used to remove characters from the start of strings or items from the start of arrays or lists.
+The __<<<__ operator can also be used to remove characters from the start of strings or items from the start of arrays or tuples.
 
 //code
 String myString = '12345' <<< 1;
@@ -1581,8 +1582,8 @@ String myString = '12345' <<< 1;
 Int[] myArray = [1,2,3,4,5] <<< 1;
 // myArray becomes: [2,3,4,5]
 
-List<Int> myList = [1,2,3,4,5] <<< 1;
-// myList becomes: [2,3,4,5]
+Int() myTuple = (1,2,3,4,5) <<< 1;
+// myTuple becomes: (2,3,4,5)
 
 //title
 Null safety
@@ -1643,29 +1644,29 @@ String? myMethod(){
 // Indicating that the return type of myMethod can be null.
 
 //code
-String func() myMethod = null;
+String Func() myMethod = null;
 // Results in an error because myMethod cannot be null.
-String func() myMethod = (){
+String Func() myMethod = (){
     return null;
 }
 // Results in an error because the return type of myMethod cannot be null.
 
 //code
-String func()? myMethod = null;
+String Func()? myMethod = null;
 // Indicating that myMethod can be null.
-String? func() myMethod = (){
+String? Func() myMethod = (){
     return null;
 }
 // Indicating that the return type of myMethod can be null.
 
 //code
-String func() myMethod = {
+String Func() myMethod = {
     return null;
 }
 // Results in an error because the return type of myMethod cannot be null.
 
 //code
-String? func() myMethod = {
+String? Func() myMethod = {
     return null;
 }
 // Indicating that the return type of myMethod can be null.
@@ -1713,7 +1714,7 @@ To call a function write any function variable followed by __?__ ending with any
 Any array, tuple or anonymous object parameter body can be used.
 
 //code
-String func()? myMethod = null;
+String Func()? myMethod = null;
 String? myString = myMethod?();
 // myString becomes: null
 myMethod = () {
@@ -1725,7 +1726,7 @@ String? myString = myMethod?();
 //code
 class MyClass
 {
-    void func()? myMethod;
+    Void Func()? myMethod;
 }
 
 MyClass myClass = MyClass();
@@ -1910,13 +1911,15 @@ if(myInt > 5){
 }
 
 //text
-The __>__ operator can also be used on two strings, arrays, lists or sets to check if the left operand is a proper superset of the right operand.
+The __>__ operator can also be used on two strings, arrays, tuples or sets to check if the left operand is a proper superset of the right operand.
 Note that the order matters when the operator is used on orderd sequences.
 
 //code
 Bool myBoolean = '12' > '2';
 
 myBoolean = [1,2] > [2];
+
+myBoolean = (1,2) > (2,);
 
 myBoolean = {1,2} > {2};
 
@@ -1932,7 +1935,7 @@ if(myInt >= 5){
 }
 
 //text
-The __>=__ operator can also be used on two strings, arrays, lists or sets to check if the left operand is a superset of the right operand.
+The __>=__ operator can also be used on two strings, arrays, tuples or sets to check if the left operand is a superset of the right operand.
 Note that the order matters when the operator is used on orderd sequences.
 
 //code
@@ -1941,6 +1944,9 @@ myBoolean = '12' >= '12';
 
 myBoolean = [1,2] >= [2];
 myBoolean = [1,2] >= [1,2];
+
+myBoolean = (1,2) >= (2,);
+myBoolean = (1,2) >= (1,2);
 
 myBoolean = {1,2} >= {2};
 myBoolean = {1,2} >= {1,2};
@@ -1957,13 +1963,15 @@ if(myInt < 5){
 }
 
 //text
-The __<__ operator can also be used on two strings, arrays, lists or sets to check if the left operand is a proper subset of the right operand.
+The __<__ operator can also be used on two strings, arrays, tuples or sets to check if the left operand is a proper subset of the right operand.
 Note that the order matters when the operator is used on orderd sequences.
 
 //code
 Bool myBoolean = '2' < '12';
 
 myBoolean = [2] < [1,2];
+
+myBoolean = (2,) < (1,2);
 
 myBoolean = {2} < {1,2};
 
@@ -1979,7 +1987,7 @@ if(myInt <= 5){
 }
 
 //text
-The __<=__ operator can also be used on two strings, arrays, lists or sets to check if the left operand is a subset of the right operand.
+The __<=__ operator can also be used on two strings, arrays, tuples or sets to check if the left operand is a subset of the right operand.
 Note that the order matters when the operator is used on orderd sequences.
 
 //code
@@ -1988,6 +1996,9 @@ myBoolean = '12' <= '12';
 
 myBoolean = [2] <= [1,2];
 myBoolean = [1,2] <= [1,2];
+
+myBoolean = (2,) <= (1,2);
+myBoolean = (1,2) <= (1,2);
 
 myBoolean = {2} <= {1,2};
 myBoolean = {1,2} <= {1,2};
@@ -2433,17 +2444,17 @@ else
     print('false');    
 
 //title
-Control statement expressions
+Control expressions
 
 //text
-Any control statement can also act like a function that gets called immediately, also called a control statement expression.
+Any control statement can also act like a function that gets called immediately, also called a control expression.
 These expressions work exactly the same as a normal function that gets called immediately.
 This means that the return type and the keywords __async__ and __stash__ can be defined before the expression. 
 The __return__ and __yield__ statements can also be used to control the flow of the expression.
 One exception for these expressions is that in case of the expression body syntax the __=>__ operator may be omitted.
 
-A control statement expression can be created in a couple of different ways:
-- Writing the __async__ or __stash__ keyword before the control statement.
+A control expression can be created in a couple of different ways:
+- Writing the __async__ or __stash__ keyword before the a control statement.
 
 //code
 async if(myBoolean){
@@ -2457,8 +2468,8 @@ else{
     // Code that executes if both myBoolean and myThirdBoolean are false.    
 }
 
-- Writing the return type of the expression before the control statement.
-void if(myBoolean){
+- Writing the return type of the expression before a control statement.
+Void if(myBoolean){
     if(mySecondBoolean)
         return; // Returning out of the if statement.
     // Code that executes if myBoolean is true and mySecondBoolean is false. 
@@ -2482,6 +2493,7 @@ Note that the return type or the keywords  __async__ and __stash__ can only be d
 
 //code
 Int myInt = if(myBoolean){
+    return 13135;
 }
 else if(mySecondBoolean){
     return 53131;
@@ -2503,8 +2515,9 @@ When the __else__ expression is binded to a loop t he value will return and adde
 
 //code
 Int[] myArray = [
-    for(5)
+    for(5){
         return 13135;
+    }
 ];
 
 // Using expression body.
@@ -2512,8 +2525,9 @@ myArray = [for(5) 13135]
 
 //code
 Int[] myArray = [
-    while(myBoolean)
+    while(myBoolean){
         return 13135;
+    }
 ]
 
 // Using expression body.
@@ -2521,9 +2535,9 @@ myArray = [while(myBoolean) 13135];
 
 //code
 Int[] myArray = [
-    do
+    do{
         return 13135;
-    while(myBoolean)
+    }while(myBoolean)
 ]
 
 // Using expression body.
@@ -2618,44 +2632,39 @@ Literal types are build in types with a more generic or specific meaning.
 Mace has the following literal types.
 
 //table
-void
+Void
 class
-interface
 enum
 object
-func
+Func
 Dynamic
 type
 
 //subtitle
-Void (void)
+Void (Void)
 
 //text
-The __void__ literal type can be used to to store null.
-A void literal type can never be used by itself.
+The __Void__ literal type can be used to to store void.
+A Void literal type can be used to return no value from a function.
 
 //code
-void func() myMethod = (){
+Void Func() myMethod = (){
     // Your method code.
 };
-
-//code
-String | void myString = null;
-myString = 'Hello World!';
 
 //text
 The __?__ operator can be used as a shorthand to create nullable types.
 
 //code
 String? myString = null;
-// The type of myString becomes: String | void
+// The type of myString becomes: String | Null
 myString = 'Hello World!';
 
 //subtitle
 Class (class)
 
 //text
-The __class__ literal type can be used to store any class object that did not inherit an interface.
+The __class__ literal type can be used to store any class object.
 
 //code
 class MyClass
@@ -2683,23 +2692,10 @@ enum MyEnum = MyEnum.MyEnumValue;
 Object (object)
 
 //text
-The __object__ literal type is be used to store any class, interface or enum object.
+The __object__ literal type is be used to store any class or enum object.
 
 //code
 class MyClass
-{
-    // Your class members.
-}
-
-object myObject = MyClass();
-
-//code
-interface MyInterface
-{
-    // Your interface members.
-}
-
-class MyClass extend MyInterface
 {
     // Your class members.
 }
@@ -2715,31 +2711,31 @@ enum MyEnum
 object myObject = MyEnum.MyEnumValue;
 
 //subtitle
-Function (func)
+Function (Func)
 
 //text
 The __func__ literal type can be used to store any function or method.
 
 //code
-void myMethod(){
+Void myMethod(){
     // Your method code.
 }
 
-func myStoredMethod = myMethod;
+Func myStoredMethod = myMethod;
 
 //code
-void func() myMethod = (){
+Void Func() myMethod = (){
     // Your method code.
 };
 
-func myStoredMethod = myMethod;
+Func myStoredMethod = myMethod;
 
 //code
-void func() myMethod = {
+Void Func() myMethod = {
     // Your method code.
 };
 
-func myStoredMethod = myMethod;
+Func myStoredMethod = myMethod;
 
 //subtitle
 Dynamic (Dynamic)
@@ -2792,7 +2788,8 @@ Operator`   Name`                   Example`                       Usage
 
 //table
 []`         Array indicator`        String[] myArray`              Convert type to array type
-()`         Method indicator`       String() myMethod`             Convert type to method type
+()`         Tuple indicator`        String() myTuple`              Convert type to tuple type
+{}`         Set indicator`          String{} mySet`                Convert type to tuple type        
 ?`          Nullability indicator`  String? myString`              Convert type to nullable type
 *`          Pointer indicator`      String* myPointer`             Convert type to pointer type
 &`          Reference indicator`    String& myReference`           Convert type to reference type
@@ -2835,37 +2832,64 @@ Int[5] myArray = [1,2,3,4,5,6];
 // Results in error.
 
 //subtitle
-Method indicator (())
+Tuple indicator (())
 
 //text
-The __()__ operator can be used to indicate that a type is a method type.
-To create a method type write any type followed by __()__.
+The __()__ operator can be used to indicate that a type is a tuple type.
+To create an array type write any type followed by __()__.
 
 //code
-String func() myMethod = (){
-    // Your method code.
-    return 'Hello World!';
-};
+Int() myTuple = (1,2,3,4,5);
 
-String myString = myMethod();
-// myString becomes: 'Hello World!'
+Int myInt = myTuple[3];
+// myInt becomes: 4
 
 //text
-The __()__ operator can be stacked to create higher order functions.
+The __()__ operator can stacked to create multidimensional tuples.
 
 //code
-String func()() myHigherOrderFunction = (){
-    // Your method code.
-    return (){
-        // Your higher order function code.
-        return 'Hello World!';
-    };
-};
+Int()() = myMultidimensionalTuple = ((1,2),(3,4));
 
-String func() myMethod = myHigherOrderFunction();
-// myMethod becomes: String(){ return 'Hello World!'; }
-String myString = myHigherOrderFunction()();
-// myString becomes: 'Hello World!'.
+Int() myTuple = myMultidimensionalTuple[0];
+// myArray becomes: [1,2]
+Int myInt = myMultidimensionalTuple[0][1];
+// myInt becomes: 2
+
+//text
+To specify the length of a tuple write any integer between the __()__.
+
+//code
+Int(5) myTuple = (1,2,3,4,5);
+
+//code
+Int(5) myTuple = (1,2,3,4,5,6);
+// Results in error.
+
+//subtitle
+Set indicator ({})
+
+//text
+The __{}__ operator can be used to indicate that a type is a set type.
+To create an array type write any type followed by __{}__.
+
+//code
+Int{} mySet = {1,2,3,4,5};
+
+//text
+The __{}__ operator can stacked to create multidimensional sets.
+
+//code
+Int{}{} = myMultidimensionalSet = {{1,2},{3,4}};
+
+//text
+To specify the length of a set write any integer between the __{}__.
+
+//code
+Int{5} mySet = {1,2,3,4,5};
+
+//code
+Int{5} mySet = {1,2,3,4,5,6};
+// Results in error.
 
 //subtitle
 Nullability indicator (?)
@@ -2876,7 +2900,7 @@ To create a nullable type write any type followed by __?__.
 
 //code
 String? myString = null;
-// The type of myString becomes: String | void
+// The type of myString becomes: String | Null
 myString = 'Hello World!';
 
 //subtitle
@@ -2943,8 +2967,8 @@ type MyType = (Int | Char | String) & (Double | Int | String);
 // MyType becomes: Int | String
 
 MyType myIntString = 5;
-// myIntString can now contain Int or String values.
 myIntString = 'Hello World!';
+// myIntString can now contain Int or String values.
 
 //subtitle
 Bitwise XOR (^)
@@ -2972,7 +2996,6 @@ Generic types can be added to the following data structures.
 
 //table
 class
-interface
 function
 method
 type
@@ -2994,24 +3017,8 @@ class MyClass<MyGeneric>
 MyClass<String> myClass = MyClass<String>();
 MyClass mySecondClass = MyClass<Int>()
 
-//code
-interface MyInterface<MyGeneric>
-{
-    // Your interface members.
-}
-
-class MyClass<MyGeneric> extend MyInterface<MyGeneric>
-{
-    // Your class members.
-}
-
-class MySecondClass extend MyClass<String>
-{
-    // Your class members.
-}
-
 //subtitle
-Function (func)
+Function (Func)
 
 //text
 Generic types can be declared before the __()__ when creating a method or function.
@@ -3019,11 +3026,11 @@ Define the generic types before the __()__ when calling a method or function or 
 The generic types can be used as return type, parameter type or inside the function or method.
 
 //code
-void myMethod<MyGeneric>(){
+Void myMethod<MyGeneric>(){
     // Your method code.
 }
 
-void func<MyGeneric>() myMethod = {
+Void Func<MyGeneric>() myMethod = {
     // Your method code.
 };
 
@@ -3033,7 +3040,7 @@ MyGeneric myMethod<MyGeneric>(MyGeneric myParameter){
     return myGeneric;
 }
 
-MyGeneric func<MyGeneric>(MyGeneric myParameter) myMethod = {
+MyGeneric Func<MyGeneric>(MyGeneric myParameter) myMethod = {
     MyGeneric myGeneric = myParameter;
     return myGeneric;
 };
@@ -3047,9 +3054,9 @@ Define the generic types after the type name when using the type.
 The generic types can be used in the type expression on the right hand side of the assignment.
 
 //code
-type MyType<MyGeneric> = List<MyGeneric> | String;
+type MyType<MyGeneric> = Stack<MyGeneric> | String;
 
-MyType<String> myType = List<String>();
+MyType<String> myType = Stack<String>();
 
 //subtitle
 Default type (=)
@@ -3078,7 +3085,7 @@ Constraint types indicate that the generic type can only contain types of the co
 To set a constraint type for a generic type write any type before your generic type.
 
 //code
-class JsonValue<String | Int JsonType>
+class JsonValue<(String | Int) JsonType>
 {
     initialize JsonType value;
     JsonType(JsonType value){
@@ -3091,7 +3098,7 @@ JsonValue<String> jsonStringValue = JsonValue<String>('Hello World!');
 JsonValue<Int> jsonIntValue = JsonValue<Int>(13135);
 // jsonIntValue.value becomes: 13135
 
-JsonValue<Bool> jsonIntValue = JsonValue<Bool>(true);
+JsonValue<Bool> jsonBoolValue = JsonValue<Bool>(true);
 // Results in error.
 
 //title
@@ -3107,8 +3114,8 @@ Map<String,Int> myMap = auto();
 Map mySecondMap = auto<String,Int>();
 
 //code
-void func() myMeyhod = auto(){};
-void func(String myString) mySecondMethod = auto(String myString){};
+Void Func() myMeyhod = auto(){};
+Void Func(String myString) mySecondMethod = auto(String myString){};
 
 //code
 Int[] myArray = auto[];
@@ -3215,7 +3222,7 @@ This allowes manipulation of variables without creating new/temporary values.
 
 //code
 Int myInt = 0;
-void addTwo(Int& myIntReference){
+Void addTwo(Int& myIntReference){
     myIntReference += 2;
 }
 addTwo(myInt);
@@ -3293,7 +3300,7 @@ class MyClass
         // Your constructor code.
     }
 
-    void myMethod(myString, this.myInt){
+    Void myMethod(myString, this.myInt){
         // Your method code.
     }
 }
@@ -3316,7 +3323,7 @@ class MyClass
 
     MyClass(this.myString, myInt);
 
-    void myMethod(myString, this.myInt);
+    Void myMethod(myString, this.myInt);
 }
 
 //title
@@ -3411,7 +3418,7 @@ myInt = null;
 When the return type of a method is default the method does not need to return a value the default value will be returned
 
 //code
-String! func() myMethod = (){};
+String! Func() myMethod = (){};
 String myString = myMethod();
 // myString becomes: ''
 
@@ -3494,15 +3501,14 @@ Int() myTuple = (1,3,1,3,5)
 Single element
 
 //text
-To create a tuple or a tuple type with only one element write __((__ followed by any value or type and ending with __))__.
-If only one set of __()__ is used the type or value will become the type or value inside of the __()__.
-Note that when a defualt type, item repeater or named member is used the second pair of __()__ is not required.
+To create a tuple or a tuple type with only one element write __(__ followed by any value or type and ending with __,)__.
+The trailing comma is used to indicate the the type or value is a tuple and not the value or type between the __()__ brackets.
 
 //code
 (Int) myInt = (13135);
 // myInt becomes: 13135
 
-((Int)) myTuple = ((13135))
+(Int,) myTuple = (13135,)
 
 //title
 Set ({})
@@ -3656,16 +3662,16 @@ for(i in array){
     }
 }
 
-void myFunction(){
-    void mySecondFunction(){
+Void myFunction(){
+    Void mySecondFunction(){
         return;
         <1>.return;
     }
 }
 
 <fun>
-void myFunction(){
-    void mySecondFunction(){
+Void myFunction(){
+    Void mySecondFunction(){
         return;
         fun.return;
     }
@@ -3931,7 +3937,7 @@ Int myInt = <Int>myClass.myLabel$;
 Label class methods
 
 //text
-The Label class method can be used to catch memeber accessing if the member does not exist in the class.
+The Label class method can be used to catch member accessing if the member does not exist in the class.
 
 //code
 class MyClass
@@ -3959,7 +3965,7 @@ Key and value pairs (:)
 The __:__ operator can be used to create a key value pair.
 To create a key value pair write any type followed by __:__ and ending with another type.
 When creating a key value pair variable __()__ need to be added around the type to differentiate the syntax from unpacking.
-The key can be accessed by the key memeber.
+The key can be accessed by the key member.
 The value can be access trough the value member, index method or label method.
 
 //code
@@ -4045,7 +4051,7 @@ type MyType = [myString:String,myInt:Int];
 
 MyType myType = [myString: '',myInt:2];
 
-void myMethod(Int myInt,Int mySecondInt){
+Void myMethod(Int myInt,Int mySecondInt){
 
 }
 
@@ -4069,7 +4075,7 @@ Class`          {}
 //text
 To unpack an object write the following structure; opening bracket, comma or colon seperated variable declarations, closing bracket.
 When unpacking a key value pair the colon is required.
-When unpacking a class object the unpacking variable names must match the class memeber names.
+When unpacking a class object the unpacking variable names must match the class member names.
 
 //code
 [Int myInt,String myString] = [13135,'Hello World!'];
@@ -4249,29 +4255,29 @@ Functions binding
 Collection unpacking scopes can binded to any function.
 
 //code
-void myMethod(Int myInt, String myString){
+Void myMethod(Int myInt, String myString){
     // Your method code.
 }
 
-void func(Int, String) myFunction = myMethod;
+Void Func(Int, String) myFunction = myMethod;
 
 myMethod(13135, 'Hello World!');
 
 //code
-void myMethod[Int myInt, String myString]{
+Void myMethod[Int myInt, String myString]{
     // Your method code.
 }
 
-void func[Int, String] myFunction = myMethod;
+Void Func[Int, String] myFunction = myMethod;
 
 myMethod[13135, 'Hello World!'];
 
 //code
-void myMethod{Int myInt, String myString}{
+Void myMethod{Int myInt, String myString}{
     // Your method code.
 }
 
-void func{Int, String} myFunction = myMethod;
+Void Func{Int, String} myFunction = myMethod;
 
 myMethod{13135, 'Hello World!'};
 
@@ -4289,7 +4295,7 @@ class MyClass
     public Int? myInt;
     public String? myString;
 
-    public void myMethod(){
+    public Void myMethod(){
         // Your method code.
     }
 }
@@ -4313,16 +4319,16 @@ The cascading scope can also be added to functions, to call them multiple times.
 When the cascading scope is added to a function (variable) the __.__ is not required.
 
 //code
-List<Int> myList = List<Int>();
+Int[] myArray = [];
 
 // Without cascading scope.
-myList.add(1);
-myList.add(3);
-myList.add(1);
-myList.add(3);
+myArray.add(1);
+myArray.add(3);
+myArray.add(1);
+myArray.add(3);
 
 // With cascading scope
-myList.add{
+myArray.add{
     (1);
     (3);
     (1);
@@ -4338,7 +4344,7 @@ class MyClass
     public Int? myInt;
     public String? myString;
 
-    public void myMethod(){
+    public Void myMethod(){
         // Your method code.
     }
 }
@@ -4365,7 +4371,7 @@ class MyClass
     public Int? myInt;
     public String? myString;
 
-    public void myMethod(){
+    public Void myMethod(){
         // Your method code.
     }
 }
@@ -4410,7 +4416,7 @@ class MyClass
     public Int? myInt;
     public String? myString;
 
-    public void myMethod(){
+    public Void myMethod(){
         // Your method code.
     }
 }
@@ -4464,9 +4470,9 @@ class MyClass
 {
     public Int? myInt;
     public String? myString;
-    List<Int> myList = List<Int>();
+    public Int[] myArray = [];
 
-    void myMethod(){
+    Void myMethod(){
         // Your method code.
     }
 }
@@ -4474,7 +4480,7 @@ class MyClass
 MyClass myClass = MyClass(){
     .myInt = 13135;
     .myString = 'Hello World!';
-    .myList.add{
+    .myArray.add{
         (1);
         (3);
         (1);
@@ -4615,8 +4621,8 @@ for(Int i in array){
 
 //code
 <myMethodScope>
-void myMethod(){
-    void mySecondMethod(){
+Void myMethod(){
+    Void mySecondMethod(){
         myMethodScope..return;
     }
 }
@@ -4691,3 +4697,76 @@ abstract class MyClass{
 
     }
 }
+
+// Maybe types will be displayed in angle brackets with commas separated
+<String> same String
+<String, Int> same String | Int
+
+Int myInt = <Int>myString;
+//Can result in runtime exception
+
+Int myInt = try <Int>myString catch 13135;
+//When resulting in runtime error the catch value will be returned
+
+//Experimenting with void
+
+//text
+Void will be a type that can store the value void.
+A special property that void has is that a missing value is also equal to void.
+Also uninitialized variables will initialially have the value void assigned to them.
+Note that when the __Void__ type is used all the special features of void will not be used.
+
+//code
+// Assignment using the void value.
+Void myVoid = void;
+// myVoid becomes: void
+
+//code
+// Assingment using missing value.
+Void myVoid = ;
+// myVoid becomes: void
+
+//code
+// Assingment using uninitialized variable.
+Void myVoid;
+// myVoid becomes: void
+
+//code
+if(void == ){
+    // This code will always execute
+}
+
+//text
+The value __void__ will be equal to __null__ but __null__ will not be equal to __void__.
+This behaviour happens because the __Void__ type is a subtype of __Null__.
+The second reason is the ease of use you dont have to worry about if the value is null or void the mostly act the same.
+
+//code
+Bool myBoolean = void == null;
+// myBoolean becomes: true
+myBoolean = null == void;
+// myBoolean becomes: false
+
+//text
+The value __void__ can also be assigned to a variable with type Null.
+
+//code
+Null myNull = null;
+myNull = void;
+
+//text
+And now the reason I have added void.
+When void is added to a collection literal and the collection can not contain void the void value will be ignored.
+This functinallity only happens if the part of the collection can contain any number values.
+
+//code
+Int[] myArray = [13135, void, 53131];
+// myArray becomes [13135, 53131]
+Int[] myArray = [13135, if(myBoolean) 53131];
+
+//text
+When a collection object is used and a default value is used the __void__ value will be replaced by the default value if the element cannot contain void.
+
+//code
+[Int myInt = 13135, String myString] myArray = [void, 'Hello World!'];
+// myArray becomes [13135, 'Hello World!']
