@@ -44,3 +44,13 @@ var test: [string,number,null];
 
 // This method is called when your extension is deactivated
 export function deactivate() { }
+
+//To package the extention use the folling commands
+//(PowerShell)
+//Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+//Now edit the README.md file else you can not create a package
+//(Project root)
+//vsce package
+//npm run compile
+//(PowerShell)
+//Set-ExecutionPolicy Restricted -Scope CurrentUser
