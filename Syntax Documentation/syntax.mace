@@ -303,15 +303,16 @@ class MyClass
     }
 }
 
-The __implement__ keyword is used to implement or overwrite the abstract member of the super class in the child class.
+The __implement__ keyword is used to implement or overwrite an abstract member from the super class and define the implementation in the child class.
+Note that the implementation is defined in the child class but the member is still part of the original class.(super class)
 
 When implementing a variable it must have the same access modifier, type and identifier as the variable you want to implement.
-Abstract variables must be implemented in the child class if the parent variable is uninitialized and non nullable else the initialized value can optionaly be overwritten in the child class.
+Abstract variables must be implemented in the child class if the parent variable is uninitialized else the initialized value can optionaly be overwritten in the child class.
 
 When implementing a method it must have the same access modifier, type, identifier and parameter body as the method you want to implement.
-Abstract methods must be implemented in the child class if the parent method has no body else the body can optionaly be overwritten in the child class.
+Abstract methods must be implemented in the child class if the parent method has no code body else the code body can optionaly be overwritten in the child class.
 
-Note that implemented members can still be uninitialized or have no method body when the implemented member is abstract and implemented in an abstract class.
+Note that implemented members can still be uninitialized or have no method body when the implemented member is marked abstract and implemented in an abstract class.
 
 //code
 abstract class MyClass
@@ -355,6 +356,59 @@ class MySecondClass extend MyClass
         // Your overwritten method code.
     }
 }
+
+//text
+When an abstract member is implemented the implemented member is still part from its original class.
+If the member already had an implementation then the original implementation will be overwritten.
+It is also impossible to create an instance of a class that has unimplemented members anywhere in the inheritance tree.
+These rules unlock the possibility to still acces abstract members from their original class (object) even when the object is casted.
+
+//code
+abstract class MyClass{
+    public void myMethod();
+}
+
+class MySecondClass implement MyClass{
+    // Defining an implemention for the method myMethod that becomes part of the MyClass class.
+    public implement myMethod(){
+        print('Hello World!');
+    }
+}
+
+MySecondClass mySecondClass = MySecondClass();
+mySecondClass.myMethod(); 
+// Prints: Hello World!
+
+//Casting the normal class to the abscract class
+MyClass myClass = <MyClass>mySecondClass; 
+myClass.myMethod(); 
+// Calling myMethod its implemention defined in MySecondClass and part of MyClass and prints: Hello World!
+
+//text
+When implementing an abscract member that already has an implementation the original implementation will be overwritten and inaccessible.
+The new implentation will be part of the member its original class and can be accessed from their original class (object) even when the object is casted.
+
+//code
+class MyClass{
+    public abstract void myMethod(){
+        print('Hello World!');
+    }
+}
+
+class MySecondClass implement MyClass{
+    public implement void myMethod(){
+        print('Implement Hello World!');
+    }
+}
+
+MySecondClass mySecondClass = MySecondClass();
+mySecondClass.myMethod(); 
+// Prints: Implement Hello World!
+
+//Casting the normal class to the abscract class
+MyClass myClass = <MyClass>mySecondClass; 
+myClass.myMethod(); 
+// Calling myMethod its implemention defined in MySecondClass and part of MyClass and prints: Implement Hello World!
 
 //title
 Sealing (sealed)
