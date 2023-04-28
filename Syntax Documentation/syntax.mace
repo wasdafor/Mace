@@ -249,24 +249,25 @@ Abstraction (abstract)
 Classes
 
 //text 
-An abstract class is a class that can only be inherited (can not be instanciated) and can only contain abstract members.
+An abstract class is a normal class with a couple of special exceptions.
+These classes can only be inherited and cannot be instanciated, these classes can also optionaly contain abstract body less methods and uninitialized variables.
 To create an abstract class write the __abstract__ keyword before your class definition.
-The members of an abstract class are automatically __abstract__ so the __abstract__ keyword may be omitted.
-An abstract class can optionaly contain body less methods and uninitialized variables.
-A body less method must be implemented in the child class and the body must be defined (if not marked as abstract in the child class).
-An uninitialized variable that is non nullable must be implemented in the child class and must be initialized (if not marked as abstract in the child class).
+A body less method must be implemented in the child class and the body must be defined.
+An uninitialized variable must be implemented in the child class and must be initialized.
+
+Note that implemented members can still be uninitialized or have no method body when the implemented member is marked abstract and implemented in an abstract class.
 
 //code
 abstract class MyClass
 {
-    public Int myInt = 13135;
-    public String myString;
+    abstract public Int myInt = 13135;
+    abstract public String myString;
 
-    public Void myMethod(Int myValue){
+    abstract public Void myMethod(Int myValue){
         print(myValue);
     }
 
-    public Void mySecondMethod(String myValue);
+    abstract public Void mySecondMethod(String myValue);
 }
 
 class MySecondClass extend MyClass
@@ -277,7 +278,7 @@ class MySecondClass extend MyClass
         print(myValue);
     }
 
-    MySecondClass(){
+    public MySecondClass(){
         myMethod(myInt);
     }
 }
@@ -292,11 +293,12 @@ Class members (implement)
 An abstract member is a class member that can be overwritten or must be implemented in the child class.
 Any class can contain abstract members but only abstract classes can optionaly contain body less methods and uninitialized variables.
 An abstract member is created by writing the __abstract__ keyword before the class member and after the access modifier.
+Note that the abstract and static keywords cannot be used together.
 
 //code
 class MyClass
 {
-    public abstract String myString;
+    public abstract String myString = 'Hello World!';
 
     public abstract Void myMethod(){
         // Your abstract method code.
@@ -304,6 +306,8 @@ class MyClass
 }
 
 The __implement__ keyword is used to implement or overwrite an abstract member from the super class and define the implementation in the child class.
+Only equal or more retrictive access modifiers can be defined when defining the implementing for an abscract member.
+The private keyword indicate that the member can only be used in the implemented and original class.
 Note that the implementation is defined in the child class but the member is still part of the original class.(super class)
 
 When implementing a variable it must have the same access modifier, type and identifier as the variable you want to implement.
@@ -368,7 +372,7 @@ abstract class MyClass{
     public void myMethod();
 }
 
-class MySecondClass implement MyClass{
+class MySecondClass extend MyClass{
     // Defining an implemention for the method myMethod that becomes part of the MyClass class.
     public implement myMethod(){
         print('Hello World!');
@@ -380,7 +384,7 @@ mySecondClass.myMethod();
 // Prints: Hello World!
 
 //Casting the normal class to the abscract class
-MyClass myClass = <MyClass>mySecondClass; 
+MyClass myClass = mySecondClass<MyClass>; 
 myClass.myMethod(); 
 // Calling myMethod its implemention defined in MySecondClass and part of MyClass and prints: Hello World!
 
@@ -395,7 +399,7 @@ class MyClass{
     }
 }
 
-class MySecondClass implement MyClass{
+class MySecondClass extend MyClass{
     public implement void myMethod(){
         print('Implement Hello World!');
     }
@@ -406,7 +410,7 @@ mySecondClass.myMethod();
 // Prints: Implement Hello World!
 
 //Casting the normal class to the abscract class
-MyClass myClass = <MyClass>mySecondClass; 
+MyClass myClass = mySecondClass<MyClass>; 
 myClass.myMethod(); 
 // Calling myMethod its implemention defined in MySecondClass and part of MyClass and prints: Implement Hello World!
 
@@ -435,6 +439,7 @@ A __static__ class is a class that can only contain static members, can not be i
 Static members are members that are a part of the class itself and not of an individual object instance, these members can be added to any class.
 When a value of a static variable changes the change will happen in every instance of this class.
 Note that a static function cannot modify non static members.
+Note that the static and abstract keywords cannot be used together.
 
 //code
 static class MyClass
@@ -1322,7 +1327,7 @@ Int[] myArray = [1,2,3,4] * 2;
 // myArray becomes: [1,2,3,4,1,2,3,4]
 Int() myTuple = (1,2,3,4) * 2;
 // myTuple becomes: (1,2,3,4,1,2,3,4)
-Int[]{} mySet = {1,2,3,4} * {5,6,7,8};
+Int{} mySet = {1,2,3,4} * {5,6,7,8};
 // mySet becomes: {(1,5),(1,6),(1,7),(1,8),(2,5),(2,6),(2,7),(2,8),(3,5),(3,6),(3,7),(3,8),(4,5),(4,6),(4,7),(4,8)}
 
 //subtitle
@@ -1497,7 +1502,7 @@ Int[] myArray = [1,2,3,5] ^ [2,4,5];
 Int() myTuple = (1,2,3,5) ^ (2,4,5);
 // myTuple becomes: (1,3,4)
  
-Set<Int> mySet = {1,2,3,5} ^ {2,4,5};
+Int{} mySet = {1,2,3,5} ^ {2,4,5};
 // mySet becomes: {1,3,4}
 
 type MyType = (String | Double) ^ (Int | Double);
@@ -2666,13 +2671,13 @@ The __try catch__ expression can only have a non nullable return type if both th
 
 //code
 Int myInt = try{ 
-    return <Int>myString;
+    return myString<Int>;
 }catch{
     return 13135;
 };
 
 // Using expression body.
-myInt = try <Int>myString catch 13135;
+myInt = try myString<Int> catch 13135;
 
 
 //chapter
@@ -3200,16 +3205,16 @@ Type casting
 
 //text
 The __<>__ operator can be used to cast any value to a given type.
-To cast a value write any type between __<>__ followed by any value.
+To cast a value write any value followed by any type between __<>__ brackets.
 
 //code
 Int myInt = 13135;
-String myString = <String>myInt;
+String myString = myInt<String>;
 // myString becomes: '13135'
 
 //code
 String myString = '13135';
-Int myInt = <Int>myString;
+Int myInt = myString<Int>;
 // myInt becomes: 13135
 
 //subtitle
@@ -3230,7 +3235,7 @@ class MyClass
 }
 
 MyClass myClass = MyClass();
-String myString = <String>myClass;
+String myString = myClass<String>;
 // myString becomes: 'Hello World!';
 
 //subtitle
@@ -3964,7 +3969,7 @@ Note that type casting is required.
 String myString = 'Hello World!';
 Label myLabel = $myString;
 
-String myLabelString = <String>myLabel$;
+String myLabelString = myLabel$<String>;
 // myLabelString becomes: 'Hello World!'
 
 //text
@@ -3980,11 +3985,11 @@ class MyClass
 MyClass myClass = MyClass();
 
 Label myLabel = myString;
-String myString = <String>myClass.myLabel$;
+String myString = myClass.myLabel$<String>;
 // myString becomes: 'Hello World!'
 
 myLabel = myInt;
-Int myInt = <Int>myClass.myLabel$;
+Int myInt = myClass.myLabel$<Int>;
 // myInt becomes: 13135
 
 //title
@@ -4007,9 +4012,9 @@ class MyClass
 }
 
 MyClass myClass = MyClass();
-String myString = <String>myClass.stringMember;
+String myString = myClass.stringMember<String>;
 //myString becomes: 'Hello World!'
-Int myInt = <Int>myClass.intMember;
+Int myInt = myClass.intMember<Int>;
 // myInt becomes: 13135
 
 //chapter
@@ -4756,10 +4761,10 @@ abstract class MyClass{
 <String> same String
 <String, Int> same String | Int
 
-Int myInt = <Int>myString;
+Int myInt = myString<Int>;
 //Can result in runtime exception
 
-Int myInt = try <Int>myString catch 13135;
+Int myInt = try myString<Int> catch 13135;
 //When resulting in runtime error the catch value will be returned
 
 //Experimenting with void
