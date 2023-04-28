@@ -260,7 +260,7 @@ Note that implemented members can still be uninitialized or have no method body 
 //code
 abstract class MyClass
 {
-    abstract public Int myInt = 13135;
+    public Int myInt = 13135;
     abstract public String myString;
 
     abstract public Void myMethod(Int myValue){
