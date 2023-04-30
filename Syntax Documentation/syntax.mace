@@ -4382,6 +4382,7 @@ Cascading scope
 The __{}__ brackets can be used to add cascading scope to any value.
 To add cascading scope write __{}__ after any value.
 Inside the __{}__ of the cascading scope the members of the value can accessed with the __.__ operator.
+//Maybe make the __.__ operator optinal and replace it the the keyword base for more clearity
 
 //code
 class MyClass
@@ -4410,7 +4411,7 @@ myClass{
 
 //text
 The cascading scope can also be added to functions, to call them multiple times.
-When the cascading scope is added to a function (variable) the __.__ is not required.
+When the cascading scope is added to a function (variable) the __.__ is required.
 
 //code
 Int[] myArray = [];
@@ -4423,10 +4424,10 @@ myArray.add(3);
 
 // With cascading scope
 myArray.add{
-    (1);
-    (3);
-    (1);
-    (3);
+    .(1);
+    .(3);
+    .(1);
+    .(3);
 }
 
 //text
@@ -4491,10 +4492,10 @@ MyClass myClass = MyClass();
 
 myClass.myString{
     if(myBoolean){
-        = 'Hello World!';
+       . = 'Hello World!';
     }
     else{
-        = 'World Hello!';
+       . = 'World Hello!';
     }
 }
 
@@ -4541,9 +4542,9 @@ class MyClass
             myInt = 13135;
             mySecondInt = 53131;
 
-            | String dwdw = '';
+            . | String dwdw = '';
 
-            ? dwdw = null;
+            .? dwdw = null;
           
             myMethod(){
                 // You method code
@@ -4575,10 +4576,10 @@ MyClass myClass = MyClass(){
     .myInt = 13135;
     .myString = 'Hello World!';
     .myArray.add{
-        (1);
-        (3);
-        (1);
-        (3);
+        .(1);
+        .(3);
+        .(1);
+        .(3);
     }
     .myMethod();
 };
@@ -4618,10 +4619,10 @@ myObject{
 
 myObject{
     if(myBoolean){
-        base = myObject();
+        . = myObject();
     }
     else{
-        base = myObject('');
+        . = myObject('');
     }
 }
 
@@ -4650,7 +4651,7 @@ For loop
 Function
 Array type and value
 Tuple type and value
-Set type anf value
+Set type and value
 Cascading scope
 
 //code
