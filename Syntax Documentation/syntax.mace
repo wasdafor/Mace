@@ -249,14 +249,12 @@ Abstraction (abstract)
 Classes
 
 //text 
-An abstract class is a normal class with a couple of special exceptions.
-These classes can only be inherited and cannot be instanciated, these classes can also optionaly contain abstract body less methods and uninitialized variables.
-To create an abstract class write the __abstract__ keyword before your class definition.
-A body less method must be implemented in the child class and the body must be defined.
-An uninitialized variable must be implemented in the child class and must be initialized.
+An abstract class is a normal class that can only be inherited and cannot be instanciated.
+These classes can optionaly contain unimplemented abstract members which must be implemented in the child class.
+Note that implemented members in an abstract class can still be unimplemented when they are marked abstract.
+To create an abstract class write the __abstract__ keyword before your class definition and after the access modifier.
 
-Note that implemented members can still be uninitialized or have no method body when the implemented member is marked abstract and implemented in an abstract class.
-
+//Constructor can still be present and can still be private
 //code
 abstract class MyClass
 {
@@ -291,9 +289,20 @@ Class members (implement)
 
 //text
 An abstract member is a class member that can be overwritten or must be implemented in the child class.
-Any class can contain abstract members but only abstract classes can optionaly contain body less methods and uninitialized variables.
-An abstract member is created by writing the __abstract__ keyword before the class member and after the access modifier.
-Note that the abstract and static keywords cannot be used together.
+Only abstract or normal classes can contain abstract members.
+When an abstract member is defined in a normal class the member must have an implementation while this is not required in an abstract class.
+An abstract member is created by writing the __abstract__ keyword before the class member and after its access modifier.
+The followed members can be marked as abstract:
+
+//tablehead
+Member`         Unimplemented state`                    Example
+
+//table
+Variables`      Uninitialized`                          abstract String myString;
+Methods`        Bodyless and without auto assignment`   abstract Void myMethod();
+Constructors`   Bodyless and without auto assignment`   abstract MyClass();        
+
+Note that an abstract member cannot be static.
 
 //code
 class MyClass
@@ -306,7 +315,7 @@ class MyClass
 }
 
 The __implement__ keyword is used to implement or overwrite an abstract member from the super class and define the implementation in the child class.
-Only equal or more retrictive access modifiers can be defined when defining the implementing for an abscract member.
+Only equal or more retrictive access modifiers can be defined when defining the implementing for an abstract member.
 The private keyword indicate that the member can only be used in the implemented and original class.
 Note that the implementation is defined in the child class but the member is still part of the original class.(super class)
 
@@ -317,6 +326,8 @@ When implementing a method it must have the same access modifier, type, identifi
 Abstract methods must be implemented in the child class if the parent method has no code body else the code body can optionaly be overwritten in the child class.
 
 Note that implemented members can still be uninitialized or have no method body when the implemented member is marked abstract and implemented in an abstract class.
+
+//optinally the type can be referenced when implementing an member like implement void A.myMethod(){} and implement void B.myMethod(){}
 
 //code
 abstract class MyClass
@@ -362,17 +373,19 @@ class MySecondClass extend MyClass
 }
 
 //text
-When an abstract member is implemented the implemented member is still part from its original class.
+When an abstract member is implemented the implemented member is still part of its original class.
 If the member already had an implementation then the original implementation will be overwritten.
 It is also impossible to create an instance of a class that has unimplemented members anywhere in the inheritance tree.
 These rules unlock the possibility to still acces abstract members from their original class (object) even when the object is casted.
 
 //code
-abstract class MyClass{
+abstract class MyClass
+{
     public void myMethod();
 }
 
-class MySecondClass extend MyClass{
+class MySecondClass extend MyClass
+{
     // Defining an implemention for the method myMethod that becomes part of the MyClass class.
     public implement myMethod(){
         print('Hello World!');
@@ -383,23 +396,25 @@ MySecondClass mySecondClass = MySecondClass();
 mySecondClass.myMethod(); 
 // Prints: Hello World!
 
-//Casting the normal class to the abscract class
+//Casting the normal class to the abstract class
 MyClass myClass = mySecondClass<MyClass>; 
 myClass.myMethod(); 
 // Calling myMethod its implemention defined in MySecondClass and part of MyClass and prints: Hello World!
 
 //text
-When implementing an abscract member that already has an implementation the original implementation will be overwritten and inaccessible.
+When implementing an abstract member that already has an implementation, the original implementation will be overwritten and inaccessible.
 The new implentation will be part of the member its original class and can be accessed from their original class (object) even when the object is casted.
 
 //code
-class MyClass{
+class MyClass
+{
     public abstract void myMethod(){
         print('Hello World!');
     }
 }
 
-class MySecondClass extend MyClass{
+class MySecondClass extend MyClass
+{
     public implement void myMethod(){
         print('Implement Hello World!');
     }
@@ -409,10 +424,30 @@ MySecondClass mySecondClass = MySecondClass();
 mySecondClass.myMethod(); 
 // Prints: Implement Hello World!
 
-//Casting the normal class to the abscract class
+//Casting the normal class to the abstract class
 MyClass myClass = mySecondClass<MyClass>; 
 myClass.myMethod(); 
 // Calling myMethod its implemention defined in MySecondClass and part of MyClass and prints: Implement Hello World!
+
+//text
+When you are inheriting from two class that have the same abstract member they can be implemented using their class as alias.
+
+//code
+abstract class MyClass
+{
+    void myMethod();
+}
+
+abstract class MySecondClass
+{
+    void myMethod();
+}
+
+class MyThirdClass extend MyClass, MySecondClass
+{
+    implement void MyClass.myMethod(){}
+    implement void MySecondClass.myMethod(){}
+}
 
 //title
 Sealing (sealed)
@@ -437,9 +472,9 @@ Static (static)
 //text
 A __static__ class is a class that can only contain static members, can not be instanciated and can only inherit other static classes.
 Static members are members that are a part of the class itself and not of an individual object instance, these members can be added to any class.
-When a value of a static variable changes the change will happen in every instance of this class.
+When a value of a static variable changes the change will occur in every instance of this class.
 Note that a static function cannot modify non static members.
-Note that the static and abstract keywords cannot be used together.
+Note that a static member cannot be abstract.
 
 //code
 static class MyClass
@@ -452,7 +487,7 @@ static class MyClass
 }
 
 //text
-When static members can be accessed using their class type and a period (__.__).
+Static members can be accessed using their class type and a period (__.__).
 
 //code
 MyClass.myMethod(MyClass.myInt);
