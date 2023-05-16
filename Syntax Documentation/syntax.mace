@@ -73,8 +73,8 @@ Access modifier`    Can be access where?
 
 //table
 __public__`         Inside any namespace.
-__private__`        Inside the namespace itself.
-__protected__`      Inside namespaces with the same name.
+__private__`        Only inside the namespace itself.
+__protected__`      Only inside namespaces with the same identifier.
 
 A __namespace__ can be defined by using the following syntax.
 
@@ -105,17 +105,17 @@ Import namespaces (use)
 //text
 The __use__ keyword is used to import members from a namespace with a different identifier.
 This can be achieved by writing the __use__ keyword followed by the path to your namespace. 
-The members of the imported namespace can now be directly access by using their identifier.
-Note that use statements can only be specfied at the top of any Mace file.
+The members of the imported namespace can now be directly access by using their identifiers.
+Note that use statements can only be specfied at the top of a .mace file.
 
 //code
 use MyNamespace;
 print(myMember);
 
 //text
-The __as__ keyword can be used to store the members of an imported namespace into a custom constant variable.
-This can be achieved by writing the __as__ keyword after the namespace path followed by the variable identifier.
-The members of the imported namespace can now be accessed via the variable.
+The __as__ keyword can be used to bind an imported member to a custom alias.
+This can be achieved by writing the __as__ keyword after the namespace path followed by the alias identifier.
+The members of the imported namespace can now be accessed via the alias using the __.__ operator.
 
 //code
 use MyNamespace as MyNamespaceVariable;
@@ -126,7 +126,7 @@ Specific members (from)
 
 //text
 The __from__ keyword can be used to import only specific members from a namespace, if not all the members need to be imported.
-These members can be specfied with commas separated between, the __use__ and from keywords and after the namespace path.
+These members can be specfied with commas separated between, the __use__ and __from__ keywords and after the namespace path.
 The specificly imported members can now be directly accessed using their identifier.
 
 //code
@@ -142,9 +142,9 @@ This can be achieved by writing the __!__ operator before the __use__ statement.
 print(myThirdMember);
 
 //test
-The __as__ keyword can be used to store the specificly imported member into a custom constant variable.
-This can be achieved by writing the __as__ keyword after any member followed by the variable identifier.
-The specificly imported member can now be accessed via its variable.
+The __as__ keyword can be used to bind a specificly imported member to a custom alias.
+This can be achieved by writing the __as__ keyword after any member followed by the alias identifier.
+The specificly imported member can now be accessed via its alias.
 
 //code
 use myFirstMember as myFirstRenamedMember, mySecondMember as mySecondRenamedMember from MyNamespace;
@@ -167,12 +167,13 @@ Class methods
 Use access modifiers to define where the class members can be accessed, members will be public by default.
 
 //tablehead
-Access modifier`    Can be accessed where?
+Access modifier`        Can be accessed where?
 
 //table
-__public__`         Outside of the class.
-__private__`        Inside the class itself.
-__protected__`      Inside the class itself or derived classes.
+__public__`             Inside or outside of the class.
+__private__`            Only inside the class itself.
+__protected__`          Inside the class itself or derived classes.
+__private protected__`  Inside the class itself or the first derived class.
 
 When accessing class members in the class itself the members can be access directly or via the __this__ keyword.
 A class can only be defined in a namespace, by using the followed syntax.
@@ -243,10 +244,10 @@ class MyThirdClass extend MyClass, MySecondClass
 MyThirdClass myThirdClass = MyThirdClass();
 
 //title
-Abstraction (abstract)
+Abstraction (abstract, implement)
 
 //subtitle
-Classes
+Classes (abstract)
 
 //text 
 An abstract class is a normal class that can only be inherited and cannot be instanciated.
@@ -285,7 +286,7 @@ MyClass myClass = MyClass();
 // Results in an error.
 
 //subtitle
-Class members (implement)
+Class members (abstract, implement)
 
 //text
 An abstract member is a class member that can be overwritten or must be implemented in the child class.
@@ -314,46 +315,32 @@ class MyClass
     }
 }
 
-The __implement__ keyword is used to implement or overwrite an abstract member from the super class and define the implementation in the child class.
-Only equal or more retrictive access modifiers can be defined when defining the implementing for an abstract member.
-The private keyword indicate that the member can only be used in the implemented and original class.
-Note that the implementation is defined in the child class but the member is still part of the original class.(super class)
+The __implement__ keyword is used to implement or overwrite an abstract member from the super class in the child class.
+The acces modifier of the abstract member cannot be modified on implementation and does not have to be defined in the the child class.
+Members only have to be implemented when the abstract member has no default implementation else optionaly overwrite them.
+Note that the implementation is defined in the child class but the member is still part of the original class.
+Note that implemented members in an abstract class can still be unimplemented when they are marked abstract.
 
-When implementing a variable it must have the same access modifier, type and identifier as the variable you want to implement.
-Abstract variables must be implemented in the child class if the parent variable is uninitialized else the initialized value can optionaly be overwritten in the child class.
-
-When implementing a method it must have the same access modifier, type, identifier and parameter body as the method you want to implement.
-Abstract methods must be implemented in the child class if the parent method has no code body else the code body can optionaly be overwritten in the child class.
-
-Note that implemented members can still be uninitialized or have no method body when the implemented member is marked abstract and implemented in an abstract class.
-
-//optinally the type can be referenced when implementing an member like implement void A.myMethod(){} and implement void B.myMethod(){}
+The implemented variable must have the same type and identifier as the original abstract member.
+The implemented method must have the same return type, identifier and parameter body as the abstract member.
 
 //code
 abstract class MyClass
 {
     public abstract Int myInt = 0;
 
-    abstract String myString = 'Value';
+    private abstract String myString = 'Value';
 
-    protected abstract Double myDouble;
-
-    public abstract Void myMethod(Int value){
+    protected abstract Void myMethod(Int myValue){
         print(value);
-        // Your abstract method code.
     }
 
-    abstract Void mySecondMethod(String value){
-        print(value);
-        // Your abstract method code.
-    }
-
-    protected abstract Void myThirdMethod(Double value);
+    private protected abstract Void mySecondMethod(Int myValue);
 }
 
 class MySecondClass extend MyClass
 {
-    public implement Int myInt;
+    implement Int myInt;
 
     implement String myString = 'Overwritten value';
 
@@ -387,7 +374,7 @@ abstract class MyClass
 class MySecondClass extend MyClass
 {
     // Defining an implemention for the method myMethod that becomes part of the MyClass class.
-    public implement myMethod(){
+    implement void myMethod(){
         print('Hello World!');
     }
 }
@@ -415,7 +402,7 @@ class MyClass
 
 class MySecondClass extend MyClass
 {
-    public implement void myMethod(){
+    implement void myMethod(){
         print('Implement Hello World!');
     }
 }
