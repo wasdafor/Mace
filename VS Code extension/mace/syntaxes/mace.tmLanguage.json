@@ -42,11 +42,11 @@
 				},
 				{
 					"name": "keyword",
-					"match": "\\b(void|class|interface|enum|namespace|static|use|const|only|as|from|public|private|protected|this|super|abstract|system|sealed|init|get|set|extend|implement|type|object|auto|base)\\b"
+					"match": "\\b(void|class|enum|namespace|static|use|const|only|as|from|public|private|protected|this|super|abstract|system|sealed|init|get|set|extend|implement|type|auto|base|open)\\b"
 				},
 				{
 					"name": "entity.name.class.mace",
-					"match": "\\b(String|Int|Double|Char|Bool|Dynamic|Float|Long|Short|Future|Iterator|Stream|MyClass|Label|MySecondClass|MyThirdClass|Exception|MyType|Void|Null|MyGeneric|Func|Skip)\\b"
+					"match": "\\b(String|Int|Double|Char|Bool|Dynamic|Float|Long|Short|Future|Iterator|Stream|MyClass|Label|MySecondClass|MyThirdClass|Exception|MyType|MyEnum|MySecondEnum|Void|Null|MyGeneric|Func|Object|Type|Byte|Pointer|Any|Array|Tuple|Set|Map)\\b"
 				}
 			]
 		},

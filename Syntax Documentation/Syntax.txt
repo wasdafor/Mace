@@ -982,3 +982,150 @@ Int[] myArray = [async for(i in 1..10){
       await // Code that takes a while
       yield await i;
 }];
+
+//chapter
+Scope labels
+
+//text
+The __<>__ brackets can be used to add a label to any scope.
+To add a label to any scope write __<__ followed by a label name and ending with __>__.
+The label can be used to acces the scope its variables this can be usefull to keep the code readable and claer.
+Scope labels can be added to the following scopes:
+
+//table
+If statement
+Else statement
+Else if statement
+Switch statement
+Case statement
+For loop
+Function
+Array type and value
+Tuple type and value
+Set type and value
+Cascading scope
+
+//code
+<myIfScope>
+if(myBoolean){
+    Int x = 131;
+    Int y = 35;
+    if(mySecondBoolean){
+        Int x = myIfScope.x;
+        Int y = myIfScope.y;
+    }
+}
+
+//text
+The label can also be used to access statements or default values/code from cascading scope.
+To access these members two dots must be used instead of a singular one.
+
+//code
+<myIfScope>
+if(myBoolean){
+    // The value of the the expression given in the if statement.
+    print(myIfScope..result);
+    // Reruns the expression in tgiven in the if statement
+    print(myIfScope..check());
+}
+<myElseIfScope>
+else if(mySecondBoolean){
+}
+<myElseScope>
+else{
+}
+
+//code
+<mySwitchScope>
+switch(myString){
+    <myCaseScope>
+    case('Hello World!'){
+        switch(myInt){
+            case(13135){
+                print(myCaseScope..checks);
+                print(mySwitchScope..value);
+                mySwitchScope..break;
+            }
+        }
+    }
+}
+
+//code
+<myForScope>
+for(Int i in array){
+    for(Int i in array){
+        print(myForScope.i);
+        print(myForScope..iterable);
+        if(myBoolean){
+            myForScope..break;
+        }
+        else{
+            myForScope..continue;
+        }
+    }
+}
+
+//code
+<myMethodScope>
+Void myMethod(){
+    Void mySecondMethod(){
+        myMethodScope..return;
+    }
+}
+
+//code
+<myArrayTypeScope> Int[myArrayTypeScope | String] = <myArrayValueScope> 13135[myArrayValueScope * 53131];
+
+//code
+<myTupleTypeScope> Int(myTupleTypeScope | String) = <myTupleValueScope> 13135(myTupleValueScope * 53131);
+
+//code
+<mySetTypeScope> Int{mySetTypeScope | String} = <mySetValueScope> 13135{mySetValueScope * 53131};
+
+//code
+<myCascadingScope>
+myObject.myNestedObject{
+    myNestedNestedObject{
+        myCascadingScope..myString = 'Hello World!';
+        myCascadingScope..myInt = 13135;
+    }
+}
+
+//subtitle
+Default value
+
+//text
+The __default__ keyword can be used to retrive the default value of the type when the typ casting was not successfull.
+
+//code
+String myString = 'Hello World!';
+Int myInt = <default Int>myString;
+// myInt becomes: 0
+
+
+//text
+The __as__ keyword can be used to bind new class to a class extension.
+This can be achieved by writing __as__ after the extension type followed by a class definition without the class keyword.
+When creating an instance of the binded class it will not contain the members from the extended class.
+
+//code
+class MyClass
+{
+    Int myInt = 13135;
+    String myString = 'Hello World!';
+}
+
+extend MyClass as MySecondClass
+{
+    Void myMethod(){
+        print(myInt);
+    }
+}
+
+// Accessing the extended method myMethod from the original class
+MyClass myClass = MyClass();
+myClass.myMethod();
+
+// Accessing the method myMethod from the binded class MySecondClass
+MySecondClass mySecondClass = MySecondClass();
+mySecondClass.myMethod();

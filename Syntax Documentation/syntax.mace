@@ -69,12 +69,13 @@ When defining multiple namespaces with the same identifier, the members of these
 Use access modifiers to define where the members of the namespace can be accessed, members will be private by default.
 
 //table head
-Access modifier`    Can be access where?
+Access modifier`        Can be access where?
 
 //table
-__public__`         Inside any namespace.
-__private__`        Only inside the namespace itself.
-__protected__`      Only inside namespaces with the same identifier.
+__public__`             Inside any namespace in any file.
+__private__`            Inside namespaces with the same identifier in any file.
+__protected__`          Inside any namespace in the current file.
+__private protected__`  Inside namespaces with the same identifier in the current file.
 
 A __namespace__ can be defined by using the following syntax.
 
@@ -89,21 +90,16 @@ namespace MyNamespace
 {
     Int myInt = 13135;
 
-    Void myMethod(){
-        // Your method code.
-    }
+    Void myMethod(){}
 
-    class MyClass
-    {
-        // Your fields and methods.
-    }
+    class MyClass{}
 }
 
 //title
 Import namespaces (use)
 
 //text
-The __use__ keyword is used to import members from a namespace with a different identifier.
+The __use__ keyword is used to import __public__ members from a namespace with a different identifier.
 This can be achieved by writing the __use__ keyword followed by the path to your namespace. 
 The members of the imported namespace can now be directly access by using their identifiers.
 Note that use statements can only be specfied at the top of a .mace file.
@@ -113,7 +109,7 @@ use MyNamespace;
 print(myMember);
 
 //text
-The __as__ keyword can be used to bind an imported member to a custom alias.
+The __as__ keyword can be used to bind an imported namespace to a custom alias.
 This can be achieved by writing the __as__ keyword after the namespace path followed by the alias identifier.
 The members of the imported namespace can now be accessed via the alias using the __.__ operator.
 
@@ -125,7 +121,7 @@ print(MyNamespaceVariable.myFirstMember);
 Specific members (from)
 
 //text
-The __from__ keyword can be used to import only specific members from a namespace, if not all the members need to be imported.
+The __from__ keyword can be used to import only specific __public__ members from a namespace, if only specific members need to be imported.
 These members can be specfied with commas separated between, the __use__ and __from__ keywords and after the namespace path.
 The specificly imported members can now be directly accessed using their identifier.
 
@@ -134,7 +130,7 @@ use myFirstMember, mySecondMember from MyNamespace;
 print(myFirstMember,mySecondMember);
 
 //text
-The __!__ not operator can be used to import all the namespace members, except the specificly specfied members.
+The __!__ not operator can be used to import all the namespace __public__ members, except the specificly specfied members.
 This can be achieved by writing the __!__ operator before the __use__ statement. 
 
 //code
@@ -151,11 +147,32 @@ use myFirstMember as myFirstRenamedMember, mySecondMember as mySecondRenamedMemb
 print(myFirstRenamedMember,mySecondRenamedMember);
 
 //chapter
+Data Structures
+//Is nog niet uigewerkt het idee is dat hier 3 structure modifiers komen abstract moet parent class zijn open kan parent class zijn en geinstantieerd worden en sealed kan alleen geinstantieerd worden.
+//En dan dit geld ook voor static classes en enums met natuurlijk wat wijzigen op die logiaca.
+
+//text
+Data structures are pieces of code that are used to store, comare, and manipulate data.
+These structures can in most cases be used to create custom logic in de form of code.
+Mace has the following data structures that can be created by the programmer.
+
+//tablehead
+Name`               Example
+
+//table
+Classes`            class MyClass{}
+Static classes`     static class MyClass{}
+Enums`              enum MyEnum{}   
+
+When a data structure is defined without specifing a structure modifier the __open__ structure modifier will be used by default.
+These data structures can only be defined inside of a __namespace__.
+
+//title
 Classes
 
 //text
 A __class__ is a labeled block of code that is a blueprint for a data and function object.
-The following members can be defined inside a __class__:
+The following members can be defined inside of a __class__:
 
 //table
 Variables
@@ -175,11 +192,13 @@ __private__`            Only inside the class itself.
 __protected__`          Inside the class itself or derived classes.
 __private protected__`  Inside the class itself or the first derived class.
 
-When accessing class members in the class itself the members can be access directly or via the __this__ keyword.
-A class can only be defined in a namespace, by using the followed syntax.
+The members of a class can always be accessed in the class itself no matter the protection level of its access modifier.
+These members can be directly access by using its identifier and instance members can optionaly be access using the __this__ keyword.
+When a __class__ is created without specifing a structure modifier the class will automatically be an __open class__.
+A __class__ can be created by using the followed syntax.
 
 //code
-class MyClassIdentifier
+class MyClass
 {
     // Your class members.
 }
@@ -191,14 +210,15 @@ class MySecondClass
     String myString = 'Hello World!';
 
     Void myMethod(){
-        print(myInt, this.myString)
+        print(myInt, this.myString);
     }
 }
 
 //text
-To create the the data and function object also called an object instance write the class identifier followed by __()__ brackets.
-The members of the object can now be accessed by using the the access operator (__.__).
-Note that only normal and sealed classes can be instanciated.
+The class represents the blueprint of an object to create this object write the class identifier followed by __()__ brackets.
+The instance of the class can now be treated as value and can be stored in a variable.
+The members of the object can now be accessed by using the access operator (__.__).
+Note that only open and sealed classes can be instanciated.
 
 //code
 class MyClass
@@ -218,30 +238,81 @@ String myString = myClass.myString;
 Inheritance (extend, super)
 
 //text
-The __extend__ keyword is used to inherit any class its members into a new class.
-This can be achieved by writing extend after the child class identifier, followed by comma seperated class identifiers that you want to inherit.
-The public and protected members of the inherited(__super__) class(es) can now be accessed directly or via the __super__ keyword, in the child class.
+The __extend__ keyword is used to inherit the members from one or more data structures into a new data structure also called the child data structure.
+This can be achieved by writing the __extend__ keyword after the child data structure its identifier, followed by comma seperated data structure identifiers.
+Only __public__, __protected__ and __private protected__ inherited structure members can be accessed in the child data structure. 
+These inherited members are now part of the new data structure and can be accessed like any other member.
+Data structures can only inherit data structures with the same type and if they are not sealed.
+
+//subtitle
+Classes
+
+//text
+The inherited members from the parent classes can be access using the __super__ keyword.
 
 //code
-class MyClass
+class MySecondClass
+{ 
+    Int myInt = 13135; 
+    Int myString = "Hello World!";
+}
+
+class MyClass extend MySecondClass
+{
+    MyClass(){
+        // Printing the intance members myInt and myString from MySecondClass.
+        print(myInt, super.myString);
+    }
+}
+
+MyClass myClass = MyClass();
+
+//Printing the intance members myInt and myString from MySecondClass using an instance variable.
+print(myClass.myInt, myClass.myString);
+
+//subtitle
+Static classes
+
+//text
+The child __static class__ is a completly new __static class__ and is detached from the parent __static class__.
+This implies that the inherited members from the parent are different from the members in the child.
+Members from specific static parent classes can still be accessed using type casting.
+
+//code
+static class MySecondClass
+{
+    String myString = "Hello World!";
+}
+
+static class MyClass extend MySecondClass
 {
     Int myInt = 13135;
 }
 
-class MySecondClass
+//Printing the member myString from MySecondClass and myInt from myClass.
+print(MyClass.myString, MyClass<MySecondClass>.myInt);
+
+//subtitle
+Enums
+
+//text
+The child __enum__ is a completly new __enum__ and is detached from the parent __enum__.
+This implies that the members from the parent are difference from the members from the child.
+Members from specific parent enums can still be accessed using type casting.
+
+//code
+enum MySecondEnum
 {
-    String myString = 'Hello World!';
+    MyEnumValue
 }
 
-class MyThirdClass extend MyClass, MySecondClass
+enum MyEnum extend MySecondEnum
 {
-    MyThirdClass(){
-        // Printing the myInt variable from MyClass and myString from mySecondClass.
-        print(myInt, super.myString)
-    }
+    MySecondEnumValue
 }
 
-MyThirdClass myThirdClass = MyThirdClass();
+//Printing the member myString from MySecondClass and myInt from myClass.
+print(MyEnum.myString, MyEnum<MySecondEnum>.myInt);
 
 //title
 Abstraction (abstract, implement)
@@ -252,7 +323,7 @@ Classes (abstract)
 //text 
 An abstract class is a normal class that can only be inherited and cannot be instanciated.
 These classes can optionaly contain unimplemented abstract members which must be implemented in the child class.
-Note that implemented members in an abstract class can still be unimplemented when they are marked abstract.
+Note that abstract members with no default implementation are only required to be implemented in non abstract classes.
 To create an abstract class write the __abstract__ keyword before your class definition and after the access modifier.
 
 //Constructor can still be present and can still be private
@@ -289,11 +360,11 @@ MyClass myClass = MyClass();
 Class members (abstract, implement)
 
 //text
-An abstract member is a class member that can be overwritten or must be implemented in the child class.
-Only abstract or normal classes can contain abstract members.
-When an abstract member is defined in a normal class the member must have an implementation while this is not required in an abstract class.
+An abstract member is a class member that can be overwritten or must be implemented in the fist non abstract child class.
+Only abstract or open classes can contain abstract members.
+When an abstract member is defined in a open class the member must have a default implementation while this is not required in an abstract class.
 An abstract member is created by writing the __abstract__ keyword before the class member and after its access modifier.
-The followed members can be marked as abstract:
+The following members can be marked as abstract:
 
 //tablehead
 Member`         Unimplemented state`                    Example
@@ -302,8 +373,6 @@ Member`         Unimplemented state`                    Example
 Variables`      Uninitialized`                          abstract String myString;
 Methods`        Bodyless and without auto assignment`   abstract Void myMethod();
 Constructors`   Bodyless and without auto assignment`   abstract MyClass();        
-
-Note that an abstract member cannot be static.
 
 //code
 class MyClass
@@ -317,9 +386,9 @@ class MyClass
 
 The __implement__ keyword is used to implement or overwrite an abstract member from the super class in the child class.
 The acces modifier of the abstract member cannot be modified on implementation and does not have to be defined in the the child class.
-Members only have to be implemented when the abstract member has no default implementation else optionaly overwrite them.
+Members only have to be implemented when the abstract member has no default implementation else optionaly overwrite the current implementation.
 Note that the implementation is defined in the child class but the member is still part of the original class.
-Note that implemented members in an abstract class can still be unimplemented when they are marked abstract.
+Note that abstract members with no default implementation are only required to be implemented in non abstract classes.
 
 The implemented variable must have the same type and identifier as the original abstract member.
 The implemented method must have the same return type, identifier and parameter body as the abstract member.
@@ -361,7 +430,7 @@ class MySecondClass extend MyClass
 
 //text
 When an abstract member is implemented the implemented member is still part of its original class.
-If the member already had an implementation then the original implementation will be overwritten.
+If the member already had a default implementation then the original implementation will be overwritten.
 It is also impossible to create an instance of a class that has unimplemented members anywhere in the inheritance tree.
 These rules unlock the possibility to still acces abstract members from their original class (object) even when the object is casted.
 
@@ -383,7 +452,7 @@ MySecondClass mySecondClass = MySecondClass();
 mySecondClass.myMethod(); 
 // Prints: Hello World!
 
-//Casting the normal class to the abstract class
+//Casting the open class to the abstract class
 MyClass myClass = mySecondClass<MyClass>; 
 myClass.myMethod(); 
 // Calling myMethod its implemention defined in MySecondClass and part of MyClass and prints: Hello World!
@@ -411,18 +480,20 @@ MySecondClass mySecondClass = MySecondClass();
 mySecondClass.myMethod(); 
 // Prints: Implement Hello World!
 
-//Casting the normal class to the abstract class
+//Casting the open class to the abstract class
 MyClass myClass = mySecondClass<MyClass>; 
 myClass.myMethod(); 
 // Calling myMethod its implemention defined in MySecondClass and part of MyClass and prints: Implement Hello World!
 
 //text
 When you are inheriting from two class that have the same abstract member they can be implemented using their class as alias.
+Note the class alias may be used even when the members do not have the same identifier.
 
 //code
 abstract class MyClass
 {
     void myMethod();
+    void mySecondMethod();
 }
 
 abstract class MySecondClass
@@ -434,6 +505,8 @@ class MyThirdClass extend MyClass, MySecondClass
 {
     implement void MyClass.myMethod(){}
     implement void MySecondClass.myMethod(){}
+
+    implement void MyClass.mySecondMethod(){}
 }
 
 //title
@@ -441,6 +514,7 @@ Sealing (sealed)
 
 //text
 The __sealed__ keyword is used to create a class that can not be inherited.
+Note that sealed classes cannot contain abstract members.
 This can be achieved by writing the __sealed__ keyword before the class definition.
 
 //code
@@ -458,9 +532,10 @@ Static (static)
 
 //text
 A __static__ class is a class that can only contain static members, can not be instanciated and can only inherit other static classes.
+When a static class is created without specifing a structure modifier the static class will automatically be an open static class.
 Static members are members that are a part of the class itself and not of an individual object instance, these members can be added to any class.
 When a value of a static variable changes the change will occur in every instance of this class.
-Note that a static function cannot modify non static members.
+Note that a static method cannot access non static members.
 Note that a static member cannot be abstract.
 
 //code
@@ -473,8 +548,26 @@ static class MyClass
     }
 }
 
+//sublitle
+Sealing (sealed)
+
 //text
-Static members can be accessed using their class type and a period (__.__).
+The __sealed__ keyword can be used to create an enum that cannot be inherited.
+This can be achieved by writing the __sealed__ keyword before your enum definition and after the access modifier.
+
+sealed static class MyClass{
+    String myString = 'Hello World!';
+}
+
+//subtitle
+Abstraction (abstract, implement)
+
+//text
+An abstract static class is a static class that must be inherited to be able to access its members
+The members form these classes can 
+
+//text
+Static members can be accessed using their class identifier and the dot operator (__.__).
 
 //code
 MyClass.myMethod(MyClass.myInt);
@@ -521,7 +614,7 @@ Class extension (extend)
 //text
 The __extend__ keyword can be used to add members to an already defined class.
 To create a class extension write __extend__ followed by a class name and ending with __{}__.
-extension classes work almost the same as a normal classes and can only be defined inside a namespace.
+extension classes work almost the same as normal classes and can only be defined inside a namespace.
 The constructor and the destructor of the original class can not be overwritten/redefined/overloaded.
 Multiple extensions can be created for the same class.
 Optionally use the __super__ keyword to access public members from the original class or from extensions.
@@ -529,42 +622,14 @@ Optionally use the __super__ keyword to access public members from the original 
 //code
 extend String
 {
-    public Char[] myString = "Hello World!";
+    public Char[] myArray = "Hello World!";
     public String{} toSet(){
         // Your code to convert a string to a set.
     }
 }
 
 String myString = 'Hello World!';
-print(myString.toSet(), myString.myString);
-
-//text
-The __as__ keyword can be used to bind new class to a class extension.
-This can be achieved by writing __as__ after the extension type followed by a class definition without the class keyword.
-When creating an instance of the binded class it will not contain the members from the extended class.
-
-//code
-class MyClass
-{
-    Int myInt = 13135;
-    String myString = 'Hello World!';
-}
-
-extend MyClass as MySecondClass
-{
-    Void myMethod(){
-        print(myInt);
-    }
-}
-
-// Accessing the extended method myMethod from the original class
-MyClass myClass = MyClass();
-myClass.myMethod();
-
-// Accessing the method myMethod from the binded class MySecondClass
-MySecondClass mySecondClass = MySecondClass();
-mySecondClass.myMethod();
-
+print(myString.toSet(), myString.myArray);
 
 //text
 The extended members can also be used in inheritance.
@@ -785,6 +850,7 @@ Enumerations (enum)
 //text
 The __enum__ keyword is used to create an __enum__.
 To create an __enum__ write __enum__ followed by the name of the enum ending with __{}__.
+When an enum is created without specifing a structure modifier the enum will automatically be an open enum.
 enums can be compared with a static classes that only contain constant fields.
 The fields inside of an enum are comma separated.
 Note that no keywords can be added to the fields inside an enum.
@@ -793,18 +859,18 @@ Enums can only be defined inside of a namespace.
 //code
 enum MyEnum
 {
-    FirstEnumField,
-    SecondEnumField,
-    ThirdEnumField
+    MyFirstEnumValue,
+    MySecondEnumValue,
+    MyThirdEnumValue
 }
 
 //text
 To access an enum write the enum name followed by the field name.
 
 //code
-MyEnum myEnum = MyEnum.FirstEnumField;
+MyEnum myEnum = MyEnum.MyFirstEnumValue;
 
-if(myEnum == MyEnum.SecondEnumField){
+if(myEnum == MyEnum.MySecondEnumValue){
     // Your code.
 }
 
@@ -819,19 +885,50 @@ Note that the enum type must be the same type as the child enum and no fields ca
 //code
 enum MyEnum
 {
-    FirstEnumField,
+    MyEnumValue,
 }
 
-enum MySecondEnum
+enum MySecondEnum extend MyEnum
 {
-    SecondEnumField,
+    // The field of MyEnum is inherited in this enum.
+    MySecondEnumValue
 }
 
-enum MyThirdEnum extend MyEnum, SecondEnumField
+//subtitle
+Abstraction (abstract)
+
+//text
+The __abstract__ keyword can be used to create an enum that can only be inherited.
+This can be achieved by writing the __abstract__ keyword before your enum definition and after the access modifier.
+The values of an abstract enum cannot be accessed using its own type but can only be access via the child enum.
+
+//code
+abstract enum MyEnum
 {
-    // The fields of MyEnum and MySecondEnum are inherited in this enum.
-    ThirdEnumField
+    MyEnumValue
 }
+
+enum MySecondEnum extend MyEnum
+{
+    MySecondEnumValue
+}
+
+
+MyEnum myEnum = MySecondEnum.MyEnumValue;
+
+//subtitle
+Sealing (sealed)
+
+//text
+The __sealed__ keyword can be used to create an enum that cannot be inherited.
+This can be achieved by writing the __sealed__ keyword before your enum definition and after the access modifier.
+
+//code
+sealed enum MyEnum
+{
+    MyEnumValue
+}
+
 
 //chapter
 Functions
@@ -967,12 +1064,14 @@ Primitive`  Meaning
 //table
 String`     Stores any array of characters.
 Char`       Stores any singular character.
+Byte`       Stores any whole number between -128 and 127
 Short`      Stores any whole number between -32,768 and 32,767    
 Int`        Stores any whole number between -2,147,483,648 and 2,147,483,647.
 Long`       Stores any whole number between -9,223,372,036,854,775,808 and 9,223,372,036,854,775,807.
 Float`      Stores any floating point number, between           
 Double`     Stores any floating point number, between -1.7*10^308 and 1.7*10^308.
 Bool`       Stores true or false.
+Type`       Stores any type
 
 //title
 Strings (String)
@@ -1240,9 +1339,11 @@ Operator`   Name`                       Example
 
 //table
 +`          Addition`                   myInt + 5
-++`         Increment`                  ++myInt    
+++`         Prefix Increment`           ++myInt    
+++`         Postfix Increment`          myInt++   
 -`          Negation or Subtraction`    myInt - 5    
---`         Decrement`                  --myInt    
+--`         Prefix Decrement`           --myInt    
+--`         PostFix Decrement`          myInt--  
 *`          Multiplication`             myInt * 5
 /`          Division`                   myInt / 5
 **`         Exponentiation`             myInt ** 5
@@ -1275,15 +1376,28 @@ Map<String,Int> myMap = {'firstValue': 1} + {'secondValue': 2};
 // myMap becomes: {'firstValue': 1, 'secondValue': 2}
 
 //subtitle
-Increment (++)
+Prefix Increment (++)
 
 //text
-The __++__ operator is used to increment a number variable by 1 before using it;
+The __++__ operator is used to first increment a number by one then returning the new value.
 
 //code
-Int myInt = 0;
-myInt = ++myInt;
-// myInt becomes: 1
+Int myInt = 13135;
+print(++myInt)
+// Prints: 13136
+// myInt becomes: 13136
+
+//subtitle
+PostFix Increment (++)
+
+//text
+The __++__ operator is used to first return the value of a number then incrementing the value by one.
+
+//code
+Int myInt = 13135;
+print(myInt++)
+// Prints: 13135
+// myInt becomes: 13136
 
 //subtitle
 Negation or Subtraction (-)
@@ -1316,15 +1430,28 @@ Map<String,Int> myMap = {'firstValue': 1, 'secondValue': 2} - {'firstValue': 1};
 // myMap becomes: {'secondValue': 2}
 
 //subtitle
-Decrement (--)
+Prefix Decrement (--)
 
 //text
-The __--__ operator is used to decrement a number variable by 1 before using it;
+The __--__ operator is used to decrement a number by one then returning the new value.
 
 //code
-Int myInt = 0;
-myInt = --myInt;
-// myInt becomes: -1
+Int myInt = 13135;
+print(--myInt)
+// Prints: 13134
+// myInt becomes: 13134
+
+//subtitle
+PostFix Decrement (--)
+
+//text
+The __--__ operator is used to first return the value of a number then decrementing the value by one.
+
+//code
+Int myInt = 13135;
+print(myInt--)
+// Prints: 13135
+// myInt becomes: 13134
 
 //subtitle
 Multiplication (*)
@@ -1365,6 +1492,7 @@ Int myInt = 4 / 2;
 //text
 The __/__ operator can also be used to any orderd object.
 Dividing an orderd object by a value the count of the occurrences of the given value will be returned.
+Values can not be counted multiple times even if patterns overlap.
 Note that the order matters.
 
 //code
@@ -1400,6 +1528,7 @@ Int myInt = 5 % 2;
 //text
 The __%__ operator can also be used to modulate strings or arrays.
 Modulating a __String__ or array will remove all the occurrences of the value(s) of the right hand side from the left hand side and return a new __String__ or array.
+Values can not be removed multiple times even if patterns overlap.
 Note that the order matters.
 
 //code
@@ -1407,7 +1536,7 @@ String myString = 'Hello World!' % 'l';
 // myString becomes: 'Heo Word!'
 Int[] myArray = [1,2,3,4,2,3] % [2,3];
 // myArray becomes: [1,4]
-myArray = [3,3,3] & [3,3];
+myArray = [3,3,3] % [3,3];
 // myArray becomes: [3]
 Int() myTuple = (1,2,3,4,2,3) % (2,3);
 // myTuple becomes: (1,4)
@@ -1909,9 +2038,11 @@ Operator`   Name`                                       Combined operator`  Exam
 //table
 =`          Assignment`                                 None`               myInt = 0;`         None
 +=`         Addition assignment`                        +`                  myInt += 5;`        myInt = myInt + 5; 
-++`         Increment assignment`                       ++`                 myInt++;`           myInt = ++myInt; or myInt = myInt + 1;
+++`         Prefix Increment assignment`                ++`                 ++myInt;`           myInt = myInt + 1;
+++`         PostFix Increment assignment`               ++`                 myInt++;`           myInt = myInt + 1;
 -=`         Negation or Subtraction assignment`         -`                  myInt -= 5;`        myInt = myInt - 5; 
---`         Decrement assignment`                       --`                 myInt--;`           myInt = --myInt; or myInt = myInt - 1;
+--`         Prefix Decrement assignment`                --`                 --myInt;`           myInt = myInt - 1;
+--`         PostFix Decrement assignment`               --`                 myInt--;`           myInt = myInt - 1;
 *=`         Multiplication assignment`                  *`                  myInt *= 5;`        myInt = myInt * 5; 
 /=`         Division assignment`                        /`                  myInt /= 5;`        myInt = myInt / 5; 
 **=`        Exponentiation assignment`                  **`                 myInt **= 5;`       myInt = myInt ** 5; 
@@ -2634,7 +2765,7 @@ Int[] myArray [for(5){
         // If myBoolean is true 13135 will be returned but the loops continues to execute.
         yield 13135;
     }
-    // The value 53131 will allways be executed at the end of the loop.
+    // The value 53131 will always be executed at the end of the loop.
     return 53131;
 }]
 
@@ -2713,33 +2844,19 @@ Literal types are build in types with a more generic or specific meaning.
 Mace has the following literal types.
 
 //table
-Void
 class
 enum
-object
-Func
-Dynamic
+static class
+open class
+sealed class
+abstract class
+open enum
+sealed enum
+abstract enum
+open static class
+sealed static class
+abstract static class
 type
-
-//subtitle
-Void (Void)
-
-//text
-The __Void__ literal type can be used to to store void.
-A Void literal type can be used to return no value from a function.
-
-//code
-Void Func() myMethod = (){
-    // Your method code.
-};
-
-//text
-The __?__ operator can be used as a shorthand to create nullable types.
-
-//code
-String? myString = null;
-// The type of myString becomes: String | Null
-myString = 'Hello World!';
 
 //subtitle
 Class (class)
@@ -2748,10 +2865,7 @@ Class (class)
 The __class__ literal type can be used to store any class object.
 
 //code
-class MyClass
-{
-    // Your class members.
-}
+class MyClass {}
 
 class myClass = MyClass();
 
@@ -2769,72 +2883,6 @@ enum MyEnum
 
 enum MyEnum = MyEnum.MyEnumValue;
 
-//subtitle
-Object (object)
-
-//text
-The __object__ literal type is be used to store any class or enum object.
-
-//code
-class MyClass
-{
-    // Your class members.
-}
-
-object myObject = MyClass();
-
-//code
-enum MyEnum
-{
-    MyEnumValue
-}
-
-object myObject = MyEnum.MyEnumValue;
-
-//subtitle
-Function (Func)
-
-//text
-The __func__ literal type can be used to store any function or method.
-
-//code
-Void myMethod(){
-    // Your method code.
-}
-
-Func myStoredMethod = myMethod;
-
-//code
-Void Func() myMethod = (){
-    // Your method code.
-};
-
-Func myStoredMethod = myMethod;
-
-//code
-Void Func() myMethod = {
-    // Your method code.
-};
-
-Func myStoredMethod = myMethod;
-
-//subtitle
-Dynamic (Dynamic)
-
-//text
-The __Dynamic__ literal type is be used to store any value except null.
-
-//code
-class MyClass
-{
-    // Your class members.
-}
-
-Dynamic myDynamic = MyClass();
-
-myDynamic = 13135;
-myDynamic = true;
-myDynamic = 'Hello World!'
 
 //subtitle
 Type (type)
@@ -3077,9 +3125,9 @@ Generic types can be added to the following data structures.
 
 //table
 class
-function
-method
+enum
 type
+function / method
 
 //subtitle
 Class (class)
@@ -3087,7 +3135,7 @@ Class (class)
 //text
 Generic types can be declared after the created class name.
 Define the generic types after the class name when using the class type or when creating an instance of the class.
-The generic types can be used inside the class or they can be used to define generic types from inherited classes or implemented interfaces.
+The generic types can be used inside the class or they can be used to define generic types from inherited classes or enums.
 
 //code
 class MyClass<MyGeneric>
@@ -3099,7 +3147,7 @@ MyClass<String> myClass = MyClass<String>();
 MyClass mySecondClass = MyClass<Int>()
 
 //subtitle
-Function (Func)
+Function / method (Func)
 
 //text
 Generic types can be declared before the __()__ when creating a method or function.
@@ -3259,17 +3307,6 @@ class MyClass
 MyClass myClass = MyClass();
 String myString = myClass<String>;
 // myString becomes: 'Hello World!';
-
-//subtitle
-Default value
-
-//text
-The __default__ keyword can be used to retrive the default value of the type when the typ casting was not successfull.
-
-//code
-String myString = 'Hello World!';
-Int myInt = <default Int>myString;
-// myInt becomes: 0
 
 //title
 References and Pointers
@@ -4366,10 +4403,11 @@ myMethod{13135, 'Hello World!'};
 Cascading scope
 
 //text
-The __{}__ brackets can be used to add cascading scope to any value.
-To add cascading scope write __{}__ after any value.
-Inside the __{}__ of the cascading scope the members of the value can accessed with the __.__ operator.
-//Maybe make the __.__ operator optinal and replace it the the keyword base for more clearity
+The __{}__ brackets can be used to add cascading scope to any value or variable.
+To add cascading scope write __{}__ after any value or variable.
+Inside the __{}__ brackets of the cascading scope the __.__ represents the value or variable.
+Members of these vales or variables van be directly accessed without an extra __.__ operator.
+//Maybe make the __.__ operator optional and replace it the the keyword base for more clearity
 
 //code
 class MyClass
@@ -4396,9 +4434,11 @@ myClass{
     .myMethod();
 };
 
+//title
+Functions
+
 //text
 The cascading scope can also be added to functions, to call them multiple times.
-When the cascading scope is added to a function (variable) the __.__ is required.
 
 //code
 Int[] myArray = [];
@@ -4417,77 +4457,58 @@ myArray.add{
     .(3);
 }
 
+//title
+Scope definition
+
 //text
 Inside the cascading scope any other code statements can be defined.
 
 //code
-class MyClass
-{
-    public Int? myInt;
-    public String? myString;
+Int[] myArray = [];
 
-    public Void myMethod(){
-        // Your method code.
+myArray{
+    Bool myBoolean = true;
+
+    if(myBoolean){
+        .add(13135);
+    }else{
+        .add(53131);
     }
 }
 
-MyClass myClass = MyClass(){
-    if(myBoolean){
-        .myInt = 13135;
-    }
-    else{
-        .myInt = 53131;
-    }
-    
-    String myString = 'Hello World!';
-    .myString = myString;
-    .myMethod();
-};
+//title
+Optional chaining
 
 //text
 When dealing with a nullable variable the __?__ optional chaining operator must be added before the cascading scope.
 
 //code
-class MyClass
-{
-    public Int? myInt;
-    public String? myString;
+Int[]? myArray = [];
 
-    public Void myMethod(){
-        // Your method code.
-    }
-}
-
-MyClass? myClass = MyClass();
-
-myClass?{
-    .myInt = 13135;
-    .myString = 'Hello World!';
-    .myMethod();
+myArray?{
+    .add(13135);
+    .add(53131);
 };
 
-//text
+//title
 Assignment
 
+//text
+Becuase the __.__ represents a variable that contains the value or variable values can be assigned to them.
+
 //code
-class myClass
-{
-    String? myString;
-}
+String myString = '';
 
-MyClass myClass = MyClass();
-
-myClass.myString{
+myString{
     if(myBoolean){
        . = 'Hello World!';
-    }
-    else{
+    }else{
        . = 'World Hello!';
     }
 }
 
 //subtitle
-Continuing
+Return value
 
 //text
 After the cascading scope the expression can be continued.
@@ -4619,113 +4640,6 @@ String myString = myObject{
     return test;
 };
 
-//chapter
-Scope labels
-
-//text
-The __<>__ brackets can be used to add a label to any scope.
-To add a label to any scope write __<__ followed by a label name and ending with __>__.
-The label can be used to acces the scope its variables this can be usefull to keep the code readable and claer.
-Scope labels can be added to the following scopes:
-
-//table
-If statement
-Else statement
-Else if statement
-Switch statement
-Case statement
-For loop
-Function
-Array type and value
-Tuple type and value
-Set type and value
-Cascading scope
-
-//code
-<myIfScope>
-if(myBoolean){
-    Int x = 131;
-    Int y = 35;
-    if(mySecondBoolean){
-        Int x = myIfScope.x;
-        Int y = myIfScope.y;
-    }
-}
-
-//text
-The label can also be used to access statements or default values/code from cascading scope.
-To access these members two dots must be used instead of a singular one.
-
-//code
-<myIfScope>
-if(myBoolean){
-    // The value of the the expression given in the if statement.
-    print(myIfScope..result);
-    // Reruns the expression in tgiven in the if statement
-    print(myIfScope..check());
-}
-<myElseIfScope>
-else if(mySecondBoolean){
-}
-<myElseScope>
-else{
-}
-
-//code
-<mySwitchScope>
-switch(myString){
-    <myCaseScope>
-    case('Hello World!'){
-        switch(myInt){
-            case(13135){
-                print(myCaseScope..checks);
-                print(mySwitchScope..value);
-                mySwitchScope..break;
-            }
-        }
-    }
-}
-
-//code
-<myForScope>
-for(Int i in array){
-    for(Int i in array){
-        print(myForScope.i);
-        print(myForScope..iterable);
-        if(myBoolean){
-            myForScope..break;
-        }
-        else{
-            myForScope..continue;
-        }
-    }
-}
-
-//code
-<myMethodScope>
-Void myMethod(){
-    Void mySecondMethod(){
-        myMethodScope..return;
-    }
-}
-
-//code
-<myArrayTypeScope> Int[myArrayTypeScope | String] = <myArrayValueScope> 13135[myArrayValueScope * 53131];
-
-//code
-<myTupleTypeScope> Int(myTupleTypeScope | String) = <myTupleValueScope> 13135(myTupleValueScope * 53131);
-
-//code
-<mySetTypeScope> Int{mySetTypeScope | String} = <mySetValueScope> 13135{mySetValueScope * 53131};
-
-//code
-<myCascadingScope>
-myObject.myNestedObject{
-    myNestedNestedObject{
-        myCascadingScope..myString = 'Hello World!';
-        myCascadingScope..myInt = 13135;
-    }
-}
 
 //title
 Asynchronous
@@ -4790,54 +4704,153 @@ Int myInt = myString<Int>;
 Int myInt = try myString<Int> catch 13135;
 //When resulting in runtime error the catch value will be returned
 
-//Experimenting with void
+
+
+//Chapter
+Null and Void
 
 //text
-Void will be a type that can store the value void.
-A special property that void has is that a missing value is also equal to void.
-Also uninitialized variables will initialially have the value void assigned to them.
-Note that when the __Void__ type is used all the special features of void will not be used.
+Void will be a type that can only store the value void.
 
 //code
-// Assignment using the void value.
 Void myVoid = void;
 // myVoid becomes: void
 
-//code
-// Assingment using missing value.
-Void myVoid = ;
-// myVoid becomes: void
+//text
+Null will be a type that can only store the value null.
 
 //code
-// Assingment using uninitialized variable.
-Void myVoid;
-// myVoid becomes: void
+Null myNull = null;
 
-//code
-if(void == ){
-    // This code will always execute
-}
+//title
+Relation between Null and Void
 
 //text
-The value __void__ will be equal to __null__ but __null__ will not be equal to __void__.
-This behaviour happens because the __Void__ type is a subtype of __Null__.
-The second reason is the ease of use you dont have to worry about if the value is null or void the mostly act the same.
+The values __null__ and __void__ will be exacly the same, but you can still check if they are different by checking their type.
+The reason is the ease of use you do not have to worry about if the value is __null__ or __void__ they acy mostly the same.
 
 //code
 Bool myBoolean = void == null;
 // myBoolean becomes: true
-myBoolean = null == void;
-// myBoolean becomes: false
+myBoolean = null == Void;
+// myBoolean becomes: false;
+myBoolean = void == Void;
+// myBoolean becomes: true;
 
 //text
-The value __void__ can also be assigned to a variable with type Null.
+Because __void__ will be equal to __null__ the null operators will also work with void.
 
 //code
-Null myNull = null;
-myNull = void;
+Int myInt = void ?? 13135;
+// myInt becomes: 13135
+
+Int | Void mySecondInt = void;
+mySecondInt ??= 13135;
+// mySecondInt becomes: 13135
+
+Int[] | Void myArray = void;
+myArray?.add(13135); 
+
+Int myInt = myArray?[0];
+
+//title
+Automatic void
 
 //text
-And now the reason I have added void.
+In some part of the 
+In the following places will empty of missing values be converted to __void__.
+//The rules for when void is excepted in operator expressions is till difficult to visualize
+//and needs work but the concepts is here maybe Unary operators are not allowed they make stuff difficult.
+
+
+//subtitle
+Uninitialized variables
+
+//text
+Any uninitialized variables that can store __void__ or __null__ will be assigned with the value __void__ automatically.
+This also implies that the variable can be accessed without the need of initialization.
+
+//code
+Void myString;
+// Same as: 
+Void myString = void;
+
+//subtitle
+Ternary operator
+
+//text
+Any missing operhand except the first boolean expression will be automatically return the value __void__.
+
+//code
+Int myInt = myBoolean ? : 13135;
+// Same as: 
+Int myInt = myBoolean ? void : 13135;
+
+//subtitle
+Control expressions
+
+//text
+Any missing return value of a control expression will automatically return the value __void__.
+When a code body is used and no return statement is called __void__ will be returned by default.
+
+//code
+Int myInt = if(myBoolean) 13135;
+// Same as: 
+Int myInt = if(myBoolean) 13135 else void;
+
+//subtitle
+return, yield, break return statements
+
+//text
+Any return, yield or break return statement without specifing a value will use the __void__ value by default.
+
+//code
+// Return
+Int? myMethod(){ return; }
+// Same as:
+Int? myMethod(){ return void; }
+
+// Yield
+stash Iterator<Int?> myIterator(){ yield; }
+// Same as:
+stash Iterator<Int?> myIterator(){ yield void;}
+
+// Break return
+Int? myInt = for(Int i in 0..10){ break return; }
+// Same as:
+Int? myInt = for(Int i in 0..10){ break return void; }
+
+//subtitle
+Missing return statements
+
+//text
+Any method or control expression that does not specific a return, yield or break return statement will automatically return __void__.
+
+//code
+// Method
+Int? myMethod(){}
+// Same as:
+Int? myMethod(){ return void; }
+
+// Control expression
+Int? myInt = if(myBoolean){ } else 13135;
+// Same as:
+Int? myInt = if(myBoolean){ return void; } else 13135
+
+
+//text
+__void__ can be implicitly casted to null when the variable cannot contain __void__.
+
+//code
+String? myString = void;
+// myString becomes: null
+
+// With return type Void
+Void myMethod(){}
+Int? myInt = myMethod();
+// myIny becomes: null
+
+//text
 When void is added to a collection literal and the collection can not contain void the void value will be ignored.
 This functinallity only happens if the part of the collection can contain any number values.
 
@@ -4847,8 +4860,33 @@ Int[] myArray = [13135, void, 53131];
 Int[] myArray = [13135, if(myBoolean) 53131];
 
 //text
-When a collection object is used and a default value is used the __void__ value will be replaced by the default value if the element cannot contain void.
+When a collection object is used and a default value is used the __void__ value will be replaced by the default value if the parameter cannot contain void.
 
 //code
 [Int myInt = 13135, String myString] myArray = [void, 'Hello World!'];
 // myArray becomes [13135, 'Hello World!']
+[Int myInt = 13135, String myString] myArray = [if(myBoolean) 53131, 'Hello World!'];
+
+//Text
+When void is used in any binary operation the non void values will be retunred if present else void will returned.
+
+//code
+Int myInt = 13135 + void;
+// myInt becomes: 13135
+
+myInt = 53131 + (void * void);
+// myInt becomes: 53131
+
+
+Null myNull = void;
+//becomes: null
+
+(Void | String)[] myArray = ["", if(myBoolean) "value"]
+String?[] myArray = ["", if(myBoolean) "value"]
+
+Void myMethod(Void myVoid){}
+
+Void myMethod(Null myVoid){}
+
+myMethod(void<Null>);
+

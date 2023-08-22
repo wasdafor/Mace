@@ -1,0 +1,75 @@
+// Building blocks
+
+abstract class Object
+{
+    abstract String toString() => 'object';
+}
+
+class Null
+{
+    abstract String toString() => 'null';
+}
+
+class Void
+{
+    abstract String toString() => 'void';
+}
+
+
+type Any = Object | Null | Void;
+
+
+// 1 bit
+class Bool{}
+
+// 8 bits
+class Byte{}
+
+// 16 bits
+class Short{}
+
+// 32 bits
+class Int{}
+
+// 64 bits
+class Long{}
+
+// 32 bits
+class Float{}
+
+// 64 bits
+class Double{}
+
+class Char{}
+
+class String{}
+
+class Array<T>{}
+
+class Tuple<T>{}
+
+class Set<T>{}
+
+class Map<T,S>{}
+
+class Iterator<T>{}
+
+class Future<T>{}
+
+class Stream<T>{}
+
+class Exception{}
+
+class Func{}
+
+class Type{}
+
+class Pointer<T>{}
+
+class Range{}
+// 0..6 ..6 0.. ..
+
+
+
+
+
