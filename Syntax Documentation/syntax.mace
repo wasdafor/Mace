@@ -153,7 +153,7 @@ Data Structures
 
 //text
 Data structures are pieces of code that are used to store, comare, and manipulate data.
-These structures can in most cases be used to create custom logic in de form of code.
+These structures can in most cases be used to create custom logic in the form of code.
 Mace has the following data structures that can be created by the programmer.
 
 //tablehead
@@ -164,7 +164,7 @@ Classes`            class MyClass{}
 Static classes`     static class MyClass{}
 Enums`              enum MyEnum{}   
 
-When a data structure is defined without specifing a structure modifier the __open__ structure modifier will be used by default.
+When a data structure is defined without specifing a data structure modifier the __open__ data structure modifier will be used by default.
 These data structures can only be defined inside of a __namespace__.
 
 //title
@@ -194,7 +194,6 @@ __private protected__`  Inside the class itself or the first derived class.
 
 The members of a class can always be accessed in the class itself no matter the protection level of its access modifier.
 These members can be directly access by using its identifier and instance members can optionaly be access using the __this__ keyword.
-When a __class__ is created without specifing a structure modifier the class will automatically be an __open class__.
 A __class__ can be created by using the followed syntax.
 
 //code
@@ -218,7 +217,7 @@ class MySecondClass
 The class represents the blueprint of an object to create this object write the class identifier followed by __()__ brackets.
 The instance of the class can now be treated as value and can be stored in a variable.
 The members of the object can now be accessed by using the access operator (__.__).
-Note that only open and sealed classes can be instanciated.
+Note that only __open__ and __sealed__ classes can be instanciated.
 
 //code
 class MyClass
@@ -238,9 +237,9 @@ String myString = myClass.myString;
 Inheritance (extend, super)
 
 //text
-The __extend__ keyword is used to inherit the members from one or more data structures into a new data structure also called the child data structure.
-This can be achieved by writing the __extend__ keyword after the child data structure its identifier, followed by comma seperated data structure identifiers.
-Only __public__, __protected__ and __private protected__ inherited structure members can be accessed in the child data structure. 
+The __extend__ keyword is used to inherit the members from one or more data structures into a new data structure also called the derived data structure.
+This can be achieved by writing the __extend__ keyword after the derived data structure its identifier, followed by comma seperated data structure identifiers.
+Only __public__, __protected__ and __private protected__ inherited structure members can be accessed in the derived data structure. 
 These inherited members are now part of the new data structure and can be accessed like any other member.
 Data structures can only inherit data structures with the same type and if they are not sealed.
 
@@ -267,15 +266,15 @@ class MyClass extend MySecondClass
 
 MyClass myClass = MyClass();
 
-//Printing the intance members myInt and myString from MySecondClass using an instance variable.
+// Printing the intance members myInt and myString from MySecondClass using an instance variable.
 print(myClass.myInt, myClass.myString);
 
 //subtitle
 Static classes
 
 //text
-The child __static class__ is a completly new __static class__ and is detached from the parent __static class__.
-This implies that the inherited members from the parent are different from the members in the child.
+The derived __static class__ is a completly new __static class__ and is detached from the parent __static class__.
+This implies that the inherited members from the parents are different from the members in the derived __static class__.
 Members from specific static parent classes can still be accessed using type casting.
 
 //code
@@ -289,15 +288,15 @@ static class MyClass extend MySecondClass
     Int myInt = 13135;
 }
 
-//Printing the member myString from MySecondClass and myInt from myClass.
-print(MyClass.myString, MyClass<MySecondClass>.myInt);
+// Printing the member myString from MySecondClass and myInt from myClass.
+print(MyClass.myInt, MyClass<MySecondClass>.myString);
 
 //subtitle
 Enums
 
 //text
-The child __enum__ is a completly new __enum__ and is detached from the parent __enum__.
-This implies that the members from the parent are difference from the members from the child.
+The derived __enum__ is a completly new __enum__ and is detached from the parent __enum__.
+This implies that the members from the parents are difference from the members from the derived __enum__.
 Members from specific parent enums can still be accessed using type casting.
 
 //code
@@ -311,53 +310,102 @@ enum MyEnum extend MySecondEnum
     MySecondEnumValue
 }
 
-//Printing the member myString from MySecondClass and myInt from myClass.
-print(MyEnum.myString, MyEnum<MySecondEnum>.myInt);
+// Printing the member myString from MySecondClass and myInt from myClass.
+print(MyEnum.MySecondEnumValue, MyEnum<MySecondEnum>.MyEnumValue);
 
 //title
-Abstraction (abstract, implement)
+Abstraction (abstract)
+
+//text
+An __abstract__ data structure is almost the same as an __open__ data structure but it must be inherited.
+These data structures can optionaly contain __abstract__ members that must be implemented in the derived data structure.
+The members of an __abstract__ data structure can be accessed like normal if they are accessed inside of the data structure.
+Because these data structures can contain unimplemented members, these members can only be accessed outside of the data structure using the derived data structure.
+To create an __abstract__ data structure write the __abstract__ keyword before your data structure definition and after its access modifier.
 
 //subtitle
-Classes (abstract)
+Members
+
+//text
+Any data structure class member can me marked __abstract__ when the member is abstract it cannot have an implementation.
+
+
+//subtitle
+Classes
 
 //text 
-An abstract class is a normal class that can only be inherited and cannot be instanciated.
-These classes can optionaly contain unimplemented abstract members which must be implemented in the child class.
-Note that abstract members with no default implementation are only required to be implemented in non abstract classes.
-To create an abstract class write the __abstract__ keyword before your class definition and after the access modifier.
+When a __class__ is __abstract__ the __class__ cannot be instanciated and must be inherited.
 
-//Constructor can still be present and can still be private
 //code
 abstract class MyClass
 {
-    public Int myInt = 13135;
-    abstract public String myString;
-
-    abstract public Void myMethod(Int myValue){
-        print(myValue);
-    }
-
-    abstract public Void mySecondMethod(String myValue);
+    Int myInt = 13135;
+    abstract String myString;
 }
 
 class MySecondClass extend MyClass
 {
     implement String myString = 'Hello World!';
-
-    implement Void mySecondMethod(String myValue){
-        print(myValue);
-    }
-
-    public MySecondClass(){
-        myMethod(myInt);
-    }
 }
 
-MyClass myClass = MyClass();
 // Results in an error.
+MyClass myClass = MyClass();
+
+// Printing the member myInt from MyClass and the implemented member myString.
+MySecondClass mySecondClass = MySecondClass();
+print(mySecondClass.myInt, mySecondClass.myString);
 
 //subtitle
-Class members (abstract, implement)
+Static classes
+
+//text
+When a __static class__ is __abstract__ the members can only be accessed via the derived __static class__.
+
+//code
+abstract static class MyClass
+{
+    Int myInt = 13135;
+    abstract String myString;
+}
+
+static class MySecondClass extend MyClass
+{
+    implement String myString = 'Hello World!';
+}
+
+// Results in an error.
+print(MyClass.myInt);
+
+// Printing the member myInt from MyClass and the implemented member myString.
+print(MySecondClass.myInt, MySecondClass.myString);
+
+//subtitle
+Enums
+
+//text
+When an __enum__ is __abstract__ the members can only be accessed via the derived __enum__.
+
+//code
+abstract enum MyEnum
+{
+    MyEnumValue = 13135;
+    abstract MySecondEnumValue;
+}
+
+enum MySecondEnum extend MyEnum
+{
+    implement MySecondEnumValue = 'Hello World!';
+}
+
+// Results in an error.
+print(MyEnum.MyEnumValue);
+
+// Printing the member MyEnumValue from MyEnum and the implemented member MySecondEnumValue.
+print(MySecondEnum.MyEnumValue, MySecondEnum.MySecondEnumValue);
+
+
+//title
+Implement (abstract, implement)
 
 //text
 An abstract member is a class member that can be overwritten or must be implemented in the fist non abstract child class.
@@ -4890,3 +4938,101 @@ Void myMethod(Null myVoid){}
 
 myMethod(void<Null>);
 
+
+//Random idea maybe constuctors need no name or keyword at all?
+class MyClass
+{
+    MyClass(){
+
+    }
+
+    construct(){
+
+    }
+ 
+    init(){
+
+    }
+
+    class(){
+        //The class keyword can also be used to access static members
+    }
+
+    (){
+        
+    }
+}
+
+
+//New Import system
+
+// Import all avalible elements
+import './file.mace'; 
+print(element, element2);
+
+// Adding an alias to all the imported elements
+import './file.mace' as file;
+print(file.element, file.element2);
+
+// Importing specific elements
+import './file.mace' use element, element2;
+print(element, element2)
+
+// Importing all elements except given elements
+import './file.mace' !use element; 
+
+// Adding an alias to imported elements;
+import './file.mace' use element as alias, element2;
+print(alias, element2)
+
+// Combining file alias and members alias
+import './file.mace' as file use element as alias, element2;
+print(file.alias, element2); 
+
+
+api
+    users
+        controller.mace
+        api
+            test.mace
+    config.mace
+
+namespace "users";
+
+namespace "../api"{
+    bdwd
+}
+
+namespace "users"{
+    wdw
+}
+
+import 'mace:';
+
+import "./users/controller.mace" use getUsers;
+
+getUsers();
+
+private`            only in the file and namespace itself
+private protected`  only in the namespace itself
+protected`          only in the namespace itself of sub namespaces
+public`             in every namespace
+
+
+
+// The .mace file extension is not required
+// Maybe add folder import to easily manage imports better? (Instead of crazy packages)
+
+// The imported members are automatically private but this can be changed by adding an acces modifier before your import statement
+public import './file.mace';
+
+//Individual members can overwrite the global acces modifier bij prefixing it with a custom acces modifier.
+public import './file.mace' use element, private element2;  
+
+public import './file.mace';  
+
+private member, test;
+
+//Maybe be able to add acces modifiers to elements
+public element, elements2
+private element3, element6
