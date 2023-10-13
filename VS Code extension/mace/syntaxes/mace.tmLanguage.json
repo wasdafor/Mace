@@ -21,9 +21,6 @@
 			"include": "#number"
 		},
 		{
-			"include": "#using-path"
-		},
-		{
 			"include": "#class-enum-name"
 		},		
 		{
@@ -42,7 +39,7 @@
 				},
 				{
 					"name": "keyword",
-					"match": "\\b(void|class|enum|namespace|static|use|const|only|as|from|public|private|protected|this|super|abstract|system|sealed|init|get|set|extend|implement|type|auto|base|open|construct)\\b"
+					"match": "\\b(void|class|enum|namespace|static|const|only|as|public|private|protected|this|super|abstract|sealed|init|get|set|extend|implement|type|auto|base|open|construct|space)\\b"
 				},
 				{
 					"name": "entity.name.class.mace",
@@ -154,10 +151,6 @@
 		"class-enum-name":{
 			"match": "(?<=\\b(class|enum)\\s+)(\\b[a-zA-Z_]\\w*)",
 			"name": "entity.name.class.mace"
-		},
-		"using-path":{
-			"match": "((?<=\\bfrom\\s)[\\S]+)|((?<=\\busing\\s)[\\w/.:]+(?![\\w,\\s]*\\sfrom))",
-			"name": "strong"
 		}
 	},
 	"scopeName": "source.mace"

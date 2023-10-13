@@ -5,7 +5,7 @@ The MACE syntax file
 This file will explain all syntax used in v1.0
 
 Spaces, tabs and curly brackets are consistent throughout the file.
-After namespaces, classes and switches comes an enter followed by curly brackets.
+After classes and switches comes an enter followed by curly brackets.
 After all other code scopes come curly brackets without an enter.
 
 First we will define the syntax that makes it possible to convert this file easily to an HTML page.
@@ -37,26 +37,31 @@ Your code here
 Your comment here (this text should not be compiled to html)
 
 //tablehead
-Your table titles here
+Your table titles here, seperate collums by a `
 
 //table
-Your table elements here seperate collums by a comma
+Your table elements here, seperate collums by a `
 
 __Your label here__
-
 */
 
 //start
 
 //chapter
-Namespaces
+Folder spaces and imports
 
 //title
-Creating Namespaces (namespace)
+Folder spaces
 
 //text
-A __namespace__ is a labeled block of code used to organize your program into smaller pieces.
-The following members can be defined inside a __namespace__:
+Folder spaces are used to organize your program into smaller importable pieces of code.
+A folder space(In short just space) is just a fancy name for any folder in your project containing __.mace__ files.
+All the top level members defined in __.mace__ files will be part of the so called space scope.
+Any file is a
+ wil be part of the orgin space and optional extended space.
+The orgin space is the direct parent folder of any __.mace__ file and cannot be overwritten.
+
+The following members can be defined as top level space members:
 
 //table
 class
@@ -64,6 +69,29 @@ extension class
 enum
 functions
 variables
+types
+
+//subtitle
+Extended space (space)
+
+//text
+The __space__ keyword can be used to define the extended space of any file file.
+This can be achieved by writing the __space__ keyword followed by the path to the space.
+The relative path of the space will always start two folder levels up from the original file.
+Note that the extended space must always be a direct parent of the orgin space.  
+
+//code
+// File location: MyProject -> MySpace -> MySecondSpace -> myFile.mace
+// Relative path starts two folders up in the MyProject folder.
+
+// Defining the api folder as extended space.
+space "find:MyProject/MySpace";
+
+// Defining the myProject folder as extended space.
+space 'find:MyProject';
+
+//subtitle
+Access modifiers
 
 When defining multiple namespaces with the same identifier, the members of these namespaces will be merged.
 Use access modifiers to define where the members of the namespace can be accessed, members will be private by default.
@@ -72,79 +100,79 @@ Use access modifiers to define where the members of the namespace can be accesse
 Access modifier`        Can be access where?
 
 //table
-__public__`             Inside any namespace in any file.
-__private__`            Inside namespaces with the same identifier in any file.
-__protected__`          Inside any namespace in the current file.
-__private protected__`  Inside namespaces with the same identifier in the current file.
-
-A __namespace__ can be defined by using the following syntax.
-
-//code
-namespace YourPathLiteral
-{
-    // Your namespace members.
-}
-
-// Namespace with members.
-namespace MyNamespace
-{
-    Int myInt = 13135;
-
-    Void myMethod(){}
-
-    class MyClass{}
-}
+__public__`             Inside any space.
+__private__`            Only inside the current file.
+__protected__`          Inside the current space and sub spaces.
+__private protected__`  Inside the current space.
 
 //title
-Import namespaces (use)
+Importing files and spaces (import)
 
 //text
-The __use__ keyword is used to import __public__ members from a namespace with a different identifier.
-This can be achieved by writing the __use__ keyword followed by the path to your namespace. 
-The members of the imported namespace can now be directly access by using their identifiers.
-Note that use statements can only be specfied at the top of a .mace file.
+The __import__ keyword is used to import the members from a file or space.
+This can be achieved by writing the __import__ keyword followed by a string path to your file or space.
+The import path can be a relative path from the current folder or a compleet absolute path. 
+The members from the imported file or space can now be directly access by using their identifiers.
+imported members are always private by default, even when importing specific members.
+Note that import statements can only be specfied at the top of __.mace__ files.
+//Maybe these imports are impored using ref by default?
 
 //code
-use MyNamespace;
+import './myFile.mace';
 print(myMember);
 
+import './MySpace';
+print(mySecondMember);
+
 //text
-The __as__ keyword can be used to bind an imported namespace to a custom alias.
-This can be achieved by writing the __as__ keyword after the namespace path followed by the alias identifier.
-The members of the imported namespace can now be accessed via the alias using the __.__ operator.
+The __in__ keyword can be used to store the imported members into a custom alias.
+This can be achieved by writing the __in__ keyword after the import path followed by the alias identifier.
+The imported members can now be accessed via the alias using the __.__ operator.
+Note that the alias is a class literal containing the imported members.
 
 //code
-use MyNamespace as MyNamespaceVariable;
-print(MyNamespaceVariable.myFirstMember);
+import './myFile.mace' in userData;
+print(myAlias.myFirstMember);
 
 //subtitle
-Specific members (from)
+Specific members (in, ..)
 
 //text
-The __from__ keyword can be used to import only specific __public__ members from a namespace, if only specific members need to be imported.
-These members can be specfied with commas separated between, the __use__ and __from__ keywords and after the namespace path.
+The __{}__ brackets and the __in__ keyword can be used to import only specific members from a file or space.
+This can be achieved by writing the __in__ keyword after the import path followed by commas seperated members between the __{}__ brackets.
 The specificly imported members can now be directly accessed using their identifier.
 
 //code
-use myFirstMember, mySecondMember from MyNamespace;
-print(myFirstMember,mySecondMember);
+import './myFile.mace' in {myMember, mySecondMember};
+print(myMember, mySecondMember);
 
 //text
-The __!__ not operator can be used to import all the namespace __public__ members, except the specificly specfied members.
-This can be achieved by writing the __!__ operator before the __use__ statement. 
-
-//code
-!use myFirstMember, mySecondMember from MyNamespace;
-print(myThirdMember);
-
-//test
-The __as__ keyword can be used to bind a specificly imported member to a custom alias.
-This can be achieved by writing the __as__ keyword after any member followed by the alias identifier.
+The __=__ operator can be used to bind a custom alias to a specificly imported member.
+This can be achieved by writing the __=__ operator after any imported member followed by the alias identifier.
 The specificly imported member can now be accessed via its alias.
 
 //code
-use myFirstMember as myFirstRenamedMember, mySecondMember as mySecondRenamedMember from MyNamespace;
-print(myFirstRenamedMember,mySecondRenamedMember);
+import './myFile.mace' in {myMember = myMemberAlias, mySecondMember = mySecondMemberAlias};
+print(myMemberAlias, mySecondMemberAlias);
+
+//text
+The code for importing members is utilizing the class literal unpacking syntax.
+This unlocks the possibility to import nested members or even hide members.
+The range operator can also be used to import the know members that are not specfied.
+
+//code
+import './myFile.mace' in {myMember, myArray = [myArrayElement], myHiddenMember=, ..myRestMembers};
+print(myMember, myArrayElement, myRestMembers);
+
+//subtitle
+Mace library imports
+
+//text
+The special __mace:__ url scheme can be used to import build in mace library files or spaces.
+
+//code
+import 'mace:Math' in math;
+print(math.pi);
 
 //chapter
 Data Structures
@@ -258,7 +286,7 @@ class MySecondClass
 
 class MyClass extend MySecondClass
 {
-    MyClass(){
+    init(){
         // Printing the intance members myInt and myString from MySecondClass.
         print(myInt, super.myString);
     }
@@ -640,7 +668,7 @@ class MyClass
 
 class MySecondClass extend MyClass
 {
-    MySecondClass(){
+    init(){
         // Calling myMethod in MySecondClass.
         myMethod();
 
@@ -697,7 +725,7 @@ extend MyClass
 
 class MySecondClass extend MyClass
 {
-    MySecondClass(){
+    init(){
         // Calling inherited extension method inside the class.
         printMyInt();
     }
@@ -712,17 +740,17 @@ Constructor
 
 //text
 Constructors can be used to run a method when an instance of a class is created.
-To create a constructor write the class name followed by __()__ ending with __{}__.
-To create a named constructor write __.__ followed by the name of the constructor after the class name of a normal constructor.
+To create a constructor write the __init__ keyword followed by __()__ ending with __{}__.
+To create a named constructor write __.__ followed by the name of the constructor after the __init__ keyword of a normal constructor.
 
 //code
 class MyClass
 {
-    MyClass(){
+    init(){
         // Your constructor code.
     }
 
-    MyClass.MyNamedConstructor(){
+    init.MyNamedConstructor(){
         // Your named constructor code.
     }
 }
@@ -737,21 +765,21 @@ Linked (:)
 
 //text
 Linked constructors can be used to call other constructors via a constructor.
-To call a linked constructor write __:__ after the parameter body of any constructor followed by the name of the class and ending with __()__.
-For a named constructor write __.__ followed by the name of the constructor after the name of the class of a normal linked constructor.
+To call a linked constructor write __:__ after the parameter body of any constructor followed by the __init__ keyword and ending with __()__.
+For a named constructor write __.__ followed by the name of the constructor after the __init__ keyword of a normal linked constructor.
 
 //code
 class MyClass
 {
-    MyClass() : MyClass.MySecondNamedConstructor(){
+    init() : init.MySecondNamedConstructor(){
         // Your constructor code.
     }
 
-    MyClass.MyNamedConstructor() : MyClass(){
+    init.MyNamedConstructor() : init(){
         // Your named constructor code.
     }
 
-    MyClass.MySecondNamedConstructor(){
+    init.MySecondNamedConstructor(){
         // Your second named constructor code.
     }
 }
@@ -789,7 +817,7 @@ class MyClass
     init const Int myInt;
     init readonly String myString = "Hello World!";
 
-    MyClass(this.myInt, myString){
+    init(this.myInt, myString){
         this.myString = myString;
         // Your constructor code.
     }
@@ -2915,7 +2943,7 @@ The __class__ literal type can be used to store any class object.
 //code
 class MyClass {}
 
-class myClass = MyClass();
+class MyClass = MyClass();
 
 //subtitle
 Enum (enum)
@@ -2938,7 +2966,7 @@ Type (type)
 //text
 The __type__ literal type is used to create custom types from currently existing types.
 To create a custom type write the following structure; __type__, unique type name, __=__, type expression.
-Custom types can only be defined inside a namespace.
+Custom types can only be defined inside a spaces, functions and classes.
 
 //code
 type MyType = String | Int;
@@ -3462,7 +3490,7 @@ class MyClass
     String? myString;
     Int? myInt;
 
-    MyClass(this.myString, myInt){
+    init(this.myString, myInt){
         // Your constructor code.
     }
 
@@ -3487,7 +3515,7 @@ class MyClass
     String? myString;
     Int? myInt;
 
-    MyClass(this.myString, myInt);
+    init(this.myString, myInt);
 
     Void myMethod(myString, this.myInt);
 }
@@ -3609,11 +3637,11 @@ When the an other constuctor is marked as default the constructor can only have 
 
 class MyClass
 {
-    !MyClass(){
+    !init(){
         // You default constructor code
     }
 
-    !MyClass.named(){
+    !init.named(){
         // You default constructor code
     }
 }
@@ -4939,100 +4967,73 @@ Void myMethod(Null myVoid){}
 myMethod(void<Null>);
 
 
-//Random idea maybe constuctors need no name or keyword at all?
+//SOME BASIC CLASS LITERAL EXPIRIMENTATION TO REMEMBER
+
+//Definition (Members are public)
+{String myString, Int myInt, Bool myBoolean} myLiteral = 
+    {myString = 'Hello World!', myInt = 13135, myBoolean = true};
+
+
+//Default value (If unasigned)
+{String myString, Int myInt = 13135} = {myString = 'Hello World!'};
+
+//To class
 class MyClass
 {
-    MyClass(){
-
-    }
-
-    construct(){
-
-    }
- 
-    init(){
-
-    }
-
-    class(){
-        //The class keyword can also be used to access static members
-    }
-
-    (){
-        
-    }
+    String myString;
+    Int myInt;
 }
+MyClass myClass = {myString = 'Hello World!', myInt = 13135};
 
+//Unpacking (Values are accesable in the current scope)
+{String myString, Int myInt, Bool myBoolean} = 
+    {myString = 'Hello World!', myInt = 13135, myBoolean = true};
 
-//New Import system
+//Inferd types
+{myString, myInt, myBoolean} = 
+    {myString = 'Hello World!', myInt = 13135, myBoolean = true};
 
-// Import all avalible elements
-import './file.mace'; 
-print(element, element2);
+//Rename/define types and midifiers
+{myString = myAlias, myInt = Long mySecondAlias, const myBoolean} = 
+    {myString = 'Hello World!', myInt = 13135, myBoolean = true};
 
-// Adding an alias to all the imported elements
-import './file.mace' as file;
-print(file.element, file.element2);
+//Rest (Contains all the kown non specified unpacking memers)
+{myString, ..myRest} = {myString = 'Hello World!', myInt = 13135, myBoolean = true};
 
-// Importing specific elements
-import './file.mace' use element, element2;
-print(element, element2)
+//Rest witout name (injects the members in the current scope)
+{..} = {myString = 'Hello World!', myInt = 13135, myBoolean = true};
 
-// Importing all elements except given elements
-import './file.mace' !use element; 
+//Hiden membercounts as specified member (Injects all but myString)
+{.., myString=} = {myString = 'Hello World!', myInt = 13135, myBoolean = true};
 
-// Adding an alias to imported elements;
-import './file.mace' use element as alias, element2;
-print(alias, element2)
+//Nested unpacking (Rest can also be nested)
+{myString = [myChar, mySecondChar], ..{myBoolean}} = {myString = 'Hello World!', myInt = 13135, myBoolean = true};
 
-// Combining file alias and members alias
-import './file.mace' as file use element as alias, element2;
-print(file.alias, element2); 
-
-
-api
-    users
-        controller.mace
-        api
-            test.mace
-    config.mace
-
-namespace "users";
-
-namespace "../api"{
-    bdwd
+//Classes can also be unpacked just like class literals
+class MyClass
+{
+    String myString = 'Hello World!';
+    Int myInt = 13135;
 }
+{myString = [myChar, mySecondChar], myInt} = MyClass();
 
-namespace "users"{
-    wdw
-}
+//Global Define types and modifiers (Appies to all one level deep unpacking memers witout when they are not defined)
+const {myString, myInt, myBoolean} = 
+    {myString = 'Hello World!', myInt = 13135, myBoolean = true};
 
-import 'mace:';
+//Override one
+init {myString, myInt, const myBoolean} = 
+    {myString = 'Hello World!', myInt = 13135, myBoolean = true};   
 
-import "./users/controller.mace" use getUsers;
+//One is still mutable using clever rest syntax trick
+const {myString, myInt, ..{myBoolean}} = 
+    {myString = 'Hello World!', myInt = 13135, myBoolean = true};       
 
-getUsers();
-
-private`            only in the file and namespace itself
-private protected`  only in the namespace itself
-protected`          only in the namespace itself of sub namespaces
-public`             in every namespace
-
-
-
-// The .mace file extension is not required
-// Maybe add folder import to easily manage imports better? (Instead of crazy packages)
-
-// The imported members are automatically private but this can be changed by adding an acces modifier before your import statement
-public import './file.mace';
-
-//Individual members can overwrite the global acces modifier bij prefixing it with a custom acces modifier.
-public import './file.mace' use element, private element2;  
-
-public import './file.mace';  
-
-private member, test;
-
-//Maybe be able to add acces modifiers to elements
-public element, elements2
-private element3, element6
+//Ref keyword could be usefull to keep an active reference to the internal member
+myLiteral = {x = 1, y = 5}
+ref {x, y} = myLiteral;
+//This will change the inner members from myLiteral
+x = 7
+y = 0;
+// myLiteral becomes: {x = 7, y = 0}
+// Could be very usefull for imports aswel
