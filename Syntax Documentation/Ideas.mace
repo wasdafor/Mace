@@ -1,9 +1,9 @@
 // Datatypes
-int
-float
-string
-bool
-char
+Int
+Float
+String
+Bool
+Char
 //optional
 percent
 
@@ -50,32 +50,20 @@ else if (){
 else{
 }
 
-switch(var)
-{
-	case 'test'{
-		break;
-	}
-	default{
-		break;
-	}
-}
+for(Int j = 0; i<5; i++)
 
-
-
-for(int j = 0; i<5; i++)
-
-for(int integer in intlist){
+for(Int integer in intlist){
 	
 }
 
 
 //Normal function (void is no return type)
-int Calc(){
+Int Calc(){
 	return 6;
 }
 
 //Flexible return type function
-<int asdf,string myString> Test<T>(string myString)
+<Int asdf,String myString> Test<T>(string myString)
 {
 	//Edit return values using the return. notation
 	return.myString = myString;
@@ -84,9 +72,9 @@ int Calc(){
 
 //funtion invokation of multiple return type method
 //use predefined values or define when function used
-int var1;
-<var1,string var2> = Test('dadwad');
-int result = Calc();
+Int var1;
+<var1,String var2> = Test('dadwad');
+Int result = Calc();
 
 //Build in functions
 puke();
@@ -124,21 +112,21 @@ myPercent = 71.428571428;
 
 ----------------------- null checks and pointers
 
-int? myInt;
-int? mySecondInt;
-int*?[] myThirdInt;
+Int? myInt;
+Int? mySecondInt;
+Int*?[] myThirdInt;
 
 denullify /
 unnullify ({myInt:5},{mySecondInt:5}){
-    int mySecondInt = myInt;
+    Int mySecondInt = myInt;
 }
 
 
-double[5] balance = [1000.0, 2.0, 3.4, 17.0, 50.0];
-double[5] balance2 = balance;
+Double[5] balance = [1000.0, 2.0, 3.4, 17.0, 50.0];
+Double[5] balance2 = balance;
 
-double *p;
-double[]
+Double *p;
+Double[]
 
 deep copy
 shallow copy
@@ -188,9 +176,9 @@ pas toe: <<< 1
 
 
 
-int i,j
+Int i,j
 j = 1
-if ((bool)(i & 1)){
+if ((Bool)(i & 1)){
     
 }
 
@@ -209,15 +197,15 @@ range
 meerdere datatypes
 
 
-type JsonValue = int | string | bool;
-int[] default: -1 myArray = [1,2,3];
-int myValue = myArray[1];
+type JsonValue = Int | String | Bool;
+Int[] default: -1 myArray = [1,2,3];
+Int myValue = myArray[1];
 
-Map<string,JsonValue>
-Map<string, Object>
-string value = object
+Map<String,JsonValue>
+Map<String, Object>
+String value = object
 //warning typecast is not certain
-int() | int test = int(){}
+Int Func() | Int test = (){}
 
 reference
 ref
@@ -234,8 +222,8 @@ print('',43,'');
 MyGeneric<MyGeneric>(MyGeneric myGeneric) myMethodVar = myMethod<MyGeneric>;
 type MyType = MyGeneric<MyGeneric>(MyGeneric myGeneric);
 MyType myType = MyGeneric<MyGeneric>(MyGeneric myGeneric)
-Mytype<string> myMethod = myMethod<string>;
-string(string stuff) myMethodVar = myMethod<string>;
+Mytype<String> myMethod = myMethod<String>;
+string(String stuff) myMethodVar = myMethod<String>;
 
 type myMethod<T> = myMethod<T>;
 
@@ -247,10 +235,10 @@ class Map<T,S>
 
 }
 
-Map<string,int> myMap = {};
-type MyType = Map<string,int>;
+Map<String,Int> myMap = {};
+type MyType = Map<String,Int>;
 type MyType<T,S> = Map<T,S>;
-MyType myType<string, int> = {'Index': 5};
+MyType myType<String, Int> = {'Index': 5};
 //endnotes
 
 
@@ -261,13 +249,13 @@ int*?[]?*?<T>()?*? myArray = &[null,&3,null]
 
 
 enum MyEnum myEnum = {};  
-class MyClass<T,S> myClass = { string myString;};
-MyClass<string,int> myClassInstance = MyClass<T,S>();
+class MyClass<T,S> myClass = { String myString;};
+MyClass<String,Int> myClassInstance = MyClass<T,S>();
 if(){
-    myClass = {int myInt;};
+    myClass = {Int myInt;};
 }
 else{
-    myClass = {double myInt;};
+    myClass = {Double myInt;};
 }
 
 typeid(clasquestionmark).name();
@@ -284,8 +272,8 @@ void myMethod<T>(T test){
 }
 function void<T>(T test) myMethod = {return test;};
 
-void display<S>(int dimensions){
-    function double<T>(int i) display = {T?[i] data = T?[i]; for(T value in data with int index){print(index + '\n');}};
+void display<S>(Int dimensions){
+    Double Func<T>(int i) display = {T?[i] data = T?[i]; for(T value in data with int index){print(index + '\n');}};
     for (j = 0; j< 5; j++){
         display<S>(j);
         if (j>2){
@@ -295,7 +283,7 @@ void display<S>(int dimensions){
 }
 ---
 
-double(int i) recursion = {return i % 2;};
+Double Func(Int i) recursion = {return i % 2;};
 for (j = 0; j< 500; j++){
     recursion(j);
     if (j>200){
@@ -306,19 +294,19 @@ recursion();
 recursion = {if (i == 5){j=1;} i++;};
 
 
-function double<int | double T, int | double S>(T firstValue, S secondValue) addOrMultiply = {return (double)(firstValue + secondValue)};
-addOrMultiply = {return (double)(firstValue * secondValue)};
+Double Func<Int | Double T, Int | Double S>(T firstValue, S secondValue) addOrMultiply = {return (Double)(firstValue + secondValue)};
+addOrMultiply = {return (Double)(firstValue * secondValue)};
 
-string(string,int) myMethod = string(string myString,int myInt){};
+String Func(string,int) myMethod = (String myString,Int myInt){};
 
 
-int i = 0;
-function void<T,S>() inceremeter = {i++;};
+Int i = 0;
+Void Func<T,S>() inceremeter = {i++;};
 myMethod = {i++;};
 
 
 myMethod = 
-string<string,int>() mySecondMethod = myBoolean ? myMethod : mySecondMethod;
+String Func<String,Int>() mySecondMethod = myBoolean ? myMethod : mySecondMethod;
 
 
 matrix operator
@@ -477,12 +465,12 @@ myLoop for(int i = 0; i < 10 i++,){
     }
 }
 
-this [int start:<int end:int step>>]{
+this [Int start:Int end:Int step]{
     
 }
 
-int[] myArray = [1,2,3,4,5];
-int[] mySecondArray = myArray[0:5:-1]
+Int[] myArray = [1,2,3,4,5];
+Int[] mySecondArray = myArray[0:5:-1]
 // mySecondArray becomes: [1,2]
 
 Sets ({})
@@ -491,18 +479,18 @@ Sets ({})
 When key value pairs are added to sets the keys must be unique.
 
 //code
-label:string{} mySet = {key:'Value',secondKey:'Second value'};
+Label:String{} mySet = {key:'Value',secondKey:'Second value'};
 
 //code
-label:string{} mySet = {key:'Value',key:'Second value'};
+Label:String{} mySet = {key:'Value',key:'Second value'};
 //Results in error
 
 key and value pairs have a special propery when added to sets.
 A key and value pair is different in sets when the key is difference form the other keys not the key or value.
 
 And when the label is the type of the key in a key and value pair the value can be access trough the label value or via indexing with string
-label:string myKeyValuePair = myString:'Hello World!';
-string myString = myKeyValuePair.myString;
+Label:String myKeyValuePair = myString:'Hello World!';
+String myString = myKeyValuePair.myString;
 myString = myKeyValuePair['myString'];
 myString = myKeyValuePair[myString];
 
@@ -510,43 +498,43 @@ When a key and value pair is added to sets and the key is of type label the valu
 The reason why this functinallity can only be applied to sets is because key only in sets the key is always unique while in any other collections it is not.
 Values of key and value pairs in sets can always be access like accessing a value form a key and value pair.
 
-label:string mySet = {myString:'Hello World!'};
-string myString = mySet.myString;
+Label:String mySet = {myString:'Hello World!'};
+String myString = mySet.myString;
 myString['']
 
 MyClass myClass = auto();
 myClass[];
 
-string myString = '23';
-int mySecondInt = <!int>myString;
+String myString = '23';
+Int mySecondInt = <!int>myString;
 
-!int myInt;
-int myInt = int!;
+!Int myInt;
+Int myInt = Int!;
 
 
-(string myString:, :int iest)  = ('dwdw':true)
-(string myString, , int myInt) = ('',true,2121);
+(String myString:, :Int iest)  = ('dwdw':true)
+(String myString, , Int myInt) = ('',true,2121);
 
-string myString:string dwwdw = myString:'dwdwd';
+String myString:String dwwdw = myString:'dwdwd';
 // dwwdw becomes: 'dwdwd';
-int:?string var = null;
-int?:?string? var = null;
+Int:?String var = null;
+Int?:?String? var = null;
 null:'dwdwd'
 // dwwdw becomes: 'dwdwd';
-myString:?string dwwdw = myString:'dwdwd';
+myString:?String dwwdw = myString:'dwdwd';
 // dwwdw becomes: myString:'dwdwd'
 
-int: myKeyValuePair string = 23:'';
-int:string myKeyValuePair = 23:'';
-int : string myValue = 23:'';
-int::string{} sfesfe = 23:"";
+Int: myKeyValuePair String = 23:'';
+Int:String myKeyValuePair = 23:'';
+Int : String myValue = 23:'';
+Int::String{} sfesfe = 23:"";
 //instanciate / define
-<int?:string> wdwd = :'test';
+(Int?:String) wdwd = :'test';
 232:null;
 //unpack
-<myString:?string dwwdw> = myString:'dwdwd';
+(myString:?String dwwdw) = myString:'dwdwd';
 
-(int? myInt,string? myString)? = null;
+(Int? myInt,String? myString)? = null;
 cant get stuff from null
 
 
@@ -556,45 +544,45 @@ void myMethod(){
 
 myMethod;
 
-int?:?string? test = null:null | null;
+Int?:?String? test = null:null | null;
 
-void myMethod(myInt:?int myInt, mySecondInt, string myString, myBoolean:bool myBoolean){
+void myMethod(myInt:?Int myInt, mySecondInt, String myString, myBoolean:Bool myBoolean){
     // Your method code
 }
 
-void myMethod(myInt:int|int myInt, string myString, myBoolean:bool myBoolean){
+void myMethod(myInt:Int|Int myInt, String myString, myBoolean:Bool myBoolean){
     // Your method code
 }
 
-void myMethod(!{string myString}){
+void myMethod(!{String myString}){
     // Your method code
 }
 
-string myString = 'Hello Wo';
-string[5 Hello,char 1, 6 World,...] = myString;
+String myString = 'Hello Wo';
+String[5 Hello,Char 1, 6 World,...] = myString;
 
-[int 5,int 1,int 6] myArray = [1,2,3,4,5,0,1,2,3,4,5,6];
-[int[] 5 first,int 1,int[] 6 second] = myArray;
+[Int 5,Int 1,Int 6] myArray = [1,2,3,4,5,0,1,2,3,4,5,6];
+[Int[] 5 first,Int 1,Int[] 6 second] = myArray;
 
 ~ ! @ # $ % * - + \ <> . /
 ` ^ & ( ) _ = { } [ ] | "" '' , ? \ ;
 
 
-string myString!;
-string? myString = null;
-string mySecondString = myString!;
+String myString!;
+String? myString = null;
+String mySecondString = myString!;
 
-(int | string)() myTuple = (1212,'Hello World!',12);
-int | string(myInt,myString,...) = myTuple;
-(int myInt,string myString,...) = myTuple;
+(Int | String)() myTuple = (1212,'Hello World!',12);
+Int | String(myInt,myString,...) = myTuple;
+(Int myInt,String myString,...) = myTuple;
 
 //text
 Other class assignment.
 
 class MyClass
 {
-    string myString;
-    int myInt;
+    String myString;
+    Int myInt;
 }
 
 MyClass myClass = MyClass{myString = 'Hello World!',myInt = 13135};
@@ -605,16 +593,16 @@ MyClass myClass = {'Hello World!',13135};
 //text
 Return as variable
 
-string myMethod(){
+String myMethod(){
     return = 'Hello World!';
     print(return);
     return;
 }
 
-string myString = myMethod();
+String myString = myMethod();
 // myString becomes: 'Hello World!'
 
-(string! myString,int! myInt)! myMethod(){
+(String! myString,Int! myInt)! myMethod(){
     return.myString = 'Hello World!';
     return.myInt = 13135;
 }
@@ -622,25 +610,25 @@ string myString = myMethod();
 //Literal value ideas
 
 //Array
-int[][/*values*/]
-int[4][/*values*/]
-[string,int][13135, 'Hello World!']
-int[,string][13135, 'Hello World!']
+Int[][/*values*/]
+Int[4][/*values*/]
+[String,Int][13135, 'Hello World!']
+Int[,String][13135, 'Hello World!']
 
-type MyType = [string,int,bool?] | [string,int,char?];
-MyType myType = [string,int,char?]['Test',121,null];
+type MyType = [String,Int,Bool?] | [String,Int,Char?];
+MyType myType = [String,Int,Char?]['Test',121,null];
 
 //Method
-void func()(){/*code*/}
-void func(string,int)(myString, myInt){/*code*/}
+Void Func()(){/*code*/}
+Void Func(String,Int)(myString, myInt){/*code*/}
 
 //Set
-int{}{/*values*/}
-int{4}{/*values*/}
+Int{}{/*values*/}
+Int{4}{/*values*/}
 
 //Map Set
-<int:string>{}{}
-{int myInt, string myString}{myInt:13135,myString,'Hello World!'}
+(Int:String){}{}
+{Int myInt, String myString}{myInt:13135,myString,'Hello World!'}
 
 //String
 ''
@@ -673,34 +661,34 @@ false
 //Void
 null
 //these voids will act different
-[int,]//One void 
+[Int,]//One void 
 [,]//Two voids
 
 //Future
-async int
-async int[]
+async Int
+async Int[]
 
 Methods test
 
 //code
-void myMethod(){
+Void myMethod(){
 
 }
-void func() myMethod = (){}
+Void Func() myMethod = (){}
 myMethod();
 
 //code
-void myMethod[]{
+Void myMethod[]{
 
 }
-void func[] myMethod = []{}
+Void Func[] myMethod = []{}
 myMethod[];
 
 //code
-void myMethod{string myString}{
+Void myMethod{String myString}{
 
 }
-void func{myString string} myMethod = {string myString}{}
+Void Func{myString String} myMethod = {String myString}{}
 myMethod{myString: 'Hello World!'};
 
 use the value keyword for the setters.
@@ -1039,9 +1027,9 @@ else{
 <mySwitchScope>
 switch(myString){
     <myCaseScope>
-    case('Hello World!'){
+    on('Hello World!'){
         switch(myInt){
-            case(13135){
+            on(13135){
                 print(myCaseScope..checks);
                 print(mySwitchScope..value);
                 mySwitchScope..break;
@@ -1129,3 +1117,244 @@ myClass.myMethod();
 // Accessing the method myMethod from the binded class MySecondClass
 MySecondClass mySecondClass = MySecondClass();
 mySecondClass.myMethod();
+
+//chapter
+Cascading scope
+
+//text
+The __{}__ brackets can be used to add cascading scope to any value or variable.
+To add cascading scope write __{}__ after any value or variable.
+Inside the __{}__ brackets of the cascading scope the __.__ represents the value or variable.
+Members of these vales or variables van be directly accessed without an extra __.__ operator.
+//Maybe make the __.__ operator optional and replace it the the keyword base for more clearity
+
+//code
+class MyClass
+{
+    public Int? myInt;
+    public String? myString;
+
+    public Void myMethod(){
+        // Your method code.
+    }
+}
+
+MyClass myClass = MyClass();
+
+// Without cascading scope.
+myClass.myInt = 13135;
+myClass.myString = 'Hello World!';
+myClass.myMethod();
+
+// With cascading scope
+myClass{
+    .myInt = 13135;
+    .myString = 'Hello World!';
+    .myMethod();
+};
+
+//title
+Functions
+
+//text
+The cascading scope can also be added to functions, to call them multiple times.
+
+//code
+Int[] myArray = [];
+
+// Without cascading scope.
+myArray.add(1);
+myArray.add(3);
+myArray.add(1);
+myArray.add(3);
+
+// With cascading scope
+myArray.add{
+    .(1);
+    .(3);
+    .(1);
+    .(3);
+}
+
+//title
+Scope definition
+
+//text
+Inside the cascading scope any other code statements can be defined.
+
+//code
+Int[] myArray = [];
+
+myArray{
+    Bool myBoolean = true;
+
+    if(myBoolean){
+        .add(13135);
+    }else{
+        .add(53131);
+    }
+}
+
+//title
+Optional chaining
+
+//text
+When dealing with a nullable variable the __?__ optional chaining operator must be added before the cascading scope.
+
+//code
+Int[]? myArray = [];
+
+myArray?{
+    .add(13135);
+    .add(53131);
+};
+
+//title
+Assignment
+
+//text
+Becuase the __.__ represents a variable that contains the value or variable values can be assigned to them.
+
+//code
+String myString = '';
+
+myString{
+    if(myBoolean){
+       . = 'Hello World!';
+    }else{
+       . = 'World Hello!';
+    }
+}
+
+//subtitle
+Return value
+
+//text
+After the cascading scope the expression can be continued.
+
+//code
+class MyClass
+{
+    public Int? myInt;
+    public String? myString;
+
+    public Void myMethod(){
+        // Your method code.
+    }
+}
+
+String myString = MyClass(){
+    .myInt = 13135;
+    .myString = 'Hello World!';
+    .myMethod();
+}.myString;
+// myString becomes: 'Hello World!'
+
+//subtitle
+Variable declaration
+
+//text
+The cascading scope can be added to any type or keyword that is used to declare variables or functions.
+The type or keywords will be added to the statement inside the cascading scope.
+//I don't exacly know how this will work (Wich keywords can or can not be used. and can they be combined?).
+
+//code
+class MyClass
+{
+    public{
+        String? myString;
+        Bool? myBoolean;
+
+        Int{
+            myInt = 13135;
+            mySecondInt = 53131;
+
+            . | String dwdw = '';
+
+            .? dwdw = null;
+          
+            myMethod(){
+                // You method code
+            }
+        }
+    }
+}
+
+//subtitle
+Nested
+
+//text
+Cascading scopes can be defined on any value this includes values in cascading scopes.
+This unlocks the possibility to have nested cascading scopes.
+
+//code
+class MyClass
+{
+    public Int? myInt;
+    public String? myString;
+    public Int[] myArray = [];
+
+    Void myMethod(){
+        // Your method code.
+    }
+}
+
+MyClass myClass = MyClass(){
+    .myInt = 13135;
+    .myString = 'Hello World!';
+    .myArray.add{
+        .(1);
+        .(3);
+        .(1);
+        .(3);
+    }
+    .myMethod();
+};
+
+class MyClass
+{
+    public Int{
+        max;
+        min;
+        base[] myArray;
+        base | String myIntString;
+        
+        //Wil throw error
+        String myString;
+    }
+
+    const Int{
+        min = 0;
+        max = 13135;
+    }
+    
+    String{
+        myMethod(){
+            // Your method code.
+        }
+
+        mySecondMethod(){
+            // Your method code.
+        }
+    }
+}
+
+myObject{
+    .myString;
+    .myInt;
+}
+
+myObject{
+    if(myBoolean){
+        . = myObject();
+    }
+    else{
+        . = myObject('');
+    }
+}
+
+String myString = myObject{
+    String test = .myObject.myString;
+    test.replace('1','2');
+    return test;
+};

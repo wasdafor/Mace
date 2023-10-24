@@ -4008,7 +4008,7 @@ String myString myArray.myString;
 // myString becomes: 'Hello World!'
 
 //Unpacking example
-[<...>Int[] myIntegers,String myString] = myArray;
+[..Int[] myIntegers,String myString] = myArray;
 
 //title
 Omitted values
@@ -4262,7 +4262,6 @@ Type`           Brackets
 //table
 Array`          []
 Tuple`          ()
-Set`            {}
 Key value pair` :
 Class`          {}          
 
@@ -4272,13 +4271,11 @@ When unpacking a key value pair the colon is required.
 When unpacking a class object the unpacking variable names must match the class member names.
 
 //code
-[Int myInt,String myString] = [13135,'Hello World!'];
+[Int myInt, String myString] = [13135, 'Hello World!'];
 
-(Int myInt,String myString) = (13135,'Hello World!');
+(Int myInt, String myString) = (13135, 'Hello World!');
 
-{Int myInt,String myString} = {'Hello World!',13135};
-
-Int myInt:String myString = 13135:'Hello World!';
+Int myInt:String myString = 13135: 'Hello World!';
 
 class MyClass
 {
@@ -4286,49 +4283,35 @@ class MyClass
     String myString = 'Hello World!';
 }
 
-{Int myInt,String myString} = MyClass();
+{Int myInt, String myString} = MyClass();
 
 //title
 Element repeater
 
 //text
 The element repeater can be used to unpack multiple members or elements of the same type in a collection.
-To define an element repeater write the following structure; __<__, any integer or __...__, __>__.
+To define an element repeater write the following any integer followed by __..__.
 
 //code
-[2..Int[] myArray,String myString] = [13135,53131,'Hello World!'];
+[..3 Int[] myArray, String myString] = [13135, 53131, 'Hello World!'];
 
-(2..Int() myTuple,String myString) = (13135,53131,'Hello World!');
-
-{2..Int{} mySet,String myString} = {13135,'Hello World!',53131};
-
-
-class MyClass
-{
-    Int myInt = 13135;
-    Int mySecondInt = 53131;
-    String myString = 'Hello World!';
-}
-
-{2..Int() myTuple,String myString} = MyClass();
+(..3 Int() myTuple, String myString) = (13135, 53131, 'Hello World!');
 
 //text
 The item repeater can also be used to skip values of positional collections.
 
 //code
-[..2,String myString] = [13135,53131,'Hello World!'];
+[..2, String myString] = [13135, 53131, 'Hello World!'];
 
-(..2,String myString) = (13135,53131,'Hello World!');
+(..2, String myString) = (13135, 53131, 'Hello World!');
 
 //text
-The ellips operator __...__ can be used to collect any number of elements.
+The ellips operator __..__ can be used to collect any number of elements.
 
 //code
-[..Int[] myArray,String myString] = [13135,53131,'Hello World!'];
+[..Int[] myArray, String myString] = [13135,53131,'Hello World!'];
 
-(..Int() myTuple,String myString) = (13135,53131,'Hello World!');
-
-{..Int{} mySet,String myString} = {13135,'Hello World!',53131};
+(..Int() myTuple, String myString) = (13135,53131,'Hello World!');
 
 class MyClass
 {
@@ -4337,7 +4320,7 @@ class MyClass
     String myString = 'Hello World!';
 }
 
-{..Int() myTuple,String myString} = MyClass();
+{..myRest, String myString} = MyClass();
 
 
 //title
@@ -4348,11 +4331,9 @@ The default type can be used to apply a predefined type to unpacking elements th
 The defualt type is defined before the unpacking brackets
 
 //code
-Int[myInt,mySecondInt,String myString] = [13135,53131,'Hello World!'];
+Int[myInt, mySecondInt, String myString] = [13135,53131,'Hello World!'];
 
-Int(myInt,mySecondInt,String myString) = (13135,53131,'Hello World!');
-
-Int{myInt,mySecondInt,String myString} = {13135,'Hello World!',53131};
+Int(myInt, mySecondInt, String myString) = (13135,53131,'Hello World!');
 
 class MyClass
 {
@@ -4361,7 +4342,7 @@ class MyClass
     String myString = 'Hello World!';
 }
 
-Int{myInt,mySecondInt,String myString} = MyClass();
+Int{myInt, mySecondInt, String myString} = MyClass();
 
 //title
 Skipping values
@@ -4372,9 +4353,9 @@ To skip a value just keep an unpacking element empty or define the type you want
 Values can only be skiped in ordered collections or key value pairs.
 
 //code
-[Int,,String myString] = [13135,53131,'Hello World!'];
+[Int, , String myString] = [13135, 53131, 'Hello World!'];
 
-(Int,,String myString) = (13135,53131,'Hello World!');
+(Int, , String myString) = (13135, 53131, 'Hello World!');
 
 :String myString =  13135:'Hello World!';
 Int:String myString =  13135:'Hello World!';
@@ -4384,9 +4365,9 @@ The item repeater can be used to skip multiple values.
 Only orderd collection unpacking can make use of the item repeater.
 
 //code
-[<2>,String myString] = [13135,53131,'Hello World!'];
+[2.., String myString] = [13135, 53131, 'Hello World!'];
 
-(<2>,String myString) = (13135,53131,'Hello World!');
+(2.., String myString) = (13135, 53131, 'Hello World!');
 
 //title
 Defined key
@@ -4401,15 +4382,6 @@ Int:String myKeyValuePair = 13135:'Hello World!';
 13135:String? myString = myKeyValuePair;
 // myString becomes: 'Hello World!'
 
-//text
-This patern can also be used in collections.
-
-13135:String myString = [13135:'Hello World!'];
-
-13135:String myString = (13135:'Hello World!');
-
-13135:String myString = {13135:'Hello World!'};
-
 //title
 Default values
 
@@ -4417,11 +4389,11 @@ Default values
 Defualt values can be used to indicate that a certain element does not have to be populated with a value.
 
 //code
-[Int? myInt,String! myString,Bool myBoolean = false] = [];
+[Int? myInt, String myString, Bool myBoolean = false] = [];
 
-(Int? myInt,String! myString,Bool myBoolean = false) = ();
+(Int? myInt, String myString, Bool myBoolean = false) = ();
 
-{Int? myInt,String! myString,Bool myBoolean = false} = {};
+{Int? myInt, String myString, Bool myBoolean = false} = {};
 
 Int? myInt:String myString = :;
 
@@ -4432,7 +4404,7 @@ class MyClass
     String? myString;
 }
 
-{Int? myInt,String! myString,Bool myBoolean = false} = MyClass();
+{Int? myInt, String myString, Bool myBoolean = false} = MyClass();
 
 //title
 Stacking
@@ -4440,7 +4412,7 @@ Stacking
 //text
 The unpacking scopes can be stacked any level of depth.
 
-[Int myInt,({Bool myBoolean,:Double myDouble},String myString)] = [13135,({true, :53131.0},'Hello World!')];
+[Int myInt,({Bool myBoolean, :Double myDouble}, String myString)] = [13135,({true, :53131.0},'Hello World!')];
 
 //title
 Functions binding
@@ -4471,251 +4443,9 @@ Void myMethod{Int myInt, String myString}{
     // Your method code.
 }
 
-Void Func{Int, String} myFunction = myMethod;
+Void Func{myInt Int, myString String} myFunction = myMethod;
 
-myMethod{13135, 'Hello World!'};
-
-//chapter
-Cascading scope
-
-//text
-The __{}__ brackets can be used to add cascading scope to any value or variable.
-To add cascading scope write __{}__ after any value or variable.
-Inside the __{}__ brackets of the cascading scope the __.__ represents the value or variable.
-Members of these vales or variables van be directly accessed without an extra __.__ operator.
-//Maybe make the __.__ operator optional and replace it the the keyword base for more clearity
-
-//code
-class MyClass
-{
-    public Int? myInt;
-    public String? myString;
-
-    public Void myMethod(){
-        // Your method code.
-    }
-}
-
-MyClass myClass = MyClass();
-
-// Without cascading scope.
-myClass.myInt = 13135;
-myClass.myString = 'Hello World!';
-myClass.myMethod();
-
-// With cascading scope
-myClass{
-    .myInt = 13135;
-    .myString = 'Hello World!';
-    .myMethod();
-};
-
-//title
-Functions
-
-//text
-The cascading scope can also be added to functions, to call them multiple times.
-
-//code
-Int[] myArray = [];
-
-// Without cascading scope.
-myArray.add(1);
-myArray.add(3);
-myArray.add(1);
-myArray.add(3);
-
-// With cascading scope
-myArray.add{
-    .(1);
-    .(3);
-    .(1);
-    .(3);
-}
-
-//title
-Scope definition
-
-//text
-Inside the cascading scope any other code statements can be defined.
-
-//code
-Int[] myArray = [];
-
-myArray{
-    Bool myBoolean = true;
-
-    if(myBoolean){
-        .add(13135);
-    }else{
-        .add(53131);
-    }
-}
-
-//title
-Optional chaining
-
-//text
-When dealing with a nullable variable the __?__ optional chaining operator must be added before the cascading scope.
-
-//code
-Int[]? myArray = [];
-
-myArray?{
-    .add(13135);
-    .add(53131);
-};
-
-//title
-Assignment
-
-//text
-Becuase the __.__ represents a variable that contains the value or variable values can be assigned to them.
-
-//code
-String myString = '';
-
-myString{
-    if(myBoolean){
-       . = 'Hello World!';
-    }else{
-       . = 'World Hello!';
-    }
-}
-
-//subtitle
-Return value
-
-//text
-After the cascading scope the expression can be continued.
-
-//code
-class MyClass
-{
-    public Int? myInt;
-    public String? myString;
-
-    public Void myMethod(){
-        // Your method code.
-    }
-}
-
-String myString = MyClass(){
-    .myInt = 13135;
-    .myString = 'Hello World!';
-    .myMethod();
-}.myString;
-// myString becomes: 'Hello World!'
-
-//subtitle
-Variable declaration
-
-//text
-The cascading scope can be added to any type or keyword that is used to declare variables or functions.
-The type or keywords will be added to the statement inside the cascading scope.
-//I don't exacly know how this will work (Wich keywords can or can not be used. and can they be combined?).
-
-//code
-class MyClass
-{
-    public{
-        String? myString;
-        Bool? myBoolean;
-
-        Int{
-            myInt = 13135;
-            mySecondInt = 53131;
-
-            . | String dwdw = '';
-
-            .? dwdw = null;
-          
-            myMethod(){
-                // You method code
-            }
-        }
-    }
-}
-
-//subtitle
-Nested
-
-//text
-Cascading scopes can be defined on any value this includes values in cascading scopes.
-This unlocks the possibility to have nested cascading scopes.
-
-//code
-class MyClass
-{
-    public Int? myInt;
-    public String? myString;
-    public Int[] myArray = [];
-
-    Void myMethod(){
-        // Your method code.
-    }
-}
-
-MyClass myClass = MyClass(){
-    .myInt = 13135;
-    .myString = 'Hello World!';
-    .myArray.add{
-        .(1);
-        .(3);
-        .(1);
-        .(3);
-    }
-    .myMethod();
-};
-
-class MyClass
-{
-    public Int{
-        max;
-        min;
-        base[] myArray;
-        base | String myIntString;
-        
-        //Wil throw error
-        String myString;
-    }
-
-    const Int{
-        min = 0;
-        max = 13135;
-    }
-    
-    String{
-        myMethod(){
-            // Your method code.
-        }
-
-        mySecondMethod(){
-            // Your method code.
-        }
-    }
-}
-
-myObject{
-    .myString;
-    .myInt;
-}
-
-myObject{
-    if(myBoolean){
-        . = myObject();
-    }
-    else{
-        . = myObject('');
-    }
-}
-
-String myString = myObject{
-    String test = .myObject.myString;
-    test.replace('1','2');
-    return test;
-};
-
+myMethod{myInt = 13135, myString = 'Hello World!'};
 
 //title
 Asynchronous
@@ -4766,34 +4496,20 @@ abstract class MyClass{
 
     String toString(){
         return '13135';
-
     }
 }
 
-// Maybe types will be displayed in angle brackets with commas separated
-<String> same String
-<String, Int> same String | Int
-
-Int myInt = myString<Int>;
-//Can result in runtime exception
-
-Int myInt = try myString<Int> catch 13135;
-//When resulting in runtime error the catch value will be returned
-
-
-
-//Chapter
+//chapter
 Null and Void
 
 //text
-Void will be a type that can only store the value void.
+Void is a primitive type that can only store the value void.
 
 //code
 Void myVoid = void;
-// myVoid becomes: void
 
 //text
-Null will be a type that can only store the value null.
+Null is a primitive type that can only store the value null.
 
 //code
 Null myNull = null;
@@ -4803,76 +4519,59 @@ Relation between Null and Void
 
 //text
 The values __null__ and __void__ will be exacly the same, but you can still check if they are different by checking their type.
-The reason is the ease of use you do not have to worry about if the value is __null__ or __void__ they acy mostly the same.
+This adds the ease use so you do not have to worry about if the value is __null__ or __void__, they act mostly the same.
 
 //code
 Bool myBoolean = void == null;
 // myBoolean becomes: true
+
 myBoolean = null == Void;
 // myBoolean becomes: false;
 myBoolean = void == Void;
 // myBoolean becomes: true;
 
 //text
-Because __void__ will be equal to __null__ the null operators will also work with void.
+Because __void__ will be equal to __null__ the null operators will also work on void values.
 
 //code
-Int myInt = void ?? 13135;
-// myInt becomes: 13135
-
-Int | Void mySecondInt = void;
-mySecondInt ??= 13135;
+Int | Void myInt = void;
+myInt ??= 13135;
 // mySecondInt becomes: 13135
 
 Int[] | Void myArray = void;
 myArray?.add(13135); 
 
-Int myInt = myArray?[0];
+Int? myInt = myArray?[0];
 
 //title
 Automatic void
 
 //text
-In some part of the 
-In the following places will empty of missing values be converted to __void__.
-//The rules for when void is excepted in operator expressions is till difficult to visualize
-//and needs work but the concepts is here maybe Unary operators are not allowed they make stuff difficult.
-
+Void mostly represents that a value is missing or unasigned.
+In the following places empty or missing values be converted to __void__.
 
 //subtitle
 Uninitialized variables
 
 //text
-Any uninitialized variables that can store __void__ or __null__ will be assigned with the value __void__ automatically.
-This also implies that the variable can be accessed without the need of initialization.
+Any uninitialized variable will by default get the value __void__ assigned.
+When the variable is nullable or can contain __void__ the variable can be accessed without initialization.
 
 //code
-Void myString;
+Int | Void myInt;
 // Same as: 
-Void myString = void;
+Int | Void myInt = void;
 
 //subtitle
 Ternary operator
 
 //text
-Any missing operhand except the first boolean expression will be automatically return the value __void__.
+The last two operhands of the ternary operator will default to return __void__ when one operhand is missing.
 
 //code
-Int myInt = myBoolean ? : 13135;
+Int? myInt = myBoolean ? : 13135;
 // Same as: 
-Int myInt = myBoolean ? void : 13135;
-
-//subtitle
-Control expressions
-
-//text
-Any missing return value of a control expression will automatically return the value __void__.
-When a code body is used and no return statement is called __void__ will be returned by default.
-
-//code
-Int myInt = if(myBoolean) 13135;
-// Same as: 
-Int myInt = if(myBoolean) 13135 else void;
+Int? myInt = myBoolean ? void : 13135;
 
 //subtitle
 return, yield, break return statements
@@ -4881,70 +4580,97 @@ return, yield, break return statements
 Any return, yield or break return statement without specifing a value will use the __void__ value by default.
 
 //code
-// Return
-Int? myMethod(){ return; }
+return;
+yield;
+break return; 
 // Same as:
-Int? myMethod(){ return void; }
-
-// Yield
-stash Iterator<Int?> myIterator(){ yield; }
-// Same as:
-stash Iterator<Int?> myIterator(){ yield void;}
-
-// Break return
-Int? myInt = for(Int i in 0..10){ break return; }
-// Same as:
-Int? myInt = for(Int i in 0..10){ break return void; }
+return void; 
+yield void;
+break return void;
 
 //subtitle
 Missing return statements
 
 //text
-Any method or control expression that does not specific a return, yield or break return statement will automatically return __void__.
+When an (async)method or control expression does not end a branch with a __return__ statement, it will return __void__ by default.
+When a for or while expression that must return a single value not does end a branch with a __break return__ statement, it will break return __void__ by default. 
+Note that iterator or stream methods, or control expressions will not return or yield any value by default.
 
 //code
 // Method
-Int? myMethod(){}
+Void myMethod(){}
 // Same as:
-Int? myMethod(){ return void; }
+Void myMethod(){ return void; }
 
 // Control expression
 Int? myInt = if(myBoolean){ } else 13135;
 // Same as:
-Int? myInt = if(myBoolean){ return void; } else 13135
+Int? myInt = if(myBoolean){ return void; } else 13135;
 
+Int? myInt = if(myBoolean) 13135;
+// Same as: 
+Int? myInt = if(myBoolean) 13135 else void;
+
+// Loop
+Int? myInt = for(Int i in 0..10){};
+// Same as:
+Int? myInt = for(Int i in 0..10){ break return void; };
+
+//title
+Implicit casting
 
 //text
-__void__ can be implicitly casted to null when the variable cannot contain __void__.
+The value __void__ can be implicitly casted to __null__ when the expected type cannot contain __void__.
+If the expected type can contain __void__, the value __void__ will be stored instead of casting it to __null__. 
 
 //code
 String? myString = void;
 // myString becomes: null
 
-// With return type Void
 Void myMethod(){}
 Int? myInt = myMethod();
-// myIny becomes: null
+// myInt becomes: null
+
+Bool? | Void myBoolean = void;
+// myBoolean becomes: void
 
 //text
-When void is added to a collection literal and the collection can not contain void the void value will be ignored.
-This functinallity only happens if the part of the collection can contain any number values.
+When __void__ is added to a collection literal and the collection can not contain void the void value will be ignored.
+This functinallity only occurs if the part of the collection can a variable amount of values.
+Note that when the collection can contain __void__, __void__ will be stored instead of ignored.
+This also implies that the value __void__ cannot be implicitly casted to __null__ in any collection.
 
 //code
 Int[] myArray = [13135, void, 53131];
-// myArray becomes [13135, 53131]
+// myArray becomes: [13135, 53131]
+
 Int[] myArray = [13135, if(myBoolean) 53131];
+// myArray becomes: [13135, 53131] if myBoolean is true else: [13135]
+
+(Int | Void)[] myArray = [13135, if(myBoolean) 53131];
+// myArray becomes: [13135, 53131] if myBoolean is true else: [13135, void]
 
 //text
-When a collection object is used and a default value is used the __void__ value will be replaced by the default value if the parameter cannot contain void.
+When a collection object is used and a default value is defined the __void__ value will be replaced by the default value.
+Note that even if the variable can contain void the defualt value will be assigned.
 
 //code
 [Int myInt = 13135, String myString] myArray = [void, 'Hello World!'];
-// myArray becomes [13135, 'Hello World!']
+// myArray becomes: [13135, 'Hello World!']
+
 [Int myInt = 13135, String myString] myArray = [if(myBoolean) 53131, 'Hello World!'];
+// myArray becomes: [53131, 'Hello World!'] if myBoolean is true else: [13135, 'Hello World!']
+
+[Int | Void myInt = 13135] myArray = [void];
+// myArray becomes: [13135]
+
+//title
+Operators
 
 //Text
-When void is used in any binary operation the non void values will be retunred if present else void will returned.
+When the value __void__ is used in any binary operation it will be ignored.
+If one of the operhands is __void__ the other operhand will be returned.
+If both operators are __void__ the value __void__ will be returned. 
 
 //code
 Int myInt = 13135 + void;
@@ -4952,19 +4678,6 @@ Int myInt = 13135 + void;
 
 myInt = 53131 + (void * void);
 // myInt becomes: 53131
-
-
-Null myNull = void;
-//becomes: null
-
-(Void | String)[] myArray = ["", if(myBoolean) "value"]
-String?[] myArray = ["", if(myBoolean) "value"]
-
-Void myMethod(Void myVoid){}
-
-Void myMethod(Null myVoid){}
-
-myMethod(void<Null>);
 
 
 //SOME BASIC CLASS LITERAL EXPIRIMENTATION TO REMEMBER
@@ -4986,24 +4699,21 @@ class MyClass
 MyClass myClass = {myString = 'Hello World!', myInt = 13135};
 
 //Unpacking (Values are accesable in the current scope)
-{String myString, Int myInt, Bool myBoolean} = 
-    {myString = 'Hello World!', myInt = 13135, myBoolean = true};
+{String myString, Int myInt, Bool myBoolean} = {myString = 'Hello World!', myInt = 13135, myBoolean = true};
 
 //Inferd types
-{myString, myInt, myBoolean} = 
-    {myString = 'Hello World!', myInt = 13135, myBoolean = true};
+{myString, myInt, myBoolean} = {myString = 'Hello World!', myInt = 13135, myBoolean = true};
 
 //Rename/define types and midifiers
-{myString = myAlias, myInt = Long mySecondAlias, const myBoolean} = 
-    {myString = 'Hello World!', myInt = 13135, myBoolean = true};
+{myString = myAlias, myInt = Long mySecondAlias, const myBoolean} = {myString = 'Hello World!', myInt = 13135, myBoolean = true};
 
-//Rest (Contains all the kown non specified unpacking memers)
+//Rest (Contains all the known non specified unpacking memers)
 {myString, ..myRest} = {myString = 'Hello World!', myInt = 13135, myBoolean = true};
 
-//Rest witout name (injects the members in the current scope)
+//Rest without name (injects the members in the current scope)
 {..} = {myString = 'Hello World!', myInt = 13135, myBoolean = true};
 
-//Hiden membercounts as specified member (Injects all but myString)
+//Hidden members counts as specified member (Injects all but myString)
 {.., myString=} = {myString = 'Hello World!', myInt = 13135, myBoolean = true};
 
 //Nested unpacking (Rest can also be nested)
@@ -5018,16 +4728,13 @@ class MyClass
 {myString = [myChar, mySecondChar], myInt} = MyClass();
 
 //Global Define types and modifiers (Appies to all one level deep unpacking memers witout when they are not defined)
-const {myString, myInt, myBoolean} = 
-    {myString = 'Hello World!', myInt = 13135, myBoolean = true};
+const {myString, myInt, myBoolean} = {myString = 'Hello World!', myInt = 13135, myBoolean = true};
 
 //Override one
-init {myString, myInt, const myBoolean} = 
-    {myString = 'Hello World!', myInt = 13135, myBoolean = true};   
+init {myString, myInt, const myBoolean} = {myString = 'Hello World!', myInt = 13135, myBoolean = true};   
 
 //One is still mutable using clever rest syntax trick
-const {myString, myInt, ..{myBoolean}} = 
-    {myString = 'Hello World!', myInt = 13135, myBoolean = true};       
+const {myString, myInt, ..{myBoolean}} =  {myString = 'Hello World!', myInt = 13135, myBoolean = true};       
 
 //Ref keyword could be usefull to keep an active reference to the internal member
 myLiteral = {x = 1, y = 5}
@@ -5037,3 +4744,13 @@ x = 7
 y = 0;
 // myLiteral becomes: {x = 7, y = 0}
 // Could be very usefull for imports aswel
+
+// Maybe types will be displayed in angle brackets with commas separated
+<String> same String
+<String, Int> same String | Int
+
+Int myInt = myString<Int>;
+//Can result in runtime exception
+
+Int myInt = try myString<Int> catch 13135;
+//When resulting in runtime error the catch value will be returned
