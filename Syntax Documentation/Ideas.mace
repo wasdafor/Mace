@@ -1358,3 +1358,139 @@ String myString = myObject{
     test.replace('1','2');
     return test;
 };
+
+//subtitle
+Cascading
+
+//text
+To access cascading members write any variable followed by __?__ ending with __{}__.
+
+//code
+class MyClass
+{
+    public Int? myInt;
+    public String? myString;
+}
+
+MyClass? myClass = null;
+
+myClass?{
+    myInt = 13135;
+    myString = 'Hello World!';
+    myMethod();
+};
+// Statement exits after myClass
+myClass = MyClass();
+myClass?{
+    myInt = 13135;
+    myString = 'Hello World!';
+    myMethod();
+};
+// myClass.myInt becomes: 13135
+// myClass.myString becomes: 'Hello World!'
+// myClass.myMethod gets called
+
+
+//chapter
+Defualting
+
+//text
+Defualting can be used to assign a declared default value to a variable in various situations.
+
+//title
+Defualt declaration
+
+//text
+The __!__ operator can be used to populate variables with their default type on declaration.
+To use default declaration write __!__ after any type to indicate that is needs to be populated with the default value when unassigned.
+This operator can only be used when the variable or object has a set defualt value or constructor.
+
+//code
+Int! myInt;
+// myInt becomes: 0
+
+Double! myDouble;
+// myDouble becomes: 0.0
+
+String! myString;
+// myString becomes: ''
+
+Bool! myBoolean;
+// myBoolean becomes: false
+
+Int![5]! myArray;
+// myArray becomes: [0,0,0,0,0]
+
+//title
+Defualt replacement
+
+//text
+The __!__ operator can be used on nullable variables to replace the possible null value with the default value of the variable.
+This operator can only be used when the variable or object has a set defualt value/constructor.
+
+//code
+String? myString = null;
+
+String mySecondString = myString!;
+// mySecondString becomes: ''
+
+myString = 'Hello World!';
+
+mySecondString = myString!;
+// mySecondString becomes: 'Hello World!'
+
+//title
+Defualt fallback
+
+//text
+The __!!__ operator can be used to indicate that a variable will never be null.
+When the default value get assign with null the defualt value will be saved.
+To declare a defualt fallback variable write a __!__ after any type.
+
+//code
+Int!! myInt;
+// myInt becomes: 0
+
+myInt = 13135;
+// myInt becomes: 13135
+
+myInt = null;
+// myInt becomes: 0
+
+//text
+When the return type of a method is default the method does not need to return a value the default value will be returned
+
+//code
+String! Func() myMethod = (){};
+String myString = myMethod();
+// myString becomes: ''
+
+//title
+Defualt constructors
+
+//text 
+Defining default constuctor
+Default constructors work the same way as any other constructor
+
+//code
+class MyClass
+{
+    !(){
+        // You default constructor code
+    }
+}
+
+//text
+Other constructors can also be marked as default.
+When the an other constuctor is marked as default the constructor can only have default or nullable types.
+
+class MyClass
+{
+    !init(){
+        // You default constructor code
+    }
+
+    !init.named(){
+        // You default constructor code
+    }
+}
