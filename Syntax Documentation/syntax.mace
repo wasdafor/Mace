@@ -90,109 +90,53 @@ myDependency = '1.0.0'
 Root folder
 
 //Text
-The root folder of the program indicates in which folder, space imports will be searched.
+The root folder of the program indicates in which folder the path of a absolute import statement starts.
 This root folder will automatically be inferred depening on the location of your entry or configuration files.
-For mace to infer this root folder it will start searching from within the folder where your mace file that utilizes space imports resides.
+For mace to infer this root folder it will start searching from within the folder where your mace file that utilizes absolute imports resides.
 Mace will keep searching up in the folder tree from this initial folder until it finds a configuration file.
 When mace finds a configuration file the root folder of the program becomes the parent folder of this configuration file.
 When mace does not find a configuration file it will utilize the parent folder of the first entry file it has founds.
-If both types of files are not found you can not utilize space imports to import parts of your program.
+If both types of files are not found you can not utilize absolute imports to import parts of your program.
 
 //chapter
-Spaces and imports
+Imports and code access
+
+//text
+Mace utilizes a simple and elegant file based import system, this makes is very easy to reuse code.
+This system does not support fancy scope or module imports, but it does support importing and reexporting code from files.
 
 //title
-Folder spaces
+Code access
 
 //text
-Folder spaces are used to organize your program into smaller importable pieces of code.
-A folder space(In short just space) is just a fancy name for any folder in your project containing __.mace__ files.
-All the top level members defined in __.mace__ files will be part of the so called space scope.
-Every file will always be part of a default space, this space will be the parent folder of the location of the file.
+All top level members in a file have the abbility to be exported to so they can be imported in other files.
+By default all members are __private__ and can only be accessed in the file where they are defined. 
+When a member is marked using the __protected__ keyword it can be accessed in every file only in the current package.
+When a member is marked using the __public__ keyword it can be accessed in every file in any package.
 
-The following members can be defined in the space scope:
+The following table shows the members that are valid top level members.
+
+//tablehead
+Member`         Description
 
 //table
-class
-extension class
-enum
-functions
-variables
-types
+Variables`      A variable that can store a value.
+Methods`        A function that can be called.
+Getters`        A method that can be called when a variable is accessed.
+Setters`        A method that can be called when a variable is assigned.
+Class`          A blueprint for an object.
+Static class`   A blueprint for an object that can only contain static members.
+Enum`           A blueprint for a set of constant values.
 
-//subtitle
-Space definition
-
-//text
-The __space__ keyword can be used to overwrite the default space of any file.
-This can be achieved by writing the __space__ keyword followed by the path to the new space.
-Any mace file can contain any number of space statements.
-Note that the file must always be a (nested)child of the newly defined space.
-There are two different methods of defining this path:
-
-//subtitle
-Root path
-
-//text
-The root path is a path that starts from the root folder of the program to the new space.
-To write such path write a __/__ followed by the path to your new space.
-
-//code
-// Folder Tree: MyProject -> MyFolder -> MySecondFolder -> MyThirdFolder -> myFile.mace
-
-// Redefining the space to: MySecondFolder
-space '/MyFolder/MySecondFolder';
-
-// Redefinfing the space to MyFolder
-space '/MyFolder';
-
-//subtitle
-Reative path
-
-//text
-The relative path is a path that starts relative from the the folder in which the file is located.
-This path must always start with a __.__ to start in the current folder or __..__ to start in the parent folder.
-After writing the required prefix the path to you new space may be appended.
-
-//code
-// Folder Tree: MyProject -> MyFolder -> MySecondFolder -> MyThirdFolder -> myFile.mace
-
-// Redefining the space to: MySecondFolder
-space '..';
-// Same as:
-space '../../MySecondFolder';
-
-// Redefinfing the space to MyFolder
-space '../..';
-// Same as:
-space '../../../MyFolder';
-
-//Specifications for the sharing/exposing of api methods
-Make us of the Acces modifiers to Expose defined members from a space.
-Usethe acces modifiers to re expose impored members.
-
-//subtitle
-Access modifiers
-
-When defining multiple spaces with the same folder, the members of these spaces will be merged.
-Use access modifiers to define where the members of the space can be accessed, members will be private by default.
-
-//table head
-Access modifier`        Can be access where?
-
-//table
-__public__`             Inside any space.
-__private__`            Inside the current file.
-__protected__`          Inside the current space.
 
 //title
-Importing files and spaces (use)
+Importing files (use)
 
 //text
-The __use__ keyword is used to import the members from a file or space.
-This can be achieved by writing the __use__ keyword followed by a string path to your file or space.
+The __use__ keyword is used to import the members from any file.
+This can be achieved by writing the __use__ keyword followed by a string path to your file.
 The import path can be a relative path from the current folder or a compleet absolute path. 
-The members from the imported file or space can now be directly access by using their identifiers.
+The members from the imported file can now be directly access by using their identifiers.
 imported members are always private by default, even when importing specific members.
 Note that import statements can only be specfied at the top of __.mace__ files.
 //Maybe these imports are impored using ref by default?
@@ -203,6 +147,24 @@ print(myMember);
 
 use './MySpace';
 print(mySecondMember);
+
+//text
+Mace supports the following path configurations to import files:
+
+//tablehead
+Path`           Description`                             Example
+
+//table
+Relative`       Path starts from the current folder.`    use './myFile.mace';
+Parent`         Path starts from the parent folder.`     use '../myFile.mace';
+Absolute`       Path starts from the root folder.`       use '/myFile.mace';
+Package`        Path starts from the root folder.`       use 'MyPackage/myFile.mace';  use 'MyPackage.MyNestedPackage/myFile.mace'
+
+//text
+Package imports can acces nested packages by using a dot seperated path.
+
+//subtitle
+Alias (:)
 
 //text
 The __:__ operator can be used to store the imported members into a custom alias.
@@ -218,7 +180,7 @@ print(myAlias.myFirstMember);
 Specific members (:, ..)
 
 //text
-The __{}__ brackets and the __:__ operator can be used to import only specific members from a file or space.
+The __{}__ brackets and the __:__ operator can be used to import only specific members from any file.
 This can be achieved by writing the __:__ operator after the import path followed by commas seperated members between the __{}__ brackets.
 The specificly imported members can now be directly accessed using their identifier.
 
@@ -248,11 +210,92 @@ print(myMember, myArrayElement, myRestMembers);
 Mace library imports
 
 //text
-The __Mace__ package can be used to import build in mace package files or spaces. 
+The __Mace__ package can be used to import build in mace packages or code files. 
 
 //code
 use 'Mace/Math': math;
 print(math.pi);
+
+//subtitle
+Reexporting files (private, protected, public)
+
+//text
+the __protected__ en __public__ access modifiers can be used to reexport members from a file.
+This can be achieved by writing the __protected__ or __public__ keywords after the __use__ keyword and before the path.
+
+//code
+// Exposing the members from myFile.mace to other files in the same package.
+use protected './myFile.mace';
+// Exposing the members from myFile.mace to other files in any package.
+use public './myFile.mace';
+
+//text
+These access modifiers can also be used to reexport specific members from a file.
+This can be achieved by writing the __protected__ or __public__ keywords bofore the member you want to reexport.
+
+//code
+// Exposing the myMember to other files in the same package and the mySecondMember to other files in any package.
+use './myFile.mace': {protected myMember, private mySecondMember};
+
+//text
+When the member you want to export has a new alias the access modifier must be placed right before the alias.
+
+//code
+// Exposing the myMember as myMemberAlias to other files in the same package and the mySecondMember as mySecondMemberAlias to other files in any package.
+use './myFile.mace': {myMember: protected myMemberAlias, mySecondMember: public mySecondMemberAlias};
+
+//text
+These specific access modifier can also overwrite the access modifier of the use statement itself.
+This unlocks the abbility to export all members but keep some members private.
+
+//code
+// Exposing all members from myFile.mace to other files in the same package and keeping myMember private.
+use protected './myFile.mace': {private myMember, ..};
+
+//subtitle
+Importing multiple files
+
+//text
+Mace support a simple syntax to import multiple files without the need to write multiple use statements.
+This can be achieved by writing a normal use statement with a path that leads to a folder or package.
+After the path write a __:__ operator followed by a simular class literal unpacking syntax to specify the sub files you want to import.
+This syntax can also be used to import nested files.
+
+//code
+// importing all members from myFile.mace and mySecondFile.mace.
+use './MyFolder': {'myFile.mace', 'mySecondFile.mace'};
+// importing all members from myFile.mace as myFile and mySecondFile.mace as mySecondFile.
+use './MyFolder': {'myFile.mace': myFile, 'mySecondFile.mace': mySecondFile};
+// importing all members from myFile.mace and only mySecondMember from mySecondFile.mace.
+use './MyFolder': {'myFile.mace': {myMember, mySecondMember}, 'mySecondFile.mace': {myThirdMember, myFourthMember}};
+
+//text
+This syntax can also be used to import files in deeper nested folders.
+
+//code
+// importing all members from myFile.mace and mySecondFile.mace in the MyNestedFolder folder.
+use './MyFolder': {'myFile.mace', 'MyNestedFolder/mySecondFile.mace'};
+// importing all members from myFile.mace as myFile and mySecondFile.mace as mySecondFile in the MyNestedFolder folder.
+use './MyFolder': {'myFile.mace': myFile, 'MyNestedFolder/mySecondFile.mace': mySecondFile};
+// importing all members from myFile.mace and only mySecondMember from mySecondFile.mace in the MyNestedFolder folder.
+use './MyFolder': {'myFile.mace': {myMember, mySecondMember}, 'MyNestedFolder/mySecondFile.mace': {myThirdMember, myFourthMember}};
+// importing all members from myFile.mace and mySecondFile.mace in the MyNestedFolder folder and only myThirdMember from myThirdFile.mace in the MySecondNestedFolder folder.
+use "./MyFolder": {'myFile.mace', 'MyNestedFolder': {'mySecondFile.mace', 'MyThirdFile.mace'}};
+
+//text
+This same syntax can also be used to import files in deeper nested packages.
+
+//code
+// importing all members from myFile.mace and mySecondFile.mace in the MyNestedFolder folder.
+use 'MyPackage': {'myFile.mace', 'MyNestedPackage/mySecondFile.mace'};
+
+//text
+This syntax makes is super easy to reexport files from a folder or package.
+
+//code
+// Exposing all members from the MyFolder folder to other files in the same package.
+use protected './MyFolder': {'myFile.mace', 'mySecondFile.mace'};
+
 
 //chapter
 Data Structures
