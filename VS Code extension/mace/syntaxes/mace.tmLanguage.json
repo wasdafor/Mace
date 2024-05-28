@@ -35,11 +35,11 @@
 			"patterns": [
 				{
 					"name": "keyword.control.mace",
-					"match": "\\b(if|else|while|for|return|in|on|switch|break|continue|do|try|catch|yield|async|await|stash|import)\\b"
+					"match": "\\b(if|else|while|for|return|in|on|switch|break|continue|do|try|catch|yield|async|await|stash|use)\\b"
 				},
 				{
 					"name": "keyword",
-					"match": "\\b(void|class|enum|namespace|static|const|only|as|public|private|protected|this|super|abstract|sealed|init|get|set|extend|implement|type|auto|base|open|construct|space)\\b"
+					"match": "\\b(void|class|enum|static|const|only|public|private|protected|this|super|abstract|sealed|init|get|set|extend|implement|type|auto|base|open|space)\\b"
 				},
 				{
 					"name": "entity.name.class.mace",

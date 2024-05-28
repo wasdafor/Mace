@@ -48,41 +48,53 @@ __Your label here__
 //start
 
 //chapter
-Entry files and boundary folder
+Program entry and Root folder
 
 //title
 Entry files
 
 //text
 The entry file of a program is the file from where the program its code first starts executing.
-Mace utilizes a special file naming convention so you can start programming quickly without the need of configuration.
-To create an entry file, the file must have the following naming structure: __in.yourEntryName.mace__.
-When a file is marked as entry file of the program it cannot be imported by other parts of the program.
-Mace programs can have any number of entry files, but they can only have one boundary.
+Mace utilizes a special file naming convention so you can start programming quickly without the need for configuration.
+To create an entry file, the file must have the following naming template: __in.yourEntryName.mace__.
+When a file is marked as an entry file of the program, code can be written in this file without the need for a main function.
+This makes it impossible for other files in the program to import the contents of this entry file.
+Mace programs can have any number of entry files, but they can only have one root folder.
 
 //title
 Configuration file
 
 //text
-If your program needs more configuration or is depening on exernal packages a configuration file is required.
-To create this file add a json file at the root of your program with the followed name: __mace.config.json__.
-The folder where the configuration file is placed in will become the boundary folder of the program.
-The following json template must be added to your configuration file for it to be a valid configuration file.
+If your program needs more configuration or is depening on exernal packages, a configuration file is required.
+To create this file add a __mace.config.toml__ file in the root folder of your program.
+The folder where the configuration file is placed in will by default become the root folder of the program.
+The following toml template must be added to your configuration file for it to be valid.
 
 //code
-{
-    "name": "YourPackageName"
-}
+[package]
+name = 'Package name'
+description = 'Package description'
+version = '1.0.0'
+website = ''
+authors = ['author@gmail.com']
+repository = ''
+license = {name = '', path = ''} 
+
+[environment]
+version = '1.0.0'
+
+[dependencies]
+myDependency = '1.0.0'
 
 //title
-Boundary folder
+Root folder
 
 //Text
-The boundary folder of the program indicates in which folder, space imports will be searched.
-This boundary folder will automatically be inferred depening on the location of your entry or configuration files.
-For mace to infer this boundary folder it will start searching from within the folder where your mace file that utilizes space imports resides.
-Mace will keep searching up in the folder structure from this initial folder until it finds a configuration file.
-When mace finds a configuration file the boundary folder will be the parent folder of this configuration file.
+The root folder of the program indicates in which folder, space imports will be searched.
+This root folder will automatically be inferred depening on the location of your entry or configuration files.
+For mace to infer this root folder it will start searching from within the folder where your mace file that utilizes space imports resides.
+Mace will keep searching up in the folder tree from this initial folder until it finds a configuration file.
+When mace finds a configuration file the root folder of the program becomes the parent folder of this configuration file.
 When mace does not find a configuration file it will utilize the parent folder of the first entry file it has founds.
 If both types of files are not found you can not utilize space imports to import parts of your program.
 
@@ -96,10 +108,9 @@ Folder spaces
 Folder spaces are used to organize your program into smaller importable pieces of code.
 A folder space(In short just space) is just a fancy name for any folder in your project containing __.mace__ files.
 All the top level members defined in __.mace__ files will be part of the so called space scope.
-Any file will be part of the orgin space and optional extended space.
-The orgin space is the direct parent folder of any __.mace__ file and cannot be overwritten.
+Every file will always be part of a default space, this space will be the parent folder of the location of the file.
 
-The following members can be defined as top level space members:
+The following members can be defined in the space scope:
 
 //table
 class
@@ -110,44 +121,76 @@ variables
 types
 
 //subtitle
-Extended space (space)
+Space definition
 
 //text
-The __space__ keyword can be used to define the extended space of any file file.
-This can be achieved by writing the __space__ keyword followed by the path to the space.
-The relative path of the space will always start two folder levels up from the original file.
-Note that the extended space must always be a direct parent of the orgin space.  
+The __space__ keyword can be used to overwrite the default space of any file.
+This can be achieved by writing the __space__ keyword followed by the path to the new space.
+Any mace file can contain any number of space statements.
+Note that the file must always be a (nested)child of the newly defined space.
+There are two different methods of defining this path:
+
+//subtitle
+Root path
+
+//text
+The root path is a path that starts from the root folder of the program to the new space.
+To write such path write a __/__ followed by the path to your new space.
 
 //code
-// File location: MyProject -> MySpace -> MySecondSpace -> myFile.mace
-// Relative path starts two folders up in the MyProject folder.
+// Folder Tree: MyProject -> MyFolder -> MySecondFolder -> MyThirdFolder -> myFile.mace
 
-// Defining the api folder as extended space.
-space "find:MyProject/MySpace";
+// Redefining the space to: MySecondFolder
+space '/MyFolder/MySecondFolder';
 
-// Defining the myProject folder as extended space.
-space 'find:MyProject';
+// Redefinfing the space to MyFolder
+space '/MyFolder';
+
+//subtitle
+Reative path
+
+//text
+The relative path is a path that starts relative from the the folder in which the file is located.
+This path must always start with a __.__ to start in the current folder or __..__ to start in the parent folder.
+After writing the required prefix the path to you new space may be appended.
+
+//code
+// Folder Tree: MyProject -> MyFolder -> MySecondFolder -> MyThirdFolder -> myFile.mace
+
+// Redefining the space to: MySecondFolder
+space '..';
+// Same as:
+space '../../MySecondFolder';
+
+// Redefinfing the space to MyFolder
+space '../..';
+// Same as:
+space '../../../MyFolder';
+
+//Specifications for the sharing/exposing of api methods
+Make us of the Acces modifiers to Expose defined members from a space.
+Usethe acces modifiers to re expose impored members.
 
 //subtitle
 Access modifiers
 
-When defining multiple namespaces with the same identifier, the members of these namespaces will be merged.
-Use access modifiers to define where the members of the namespace can be accessed, members will be private by default.
+When defining multiple spaces with the same folder, the members of these spaces will be merged.
+Use access modifiers to define where the members of the space can be accessed, members will be private by default.
 
 //table head
 Access modifier`        Can be access where?
 
 //table
 __public__`             Inside any space.
-__private__`            Only inside the current file.
-__protected__`          Inside the current space and sub spaces.
+__private__`            Inside the current file.
+__protected__`          Inside the current space.
 
 //title
-Importing files and spaces (import)
+Importing files and spaces (use)
 
 //text
-The __import__ keyword is used to import the members from a file or space.
-This can be achieved by writing the __import__ keyword followed by a string path to your file or space.
+The __use__ keyword is used to import the members from a file or space.
+This can be achieved by writing the __use__ keyword followed by a string path to your file or space.
 The import path can be a relative path from the current folder or a compleet absolute path. 
 The members from the imported file or space can now be directly access by using their identifiers.
 imported members are always private by default, even when importing specific members.
@@ -155,41 +198,41 @@ Note that import statements can only be specfied at the top of __.mace__ files.
 //Maybe these imports are impored using ref by default?
 
 //code
-import './myFile.mace';
+use './myFile.mace';
 print(myMember);
 
-import './MySpace';
+use './MySpace';
 print(mySecondMember);
 
 //text
-The __in__ keyword can be used to store the imported members into a custom alias.
-This can be achieved by writing the __in__ keyword after the import path followed by the alias identifier.
+The __:__ operator can be used to store the imported members into a custom alias.
+This can be achieved by writing the __:__ operator after the import path followed by the alias identifier.
 The imported members can now be accessed via the alias using the __.__ operator.
 Note that the alias is a class literal containing the imported members.
 
 //code
-import './myFile.mace' in userData;
+use './myFile.mace': userData;
 print(myAlias.myFirstMember);
 
 //subtitle
-Specific members (in, ..)
+Specific members (:, ..)
 
 //text
-The __{}__ brackets and the __in__ keyword can be used to import only specific members from a file or space.
-This can be achieved by writing the __in__ keyword after the import path followed by commas seperated members between the __{}__ brackets.
+The __{}__ brackets and the __:__ operator can be used to import only specific members from a file or space.
+This can be achieved by writing the __:__ operator after the import path followed by commas seperated members between the __{}__ brackets.
 The specificly imported members can now be directly accessed using their identifier.
 
 //code
-import './myFile.mace' in {myMember, mySecondMember};
+use './myFile.mace': {myMember, mySecondMember};
 print(myMember, mySecondMember);
 
 //text
-The __=__ operator can be used to bind a custom alias to a specificly imported member.
-This can be achieved by writing the __=__ operator after any imported member followed by the alias identifier.
+The __:__ operator can be used to bind a custom alias to a specificly imported member.
+This can be achieved by writing the __:__ operator after any imported member followed by the alias identifier.
 The specificly imported member can now be accessed via its alias.
 
 //code
-import './myFile.mace' in {myMember = myMemberAlias, mySecondMember = mySecondMemberAlias};
+use './myFile.mace': {myMember: myMemberAlias, mySecondMember: mySecondMemberAlias};
 print(myMemberAlias, mySecondMemberAlias);
 
 //text
@@ -198,17 +241,17 @@ This unlocks the possibility to import nested members or even hide members.
 The range operator can also be used to import the know members that are not specfied.
 
 //code
-import './myFile.mace' in {myMember, myArray = [myArrayElement], myHiddenMember=, ..myRestMembers};
+use './myFile.mace': {myMember, myArray: [myArrayElement], myHiddenMember:, ..: myRestMembers};
 print(myMember, myArrayElement, myRestMembers);
 
 //subtitle
 Mace library imports
 
 //text
-The special __mace:__ url scheme can be used to import build in mace library files or spaces.
+The __Mace__ package can be used to import build in mace package files or spaces. 
 
 //code
-import 'mace:Math' in math;
+use 'Mace/Math': math;
 print(math.pi);
 
 //chapter
@@ -726,7 +769,7 @@ Class extension (extend)
 //text
 The __extend__ keyword can be used to add members to an already defined class.
 To create a class extension write __extend__ followed by a class name and ending with __{}__.
-extension classes work almost the same as normal classes and can only be defined inside a namespace.
+extension classes work almost the same as normal classes and can only be defined inside a space.
 The constructor and the destructor of the original class can not be overwritten/redefined/overloaded.
 Multiple extensions can be created for the same class.
 Optionally use the __super__ keyword to access public members from the original class or from extensions.
@@ -966,7 +1009,7 @@ When an enum is created without specifing a structure modifier the enum will aut
 enums can be compared with a static classes that only contain constant fields.
 The fields inside of an enum are comma separated.
 Note that no keywords can be added to the fields inside an enum.
-Enums can only be defined inside of a namespace.
+Enums can only be defined inside of a space.
 
 //code
 enum MyEnum
@@ -2371,21 +2414,21 @@ These operators are different to normal comparison because Logical Comparison op
 Operator`   Name`                           Example`            Same as
 
 //table
-&==`        And equal to`                   myInt > 5 &== 7`    myInt > 5 && myInt == 7
+&=`         And equal to`                   myInt > 5 &= 7`     myInt > 5 && myInt == 7
 &!=`        And not equal to`               myInt > 5 &!= 7`    myInt > 5 && myInt != 7 
 &>`         And greater than`               myInt < 7 &> 5`     myInt < 5 && myInt > 7 
 &>=`        And greater than or equal to`   myInt < 7 &>= 5`    myInt < 5 && myInt >= 7 
 &<`         And less than`                  myInt > 5 &< 7`     myInt > 5 && myInt < 7 
 &<=`        And less than or equal to`      myInt > 5 &<= 7`    myInt > 5 && myInt <= 7
 &in`        And in collection or iterable`  myInt > 5 &in [5,6]`myIny > 5 && myInt in [5,6] 
-|==`        Or equal to`                    myInt > 5 |== 3`    myInt > 5 || myInt == 3
+|=`         Or equal to`                    myInt > 5 |= 3`     myInt > 5 || myInt == 3
 |!=`        Or not equal to`                myInt > 5 |!= 3`    myInt > 5 || myInt != 3
 |>`         Or greater than`                myInt < 7 |> 5`     myInt < 5 || myInt > 7
 |>=`        Or greater than or equal to`    myInt < 7 |>= 5`    myInt < 5 || myInt >= 7
 |<`         Or less than`                   myInt > 5 |< 3`     myInt > 5 || myInt < 3
 |<=`        Or less than or equal to`       myInt > 5 |<= 3`    myInt > 5 || myInt < 3
 |in         Or in collection or iterable`   myInt > 5 |in [1,2]`myInt > 5 || myInt in [1,2]
-^==`        Xor equal to`                   myInt > 5 ^== 3`    myInt > 5 ^^ myInt == 3
+^=`         Xor equal to`                   myInt > 5 ^= 3`     myInt > 5 ^^ myInt == 3
 ^!=`        Xor not equal to`               myInt > 5 ^!= 3`    myInt > 5 ^^ myInt != 3
 ^>`         Xor greater than`               myInt < 7 ^> 5`     myInt < 5 ^^ myInt > 7
 ^>=`        Xor greater than or equal to`   myInt < 7 ^>= 5`    myInt < 5 ^^ myInt >= 7
@@ -4592,7 +4635,7 @@ Methods will be able to acces the members directly using the name or using the t
 // Definition
 {String myString, Int myInt, Bool myBoolean} myClassLiteral = {myString = 'Hello World!', myInt = 13135, myBoolean = true};
 
-// Unpacking (Types van be inferred)
+// Unpacking (Types can be inferred)
 {String myString, myInt, Bool myBoolean} = myClassLiteral;
 
 //text
@@ -4628,7 +4671,7 @@ MyClass myClass = {myString = 'Hello World!', myInt = 13135};
 {myString, myInt, myBoolean} = {myString = 'Hello World!', myInt = 13135, myBoolean = true};
 
 //Rename/define types and modifiers
-{myString = myAlias, myInt = Long mySecondAlias, const myBoolean} = {myString = 'Hello World!', myInt = 13135, myBoolean = true};
+{myString: myAlias, myInt: Long mySecondAlias, const myBoolean} = {myString = 'Hello World!', myInt = 13135, myBoolean = true};
 
 //Rest (Contains all the known non specified unpacking memers)
 {myString, ..myRest} = {myString = 'Hello World!', myInt = 13135, myBoolean = true};
@@ -4637,11 +4680,11 @@ MyClass myClass = {myString = 'Hello World!', myInt = 13135};
 {..} = {myString = 'Hello World!', myInt = 13135, myBoolean = true};
 
 //Hidden members counts as specified member (Injects all but myString)
-{.., myString=} = {myString = 'Hello World!', myInt = 13135, myBoolean = true};
+{.., myString:} = {myString = 'Hello World!', myInt = 13135, myBoolean = true};
 
 //Nested unpacking (Rest can also be nested)
 //The rest operator will be the type of the current unpacking scope
-{myString = [myChar, mySecondChar], ..{myBoolean}} = {myString = 'Hello World!', myInt = 13135, myBoolean = true};
+{myString: [myChar, mySecondChar], ..{myBoolean}} = {myString = 'Hello World!', myInt = 13135, myBoolean = true};
 
 //Classes can also be unpacked just like class literals
 class MyClass
@@ -4649,7 +4692,7 @@ class MyClass
     String myString = 'Hello World!';
     Int myInt = 13135;
 }
-{myString = [myChar, mySecondChar], myInt} = MyClass();
+{myString: [myChar, mySecondChar], myInt} = MyClass();
 
 //Global Define types and modifiers (Appies to all one level deep unpacking memers witout when they are not defined)
 const {myString, myInt, myBoolean} = {myString = 'Hello World!', myInt = 13135, myBoolean = true};
@@ -4678,12 +4721,12 @@ class myClassLiteral = {myArray = [1, 3 ,5], myInt = 13135, myBoolean = false};
 // Unpacking
 
 {
-    myArray = [myMember, mySecondMember],
+    myArray: [myMember, mySecondMember],
     myArray,
 
     myInt,
-    myInt = myAlias,
-    myInt = mySecondAlias,
+    myInt: myAlias,
+    myInt: mySecondAlias,
 } = myArray;
 
 

@@ -1494,3 +1494,37 @@ class MyClass
         // You default constructor code
     }
 }
+
+//subtitle
+Search path
+
+//text
+The search path method is an automatic search system that tries to find your given path segment in the folder structure.
+Mace will search in the folder structure starting from the root folder down to match the given path.
+This path segment can be as small as one segment and as long as a complete path from and including the root folder.
+To write such path write any segment of the path path to your space without a the prefix __/__.
+
+//code
+// Folder Structure: MyProject -> MyFolder -> MySecondFolder -> MyThirdFolder -> myFile.mace
+
+// Redefining the space to: MySecondFolder
+space 'MySecondFolder';
+// Same as:
+space 'MyFolder/MySecondFolder';
+
+// Redefinfing the space to MyFolder
+space 'MyFolder';
+
+//text
+Note that mace will define the space to the folder that the path matches first in the folder structure.
+
+//code
+// Folder Structure: MyProject -> MyFolder -> MySecondFolder -> MyFolder -> MyThirdFolder -> myFile.mace
+
+// This will match the first occurrence of the folder MyFolder:
+space 'MyFolder';
+// Root path: /MyFolder
+
+// This will match the second occurrence of the folder MyFolder:
+space 'MySecondFolder/MyFolder'
+// Root path: /MyFolder/MySecondFolder/MyFolder
