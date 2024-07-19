@@ -102,14 +102,14 @@ If both types of files are not found you can not utilize absolute imports to imp
 Imports and code access
 
 //text
-Mace utilizes a simple and elegant file based import system, this makes is very easy to reuse code.
+Mace utilizes a simple and elegant file based import system.
 This system does not support fancy scope or module imports, but it does support importing and reexporting code from files.
 
 //title
 Code access
 
 //text
-All top level members in a file have the abbility to be exported to so they can be imported in other files.
+All top level members in a file have the abbility to be exported so they can be imported in other files.
 By default all members are __private__ and can only be accessed in the file where they are defined. 
 When a member is marked using the __protected__ keyword it can be accessed in every file only in the current package.
 When a member is marked using the __public__ keyword it can be accessed in every file in any package.
@@ -134,7 +134,7 @@ Importing files (use)
 
 //text
 The __use__ keyword is used to import the members from any file.
-This can be achieved by writing the __use__ keyword followed by a string path to your file.
+This can be achieved by writing the __use__ keyword followed by a string path to your file excluding the __.mace__ file extension.
 The import path can be a relative path from the current folder or a compleet absolute path. 
 The members from the imported file can now be directly access by using their identifiers.
 imported members are always private by default, even when importing specific members.
@@ -142,23 +142,20 @@ Note that import statements can only be specfied at the top of __.mace__ files.
 //Maybe these imports are impored using ref by default?
 
 //code
-use './myFile.mace';
+use './myFile';
 print(myMember);
-
-use './MySpace';
-print(mySecondMember);
 
 //text
 Mace supports the following path configurations to import files:
 
 //tablehead
-Path`           Description`                             Example
+Path`           Description`                                Example
 
 //table
-Relative`       Path starts from the current folder.`    use './myFile.mace';
-Parent`         Path starts from the parent folder.`     use '../myFile.mace';
-Absolute`       Path starts from the root folder.`       use '/myFile.mace';
-Package`        Path starts from the root folder.`       use 'MyPackage/myFile.mace';  use 'MyPackage.MyNestedPackage/myFile.mace'
+Relative`       Path starts from the current folder.`       use './myFile';
+Parent`         Path starts from the parent folder.`        use '../myFile';
+Absolute`       Path starts from the root folder.`          use '/myFile';
+Package`        Path starts from the package root folder.`  use 'MyPackage/myFile';  use 'MyPackage.MyNestedPackage/myFile'
 
 //text
 Package imports can acces nested packages by using a dot seperated path.
@@ -173,7 +170,7 @@ The imported members can now be accessed via the alias using the __.__ operator.
 Note that the alias is a class literal containing the imported members.
 
 //code
-use './myFile.mace': userData;
+use './myFile': userData;
 print(myAlias.myFirstMember);
 
 //subtitle
@@ -185,7 +182,7 @@ This can be achieved by writing the __:__ operator after the import path followe
 The specificly imported members can now be directly accessed using their identifier.
 
 //code
-use './myFile.mace': {myMember, mySecondMember};
+use './myFile': {myMember, mySecondMember};
 print(myMember, mySecondMember);
 
 //text
@@ -194,7 +191,7 @@ This can be achieved by writing the __:__ operator after any imported member fol
 The specificly imported member can now be accessed via its alias.
 
 //code
-use './myFile.mace': {myMember: myMemberAlias, mySecondMember: mySecondMemberAlias};
+use './myFile': {myMember: myMemberAlias, mySecondMember: mySecondMemberAlias};
 print(myMemberAlias, mySecondMemberAlias);
 
 //text
@@ -203,7 +200,7 @@ This unlocks the possibility to import nested members or even hide members.
 The range operator can also be used to import the know members that are not specfied.
 
 //code
-use './myFile.mace': {myMember, myArray: [myArrayElement], myHiddenMember:, ..: myRestMembers};
+use './myFile': {myMember, myArray: [myArrayElement], myHiddenMember:, ..: myRestMembers};
 print(myMember, myArrayElement, myRestMembers);
 
 //subtitle
@@ -213,7 +210,7 @@ Mace library imports
 The __Mace__ package can be used to import build in mace packages or code files. 
 
 //code
-use 'Mace/Math': math;
+use 'Mace/math': math;
 print(math.pi);
 
 //subtitle
@@ -225,9 +222,9 @@ This can be achieved by writing the __protected__ or __public__ keywords after t
 
 //code
 // Exposing the members from myFile.mace to other files in the same package.
-use protected './myFile.mace';
+use protected './myFile';
 // Exposing the members from myFile.mace to other files in any package.
-use public './myFile.mace';
+use public './myFile';
 
 //text
 These access modifiers can also be used to reexport specific members from a file.
@@ -235,14 +232,10 @@ This can be achieved by writing the __protected__ or __public__ keywords bofore 
 
 //code
 // Exposing the myMember to other files in the same package and the mySecondMember to other files in any package.
-use './myFile.mace': {protected myMember, private mySecondMember};
+use './myFile': {protected myMember, private mySecondMember};
 
-//text
-When the member you want to export has a new alias the access modifier must be placed right before the alias.
-
-//code
 // Exposing the myMember as myMemberAlias to other files in the same package and the mySecondMember as mySecondMemberAlias to other files in any package.
-use './myFile.mace': {myMember: protected myMemberAlias, mySecondMember: public mySecondMemberAlias};
+use './myFile': {protected myMember: myMemberAlias, public mySecondMember: mySecondMemberAlias};
 
 //text
 These specific access modifier can also overwrite the access modifier of the use statement itself.
@@ -250,7 +243,7 @@ This unlocks the abbility to export all members but keep some members private.
 
 //code
 // Exposing all members from myFile.mace to other files in the same package and keeping myMember private.
-use protected './myFile.mace': {private myMember, ..};
+use protected './myFile': {private myMember, ..};
 
 //subtitle
 Importing multiple files
@@ -259,43 +252,53 @@ Importing multiple files
 Mace support a simple syntax to import multiple files without the need to write multiple use statements.
 This can be achieved by writing a normal use statement with a path that leads to a folder or package.
 After the path write a __:__ operator followed by a simular class literal unpacking syntax to specify the sub files you want to import.
+Note that the path must end with a __/__ when importing files from a folder.
 This syntax can also be used to import nested files.
 
 //code
 // importing all members from myFile.mace and mySecondFile.mace.
-use './MyFolder': {'myFile.mace', 'mySecondFile.mace'};
+use './MyFolder/': {'myFile', 'mySecondFile'};
 // importing all members from myFile.mace as myFile and mySecondFile.mace as mySecondFile.
-use './MyFolder': {'myFile.mace': myFile, 'mySecondFile.mace': mySecondFile};
+use './MyFolder/': {'myFile': myFile, 'mySecondFile': mySecondFile};
 // importing all members from myFile.mace and only mySecondMember from mySecondFile.mace.
-use './MyFolder': {'myFile.mace': {myMember, mySecondMember}, 'mySecondFile.mace': {myThirdMember, myFourthMember}};
+use './MyFolder/': {'myFile': {myMember, mySecondMember}, 'mySecondFile': {myThirdMember, myFourthMember}};
 
 //text
 This syntax can also be used to import files in deeper nested folders.
 
 //code
 // importing all members from myFile.mace and mySecondFile.mace in the MyNestedFolder folder.
-use './MyFolder': {'myFile.mace', 'MyNestedFolder/mySecondFile.mace'};
+use './MyFolder/': {'myFile', 'MyNestedFolder/mySecondFile'};
 // importing all members from myFile.mace as myFile and mySecondFile.mace as mySecondFile in the MyNestedFolder folder.
-use './MyFolder': {'myFile.mace': myFile, 'MyNestedFolder/mySecondFile.mace': mySecondFile};
+use './MyFolder/': {'myFile': myFile, 'MyNestedFolder/mySecondFile': mySecondFile};
 // importing all members from myFile.mace and only mySecondMember from mySecondFile.mace in the MyNestedFolder folder.
-use './MyFolder': {'myFile.mace': {myMember, mySecondMember}, 'MyNestedFolder/mySecondFile.mace': {myThirdMember, myFourthMember}};
+use './MyFolder/': {'myFile': {myMember, mySecondMember}, 'MyNestedFolder/mySecondFile': {myThirdMember, myFourthMember}};
 // importing all members from myFile.mace and mySecondFile.mace in the MyNestedFolder folder and only myThirdMember from myThirdFile.mace in the MySecondNestedFolder folder.
-use "./MyFolder": {'myFile.mace', 'MyNestedFolder': {'mySecondFile.mace', 'MyThirdFile.mace'}};
+use "./MyFolder/": {'myFile', 'MyNestedFolder/': {'mySecondFile', 'MyThirdFile'}};
 
 //text
 This same syntax can also be used to import files in deeper nested packages.
 
 //code
 // importing all members from myFile.mace and mySecondFile.mace in the MyNestedFolder folder.
-use 'MyPackage': {'myFile.mace', 'MyNestedPackage/mySecondFile.mace'};
+use 'MyPackage.': {'myFile', 'MyNestedPackage/mySecondFile'};
 
 //text
 This syntax makes is super easy to reexport files from a folder or package.
 
 //code
 // Exposing all members from the MyFolder folder to other files in the same package.
-use protected './MyFolder': {'myFile.mace', 'mySecondFile.mace'};
+use protected './MyFolder': {'myFile', 'mySecondFile'};
 
+//subtitle
+Remapping folders
+
+//text
+The sname syntax can be used to remap the folder structure of the imported files.
+
+//code
+// importing all members from myFile.mace and mySecondFile.mace in the MyNestedFolder folder and remapping them to the root folder.
+use './MyFolder/': {'myFile': 'myFileAlias', 'MyNestedFolder/': 'MySecondFolderAlias/'};
 
 //chapter
 Data Structures

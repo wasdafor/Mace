@@ -1,0 +1,142 @@
+[
+    {
+        "id": "GlobalScope",
+        "name": "Global scope",
+        "description": "The global or top level scope of the program",
+        "type": "Scope",
+        "syntax": {
+            "type": "Repeated",
+            "value": {
+                "type": "Variants",
+                "value": [
+                    {
+                        "type": "Component",
+                        "value": "VariableDeclaration"
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "id": "VariableDeclaration",
+        "name": "Variable declaration",
+        "type": "Declaration",
+        "syntax": [
+            {
+                "type": "Component",
+                "value": "TypeIdentifier"
+            },
+            {
+                "type": "Regex",
+                "value": "\\s+"
+            },
+            {
+                "type": "Component",
+                "value": "VariableIdentifier"
+            },
+            {
+                "type": "Regex",
+                "value": "\\s*=\\s*"
+            },
+            {
+                "type": "Component",
+                "value": "Expression"
+            }
+        ]
+    },
+    {
+        "id": "VariableIdentifier",
+        "name": "Variable identifier",
+        "type": "Identifier",
+        "syntax": {
+            "type": "Regex",
+            "value": "[a-zA-Z_\\-][a-zA-Z0-9_\\-]{0,127}"
+        }
+    },
+    {
+        "id": "TypeIdentifier",
+        "name": "Type identifier",
+        "type": "Identifier",
+        "syntax": {
+            "type": "Regex",
+            "value": "[a-zA-Z_\\-][a-zA-Z0-9_\\-]{0,127}"
+        }
+    },
+    {
+        "id": "StringLiteral",
+        "name": "String literal",
+        "type": "ValueLiteral",
+        "syntax": {
+            "type": "Regex",
+            "value": "\".*\"|'.*'"
+        }
+    },
+    {
+        "id": "IntegerLiteral",
+        "name": "Integer literal",
+        "type": "ValueLiteral",
+        "syntax": {
+            "type": "Regex",
+            "value": "([1-9][0-9]*)|0"
+        }
+    },
+    {
+        "id": "BooleanLiteral",
+        "name": "Boolean literal",
+        "type": "ValueLiteral",
+        "syntax": {
+            "type": "Regex",
+            "value": "true|false"
+        }
+    },
+    {
+        "id": "ArrayLiteral",
+        "name": "Array literal",
+        "type": "ValueLiteral",
+        "syntax": [
+            {
+                "type": "Regex",
+                "value": "["
+            },
+            {
+                "type": "Variants",
+                "value": [
+                    {
+                        "type": "Regex",
+                        "value": "\\s*"
+                    },
+                    {
+                        "type": "Component",
+                        "value": "Expression"
+                    }
+                ]
+            },
+            {
+                "type": "Regex",
+                "value": "]"
+            }
+        ]
+    },
+    {
+        "id": "Expression",
+        "name": "Expression",
+        "type": "Expression",
+        "syntax": {
+            "type": "Variants",
+            "value": [
+                {
+                    "type": "Component",
+                    "value": "IntegerLiteral"
+                },
+                {
+                    "type": "Component",
+                    "value": "StringLiteral"
+                },
+                {
+                    "type": "Component",
+                    "value": "BooleanLiteral"
+                }
+            ]
+        }
+    }
+]

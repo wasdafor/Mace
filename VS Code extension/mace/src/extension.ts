@@ -32,7 +32,7 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 vscode.languages.registerHoverProvider('mace', {
-	provideHover(document, position, token) {
+	provideHover(document: { getText: () => any; }, position: any, token: any) {
 		//console.log(document.getText(new vscode.Range(position,5)));
 		return {
 			contents: [document.getText()]
