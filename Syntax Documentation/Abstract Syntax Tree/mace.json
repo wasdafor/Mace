@@ -4,18 +4,15 @@
             "id": "Global",
             "name": "Global scope",
             "description": "The global or top level scope of the program",
-            "type": "Padded",
-            "syntax": {
-                "type": "Repeated",
-                "value": {
-                    "type": "Variants",
-                    "value": [
-                        {
-                            "type": "Component",
-                            "value": "Declaration.Variable"
-                        }
-                    ]
-                }
+            "type": "Repeated",
+            "value": {
+                "type": "Variants",
+                "value": [
+                    {
+                        "type": "Component",
+                        "value": "Declaration.Variable"
+                    }
+                ]
             }
         }
     ],
@@ -23,30 +20,36 @@
         {
             "id": "Variable",
             "name": "Variable declaration",
-            "type": "Line",
-            "syntax": [
+            "type": "Component",
+            "value": [
+                "Templates.LineOfCode",
                 {
-                    "type": "Component",
-                    "value": "Identifier.Type"
-                },
-                {
-                    "type": "Regex",
-                    "value": "\\s+"
-                },
-                {
-                    "type": "Component",
-                    "value": "Identifier.Variable"
-                },
-                {
-                    "type": "Optional",
+                    "type": "Group",
                     "value": [
                         {
-                            "type": "regex",
-                            "value": "\\s*="
+                            "type": "Component",
+                            "value": "Identifier.Type"
+                        },
+                        {
+                            "type": "Match",
+                            "value": "\\s+"
                         },
                         {
                             "type": "Component",
-                            "value": "Expression.Padded"
+                            "value": "Identifier.Variable"
+                        },
+                        {
+                            "type": "Optional",
+                            "value": [
+                                {
+                                    "type": "Match",
+                                    "value": "\\s*="
+                                },
+                                {
+                                    "type": "Component",
+                                    "value": "Expression.Padded"
+                                }
+                            ]
                         }
                     ]
                 }
@@ -57,92 +60,74 @@
         {
             "id": "Variable",
             "name": "Variable identifier",
-            "type": "Literal",
-            "syntax": {
-                "type": "Regex",
-                "value": "[a-zA-Z_\\-][a-zA-Z0-9_\\-]{0,127}"
-            }
+            "type": "Match",
+            "value": "[a-zA-Z_\\-][a-zA-Z0-9_\\-]{0,127}"
         },
         {
             "id": "Type",
             "name": "Type identifier",
-            "type": "Literal",
-            "syntax": {
-                "type": "Regex",
-                "value": "[a-zA-Z_\\-][a-zA-Z0-9_\\-]{0,127}"
-            }
+            "type": "Match",
+            "value": "[a-zA-Z_\\-][a-zA-Z0-9_\\-]{0,127}"
         }
     ],
     "Expression": [
         {
             "id": "Padded",
             "name": "Padded expression",
-            "type": "Padded",
-            "syntax": {
-                "type": "Variants",
-                "value": [
-                    {
-                        "type": "Component",
-                        "value": "Literal.Integer"
-                    },
-                    {
-                        "type": "Component",
-                        "value": "Literal.String"
-                    },
-                    {
-                        "type": "Component",
-                        "value": "Literal.Boolean"
-                    },
-                    {
-                        "type": "Component",
-                        "value": "Literal.Array"
-                    }
-                ]
-            }
+            "type": "Variants",
+            "value": [
+                {
+                    "type": "Component",
+                    "value": "Literal.Integer"
+                },
+                {
+                    "type": "Component",
+                    "value": "Literal.String"
+                },
+                {
+                    "type": "Component",
+                    "value": "Literal.Boolean"
+                },
+                {
+                    "type": "Component",
+                    "value": "Literal.Array"
+                }
+            ]
         }
     ],
     "Literal": [
         {
             "id": "String",
             "name": "String literal",
-            "type": "Literal",
-            "syntax": {
-                "type": "Regex",
-                "value": "\".*\"|'.*'"
-            }
+            "type": "Match",
+            "value": "\".*\"|'.*'"
         },
         {
             "id": "Integer",
             "name": "Integer literal",
-            "type": "Literal",
-            "syntax": {
-                "type": "Regex",
-                "value": "([1-9][0-9]*)|0"
-            }
+            "type": "Match",
+            "value": "([1-9][0-9]*)|0"
         },
         {
             "id": "Boolean",
             "name": "Boolean literal",
-            "type": "Literal",
-            "syntax": {
-                "type": "Regex",
-                "value": "true|false"
-            }
+            "type": "Match",
+            "value": "true|false"
         },
         {
             "id": "Array",
             "name": "Array literal",
-            "type": "Literal",
-            "syntax": [
+            "type": "Group",
+            "value": [
                 {
-                    "type": "Regex",
+                    "type": "Match",
                     "value": "["
                 },
                 {
                     "type": "Variants",
                     "value": [
                         {
-                            "type": "Regex",
+                            "type": "Match",
                             "value": "\\s*"
                         },
                         {
@@ -152,7 +137,7 @@
                     ]
                 },
                 {
-                    "type": "Regex",
+                    "type": "Match",
                     "value": "]"
                 }
             ]
@@ -163,11 +148,48 @@
             "id": "EndOfLine",
             "name": "End of line",
             "description": "A semiconlon to denote the end of a statement",
-            "type": "Literal",
-            "syntax": {
-                "type": "Regex",
-                "value": ";"
-            }
+            "type": "Match",
+            "value": ";"
+        },
+        {
+            "id": "WhiteSpace",
+            "name": "White space",
+            "description": "A space or tab character",
+            "type": "Match",
+            "value": "\\s+"
+        },
+        {
+            "id": "OptionalWhiteSpace",
+            "name": "White space",
+            "description": "A space or tab character",
+            "type": "Match",
+            "value": "\\s*"
+        }
+    ],
+    "Templates": [
+        {
+            "id": "LineOfCode",
+            "name": "Line of code",
+            "description": "A line of code with an infered semicolon and white space",
+            "type": "Group",
+            "value": [
+                {
+                    "type": "Component",
+                    "value": "Token.OptionalWhiteSpace"
+                },
+                {
+                    "type": "Parameter",
+                    "value": []
+                },
+                {
+                    "type": "Component",
+                    "value": "Token.EndOfLine"
+                },
+                {
+                    "type": "Component",
+                    "value": "Token.OptionalWhiteSpace"
+                }
+            ]
         }
     ]
 }
