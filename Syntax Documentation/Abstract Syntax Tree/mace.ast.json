@@ -1,0 +1,242 @@
+{
+    "Scope": [
+        {
+            "id": "Global",
+            "name": "Global scope",
+            "description": "The global or top level scope of the program",
+            "type": "Repeated",
+            "value": {
+                "type": "Variants",
+                "value": [
+                    {
+                        "type": "Component",
+                        "value": "Declaration.Variable"
+                    }
+                ]
+            }
+        }
+    ],
+    "Declaration": [
+        {
+            "id": "Variable",
+            "name": "Variable declaration",
+            "type": "Component",
+            "value": {
+                "Template.LineOfCode": [
+                    {
+                        "type": "Group",
+                        "value": [
+                            {
+                                "type": "Component",
+                                "value": {
+                                    "Identifier.Type": [],
+                                    "Whitespace.Whitespace": [],
+                                    "Identifier.Variable": []
+                                }
+                            },
+                            {
+                                "type": "Optional",
+                                "value": [
+                                    {
+                                        "type": "Component",
+                                        "value": {
+                                            "Whitespace.OptionalWhitespace": [],
+                                            "Operator.Assignment": [],
+                                            "Expression.Padded": []
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
+    "Identifier": [
+        {
+            "id": "Variable",
+            "name": "Variable identifier",
+            "type": "Match",
+            "value": "[a-zA-Z_\\-][a-zA-Z0-9_\\-]{0,127}"
+        },
+        {
+            "id": "Type",
+            "name": "Type identifier",
+            "type": "Match",
+            "value": "[a-zA-Z_\\-][a-zA-Z0-9_\\-]{0,127}"
+        }
+    ],
+    "Expression": [
+        {
+            "id": "Padded",
+            "name": "Padded expression",
+            "type": "Variants",
+            "value": [
+                {
+                    "type": "Component",
+                    "value": "Literal.Integer"
+                },
+                {
+                    "type": "Component",
+                    "value": "Literal.String"
+                },
+                {
+                    "type": "Component",
+                    "value": "Literal.Boolean"
+                },
+                {
+                    "type": "Component",
+                    "value": "Literal.Array"
+                }
+            ]
+        }
+    ],
+    "Literal": [
+        {
+            "id": "String",
+            "name": "String literal",
+            "type": "Match",
+            "value": "\".*\"|'.*'"
+        },
+        {
+            "id": "Integer",
+            "name": "Integer literal",
+            "type": "Match",
+            "value": "([1-9][0-9]*)|0"
+        },
+        {
+            "id": "Boolean",
+            "name": "Boolean literal",
+            "type": "Variants",
+            "value": [
+                {
+                    "type": "Component",
+                    "value": "Keyword.True"
+                },
+                {
+                    "type": "Component",
+                    "value": "Keyword.False"
+                }
+            ]
+        },
+        {
+            "id": "Array",
+            "name": "Array literal",
+            "type": "Group",
+            "value": [
+                {
+                    "type": "Component",
+                    "value": "Token.OpenArray"
+                },
+                {
+                    "type": "Variants",
+                    "value": [
+                        {
+                            "type": "Match",
+                            "value": "\\s*"
+                        },
+                        {
+                            "type": "Component",
+                            "value": "Expression.Padded"
+                        }
+                    ]
+                },
+                {
+                    "type": "Component",
+                    "value": "Token.CloseArray"
+                }
+            ]
+        }
+    ],
+    "Template": [
+        {
+            "id": "LineOfCode",
+            "name": "Line of code",
+            "description": "A line of code with an infered semicolon and white space",
+            "type": "Group",
+            "value": [
+                {
+                    "type": "Component",
+                    "value": "Whitespace.OptionalWhitespace"
+                },
+                {
+                    "type": "Parameter",
+                    "value": []
+                },
+                {
+                    "type": "Component",
+                    "value": "Token.EndOfLine"
+                },
+                {
+                    "type": "Component",
+                    "value": "Whitespace.OptionalWhitespace"
+                }
+            ]
+        }
+    ],
+    "Token": [
+        {
+            "id": "EndOfLine",
+            "name": "End of line",
+            "description": "A semiconlon to denote the end of a statement",
+            "type": "Match",
+            "value": ";"
+        },
+        {
+            "id": "OpenArray",
+            "name": "Open array",
+            "description": "An open square bracket",
+            "type": "Match",
+            "value": "["
+        },
+        {
+            "id": "CloseArray",
+            "name": "Close array",
+            "description": "A close square bracket",
+            "type": "Match",
+            "value": "]"
+        }
+    ],
+    "Operator": [
+        {
+            "id": "Assignment",
+            "name": "Assignment operator",
+            "description": "The assignment operator",
+            "type": "Match",
+            "value": "="
+        }
+    ],
+    "Keyword": [
+        {
+            "id": "True",
+            "name": "true",
+            "description": "A boolean true value",
+            "type": "Match",
+            "value": "true"
+        },
+        {
+            "id": "False",
+            "name": "false",
+            "description": "A boolean false value",
+            "type": "Match",
+            "value": "false"
+        }
+    ],
+    "Whitespcace": [
+        {
+            "id": "Whitespace",
+            "name": "White space",
+            "description": "A space or tab character",
+            "type": "Match",
+            "value": "\\s+"
+        },
+        {
+            "id": "OptionalWhitespace",
+            "name": "White space",
+            "description": "A space or tab character",
+            "type": "Match",
+            "value": "\\s*"
+        }
+    ]
+}

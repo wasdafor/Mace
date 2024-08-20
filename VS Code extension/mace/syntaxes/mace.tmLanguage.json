@@ -39,7 +39,7 @@
 				},
 				{
 					"name": "keyword",
-					"match": "\\b(void|class|enum|static|const|only|public|private|protected|this|super|abstract|sealed|init|get|set|extend|implement|type|auto|base|open)\\b"
+					"match": "\\b(void|class|enum|static|const|only|public|private|protected|this|super|abstract|sealed|init|get|set|extend|implement|type|auto|base|open|global)\\b"
 				},
 				{
 					"name": "entity.name.class.mace",

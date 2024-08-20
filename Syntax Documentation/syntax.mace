@@ -139,14 +139,14 @@ The import path can be a relative path from the current folder or a compleet abs
 The members from the imported file can now be directly access by using their identifiers.
 imported members are always private by default, even when importing specific members.
 Note that import statements can only be specfied at the top of __.mace__ files.
-//Maybe these imports are impored using ref by default?
+//Maybe these imports are impored using ref by default? use copy to break reference?
 
 //code
 use './myFile';
 print(myMember);
 
 //text
-Mace supports the following path configurations to import files:
+Mace supports the following path types to import files:
 
 //tablehead
 Path`           Description`                                Example
@@ -294,7 +294,7 @@ use protected './MyFolder': {'myFile', 'mySecondFile'};
 Remapping folders
 
 //text
-The sname syntax can be used to remap the folder structure of the imported files.
+The same syntax can be used to remap the folder structure of the imported files.
 
 //code
 // importing all members from myFile.mace and mySecondFile.mace in the MyNestedFolder folder and remapping them to the root folder.

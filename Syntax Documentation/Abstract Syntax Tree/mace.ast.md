@@ -1,10 +1,10 @@
-The mace.json file will contain one large language categories map, that have nested language components with internal syntax components, this structure will represent the Abscract syntax tree of the Mace programming language. 
+The mace.ast.json file will contain one large language categories map, that has nested language components with internal syntax components, this structure will represent the Abscract syntax tree of the Mace programming language. 
 
 # Language category
-A language category is is a map of key value pairs, where the key will be the id(name) of the category, and the value is either another language catagory map or a syntax component array.<br>
+A language category is a map of key value pairs, where the key will be the id(name) of the category, and the value is either another language catagory map or a syntax component array.<br>
 This id can contain letters, underscores and dashes, and can only be 64 characters long.
 <br><br>
-The root of the mace.json file will start as a language category map.
+The root of the mace.ast.json file will start as a language category map.
 
 <br>**Example of a language category map:**
 ```json
@@ -51,27 +51,30 @@ The value will be different based on the given type.
         Statement.Control.IfElse
     ```
 
-    Replace the paramters of a given component by defining the path inside an array at index 0, and the following elements will be the parameters in order and must bedefined in the form of syntax components. Use null to keep the default parameter value.
-    ```
-      [
-        "Statement.Control.IfElse",
-        {
-          "type": "Match"
-          "Value": "if"
-        },
-        null,
-        {
-          "type": "Match"
-          "Value": "else"
-        },
-      ]
+    To reference multipule components or when you want to replace component parameters use a component map, where the key is the *"id"* of the component and the value is an array of component parameters.
+    Use *null* to keep the default value of the component parameter
+    ```json
+      {
+        "Statement.Control.IfElse": [
+          {
+            "type": "Match",
+            "value": "if"
+          },
+          null,
+          {
+            "type": "Match",
+            "value": "else"
+          },
+        ],
+        "Literal.Boolean": []
+      }
     ```
   * **Group**:<br> 
     Define a syntax component (array) and group this by an id, name and description.
   * **Variants**:<br>
     Define an array of syntax componets where any of the given components can be matched.
   * **Repeated**:<br>
-    Define a syntax component (array) where the given component(s) can match 1 or more times. 
+    Define a syntax component (array) where the given component(s) can match 0 to 256 times. 
   * **Optional**:<br>
     Define a syntax component (array) that only optionally needs to be matched. 
 

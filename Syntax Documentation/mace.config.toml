@@ -1,0 +1,15 @@
+[package]
+name = 'Package name'
+description = 'Package description'
+version = '1.0.0'
+rootPath = './lib'
+website = ''
+authors = ['author@gmail.com']
+repository = ''
+license = {name = '', path = ''} 
+
+[environment]
+version = '1.0.0'
+
+[dependencies]
+myDependency = '1.0.0'
